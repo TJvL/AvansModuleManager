@@ -7,7 +7,7 @@
     <ProjectGuid>{BC407B28-8305-43A9-B2E4-7EFC912AD51E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModuleManager.LoggingSysteem</RootNamespace>
+    <RootNamespace>ModuleManager.Logging</RootNamespace>
     <AssemblyName>ModuleManager.LoggingSysteem</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
