@@ -93,6 +93,8 @@
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DummyModuleRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IModuleRepository.cs" />
     <Compile Include="Status.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -125,7 +127,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
     <Folder Include="UnitOfWork\" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,6 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class ModuleController : ApiController
     {
-        //TODO: UnitOfWork implementeren inplaats van directe toegang tot de repositories.
         private readonly IModuleRepository _moduleRepository;
 
         public ModuleController(IModuleRepository moduleRepository)
@@ -21,25 +20,15 @@ namespace ModuleManager.Web.Controllers.Api
             return _moduleRepository.GetAllModules();
         }
 
-        // GET: api/Module/5
-        public string Get(int id)
+        // GET: api/Module/IIIN-DATAB3
+        public Module Get(string cursusCode)
         {
-            return "value";
+            return _moduleRepository.GetModule(cursusCode);
         }
 
         // POST: api/Module
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Module/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Module/5
-        public void Delete(int id)
-        {
-        }
+        //public void Post([FromBody]string value)
+        //{
+        //}
     }
 }

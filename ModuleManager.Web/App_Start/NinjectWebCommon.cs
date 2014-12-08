@@ -1,6 +1,7 @@
 using System;
 using System.Web;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using ModuleManager.DomainDAL.Repositories;
 using ModuleManager.DomainDAL.RepositoryInterfaces;
 using ModuleManager.Web.App_Start;
 using Ninject;
