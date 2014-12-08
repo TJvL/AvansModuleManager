@@ -17,15 +17,16 @@ namespace ModuleManager.DomainDAL
         public Fase()
         {
             this.FaseModules = new HashSet<FaseModules>();
-            this.Opleiding = new HashSet<Opleiding>();
         }
     
         public string Naam { get; set; }
         public System.DateTime Schooljaar { get; set; }
         public string Beschrijving { get; set; }
         public string FaseType { get; set; }
+        public string OpleidingNaam { get; set; }
+        public System.DateTime OpleidingSchooljaar { get; set; }
     
+        public virtual Opleiding Opleiding { get; set; }
         public virtual ICollection<FaseModules> FaseModules { get; set; }
-        public virtual ICollection<Opleiding> Opleiding { get; set; }
     }
 }

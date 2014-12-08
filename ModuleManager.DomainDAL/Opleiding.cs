@@ -14,12 +14,15 @@ namespace ModuleManager.DomainDAL
     
     public partial class Opleiding
     {
+        public Opleiding()
+        {
+            this.Fase = new HashSet<Fase>();
+        }
+    
         public string Naam { get; set; }
         public System.DateTime Schooljaar { get; set; }
         public string Beschrijving { get; set; }
-        public string FaseNaam { get; set; }
-        public System.DateTime FaseSchooljaar { get; set; }
     
-        public virtual Fase Fase { get; set; }
+        public virtual ICollection<Fase> Fase { get; set; }
     }
 }

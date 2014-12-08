@@ -18,11 +18,15 @@
           <Key>
             <PropertyRef Name="Naam" />
             <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="OpleidingNaam" />
+            <PropertyRef Name="OpleidingSchooljaar" />
           </Key>
           <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Schooljaar" Type="date" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar" MaxLength="500" />
           <Property Name="FaseType" Type="varchar" MaxLength="50" />
+          <Property Name="OpleidingNaam" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OpleidingSchooljaar" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="FaseModules">
           <Key>
@@ -30,12 +34,16 @@
             <PropertyRef Name="FaseSchooljaar" />
             <PropertyRef Name="ModuleCursusCode" />
             <PropertyRef Name="ModuleSchooljaar" />
+            <PropertyRef Name="OpleidingNaam" />
+            <PropertyRef Name="OpleidingSchooljaar" />
           </Key>
           <Property Name="FaseNaam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FaseSchooljaar" Type="date" Nullable="false" />
           <Property Name="ModuleCursusCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ModuleSchooljaar" Type="date" Nullable="false" />
           <Property Name="Blok" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OpleidingNaam" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OpleidingSchooljaar" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Leerlijn">
           <Key>
@@ -116,8 +124,6 @@
           <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Schooljaar" Type="date" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar" MaxLength="500" />
-          <Property Name="FaseNaam" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FaseSchooljaar" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -145,6 +151,20 @@
           <Property Name="Schooljaar" Type="date" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Fase_Opleiding">
+          <End Role="Opleiding" Type="Self.Opleiding" Multiplicity="1" />
+          <End Role="Fase" Type="Self.Fase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opleiding">
+              <PropertyRef Name="Naam" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="Fase">
+              <PropertyRef Name="OpleidingNaam" />
+              <PropertyRef Name="OpleidingSchooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FaseModules_Fase">
           <End Role="Fase" Type="Self.Fase" Multiplicity="1" />
           <End Role="FaseModules" Type="Self.FaseModules" Multiplicity="*" />
@@ -152,10 +172,14 @@
             <Principal Role="Fase">
               <PropertyRef Name="Naam" />
               <PropertyRef Name="Schooljaar" />
+              <PropertyRef Name="OpleidingNaam" />
+              <PropertyRef Name="OpleidingSchooljaar" />
             </Principal>
             <Dependent Role="FaseModules">
               <PropertyRef Name="FaseNaam" />
               <PropertyRef Name="FaseSchooljaar" />
+              <PropertyRef Name="OpleidingNaam" />
+              <PropertyRef Name="OpleidingSchooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -281,20 +305,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Opleiding_Fase">
-          <End Role="Fase" Type="Self.Fase" Multiplicity="1" />
-          <End Role="Opleiding" Type="Self.Opleiding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Fase">
-              <PropertyRef Name="Naam" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Opleiding">
-              <PropertyRef Name="FaseNaam" />
-              <PropertyRef Name="FaseSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StudiePunten_Module">
           <End Role="Module" Type="Self.Module" Multiplicity="1" />
           <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
@@ -323,6 +333,10 @@
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudiePunten" EntityType="Self.StudiePunten" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Fase_Opleiding" Association="Self.FK_Fase_Opleiding">
+            <End Role="Opleiding" EntitySet="Opleiding" />
+            <End Role="Fase" EntitySet="Fase" />
+          </AssociationSet>
           <AssociationSet Name="FK_FaseModules_Fase" Association="Self.FK_FaseModules_Fase">
             <End Role="Fase" EntitySet="Fase" />
             <End Role="FaseModules" EntitySet="FaseModules" />
@@ -363,10 +377,6 @@
             <End Role="Tag" EntitySet="Tag" />
             <End Role="ModuleTag" EntitySet="ModuleTag" />
           </AssociationSet>
-          <AssociationSet Name="FK_Opleiding_Fase" Association="Self.FK_Opleiding_Fase">
-            <End Role="Fase" EntitySet="Fase" />
-            <End Role="Opleiding" EntitySet="Opleiding" />
-          </AssociationSet>
           <AssociationSet Name="FK_StudiePunten_Module" Association="Self.FK_StudiePunten_Module">
             <End Role="Module" EntitySet="Module" />
             <End Role="StudiePunten" EntitySet="StudiePunten" />
@@ -391,13 +401,17 @@
           <Key>
             <PropertyRef Name="Naam" />
             <PropertyRef Name="Schooljaar" />
+            <PropertyRef Name="OpleidingNaam" />
+            <PropertyRef Name="OpleidingSchooljaar" />
           </Key>
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Schooljaar" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FaseType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OpleidingNaam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OpleidingSchooljaar" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Opleiding" Relationship="Self.FK_Fase_Opleiding" FromRole="Fase" ToRole="Opleiding" />
           <NavigationProperty Name="FaseModules" Relationship="Self.FK_FaseModules_Fase" FromRole="Fase" ToRole="FaseModules" />
-          <NavigationProperty Name="Opleiding" Relationship="Self.FK_Opleiding_Fase" FromRole="Fase" ToRole="Opleiding" />
         </EntityType>
         <EntityType Name="FaseModules">
           <Key>
@@ -405,12 +419,16 @@
             <PropertyRef Name="FaseSchooljaar" />
             <PropertyRef Name="ModuleCursusCode" />
             <PropertyRef Name="ModuleSchooljaar" />
+            <PropertyRef Name="OpleidingNaam" />
+            <PropertyRef Name="OpleidingSchooljaar" />
           </Key>
           <Property Name="FaseNaam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FaseSchooljaar" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ModuleCursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ModuleSchooljaar" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Blok" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OpleidingNaam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OpleidingSchooljaar" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Fase" Relationship="Self.FK_FaseModules_Fase" FromRole="FaseModules" ToRole="Fase" />
           <NavigationProperty Name="Module" Relationship="Self.FK_FaseModules_Module" FromRole="FaseModules" ToRole="Module" />
         </EntityType>
@@ -480,9 +498,7 @@
           <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Schooljaar" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Beschrijving" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="FaseNaam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FaseSchooljaar" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Fase" Relationship="Self.FK_Opleiding_Fase" FromRole="Opleiding" ToRole="Fase" />
+          <NavigationProperty Name="Fase" Relationship="Self.FK_Fase_Opleiding" FromRole="Opleiding" ToRole="Fase" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -527,6 +543,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Fase_Opleiding">
+          <End Role="Opleiding" Type="Self.Opleiding" Multiplicity="1" />
+          <End Role="Fase" Type="Self.Fase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opleiding">
+              <PropertyRef Name="Naam" />
+              <PropertyRef Name="Schooljaar" />
+            </Principal>
+            <Dependent Role="Fase">
+              <PropertyRef Name="OpleidingNaam" />
+              <PropertyRef Name="OpleidingSchooljaar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FaseModules_Fase">
           <End Role="Fase" Type="Self.Fase" Multiplicity="1" />
           <End Role="FaseModules" Type="Self.FaseModules" Multiplicity="*" />
@@ -534,24 +564,14 @@
             <Principal Role="Fase">
               <PropertyRef Name="Naam" />
               <PropertyRef Name="Schooljaar" />
+              <PropertyRef Name="OpleidingNaam" />
+              <PropertyRef Name="OpleidingSchooljaar" />
             </Principal>
             <Dependent Role="FaseModules">
               <PropertyRef Name="FaseNaam" />
               <PropertyRef Name="FaseSchooljaar" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Opleiding_Fase">
-          <End Role="Fase" Type="Self.Fase" Multiplicity="1" />
-          <End Role="Opleiding" Type="Self.Opleiding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Fase">
-              <PropertyRef Name="Naam" />
-              <PropertyRef Name="Schooljaar" />
-            </Principal>
-            <Dependent Role="Opleiding">
-              <PropertyRef Name="FaseNaam" />
-              <PropertyRef Name="FaseSchooljaar" />
+              <PropertyRef Name="OpleidingNaam" />
+              <PropertyRef Name="OpleidingSchooljaar" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -645,13 +665,13 @@
             <End Role="Competentie" EntitySet="Competentie" />
             <End Role="ModuleCompetentie" EntitySet="ModuleCompetentie" />
           </AssociationSet>
+          <AssociationSet Name="FK_Fase_Opleiding" Association="Self.FK_Fase_Opleiding">
+            <End Role="Opleiding" EntitySet="Opleiding" />
+            <End Role="Fase" EntitySet="Fase" />
+          </AssociationSet>
           <AssociationSet Name="FK_FaseModules_Fase" Association="Self.FK_FaseModules_Fase">
             <End Role="Fase" EntitySet="Fase" />
             <End Role="FaseModules" EntitySet="FaseModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Opleiding_Fase" Association="Self.FK_Opleiding_Fase">
-            <End Role="Fase" EntitySet="Fase" />
-            <End Role="Opleiding" EntitySet="Opleiding" />
           </AssociationSet>
           <AssociationSet Name="FK_FaseModules_Module" Association="Self.FK_FaseModules_Module">
             <End Role="Module" EntitySet="Module" />
@@ -704,6 +724,8 @@
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
                 <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
                 <ScalarProperty Name="FaseType" ColumnName="FaseType" />
+                <ScalarProperty Name="OpleidingNaam" ColumnName="OpleidingNaam" />
+                <ScalarProperty Name="OpleidingSchooljaar" ColumnName="OpleidingSchooljaar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -715,6 +737,8 @@
                 <ScalarProperty Name="ModuleCursusCode" ColumnName="ModuleCursusCode" />
                 <ScalarProperty Name="ModuleSchooljaar" ColumnName="ModuleSchooljaar" />
                 <ScalarProperty Name="Blok" ColumnName="Blok" />
+                <ScalarProperty Name="OpleidingNaam" ColumnName="OpleidingNaam" />
+                <ScalarProperty Name="OpleidingSchooljaar" ColumnName="OpleidingSchooljaar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -770,8 +794,6 @@
                 <ScalarProperty Name="Naam" ColumnName="Naam" />
                 <ScalarProperty Name="Schooljaar" ColumnName="Schooljaar" />
                 <ScalarProperty Name="Beschrijving" ColumnName="Beschrijving" />
-                <ScalarProperty Name="FaseNaam" ColumnName="FaseNaam" />
-                <ScalarProperty Name="FaseSchooljaar" ColumnName="FaseSchooljaar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

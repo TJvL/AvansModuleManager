@@ -19,6 +19,8 @@ namespace ModuleManager.DomainDAL
         public string ModuleCursusCode { get; set; }
         public System.DateTime ModuleSchooljaar { get; set; }
         public string Blok { get; set; }
+        public string OpleidingNaam { get; set; }
+        public System.DateTime OpleidingSchooljaar { get; set; }
     
         public virtual Fase Fase { get; set; }
         public virtual Module Module { get; set; }
