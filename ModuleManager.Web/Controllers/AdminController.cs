@@ -36,35 +36,17 @@ namespace ModuleManager.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AddModule()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult UserManagement()
         {
             return View();
-        }
-        [HttpPost]
-        public ActionResult UserManagement()
-        {
-            //Delete, Edit Or Create
-            return View();
-        }
+        }     
 
         [HttpGet]
         public ActionResult Archive()
         {
             return View();
         }
-
-        [HttpPost]
-
-        public ActionResult Archive()
-        {
-            return View();
-        }
+       
     }
 }

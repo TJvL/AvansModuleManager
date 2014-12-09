@@ -27,10 +27,5 @@ namespace ModuleManager.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Edit()
-        {
-            return View();
-        }
     }
 }

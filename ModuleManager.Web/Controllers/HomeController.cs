@@ -20,12 +20,6 @@ namespace ModuleManager.Web.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public ActionResult Login()
-        {
-            //Redirect to login page
-            return View();
-        }
+   
     }
 }
