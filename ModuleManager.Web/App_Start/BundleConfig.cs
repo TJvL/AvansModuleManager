@@ -18,8 +18,7 @@ namespace ModuleManager.Web
             bundles.Add(new StyleBundle("~/bundles/css/main").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/custom.css",
-                      "~/Content/font-awesome.css",
-                      "~/Content/Site.css"));
+                      "~/Content/font-awesome.css"));
         }
     }
 }
