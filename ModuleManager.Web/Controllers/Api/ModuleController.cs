@@ -15,12 +15,14 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         // GET: api/Module
+        [Route("api/Module")]
         public IEnumerable<Module> Get()
         {
             return _moduleRepository.GetAllModules();
         }
 
         // GET: api/Module/IIIN-DATAB3
+        [Route("api/Module/{cursusCode}")]
         public Module Get(string cursusCode)
         {
             return _moduleRepository.GetModule(cursusCode);
