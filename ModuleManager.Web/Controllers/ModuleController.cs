@@ -7,19 +7,25 @@ using System.Web.Mvc;
 namespace ModuleManager.Web.Controllers
 {
 
-    public class HomeController : Controller
+    public class ModuleController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Overview()
         {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Details()
         {
             return View();
         }
-   
+
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
     }
 }
