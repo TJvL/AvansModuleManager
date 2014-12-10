@@ -1,76 +1,66 @@
-﻿@{
-    ViewBag.Title = "UserManagement";
-}
-
-<div id="content" role="content">
-  <div class="container">
+﻿<div class="container">
     <div class="row">
+        <div id="primary">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+                    <li class="active">Gebruikers</li>
+                </ol>
+            </div>
 
-      <div id="primary">
-        
-        <div class="col-md-12">
-          <ol class="breadcrumb">
-            <li><a href="/admin/">Home</a></li>
-            <li><a href="/admin/">Beheer</a></li>
-            <li class="active">Gebruikers</li>
-          </ol>
-        </div>
-        
-        <div class="col-md-12">
-          <div class="pull-right">
-            <a class="btn btn-success" href="#"><i class="fa fa-plus"></i> Nieuwe gebruiker</a>
-          </div>
-          <h2 style="margin-top: 0">Gebruikers</h2>
-        </div>
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <a class="btn btn-success" href="#"><i class="fa fa-plus"></i> Nieuwe gebruiker</a>
+                </div>
+                <h2 style="margin-top: 0">Gebruikers</h2>
+            </div>
 
-        <div class="col-md-12">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Henk van der Sangen</td>
+                            <td>henk@vdsangen.nl</td>
+                            <td>Administrator</td>
+                            <td style="width: 130px">
+                                <a href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
+                                <a href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
+                                <a href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Henk van der Sangen</td>
+                            <td>henk@vdsangen.nl</td>
+                            <td>Gebruiker</td>
+                            <td style="width: 130px">
+                                <a href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
+                                <a href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
+                                <a href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Henk van der Sangen</td>
+                            <td>henk@vdsangen.nl</td>
+                            <td>Gebruiker</td>
+                            <td style="width: 130px">
+                                <a href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
+                                <a href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
+                                <a href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Naam</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Acties</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Henk van der Sangen</td>
-                <td>henk@vdsangen.nl</td>
-                <td>Administrator</td>
-                <td style="width: 130px">
-                  <a href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
-                  <a href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
-                  <a href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Henk van der Sangen</td>
-                <td>henk@vdsangen.nl</td>
-                <td>Gebruiker</td>
-                <td style="width: 130px">
-                  <a href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
-                  <a href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
-                  <a href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td>Henk van der Sangen</td>
-                <td>henk@vdsangen.nl</td>
-                <td>Gebruiker</td>
-                <td style="width: 130px">
-                  <a href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
-                  <a href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
-                  <a href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div><!-- /#primary -->
-
+        </div><!-- /#primary -->
     </div>
-  </div>
-</div> <!-- /container -->
+</div>

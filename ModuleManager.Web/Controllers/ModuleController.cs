@@ -16,7 +16,19 @@ namespace ModuleManager.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult Overview_Teacher_Temp()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult Details()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Details_Teacher_Temp()
         {
             return View();
         }

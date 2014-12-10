@@ -207,6 +207,7 @@
     <Content Include="Images\select2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.bootstrap.js" />
@@ -271,13 +272,16 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Views\Admin\AddModule.cshtml" />
-    <Content Include="Views\Admin\Archive.cshtml" />
-    <Content Include="Views\Admin\Management.cshtml" />
+    <Content Include="Views\Admin\Curriculum.cshtml" />
     <Content Include="Views\Admin\UserManagement.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\CheckModules.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Module\Overview.cshtml" />
+    <Content Include="Views\Module\Details.cshtml" />
+    <Content Include="Views\Module\Overview_Teacher_Temp.cshtml" />
+    <Content Include="Views\Module\Details_Teacher_Temp.cshtml" />
+    <Content Include="Views\Module\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
