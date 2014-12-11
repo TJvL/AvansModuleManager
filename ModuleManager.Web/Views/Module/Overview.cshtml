@@ -1,0 +1,350 @@
+﻿<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="active">Zoeken</li>
+            </ol>
+        </div>
+
+        <div class="col-md-12">
+            <h2>Zoekresultaten</h2>
+        </div>
+
+        <div id="primary" class="col-md-3">
+
+            <div class="filters">
+                <div id="search" class="input-group">
+                    <input name="search" type="text" class="form-control search-query ajax" placeholder="Zoekterm" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-search" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#competentie">
+                                    Competentie
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="competentie" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="competentie" class="form-control ajax">
+                                    <option>Procesanalyse uitvoeren</option>
+                                    <option>Informatieanalyse uitvoeren</option>
+                                    <option>Informatiesysteem ontwerpen</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#competentieniveau">
+                                    Competentie niveau
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="competentieniveau" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="competentieniveau" class="form-control ajax">
+                                    <option>Beginner</option>
+                                    <option>Ervaren</option>
+                                    <option>Expert</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#minor">
+                                    Minor
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="minor" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="minor" class="form-control ajax">
+                                    <option>Mobile Development</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#major">
+                                    Major
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="major" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="major" class="form-control ajax">
+                                    <option>Software Ontwikkeling</option>
+                                    <option>IBIS</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#fase">
+                                    Opleidingsfase
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="fase" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="fase" class="form-control ajax">
+                                    <option>Propedeuse</option>
+                                    <option>Hoofdfase bachelor</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#year">
+                                    Leerjaar
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="year" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="year" class="form-control ajax">
+                                    <option selected>2014 - 2015</option>
+                                    <option>2013 - 2014</option>
+                                    <option>2012 - 2013</option>
+                                    <option>2011 - 2012</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#block">
+                                    Blok
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="block" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="year" class="form-control ajax">
+                                    <option selected>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#tag">
+                                    Tags
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="tag" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="tag" class="form-control ajax">
+                                    <option selected>Big Data</option>
+                                    <option>Milieu</option>
+                                    <option>Spaans</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#reset">
+                                    Reset Filters
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="reset" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <a href="#" class="btn btn-danger btn-block">Reset</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="secondary" class="col-md-9">
+
+            <div id="items" class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <label class="control-label" for="sortorder">Sorteer op: </label>
+                                            <select class="form-control input-sm" id="sortorder" style="width:200px;">
+                                                <option>Alfabetisch</option>
+                                                <option>EC's</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td colspan="4" class="text-right">
+
+                                    <div class="dropdown" style="display: inline">
+                                        <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#">
+                                            Weergave
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-form" role="menu">
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" checked>
+                                                    Naam
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" checked>
+                                                    Vakcode
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" checked>
+                                                    Blok
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox">
+                                                    Aantal EC
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox">
+                                                    Leerjaar
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#export-modal"><i class="fa fa-download"></i> Exporteren</button>
+                                    <input type="checkbox" name="export[]" class="select_all" />
+                                </td>
+                            </tr>
+                        <tbody>
+                            <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                <td class="icon"><i class="fa fa-paint-brush"></i></td>
+                                <td class="information">
+                                    <p class="name">Interaction Design Principles</p>
+                                    <p class="instructors">Koen van Brero;  Bert Hoeks;  Ger Saris;  Paul Wagener</p>
+                                </td>
+                                <td class="code">INIDPRI</td>
+                                <td class="block">Blok 5</td>
+                                <td class="ec">3 EC</td>
+                                <td class="export"><input type="checkbox" name="export[]" class="export_select" /></td>
+                            </tr>
+                            <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                <td class="icon"><i class="fa fa-code"></i></td>
+                                <td class="information">
+                                    <p class="name">Programmeren 5 - C Sharp</p>
+                                    <p class="instructors">Bart Mutsaers;  Ger Saris;  Stijn Smulders</p>
+                                </td>
+                                <td class="code">INPROG5</td>
+                                <td class="block">Blok 5</td>
+                                <td class="ec">3 EC</td>
+                                <td class="export"><input type="checkbox" name="export[]" class="export_select" /></td>
+                            </tr>
+                            <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                <td class="icon"><i class="fa fa-table"></i></td>
+                                <td class="information">
+                                    <p class="name">Modelleren 3</p>
+                                    <p class="instructors">Ger Saris</p>
+                                </td>
+                                <td class="code">INMODL3</td>
+                                <td class="block">Blok 5</td>
+                                <td class="ec">3 EC</td>
+                                <td class="export"><input type="checkbox" name="export[]" class="export_select" /></td>
+                            </tr>
+                            <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                <td class="icon"><i class="fa fa-database"></i></td>
+                                <td class="information">
+                                    <p class="name">Databases 4</p>
+                                    <p class="instructors">Reinier Dickhout;  Ger Saris</p>
+                                </td>
+                                <td class="code">INDATAB4</td>
+                                <td class="block">Blok 5</td>
+                                <td class="ec">3 EC</td>
+                                <td class="export"><input type="checkbox" name="export[]" class="export_select" /></td>
+                            </tr>
+                            <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                <td class="icon"><i class="fa fa-phone"></i></td>
+                                <td class="information">
+                                    <p class="name">Telephoning</p>
+                                    <p class="instructors">Angelique van den Bogaard</p>
+                                </td>
+                                <td class="code">INTELPH</td>
+                                <td class="block">Blok 5</td>
+                                <td class="ec">3 EC</td>
+                                <td class="export"><input type="checkbox" name="export[]" class="export_select" /></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="col-md-6">
+                        <ul class="pagination">
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <br />
+                        18 resultaten - Pagina 2 van 4
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

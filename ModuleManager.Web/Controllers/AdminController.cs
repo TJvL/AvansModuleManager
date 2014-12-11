@@ -10,7 +10,7 @@ namespace ModuleManager.Web.Controllers
     public class AdminController : Controller
     {
         [HttpGet]
-        public ActionResult Management()
+        public ActionResult Index()
         {
             //Overview page
             return View();
@@ -23,6 +23,13 @@ namespace ModuleManager.Web.Controllers
             //Toevoegen van Module is aparte POST
             return View();
         }
+
+        [HttpGet]
+        public ActionResult UserManagement()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult CheckModules()
         {
@@ -31,22 +38,9 @@ namespace ModuleManager.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddModule()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult UserManagement()
-        {
-            return View();
-        }     
-
-        [HttpGet]
         public ActionResult Archive()
         {
             return View();
-        }
-       
+        }  
     }
 }

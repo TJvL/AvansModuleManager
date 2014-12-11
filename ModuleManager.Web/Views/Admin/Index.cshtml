@@ -1,73 +1,52 @@
-﻿@{
-    ViewBag.Title = "Index";
-}
-
-<div id="content" role="content">
-  <div class="container">
+﻿<div class="container">
     <div class="row">
-
-      <div id="primary">
-        
-        <div class="col-md-12">
-          <ol class="breadcrumb">
-            <li><a href="/admin">Home</a></li>
-            <li class="active">Beheer</li>
-          </ol>
-        </div>
-
-        <div class="col-md-12">
-          <h2>Beheer</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-md-3">
+        <div id="primary">
             <div class="col-md-12">
-              <h3>Gebruikers</h3>
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li class="active">Beheer</li>
+                </ol>
             </div>
-          </div>
-          <div class="col-md-9">
+
             <div class="col-md-12">
-              <h3>Curriculum</h3>
+                <h2>Beheer</h2>
             </div>
-          </div>
+
+            <div class="col-md-12">
+                <h3>Curriculum</h3>
+            </div>
+
+            <div class="col-md-3 category">
+                <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Curriculum", "Admin")">
+                    <i class="fa fa-cogs"></i> Beheer
+                </a>
+            </div>
+
+            <div class="col-md-3 category" style="margin-right: 50%;">
+                <a class="btn btn-lg btn-warning btn-block" href="@Url.Action("Archive", "Admin")">
+                    <i class="fa fa-archive"></i> Archiveren
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <h3>Gebruikers</h3>
+            </div>
+
+            <div class="col-md-9">
+                <h3>Modules</h3>
+            </div>
+
+            <div class="col-md-3 category">
+                <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("UserManagement", "Admin")">
+                    <i class="fa fa-cogs"></i> Beheer
+                </a>
+            </div>
+
+            <div class="col-md-3 category">
+                <a class="btn btn-lg btn-success btn-block" href="@Url.Action("CheckModules", "Admin")">
+                    <i class="fa fa-cog"></i> Controle
+                </a>
+            </div>
         </div>
-
-        <div class="col-md-3 category">
-          <a class="btn btn-lg btn-primary btn-block" href="/admin/usermanagement">
-            <i class="fa fa-cogs"></i> Beheer
-          </a>
-        </div>
-
-        <div class="col-md-3 category">
-          <a class="btn btn-lg btn-primary btn-block" href="/admin/management">
-            <i class="fa fa-cogs"></i> Beheer
-          </a>
-        </div>
-
-        <div class="col-md-3 category">
-          <a class="btn btn-lg btn-warning btn-block">
-            <i class="fa fa-archive"></i> Archiveren
-          </a>
-        </div>
-
-        <div class="col-md-12">
-          <h3>Modules</h3>
-        </div>
-
-        <div class="col-md-3 category">
-          <a class="btn btn-lg btn-primary btn-block">
-            <i class="fa fa-cog"></i> Beheer / Controle
-          </a>
-        </div>
-
-        <div class="col-md-3 category">
-          <a class="btn btn-lg btn-success btn-block" href="admin-module-add.php">
-            <i class="fa fa-cog"></i> Module toevoegen
-          </a>
-        </div>
-
-      </div>
-
     </div>
-  </div>
-</div> <!-- /container -->
+</div>
