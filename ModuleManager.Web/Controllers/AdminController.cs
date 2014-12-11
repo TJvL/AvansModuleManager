@@ -35,6 +35,12 @@ namespace ModuleManager.Web.Controllers
         {
             //herinneringen sturen doormiddel van pop-up/api??
             return View();
-        }     
+        }
+
+        [HttpGet]
+        public ActionResult Archive()
+        {
+            return View();
+        }  
     }
 }

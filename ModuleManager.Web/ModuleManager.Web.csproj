@@ -282,6 +282,7 @@
     <Content Include="Views\Module\Overview_Teacher_Temp.cshtml" />
     <Content Include="Views\Module\Details_Teacher_Temp.cshtml" />
     <Content Include="Views\Module\Edit.cshtml" />
+    <Content Include="Views\Admin\Archive.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
