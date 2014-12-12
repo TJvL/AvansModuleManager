@@ -1,4 +1,4 @@
-﻿<div class="modal fade" id="module-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+﻿<div class="modal fade" id="module-add" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,24 +22,16 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Majors</label>
-                        <select multiple class="form-control" id="major">
+                        <label for="ModuleAddMajor">Majors</label>
+                        <select class="form-control" id="ModuleAddMajor" multiple>
                             <option>Software ontwikkelaar</option>
                             <option>Bedrijfsinformatica</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Minors</label>
-                        <select multiple class="form-control" id="minor">
+                        <label for="ModuleAddMinor">Minors</label>
+                        <select class="form-control" id="ModuleAddMinor" multiple>
                             <option>Business Intelligence & IT Governance</option>
                             <option>Business Proces Management (BPM)</option>
                             <option>Corporate Performance Management (CPM)</option>
@@ -53,27 +45,15 @@
                             <option>Software Architectuur (SWA)</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="fase">Fase</label>
-                        <select class="form-control" id="fase">
+                        <label for="ModuleAddFase">Fase</label>
+                        <select class="form-control" id="ModuleAddFase">
+                            <option></option>
                             <option>Propedeuse</option>
                             <option>Hoofdfase bachelor</option>
                         </select>
                     </div>
-                    <!--
-                    <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Fase</label>
-                        <select multiple class="form-control" id="major">
-                            <option>Propedeuse</option>
-                            <option>Hoofdfase bachelor</option>
-                        </select>
-                    </div>
-                    -->
                 </form>
             </div>
             <div class="modal-footer">

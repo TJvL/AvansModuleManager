@@ -17,21 +17,35 @@ $(function () {
 
 });
 
-/* 
- * Controller:  Admin/Curriculum 
- * View:        Admin/Curriculum
- */
+// Select2 - Module Edit
 $(function () {
-    $('#module-modal').on('show.bs.modal', function(e) {});
-})
-
-/* 
- * Controller:  Module/Edit 
- * View:        Module/Edit
- */
-$(function () {
-    $("#werkvorm").select2();
+    $("#werkvorm").select2({
+        placeholder: "Werkvorm"
+    });
 });
+
+// Modal - Curriculum beheer
+$(function () {
+    // Module Add
+    $('#module-add').on('show.bs.modal', function (e) { });
+});
+
+// Select2 - Curriculum beheer
+$(function () {
+
+    // Module Add
+    $("#ModuleAddMajor").select2({
+        placeholder: "Majors"
+    });
+    $("#ModuleAddMinor").select2({
+        placeholder: "Minors"
+    });
+    $("#ModuleAddFase").select2({
+        placeholder: "Fase"
+    });
+});
+
+
 
 /*
  * TEMP
