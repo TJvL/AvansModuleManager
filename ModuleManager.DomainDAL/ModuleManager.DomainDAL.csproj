@@ -96,10 +96,16 @@
     <Compile Include="Status.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="StudieBelasting.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="StudiePunten.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Tag.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Weekplanning.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>

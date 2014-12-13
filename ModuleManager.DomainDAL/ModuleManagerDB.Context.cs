@@ -34,7 +34,9 @@ namespace ModuleManager.DomainDAL
         public virtual DbSet<Niveau> Niveau { get; set; }
         public virtual DbSet<Opleiding> Opleiding { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<StudieBelasting> StudieBelasting { get; set; }
         public virtual DbSet<StudiePunten> StudiePunten { get; set; }
         public virtual DbSet<Tag> Tag { get; set; }
+        public virtual DbSet<Weekplanning> Weekplanning { get; set; }
     }
 }

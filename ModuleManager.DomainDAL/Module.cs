@@ -18,7 +18,9 @@ namespace ModuleManager.DomainDAL
         {
             this.FaseModules = new HashSet<FaseModules>();
             this.ModuleCompetentie = new HashSet<ModuleCompetentie>();
+            this.StudieBelasting = new HashSet<StudieBelasting>();
             this.StudiePunten = new HashSet<StudiePunten>();
+            this.Weekplanning = new HashSet<Weekplanning>();
             this.Leerlijn = new HashSet<Leerlijn>();
             this.Tag = new HashSet<Tag>();
         }
@@ -29,10 +31,8 @@ namespace ModuleManager.DomainDAL
         public string Naam { get; set; }
         public string Leedoelen { get; set; }
         public string Beoordelingen { get; set; }
-        public string Weekplanning { get; set; }
         public string Organisatie { get; set; }
         public string Werkvorm { get; set; }
-        public string StudieBelasting { get; set; }
         public string Leermiddelen { get; set; }
         public string Verantwoordelijkheid { get; set; }
         public string Status { get; set; }
@@ -40,7 +40,9 @@ namespace ModuleManager.DomainDAL
         public virtual ICollection<FaseModules> FaseModules { get; set; }
         public virtual Status Status1 { get; set; }
         public virtual ICollection<ModuleCompetentie> ModuleCompetentie { get; set; }
+        public virtual ICollection<StudieBelasting> StudieBelasting { get; set; }
         public virtual ICollection<StudiePunten> StudiePunten { get; set; }
+        public virtual ICollection<Weekplanning> Weekplanning { get; set; }
         public virtual ICollection<Leerlijn> Leerlijn { get; set; }
         public virtual ICollection<Tag> Tag { get; set; }
     }
