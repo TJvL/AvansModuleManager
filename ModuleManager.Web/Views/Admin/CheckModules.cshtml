@@ -1,0 +1,176 @@
+﻿<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+                <li class="active">Module Controle</li>
+            </ol>
+        </div>
+
+        <div class="col-md-12">
+            <h2>Zoekresultaten</h2>
+        </div>
+
+        <div id="primary" class="col-md-12">
+            <div id="items" class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="form-inline">
+                                        <div class="form-group">
+                                            <label class="control-label" for="sortorder">Sorteer op: </label>
+                                            <select class="form-control input-sm" id="sortorder" style="width:200px;">
+                                                <option>Alfabetisch</option>
+                                                <option>EC's</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td colspan="5" class="text-right">
+                                    <div class="dropdown" style="display: inline">
+                                        <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#">
+                                            Weergave
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-form" role="menu">
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" checked>
+                                                    Naam
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" checked>
+                                                    Vakcode
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" checked>
+                                                    Blok
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox">
+                                                    Aantal EC
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="checkbox">
+                                                    <input type="checkbox">
+                                                    Leerjaar
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#export-modal"><i class="fa fa-inbox"></i> Herinnering</button>
+                                    <input type="checkbox" name="export[]" />
+                                </td>
+                            </tr>
+                        <tbody>
+                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
+                                <td class="icon"><i class="fa fa-paint-brush"></i></td>
+                                <td class="information">
+                                    <p class="name">Interaction Design Principles</p>
+                                    <p class="instructors">Koen van Brero;  Bert Hoeks;  Ger Saris;  Paul Wagener</p>
+                                </td>
+                                <td class="code">INIDPRI</td>
+                                <td class="block">Blok 5</td>
+                                <td class="status">Incompleet</td>
+
+                                <td class="actions">
+                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                </td>
+                                <td class="export"><input type="checkbox" name="export[]" /></td>
+                            </tr>
+                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
+                                <td class="icon"><i class="fa fa-code"></i></td>
+                                <td class="information">
+                                    <p class="name">Programmeren 5 - C Sharp</p>
+                                    <p class="instructors">Bart Mutsaers;  Ger Saris;  Stijn Smulders</p>
+                                </td>
+                                <td class="code">INPROG5</td>
+                                <td class="block">Blok 5</td>
+                                <td class="status">Incompleet</td>
+
+                                <td class="actions">
+                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                </td>
+                                <td class="export"><input type="checkbox" name="export[]" /></td>
+                            </tr>
+                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
+                                <td class="icon"><i class="fa fa-table"></i></td>
+                                <td class="information">
+                                    <p class="name">Modelleren 3</p>
+                                    <p class="instructors">Ger Saris</p>
+                                </td>
+                                <td class="code">INMODL3</td>
+                                <td class="block">Blok 5</td>
+                                <td class="status">Incompleet</td>
+
+                                <td class="actions">
+                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                </td>
+                                <td class="export"><input type="checkbox" name="export[]" /></td>
+                            </tr>
+                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
+                                <td class="icon"><i class="fa fa-database"></i></td>
+                                <td class="information">
+                                    <p class="name">Databases 4</p>
+                                    <p class="instructors">Reinier Dickhout;  Ger Saris</p>
+                                </td>
+                                <td class="code">INDATAB4</td>
+                                <td class="block">Blok 5</td>
+                                <td class="status">Incompleet</td>
+
+                                <td class="actions">
+                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                </td>
+                                <td class="export"><input type="checkbox" name="export[]" /></td>
+                            </tr>
+                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
+                                <td class="icon"><i class="fa fa-phone"></i></td>
+                                <td class="information">
+                                    <p class="name">Telephoning</p>
+                                    <p class="instructors">Angelique van den Bogaard</p>
+                                </td>
+                                <td class="code">INTELPH</td>
+                                <td class="block">Blok 5</td>
+                                <td class="status">Incompleet</td>
+
+                                <td class="actions">
+                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                </td>
+                                <td class="export"><input type="checkbox" name="export[]" /></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="col-md-6">
+                        <ul class="pagination">
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <br />
+                        18 resultaten - Pagina 2 van 4
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
