@@ -269,7 +269,8 @@
     <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
     <Compile Include="ViewModels\AdminIndexViewModel.cs" />
     <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />
-    <Compile Include="ViewModels\DataModel\ModuleHeader\ExtModuleHeader.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleHeader\AddModuleHeader.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleHeader\CheckModuleHeader.cs" />
     <Compile Include="ViewModels\DataModel\ModuleHeader\ModuleHeader.cs" />
     <Compile Include="ViewModels\DataModel\ModuleInfo\CompetentieInfo.cs" />
     <Compile Include="ViewModels\DataModel\ModuleInfo\FaseInfo.cs" />

@@ -10,7 +10,7 @@ namespace ModuleManager.Web.ViewModels {
 
         // DATA -START-
         public UserInfo User { get; set; }
-        public ICollection<ExtModuleHeader> ModuleHeaders { get; set; }
+        public ICollection<CheckModuleHeader> ModuleHeaders { get; set; }
         // DATA -END-
     }
 }
