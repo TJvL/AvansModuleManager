@@ -1,9 +1,9 @@
-﻿<div class="modal fade" id="module-add" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+﻿<div class="modal fade" id="module-add" role="dialog" aria-labelledby="ModuleAdd" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Module toevoegen</h4>
+                <h4 class="modal-title" id="ModuleAdd">Module toevoegen</h4>
             </div>
             <div class="modal-body">
                 <form role="form">
@@ -11,47 +11,67 @@
                         <label for="name">Naam</label>
                         <input type="text" class="form-control" id="name" placeholder="Naam">
                     </div>
-                    <div class="form-group">
-                        <label for="description">Beschrijving</label>
-                        <textarea class="form-control" id="description" placeholder="Beschrijving"></textarea>
-                    </div>
 
                     <div class="form-group">
                         <label for="cursorcode">Cursuscode</label>
                         <input type="text" class="form-control" id="cursorcode" placeholder="Cursuscode">
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="ModuleAddMajor">Majors</label>
-                        <select class="form-control" id="ModuleAddMajor" multiple>
-                            <option>Software ontwikkelaar</option>
-                            <option>Bedrijfsinformatica</option>
-                        </select>
+                        <label for="abc">Toetscode + EC</label>
+                        <input type="text" class="form-control" id="abc" placeholder="Not implemented yet!"></input>
                     </div>
 
                     <div class="form-group">
-                        <label for="ModuleAddMinor">Minors</label>
-                        <select class="form-control" id="ModuleAddMinor" multiple>
-                            <option>Business Intelligence & IT Governance</option>
-                            <option>Business Proces Management (BPM)</option>
-                            <option>Corporate Performance Management (CPM)</option>
-                            <option>Cybersafety</option>
-                            <option>Digitale Regelsystemen (DRS)</option>
-                            <option>Embedded Software (EMS)</option>
-                            <option>Everyware in a Mobile World (EVW)</option>
-                            <option>Middleware (MDW)</option>
-                            <option>Product Ontwikkeling (PO)</option>
-                            <option>Signaal bewerking (SB)</option>
-                            <option>Software Architectuur (SWA)</option>
+                        <label for="ModuleAddFases">Fases</label>
+                        <select class="form-control" id="ModuleAddFases" multiple>
+                            <optgroup label="Major">
+                                <option>Software ontwikkelaar</option>
+                                <option>Bedrijfsinformatica</option>
+                            </optgroup>
+                            <optgroup label="Minor">
+                                <option>Business Intelligence & IT Governance</option>
+                                <option>Business Proces Management (BPM)</option>
+                                <option>Corporate Performance Management (CPM)</option>
+                                <option>Cybersafety</option>
+                                <option>Digitale Regelsystemen (DRS)</option>
+                                <option>Embedded Software (EMS)</option>
+                                <option>Everyware in a Mobile World (EVW)</option>
+                                <option>Middleware (MDW)</option>
+                                <option>Product Ontwikkeling (PO)</option>
+                                <option>Signaal bewerking (SB)</option>
+                                <option>Software Architectuur (SWA)</option>
+                            </optgroup>
+                            <optgroup label="Fase">
+                                <option>Propedeuse</option>
+                                <option>Hoofdfase bachelor</option>
+                            </optgroup>
                         </select>
                     </div>
-
+                    
                     <div class="form-group">
-                        <label for="ModuleAddFase">Fase</label>
-                        <select class="form-control" id="ModuleAddFase">
+                        <label for="ModuleAddYear">Schooljaar</label>
+                        <select class="form-control" id="ModuleAddYear">
                             <option></option>
-                            <option>Propedeuse</option>
-                            <option>Hoofdfase bachelor</option>
+                            <option>2011/2012</option>
+                            <option>2012/2013</option>
+                            <option>2013/2014</option>
+                            <option>2014/2015</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ModuleAddBlock">Blok</label>
+                        <select class="form-control" id="ModuleAddBlock">
+                            <option></option>
+                            <option>Blok 1</option>
+                            <option>Blok 2</option>
+                            <option>Blok 3</option>
+                            <option>Blok 4</option>
+                            <option>Blok 5</option>
+                            <option>Blok 6</option>
+                            <option>Blok 7</option>
+                            <option>Blok 8</option>
                         </select>
                     </div>
                 </form>

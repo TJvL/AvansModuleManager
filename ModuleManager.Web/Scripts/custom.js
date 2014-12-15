@@ -34,14 +34,14 @@ $(function () {
 $(function () {
 
     // Module Add
-    $("#ModuleAddMajor").select2({
-        placeholder: "Majors"
+    $("#ModuleAddFases").select2({
+        placeholder: "Fases"
     });
-    $("#ModuleAddMinor").select2({
-        placeholder: "Minors"
+    $("#ModuleAddYear").select2({
+        placeholder: "Schooljaar"
     });
-    $("#ModuleAddFase").select2({
-        placeholder: "Fase"
+    $("#ModuleAddBlock").select2({
+        placeholder: "Blok"
     });
 });
 

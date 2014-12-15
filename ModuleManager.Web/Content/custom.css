@@ -257,4 +257,6 @@ ul.dropdown-menu-form {
 
 /* Text Area - Not Compatible with Firefox 4.0, Internet Explorer 8.0 and Opera 11.0
 ******************************************************/
-textarea { resize: vertical; }
+textarea {
+     resize: vertical;
+}
