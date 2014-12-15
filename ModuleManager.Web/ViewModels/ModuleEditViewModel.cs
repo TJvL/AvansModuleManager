@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModuleManager.Web.ViewModels.DataModel.ModuleInfo;
+using ModuleManager.Web.ViewModels.DataModel.UserInfo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,7 +9,7 @@ namespace ModuleManager.Web.ViewModels {
     public class ModuleEditViewModel {
 
         // DATA -START-
-        public PublicUserInfo User { get; set; }
+        public UserInfo User { get; set; }
         public ModuleInfo ModuleInfo { get; set; }
         // DATA -END-
     }

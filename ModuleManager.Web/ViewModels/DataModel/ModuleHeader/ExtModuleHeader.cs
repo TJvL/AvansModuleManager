@@ -6,8 +6,7 @@ using System.Web;
 namespace ModuleManager.Web.ViewModels.DataModel.ModuleHeader {
     public class ExtModuleHeader : ModuleHeader {
 
-        public virtual string Status { get; set; }
-
-        public virtual string Verantwoordelijke { get; set; }
+        public string Status { get; set; }
+        public string Verantwoordelijke { get; set; }
     }
 }

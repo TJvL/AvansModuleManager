@@ -264,6 +264,11 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AdminArchiveViewModel.cs" />
+    <Compile Include="ViewModels\AdminCheckModuleViewModel.cs" />
+    <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
+    <Compile Include="ViewModels\AdminIndexViewModel.cs" />
+    <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />
     <Compile Include="ViewModels\DataModel\ModuleHeader\ExtModuleHeader.cs" />
     <Compile Include="ViewModels\DataModel\ModuleHeader\ModuleHeader.cs" />
     <Compile Include="ViewModels\DataModel\ModuleInfo\CompetentieInfo.cs" />
@@ -274,6 +279,10 @@
     <Compile Include="ViewModels\DataModel\ModuleInfo\WeekPlanning.cs" />
     <Compile Include="ViewModels\DataModel\UserInfo\ExtUserInfo.cs" />
     <Compile Include="ViewModels\DataModel\UserInfo\UserInfo.cs" />
+    <Compile Include="ViewModels\HomeIndexViewModel.cs" />
+    <Compile Include="ViewModels\ModuleDetailViewModel.cs" />
+    <Compile Include="ViewModels\ModuleEditViewModel.cs" />
+    <Compile Include="ViewModels\ModuleOverviewViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
