@@ -21,7 +21,6 @@ namespace ModuleManager.DomainDAL
     
         public string Naam { get; set; }
         public System.DateTime Schooljaar { get; set; }
-        public string Beschrijving { get; set; }
     
         public virtual ICollection<Module> Module { get; set; }
     }

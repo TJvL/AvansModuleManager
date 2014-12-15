@@ -4,21 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="75b6713506064a7c9d8237fb8395815a" Name="Diagram1">
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Competentie" Width="1.5" PointX="0.5" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Fase" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.FaseModules" Width="1.5" PointX="5.25" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Leerlijn" Width="1.5" PointX="0.5" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Module" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.ModuleCompetentie" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Niveau" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Opleiding" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Status" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.StudieBelasting" Width="1.5" PointX="7.625" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.StudiePunten" Width="1.5" PointX="7.625" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Tag" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Weekplanning" Width="1.5" PointX="7.625" PointY="5.375" IsExpanded="true" />
-        <AssociationConnector Association="IN06SOb_ModuleManagerModel.FK_ModuleCompetentie_Competentie1" ManuallyRouted="false" />
+      <Diagram DiagramId="c1749fe6e0344cc8803147382bff36b5" Name="Diagram1">
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Competentie" Width="1.5" PointX="0.875" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Fase" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.FaseModules" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.FaseType" Width="1.5" PointX="3" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Leerlijn" Width="1.5" PointX="0.875" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Module" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.ModuleCompetentie" Width="1.5" PointX="3.125" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Niveau" Width="1.5" PointX="3.125" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Opleiding" Width="1.5" PointX="0.875" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Status" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.StudieBelasting" Width="1.5" PointX="7.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.StudiePunten" Width="1.5" PointX="7.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Tag" Width="1.5" PointX="0.875" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN06SOb_ModuleManagerModel.Weekplanning" Width="1.5" PointX="7.75" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="IN06SOb_ModuleManagerModel.FK_ModuleCompetentie_Competentie" ManuallyRouted="false" />
+        <AssociationConnector Association="IN06SOb_ModuleManagerModel.FK_Fase_FaseType" ManuallyRouted="false" />
         <AssociationConnector Association="IN06SOb_ModuleManagerModel.FK_Fase_Opleiding" ManuallyRouted="false" />
         <AssociationConnector Association="IN06SOb_ModuleManagerModel.FK_FaseModules_Fase" ManuallyRouted="false" />
         <AssociationConnector Association="IN06SOb_ModuleManagerModel.FK_FaseModules_Module" ManuallyRouted="false" />

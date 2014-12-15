@@ -28,6 +28,7 @@ namespace ModuleManager.DomainDAL
         public virtual DbSet<Competentie> Competentie { get; set; }
         public virtual DbSet<Fase> Fase { get; set; }
         public virtual DbSet<FaseModules> FaseModules { get; set; }
+        public virtual DbSet<FaseType> FaseType { get; set; }
         public virtual DbSet<Leerlijn> Leerlijn { get; set; }
         public virtual DbSet<Module> Module { get; set; }
         public virtual DbSet<ModuleCompetentie> ModuleCompetentie { get; set; }

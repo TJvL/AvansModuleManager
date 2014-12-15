@@ -16,7 +16,7 @@ namespace ModuleManager.DomainDAL
     {
         public string CursusCode { get; set; }
         public System.DateTime Schooljaar { get; set; }
-        public string CompetentieNaam { get; set; }
+        public string CompetentieCode { get; set; }
         public System.DateTime CompetentieSchooljaar { get; set; }
         public string Niveau { get; set; }
     

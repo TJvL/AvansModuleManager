@@ -26,6 +26,7 @@ namespace ModuleManager.DomainDAL
         public string OpleidingNaam { get; set; }
         public System.DateTime OpleidingSchooljaar { get; set; }
     
+        public virtual FaseType FaseType1 { get; set; }
         public virtual Opleiding Opleiding { get; set; }
         public virtual ICollection<FaseModules> FaseModules { get; set; }
     }

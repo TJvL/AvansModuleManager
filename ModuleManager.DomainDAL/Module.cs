@@ -29,12 +29,13 @@ namespace ModuleManager.DomainDAL
         public System.DateTime Schooljaar { get; set; }
         public string Beschrijving { get; set; }
         public string Naam { get; set; }
-        public string Leedoelen { get; set; }
+        public string Leerdoelen { get; set; }
         public string Beoordelingen { get; set; }
         public string Organisatie { get; set; }
         public string Werkvorm { get; set; }
         public string Leermiddelen { get; set; }
         public string Verantwoordelijkheid { get; set; }
+        public string VakDocenten { get; set; }
         public string Status { get; set; }
     
         public virtual ICollection<FaseModules> FaseModules { get; set; }

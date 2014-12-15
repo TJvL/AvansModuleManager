@@ -61,6 +61,9 @@
     <Compile Include="FaseModules.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="FaseType.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Leerlijn.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
