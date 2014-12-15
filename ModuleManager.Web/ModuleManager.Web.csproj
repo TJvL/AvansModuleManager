@@ -264,6 +264,16 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleHeader\ExtModuleHeader.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleHeader\ModuleHeader.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleInfo\CompetentieInfo.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleInfo\FaseInfo.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleInfo\ModuleInfo.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleInfo\StudieBelasting.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleInfo\StudiePunten.cs" />
+    <Compile Include="ViewModels\DataModel\ModuleInfo\WeekPlanning.cs" />
+    <Compile Include="ViewModels\DataModel\UserInfo\ExtUserInfo.cs" />
+    <Compile Include="ViewModels\DataModel\UserInfo\UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -293,7 +303,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="RepositoryInterfaces\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleManager.BusinessLogic\ModuleManager.BusinessLogic.csproj">
