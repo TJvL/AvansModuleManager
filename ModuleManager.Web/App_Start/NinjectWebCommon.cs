@@ -63,7 +63,13 @@ namespace ModuleManager.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            //Domain entity repositories:
+            kernel.Bind<ICompetentieRepository>().To<DummyCompetentieRepository>();
+            kernel.Bind<IFaseRepository>().To<DummyFaseRepository>();
+            kernel.Bind<ILeerlijnRepository>().To<DummyLeerlijnRepository>();
             kernel.Bind<IModuleRepository>().To<DummyModuleRepository>();
+            kernel.Bind<ITagRepository>().To<DummyTagRepository>();
+            // ---------------------
         }        
     }
 }

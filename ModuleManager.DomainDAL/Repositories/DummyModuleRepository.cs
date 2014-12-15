@@ -37,7 +37,28 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public Module GetModule(string cursusCode)
         {
-            return _modules.FirstOrDefault(module => module.CursusCode.Equals(cursusCode));
+            return _modules.FirstOrDefault(m => m.CursusCode.Equals(cursusCode));
+        }
+
+
+        public bool CreateModule(Module module)
+        {
+            _modules.Add(module);
+            return true;
+        }
+
+        public bool DeleteModule(Module module)
+        {
+            _modules.Remove(module);
+            return true;
+        }
+
+        public bool EditModule(Module module)
+        {
+            var temp =_modules.FirstOrDefault(m => m.CursusCode.Equals(module.CursusCode));
+            _modules.Remove(temp);
+            _modules.Add(module);
+            return true;
         }
     }
 }

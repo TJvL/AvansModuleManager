@@ -6,5 +6,8 @@ namespace ModuleManager.DomainDAL.RepositoryInterfaces
     {
         IEnumerable<Module> GetAllModules();
         Module GetModule(string cursusCode);
+        bool CreateModule(Module module);
+        bool DeleteModule(Module module);
+        bool EditModule(Module module);
     }
 }

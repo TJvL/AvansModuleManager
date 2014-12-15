@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
 using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.RepositoryInterfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
@@ -21,16 +21,9 @@ namespace ModuleManager.Web.Controllers.Api
             return _moduleRepository.GetAllModules();
         }
 
-        // GET: api/Module/IIIN-DATAB3
-        [Route("api/Module/{cursusCode}")]
-        public Module Get(string cursusCode)
+        //POST: api/Module
+        public void Post([FromBody]Module module)
         {
-            return _moduleRepository.GetModule(cursusCode);
         }
-
-        // POST: api/Module
-        //public void Post([FromBody]string value)
-        //{
-        //}
     }
 }
