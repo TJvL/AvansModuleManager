@@ -262,7 +262,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\Admin\Curriculum.cshtml" />
-    <Content Include="Views\Admin\UserManagement.cshtml" />
+    <Content Include="Views\Admin\UserOverview.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\CheckModules.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
@@ -274,6 +274,17 @@
     <Content Include="Views\Admin\Archive.cshtml" />
     <Content Include="Views\Admin\Curriculum\Module\Add.cshtml" />
     <Content Include="Views\Help\Curriculum.cshtml" />
+    <Content Include="Views\Help\Admin.cshtml" />
+    <Content Include="Views\Help\Archive.cshtml" />
+    <Content Include="Views\Help\CheckModules.cshtml" />
+    <Content Include="Views\Help\Homepage.cshtml" />
+    <Content Include="Views\Help\ModuleDetails.cshtml" />
+    <Content Include="Views\Help\ModuleEdit.cshtml" />
+    <Content Include="Views\Help\ModuleOverview.cshtml" />
+    <Content Include="Views\Help\UserAdd.cshtml" />
+    <Content Include="Views\Help\UserEdit.cshtml" />
+    <Content Include="Views\Help\UserOverview.cshtml" />
+    <Content Include="Views\Help\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

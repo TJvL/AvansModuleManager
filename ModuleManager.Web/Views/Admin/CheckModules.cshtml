@@ -18,61 +18,61 @@
                 <div class="col-md-12">
                     <table class="table table-hover">
                         <thead>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-                                            <label class="control-label" for="sortorder">Sorteer op: </label>
-                                            <select class="form-control input-sm" id="sortorder" style="width:200px;">
-                                                <option>Alfabetisch</option>
-                                                <option>EC's</option>
-                                            </select>
-                                        </div>
+                        <tr>
+                            <td colspan="2">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label class="control-label" for="sortorder">Sorteer op: </label>
+                                        <select class="form-control input-sm" id="sortorder" style="width:200px;">
+                                            <option>Alfabetisch</option>
+                                            <option>EC's</option>
+                                        </select>
                                     </div>
-                                </td>
-                                <td colspan="5" class="text-right">
-                                    <div class="dropdown" style="display: inline">
-                                        <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#">
-                                            Weergave
-                                            <b class="caret"></b>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-form" role="menu">
-                                            <li>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" checked>
-                                                    Naam
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" checked>
-                                                    Vakcode
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" checked>
-                                                    Blok
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox">
-                                                    <input type="checkbox">
-                                                    Aantal EC
-                                                </label>
-                                            </li>
-                                            <li>
-                                                <label class="checkbox">
-                                                    <input type="checkbox">
-                                                    Leerjaar
-                                                </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#export-modal"><i class="fa fa-inbox"></i> Herinnering</button>
-                                    <input type="checkbox" name="export[]" />
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                            <td colspan="5" class="text-right">
+                                <div class="dropdown" style="display: inline">
+                                    <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#">
+                                        Weergave
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-form" role="menu">
+                                        <li>
+                                            <label class="checkbox">
+                                                <input type="checkbox" checked>
+                                                Naam
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox">
+                                                <input type="checkbox" checked>
+                                                Vakcode
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox">
+                                                <input type="checkbox" checked>
+                                                Blok
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Aantal EC
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox">
+                                                <input type="checkbox">
+                                                Leerjaar
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#export-modal"><i class="fa fa-inbox"></i> Herinnering</button>
+                                <input type="checkbox" name="export[]" />
+                            </td>
+                        </tr>
                         <tbody>
                             <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
                                 <td class="icon"><i class="fa fa-paint-brush"></i></td>
@@ -174,3 +174,6 @@
         </div>
     </div>
 </div>
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/CheckModules.cshtml", null);
