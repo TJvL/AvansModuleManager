@@ -239,3 +239,34 @@
 
 <!-- Module toevoegen MODAL-->
 @Html.Partial("~/Views/Admin/Curriculum/Module/Add.cshtml", null);
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    <script>
+        $(function () {
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function () {
+                if (!$(this).hasClass("actions-lg")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
+
+            $('.dropdown-menu').on('click', function (e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
+
+            // SELECT2
+            $("#ModuleAddFases").select2({
+                placeholder: "Fases"
+            });
+            $("#ModuleAddYear").select2({
+                placeholder: "Schooljaar"
+            });
+            $("#ModuleAddBlock").select2({
+                placeholder: "Blok"
+            });
+        });
+    </script>
+}

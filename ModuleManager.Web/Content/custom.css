@@ -260,3 +260,11 @@ ul.dropdown-menu-form {
 textarea {
      resize: vertical;
 }
+
+.actions {
+    /* TODO: pull-right */
+}
+
+.actions-lg {
+     /* TODO: pull-right */
+}

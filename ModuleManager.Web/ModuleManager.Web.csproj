@@ -200,7 +200,7 @@
     <Content Include="Images\select2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\temp.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.bootstrap.js" />
@@ -285,6 +285,7 @@
     <Content Include="Views\Help\UserEdit.cshtml" />
     <Content Include="Views\Help\UserOverview.cshtml" />
     <Content Include="Views\Help\Login.cshtml" />
+    <Content Include="Views\Admin\CheckModules\Reminder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

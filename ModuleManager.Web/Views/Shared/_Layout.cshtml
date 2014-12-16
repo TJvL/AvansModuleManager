@@ -17,11 +17,11 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,400italic" rel="stylesheet">
     </head>
     <body>
-        <header id="header" role="header" style="background: #FF004B;">
+        <header id="header" style="background: #FF004B;">
             <div class="container">
                 <div id="top" class="row">
                     <div class="col-md-6">
-                        <a href="@Url.Action("Index", "Home")"><img src="~/Images/avans-white.png" alt="Avans Hogeschool" width="100" height="37" class="brand" /></a>
+                        <a href="@Url.Action("Index", "Home")"><img src="~/Images/avans-white.png" alt="Avans Hogeschool" width="100" height="37"/></a>
                     </div>
                     <div class="col-md-6 text-right">
                         <ul class="user-nav">
@@ -48,10 +48,13 @@
                 <p>"Informatica Modules" is een onderdeel van <a href="http://avans.nl/">Avans University</a>.</p>
             </div>
         </footer>
-
-        <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+        
+        <<script src="~/Scripts/jquery-2.1.1.min.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>
         <script src="~/Scripts/select2.min.js"></script>
-        <script src="~/Scripts/custom.js"></script>
+        <script src="~/Scripts/temp.js"></script>
+        
+        @RenderSection("Scripts", false)
+
     </body>
 </html>

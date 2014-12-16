@@ -348,3 +348,23 @@
 
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/ModuleOverview.cshtml", null);
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    <script>
+        $(function() {
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function() {
+                if (!$(this).hasClass("actions")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
+
+            $('.dropdown-menu').on('click', function(e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
+        });
+    </script>
+}

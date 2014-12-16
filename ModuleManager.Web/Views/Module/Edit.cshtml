@@ -370,3 +370,15 @@
 
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/ModuleEdit.cshtml", null);
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    <script>
+        $(function () {
+            // SELECT2
+            $("#werkvorm").select2({
+                placeholder: "Werkvorm"
+            });
+        });
+    </script>
+}

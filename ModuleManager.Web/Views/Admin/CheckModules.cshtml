@@ -69,8 +69,6 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#export-modal"><i class="fa fa-inbox"></i> Herinnering</button>
-                                <input type="checkbox" name="export[]" />
                             </td>
                         </tr>
                         <tbody>
@@ -85,9 +83,8 @@
                                 <td class="status">Incompleet</td>
 
                                 <td class="actions">
-                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
                                 </td>
-                                <td class="export"><input type="checkbox" name="export[]" /></td>
                             </tr>
                             <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
                                 <td class="icon"><i class="fa fa-code"></i></td>
@@ -100,9 +97,8 @@
                                 <td class="status">Incompleet</td>
 
                                 <td class="actions">
-                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
                                 </td>
-                                <td class="export"><input type="checkbox" name="export[]" /></td>
                             </tr>
                             <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
                                 <td class="icon"><i class="fa fa-table"></i></td>
@@ -115,9 +111,8 @@
                                 <td class="status">Incompleet</td>
 
                                 <td class="actions">
-                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
                                 </td>
-                                <td class="export"><input type="checkbox" name="export[]" /></td>
                             </tr>
                             <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
                                 <td class="icon"><i class="fa fa-database"></i></td>
@@ -130,9 +125,8 @@
                                 <td class="status">Incompleet</td>
 
                                 <td class="actions">
-                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
                                 </td>
-                                <td class="export"><input type="checkbox" name="export[]" /></td>
                             </tr>
                             <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
                                 <td class="icon"><i class="fa fa-phone"></i></td>
@@ -145,9 +139,8 @@
                                 <td class="status">Incompleet</td>
 
                                 <td class="actions">
-                                    <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm pull-right"><i class="fa fa-pencil"></i></a>
+                                    <a href="#"class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></a>
                                 </td>
-                                <td class="export"><input type="checkbox" name="export[]" /></td>
                             </tr>
 
                         </tbody>
@@ -177,3 +170,26 @@
 
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/CheckModules.cshtml", null);
+
+<!-- Reminder MODAL-->
+@Html.Partial("~/Views/Admin/CheckModules/Reminder.cshtml", null);
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    <script>
+        $(function() {
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function() {
+                if (!$(this).hasClass("actions")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
+
+            $('.dropdown-menu').on('click', function(e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
+        });
+    </script>
+}
