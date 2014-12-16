@@ -2,10 +2,11 @@
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class LeerlijnController : ApiController
+    public class LeerlijnController : ApiController, ILeerlijnController
     {
         private readonly ILeerlijnRepository _leerlijnRepository;
 
@@ -14,16 +15,29 @@ namespace ModuleManager.Web.Controllers.Api
             _leerlijnRepository = leerlijnRepository;
         }
 
-        // GET: api/Leerlijn
-        public IEnumerable<Leerlijn> Get()
+        public IEnumerable<Leerlijn> GetAllLeerlijn()
         {
-            return _leerlijnRepository.GetAllLeerlijnen();
+            throw new System.NotImplementedException();
         }
 
-        // GET: api/Leerlijn/5
-        public Leerlijn Get(string naam)
+        public Leerlijn GetLeerlijn(string naam)
         {
-            return _leerlijnRepository.GetLeerlijn(naam);
+            throw new System.NotImplementedException();
+        }
+
+        public bool DeleteLeerlijn(Leerlijn leerlijn)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool EditLeerlijn(Leerlijn leerlijn)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CreateLeerlijn(Leerlijn leerlijn)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -2,10 +2,11 @@
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class CompetentieController : ApiController
+    public class CompetentieController : ApiController, ICompetentieController
     {
         private readonly ICompetentieRepository _competentieRepository;
 

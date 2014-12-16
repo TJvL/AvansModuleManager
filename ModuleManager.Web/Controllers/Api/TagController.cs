@@ -2,10 +2,11 @@
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class TagController : ApiController
+    public class TagController : ApiController, ITagController
     {
         private readonly ITagRepository _tagRepository;
 
@@ -14,21 +15,29 @@ namespace ModuleManager.Web.Controllers.Api
             _tagRepository = tagRepository;
         }
 
-        // GET: api/Tag
-        public IEnumerable<Tag> Get()
+        public IEnumerable<Tag> GetAllTags()
         {
-            return _tagRepository.GetAllTags();
+            throw new System.NotImplementedException();
         }
 
-        // GET: api/Tag/5
-        public Tag Get(string naam)
+        public Tag GetTag(string naam)
         {
-            return _tagRepository.GetTag(naam);
+            throw new System.NotImplementedException();
         }
 
-        // POST: api/Tag
-        public void Post([FromBody]string value)
+        public bool DeleteTag(Tag tag)
         {
+            throw new System.NotImplementedException();
+        }
+
+        public bool EditTag(Tag tag)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CreateTag(Tag tag)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

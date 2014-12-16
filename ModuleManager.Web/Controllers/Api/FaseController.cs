@@ -2,10 +2,11 @@
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class FaseController : ApiController
+    public class FaseController : ApiController, IFaseController
     {
         private readonly IFaseRepository _faseRepository;
 
@@ -14,21 +15,29 @@ namespace ModuleManager.Web.Controllers.Api
             _faseRepository = faseRepository;
         }
 
-        // GET: api/Fase
-        public IEnumerable<Fase> Get()
+        public IEnumerable<Fase> GetAllFases()
         {
-            return _faseRepository.GetAllFases();
+            throw new System.NotImplementedException();
         }
 
-        // GET: api/Fase/5
-        public Fase Get(string naam)
+        public Fase GetFase(string naam)
         {
-            return _faseRepository.GetFase(naam);
+            throw new System.NotImplementedException();
         }
 
-        // POST: api/Fase
-        public void Post([FromBody]string value)
+        public bool DeleteFase(Fase fase)
         {
+            throw new System.NotImplementedException();
+        }
+
+        public bool EditFase(Fase fase)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CreateFase(Fase fase)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

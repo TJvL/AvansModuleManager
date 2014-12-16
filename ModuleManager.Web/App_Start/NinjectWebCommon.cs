@@ -4,6 +4,8 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using ModuleManager.DomainDAL.Repositories;
 using ModuleManager.DomainDAL.RepositoryInterfaces;
 using ModuleManager.Web.App_Start;
+using ModuleManager.Web.Controllers.Api;
+using ModuleManager.Web.Controllers.Api.Interfaces;
 using Ninject;
 using Ninject.Web.Common;
 using WebActivatorEx;
@@ -63,13 +65,18 @@ namespace ModuleManager.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //Domain entity repositories:
+            // Domain entity repositories:
             kernel.Bind<ICompetentieRepository>().To<DummyCompetentieRepository>();
             kernel.Bind<IFaseRepository>().To<DummyFaseRepository>();
             kernel.Bind<ILeerlijnRepository>().To<DummyLeerlijnRepository>();
             kernel.Bind<IModuleRepository>().To<DummyModuleRepository>();
             kernel.Bind<ITagRepository>().To<DummyTagRepository>();
-            // ---------------------
+            // Domain entity API controllers:
+            kernel.Bind<ICompetentieController>().To<CompetentieController>();
+            kernel.Bind<IFaseController>().To<FaseController>();
+            kernel.Bind<ILeerlijnController>().To<LeerlijnController>();
+            kernel.Bind<IModuleController>().To<ModuleController>();
+            kernel.Bind<ITagController>().To<TagController>();
         }        
     }
 }
