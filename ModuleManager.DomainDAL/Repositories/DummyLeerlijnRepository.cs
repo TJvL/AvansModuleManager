@@ -1,32 +1,39 @@
-﻿using System.Collections.Generic;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+﻿using System.Linq;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
-    public class DummyLeerlijnRepository : ILeerlijnRepository
+    public class DummyLeerlijnRepository : IGenericRepository<Leerlijn>
     {
+        private readonly IUnitOfWork _session;
 
-        public IEnumerable<Leerlijn> GetAllLeerlijnen()
+        public DummyLeerlijnRepository(IUnitOfWork session)
+        {
+            _session = session;
+        }
+
+        public IQueryable<Leerlijn> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Leerlijn GetLeerlijn(string naam)
+        public Leerlijn GetOne(string key)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool CreateLeerlijn(Leerlijn leerlijn)
+        public bool Create(Leerlijn entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeleteLeerlijn(Leerlijn leerlijn)
+        public bool Delete(Leerlijn entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool EditLeerlijn(Leerlijn leerlijn)
+        public bool Edit(Leerlijn entity)
         {
             throw new System.NotImplementedException();
         }

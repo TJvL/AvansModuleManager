@@ -1,8 +1,10 @@
 using System;
 using System.Web;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.DomainDAL.Repositories;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 using ModuleManager.Web.App_Start;
 using ModuleManager.Web.Controllers.Api;
 using ModuleManager.Web.Controllers.Api.Interfaces;
@@ -66,17 +68,20 @@ namespace ModuleManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             // Domain entity repositories:
-            kernel.Bind<ICompetentieRepository>().To<DummyCompetentieRepository>();
-            kernel.Bind<IFaseRepository>().To<DummyFaseRepository>();
-            kernel.Bind<ILeerlijnRepository>().To<DummyLeerlijnRepository>();
-            kernel.Bind<IModuleRepository>().To<DummyModuleRepository>();
-            kernel.Bind<ITagRepository>().To<DummyTagRepository>();
+            kernel.Bind<IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
+            kernel.Bind<IGenericRepository<Fase>>().To<DummyFaseRepository>();
+            kernel.Bind<IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
+            kernel.Bind<IGenericRepository<Module>>().To<DummyModuleRepository>();
+            kernel.Bind<IGenericRepository<Tag>>().To<DummyTagRepository>();
+            // UnitOfWork session for repositories to use:
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+
             // Domain entity API controllers:
-            kernel.Bind<ICompetentieController>().To<CompetentieController>();
-            kernel.Bind<IFaseController>().To<FaseController>();
-            kernel.Bind<ILeerlijnController>().To<LeerlijnController>();
-            kernel.Bind<IModuleController>().To<ModuleController>();
-            kernel.Bind<ITagController>().To<TagController>();
+            kernel.Bind<IGenericApiController<Competentie>>().To<CompetentieController>();
+            kernel.Bind<IGenericApiController<Fase>>().To<FaseController>();
+            kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
+            kernel.Bind<IGenericApiController<Module>>().To<ModuleController>();
+            kernel.Bind<IGenericApiController<Tag>>().To<TagController>();
         }        
     }
 }

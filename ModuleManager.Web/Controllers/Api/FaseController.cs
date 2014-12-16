@@ -1,41 +1,46 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class FaseController : ApiController, IFaseController
+    public class FaseController : ApiController, IGenericApiController<Fase>
     {
-        private readonly IFaseRepository _faseRepository;
+        private readonly IGenericRepository<Fase> _faseRepository;
 
-        public FaseController(IFaseRepository faseRepository)
+        public FaseController(IGenericRepository<Fase> faseRepository)
         {
             _faseRepository = faseRepository;
         }
 
-        public IEnumerable<Fase> GetAllFases()
+        [HttpGet, Route("api/Fase/Get")]
+        public IEnumerable<Fase> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Fase GetFase(string naam)
+        [HttpGet, Route("api/Fase/Get/{key}")]
+        public Fase GetOne(string key)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeleteFase(Fase fase)
+        [HttpPost, Route("api/Fase/Delete/{entity}")]
+        public bool Delete(Fase entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool EditFase(Fase fase)
+        [HttpPost, Route("api/Fase/Edit/{entity}")]
+        public bool Edit(Fase entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool CreateFase(Fase fase)
+        [HttpPost, Route("api/Fase/Create/{entity}")]
+        public bool Create(Fase entity)
         {
             throw new System.NotImplementedException();
         }

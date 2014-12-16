@@ -1,32 +1,39 @@
-﻿using System.Collections.Generic;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+﻿using System.Linq;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
-    public class DummyTagRepository : ITagRepository
+    public class DummyTagRepository : IGenericRepository<Tag>
     {
+        private readonly IUnitOfWork _session;
 
-        public IEnumerable<Tag> GetAllTags()
+        public DummyTagRepository(IUnitOfWork session)
+        {
+            _session = session;
+        }
+
+        public IQueryable<Tag> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Tag GetTag(string naam)
+        public Tag GetOne(string key)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool CreateTag(Tag tag)
+        public bool Create(Tag entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeleteTag(Tag tag)
+        public bool Delete(Tag entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool EditTag(Tag tag)
+        public bool Edit(Tag entity)
         {
             throw new System.NotImplementedException();
         }

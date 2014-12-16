@@ -1,64 +1,41 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+﻿using System.Linq;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
-    public class DummyModuleRepository : IModuleRepository
+    public class DummyModuleRepository : IGenericRepository<Module>
     {
-        private readonly List<Module> _modules;
+        private readonly IUnitOfWork _session;
 
-        public DummyModuleRepository()
+        public DummyModuleRepository(IUnitOfWork session)
         {
-            _modules = new List<Module>
-            {
-                new Module
-                {
-                    CursusCode = "IIIN-DATAB3",
-                    Naam = "2-AII1415-Databases 3"
-                },
-                new Module
-                {
-                    CursusCode = "IIIN-PROG6",
-                    Naam = "2-AII1415-Programmeren 6 - C Sharp"
-                },
-                new Module
-                {
-                    CursusCode = "IIIN-ALG",
-                    Naam = "1-AII1415-Algoritmiek en Datastructuren"
-                }
-            };
+            _session = session;
         }
 
-        public IEnumerable<Module> GetAllModules()
+        public IQueryable<Module> GetAll()
         {
-            return _modules;
+            throw new System.NotImplementedException();
         }
 
-        public Module GetModule(string cursusCode)
+        public Module GetOne(string key)
         {
-            return _modules.FirstOrDefault(m => m.CursusCode.Equals(cursusCode));
+            throw new System.NotImplementedException();
         }
 
-
-        public bool CreateModule(Module module)
+        public bool Create(Module entity)
         {
-            _modules.Add(module);
-            return true;
+            throw new System.NotImplementedException();
         }
 
-        public bool DeleteModule(Module module)
+        public bool Delete(Module entity)
         {
-            _modules.Remove(module);
-            return true;
+            throw new System.NotImplementedException();
         }
 
-        public bool EditModule(Module module)
+        public bool Edit(Module entity)
         {
-            var temp =_modules.FirstOrDefault(m => m.CursusCode.Equals(module.CursusCode));
-            _modules.Remove(temp);
-            _modules.Add(module);
-            return true;
+            throw new System.NotImplementedException();
         }
     }
 }

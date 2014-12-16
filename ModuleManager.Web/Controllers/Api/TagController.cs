@@ -1,41 +1,46 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class TagController : ApiController, ITagController
+    public class TagController : ApiController, IGenericApiController<Tag>
     {
-        private readonly ITagRepository _tagRepository;
+        private readonly IGenericRepository<Tag> _tagRepository;
 
-        public TagController(ITagRepository tagRepository)
+        public TagController(IGenericRepository<Tag> tagRepository)
         {
             _tagRepository = tagRepository;
         }
 
-        public IEnumerable<Tag> GetAllTags()
+        [HttpGet, Route("api/Tag/Get")]
+        public IEnumerable<Tag> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Tag GetTag(string naam)
+        [HttpGet, Route("api/Tag/Get/{key}")]
+        public Tag GetOne(string key)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeleteTag(Tag tag)
+        [HttpPost, Route("api/Tag/Delete/{entity}")]
+        public bool Delete(Tag entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool EditTag(Tag tag)
+        [HttpPost, Route("api/Tag/Edit/{entity}")]
+        public bool Edit(Tag entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool CreateTag(Tag tag)
+        [HttpPost, Route("api/Tag/Create/{entity}")]
+        public bool Create(Tag entity)
         {
             throw new System.NotImplementedException();
         }

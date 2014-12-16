@@ -1,41 +1,46 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class LeerlijnController : ApiController, ILeerlijnController
+    public class LeerlijnController : ApiController, IGenericApiController<Leerlijn>
     {
-        private readonly ILeerlijnRepository _leerlijnRepository;
+        private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
 
-        public LeerlijnController(ILeerlijnRepository leerlijnRepository)
+        public LeerlijnController(IGenericRepository<Leerlijn> leerlijnRepository)
         {
             _leerlijnRepository = leerlijnRepository;
         }
 
-        public IEnumerable<Leerlijn> GetAllLeerlijn()
+        [HttpGet, Route("api/Leerlijn/Get")]
+        public IEnumerable<Leerlijn> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Leerlijn GetLeerlijn(string naam)
+        [HttpGet, Route("api/Leerlijn/Get/{key}")]
+        public Leerlijn GetOne(string key)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeleteLeerlijn(Leerlijn leerlijn)
+        [HttpPost, Route("api/Leerlijn/Delete/{entity}")]
+        public bool Delete(Leerlijn entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool EditLeerlijn(Leerlijn leerlijn)
+        [HttpPost, Route("api/Leerlijn/Edit/{entity}")]
+        public bool Edit(Leerlijn entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool CreateLeerlijn(Leerlijn leerlijn)
+        [HttpPost, Route("api/Leerlijn/Create/{entity}")]
+        public bool Create(Leerlijn entity)
         {
             throw new System.NotImplementedException();
         }

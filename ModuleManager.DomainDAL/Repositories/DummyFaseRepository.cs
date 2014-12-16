@@ -1,32 +1,39 @@
-﻿using System.Collections.Generic;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+﻿using System.Linq;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
-    public class DummyFaseRepository : IFaseRepository
+    public class DummyFaseRepository : IGenericRepository<Fase>
     {
+        private readonly IUnitOfWork _session;
 
-        public IEnumerable<Fase> GetAllFases()
+        public DummyFaseRepository(IUnitOfWork session)
+        {
+            _session = session;
+        }
+
+        public IQueryable<Fase> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Fase GetFase(string naam)
+        public Fase GetOne(string key)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool CreateFase(Fase fase)
+        public bool Create(Fase entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeleteFase(Fase fase)
+        public bool Delete(Fase entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool EditFase(Fase fase)
+        public bool Edit(Fase entity)
         {
             throw new System.NotImplementedException();
         }

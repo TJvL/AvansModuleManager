@@ -1,35 +1,48 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class CompetentieController : ApiController, ICompetentieController
+    public class CompetentieController : ApiController, IGenericApiController<Competentie>
     {
-        private readonly ICompetentieRepository _competentieRepository;
+        private readonly IGenericRepository<Competentie> _competentieRepository;
 
-        public CompetentieController(ICompetentieRepository competentieRepository)
+        public CompetentieController(IGenericRepository<Competentie> competentieRepository)
         {
             _competentieRepository = competentieRepository;
         }
 
-        // GET: api/Competentie
-        public IEnumerable<Competentie> Get()
+        [HttpGet, Route("api/Competentie/Get")]
+        public IEnumerable<Competentie> GetAll()
         {
-            return _competentieRepository.GetAllCompetenties();
+            throw new System.NotImplementedException();
         }
 
-        // GET: api/Competentie/5
-        public Competentie Get(string compCode)
+        [HttpGet, Route("api/Competentie/Get/{key}")]
+        public Competentie GetOne(string key)
         {
-            return _competentieRepository.GetCompetentie(compCode);
+            throw new System.NotImplementedException();
         }
 
-        // POST: api/Competentie
-        public void Post([FromBody]string value)
+        [HttpPost, Route("api/Competentie/Delete/{entity}")]
+        public bool Delete(Competentie entity)
         {
+            throw new System.NotImplementedException();
+        }
+
+        [HttpPost, Route("api/Competentie/Edit/{entity}")]
+        public bool Edit(Competentie entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [HttpPost, Route("api/Competentie/Create/{entity}")]
+        public bool Create(Competentie entity)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

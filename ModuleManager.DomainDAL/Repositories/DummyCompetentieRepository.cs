@@ -1,32 +1,39 @@
-﻿using System.Collections.Generic;
-using ModuleManager.DomainDAL.RepositoryInterfaces;
+﻿using System.Linq;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.DomainDAL.UnitOfWork;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
-    public class DummyCompetentieRepository :ICompetentieRepository
+    public class DummyCompetentieRepository : IGenericRepository<Competentie>
     {
+        private readonly IUnitOfWork _session;
 
-        public IEnumerable<Competentie> GetAllCompetenties()
+        public DummyCompetentieRepository(IUnitOfWork session)
+        {
+            _session = session;
+        }
+
+        public IQueryable<Competentie> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public Competentie GetCompetentie(string cursusCode)
+        public Competentie GetOne(string key)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool CreateCompetentie(Competentie competentie)
+        public bool Create(Competentie entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool DeleteCompetentie(Competentie competentie)
+        public bool Delete(Competentie entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool EditCompetentie(Competentie competentie)
+        public bool Edit(Competentie entity)
         {
             throw new System.NotImplementedException();
         }

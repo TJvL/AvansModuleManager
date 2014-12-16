@@ -284,11 +284,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\CompetentieController.cs" />
     <Compile Include="Controllers\Api\FaseController.cs" />
-    <Compile Include="Controllers\Api\Interfaces\ICompetentieController.cs" />
-    <Compile Include="Controllers\Api\Interfaces\IFaseController.cs" />
-    <Compile Include="Controllers\Api\Interfaces\ILeerlijnController.cs" />
-    <Compile Include="Controllers\Api\Interfaces\IModuleController.cs" />
-    <Compile Include="Controllers\Api\Interfaces\ITagController.cs" />
+    <Compile Include="Controllers\Api\Interfaces\IGenericApiController.cs" />
     <Compile Include="Controllers\Api\LeerlijnController.cs" />
     <Compile Include="Controllers\Api\ModuleController.cs" />
     <Compile Include="Controllers\Api\TagController.cs" />
