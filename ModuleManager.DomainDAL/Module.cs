@@ -7,24 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Module
-    {
-        public Module()
-        {
+using System;
+using System.Collections.Generic;
+
+namespace ModuleManager.DomainDAL {
+    public partial class Module {
+        public Module() {
             this.FaseModules = new HashSet<FaseModules>();
             this.ModuleCompetentie = new HashSet<ModuleCompetentie>();
             this.StudiePunten = new HashSet<StudiePunten>();
             this.Leerlijn = new HashSet<Leerlijn>();
             this.Tag = new HashSet<Tag>();
         }
-    
+
         public string CursusCode { get; set; }
-        public System.DateTime Schooljaar { get; set; }
+        public DateTime Schooljaar { get; set; }
         public string Beschrijving { get; set; }
         public string Naam { get; set; }
         public string Leedoelen { get; set; }
@@ -36,7 +33,7 @@ namespace ModuleManager.DomainDAL
         public string Leermiddelen { get; set; }
         public string Verantwoordelijkheid { get; set; }
         public string Status { get; set; }
-    
+
         public virtual ICollection<FaseModules> FaseModules { get; set; }
         public virtual Status Status1 { get; set; }
         public virtual ICollection<ModuleCompetentie> ModuleCompetentie { get; set; }

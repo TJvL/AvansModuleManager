@@ -7,24 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class DomainContext : DbContext
-    {
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
+namespace ModuleManager.DomainDAL {
+    public partial class DomainContext : DbContext {
         public DomainContext()
-            : base("name=DomainContext")
-        {
+            : base("name=DomainContext") {
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Competentie> Competentie { get; set; }
         public virtual DbSet<Fase> Fase { get; set; }
         public virtual DbSet<FaseModules> FaseModules { get; set; }

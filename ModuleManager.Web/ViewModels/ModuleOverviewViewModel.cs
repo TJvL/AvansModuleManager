@@ -1,19 +1,21 @@
-﻿using ModuleManager.Web.ViewModels.DataModel.ModuleHeader;
-using ModuleManager.Web.ViewModels.DataModel.UserInfo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.ViewModels {
     public class ModuleOverviewViewModel {
 
-        // DATA -START-
-        public UserInfo User { get; set; }
-        public ICollection<ModuleHeader> ModuleHeaders { get; set; }
-        // DATA -END-
-        public ICollection<string> CompetentieNamen { get; set; }
-        public ICollection<string> TagNamen { get; set; }
-        public ICollection<string> LeerlijnNamen { get; set; }
+        /// <summary>
+        /// Gebruikers-informatie rechtboven van de pagina
+        /// Bevat gebruikersnaam & gebruikersrol
+        /// </summary>
+        public UserViewModel User { get; set; }
+        /// <summary>
+        /// Module-informatie zichtbaar in het overview
+        /// </summary>
+        public ModuleListViewModel Modules { get; set; }
+        /// <summary>
+        /// Bevat configuratie/argumenten/instellingen voor de filters en de sortering van het moduleoverzicht
+        /// </summary>
+        public FilterAndSortingViewModel FilterAndSortingConfig { get; set; }
+
     }
 }

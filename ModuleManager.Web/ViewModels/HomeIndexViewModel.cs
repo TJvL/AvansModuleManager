@@ -1,13 +1,18 @@
-﻿using System;
+﻿using ModuleManager.DomainDAL;
+using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ModuleManager.Web.ViewModels {
     public class HomeIndexViewModel {
 
-        // DATA -START-
-        public ICollection<string> TagNamen { get; set; }
-        // DATA -END-
+        /// <summary>
+        /// Gebruikers-informatie rechtboven van de pagina
+        /// Bevat gebruikersnaam & gebruikersrol
+        /// </summary>
+        public UserViewModel User { get; set; }
+        /// <summary>
+        /// Bevat populaire tags om weer te geven
+        /// </summary>
+        public ICollection<Tag> Tags { get; set; }
     }
 }

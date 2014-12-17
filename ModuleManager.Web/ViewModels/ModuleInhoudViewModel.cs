@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using ModuleManager.DomainDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.ViewModels {
-    public class AdminUserManagementViewModel {
+
+    /// <summary>
+    /// Deze viewmodel wordt gebruikt voor de Module/Details-pagina en de Module/Edit-pagina
+    /// </summary>
+    public class ModuleInhoudViewModel {
 
         /// <summary>
         /// Gebruikers-informatie rechtboven van de pagina
@@ -10,9 +14,8 @@ namespace ModuleManager.Web.ViewModels {
         /// </summary>
         public UserViewModel User { get; set; }
         /// <summary>
-        /// Gebruikers-informatie die wordt weergegeven in het gebruikersoverview
-        /// Bevat gebruikersnaam & gebruikersrol & email
+        /// Module-informatie voor de view
         /// </summary>
-        public UserListViewModel Users { get; set; }
+        public Module Module { get; set; }
     }
 }
