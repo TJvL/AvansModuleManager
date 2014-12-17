@@ -27,19 +27,19 @@ namespace ModuleManager.Web.Controllers.Api
             throw new System.NotImplementedException();
         }
 
-        [HttpPost, Route("api/Fase/Delete/{entity}")]
+        [HttpPost, Route("api/Fase/Delete")]
         public bool Delete(Fase entity)
         {
             throw new System.NotImplementedException();
         }
 
-        [HttpPost, Route("api/Fase/Edit/{entity}")]
+        [HttpPost, Route("api/Fase/Edit")]
         public bool Edit(Fase entity)
         {
             throw new System.NotImplementedException();
         }
 
-        [HttpPost, Route("api/Fase/Create/{entity}")]
+        [HttpPost, Route("api/Fase/Create")]
         public bool Create(Fase entity)
         {
             throw new System.NotImplementedException();

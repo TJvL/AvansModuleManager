@@ -285,6 +285,7 @@
     <Compile Include="Controllers\Api\CompetentieController.cs" />
     <Compile Include="Controllers\Api\FaseController.cs" />
     <Compile Include="Controllers\Api\Interfaces\IGenericApiController.cs" />
+    <Compile Include="Controllers\Api\Interfaces\IModuleApiController.cs" />
     <Compile Include="Controllers\Api\LeerlijnController.cs" />
     <Compile Include="Controllers\Api\ModuleController.cs" />
     <Compile Include="Controllers\Api\TagController.cs" />

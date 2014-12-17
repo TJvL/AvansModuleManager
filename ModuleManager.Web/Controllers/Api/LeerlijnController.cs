@@ -27,19 +27,19 @@ namespace ModuleManager.Web.Controllers.Api
             throw new System.NotImplementedException();
         }
 
-        [HttpPost, Route("api/Leerlijn/Delete/{entity}")]
+        [HttpPost, Route("api/Leerlijn/Delete")]
         public bool Delete(Leerlijn entity)
         {
             throw new System.NotImplementedException();
         }
 
-        [HttpPost, Route("api/Leerlijn/Edit/{entity}")]
+        [HttpPost, Route("api/Leerlijn/Edit")]
         public bool Edit(Leerlijn entity)
         {
             throw new System.NotImplementedException();
         }
 
-        [HttpPost, Route("api/Leerlijn/Create/{entity}")]
+        [HttpPost, Route("api/Leerlijn/Create")]
         public bool Create(Leerlijn entity)
         {
             throw new System.NotImplementedException();
