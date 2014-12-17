@@ -1,37 +1,30 @@
 ﻿using System.Web.Mvc;
 
-namespace ModuleManager.Web.Controllers
-{
+namespace ModuleManager.Web.Controllers {
 
-    public class ModuleController : Controller
-    {
+    public class ModuleController : Controller {
         [HttpGet]
-        public ActionResult Overview()
-        {
+        public ActionResult Overview() {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Overview_Teacher_Temp()
-        {
+        public ActionResult Overview_Teacher_Temp() {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Details()
-        {
+        public ActionResult Details() {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Details_Teacher_Temp()
-        {
+        public ActionResult Details_Teacher_Temp() {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Edit()
-        {
+        public ActionResult Edit() {
             return View();
         }
 

@@ -1,12 +1,9 @@
 ﻿using System.Web.Optimization;
 
-namespace ModuleManager.Web
-{
-    public class BundleConfig
-    {
+namespace ModuleManager.Web {
+    public class BundleConfig {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
-        {
+        public static void RegisterBundles(BundleCollection bundles) {
             bundles.Add(new ScriptBundle("~/bundles/scripts/main").Include(
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/jquery-{version}.js"));

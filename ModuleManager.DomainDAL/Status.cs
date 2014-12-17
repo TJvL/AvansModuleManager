@@ -7,20 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Status
-    {
-        public Status()
-        {
+using System.Collections.Generic;
+
+namespace ModuleManager.DomainDAL {
+    public partial class Status {
+        public Status() {
             this.Module = new HashSet<Module>();
         }
-    
+
         public string Status1 { get; set; }
-    
+
         public virtual ICollection<Module> Module { get; set; }
     }
 }
