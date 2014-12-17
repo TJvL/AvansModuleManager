@@ -7,24 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.UserDAL
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class UserContext : DbContext
-    {
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
+namespace ModuleManager.UserDAL {
+    public partial class UserContext : DbContext {
         public UserContext()
-            : base("name=UserContext")
-        {
+            : base("name=UserContext") {
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<SysteemRol> SysteemRol { get; set; }
         public virtual DbSet<User> User { get; set; }
     }

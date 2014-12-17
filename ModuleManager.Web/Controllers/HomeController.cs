@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace ModuleManager.Web.Controllers
-{
+namespace ModuleManager.Web.Controllers {
 
-    public class HomeController : Controller
-    {
+    public class HomeController : Controller {
         [HttpGet]
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Login()
-        {
+        public ActionResult Login() {
             return View();
         }
-   
+
     }
 }

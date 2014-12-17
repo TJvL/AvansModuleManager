@@ -7,20 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.UserDAL
-{
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class SysteemRol
-    {
-        public SysteemRol()
-        {
+using System.Collections.Generic;
+
+namespace ModuleManager.UserDAL {
+    public partial class SysteemRol {
+        public SysteemRol() {
             this.User = new HashSet<User>();
         }
-    
+
         public string Role { get; set; }
-    
+
         public virtual ICollection<User> User { get; set; }
     }
 }

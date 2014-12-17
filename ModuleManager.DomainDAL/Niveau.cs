@@ -7,20 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Niveau
-    {
-        public Niveau()
-        {
+using System.Collections.Generic;
+
+namespace ModuleManager.DomainDAL {
+    public partial class Niveau {
+        public Niveau() {
             this.ModuleCompetentie = new HashSet<ModuleCompetentie>();
         }
-    
+
         public string Niveau1 { get; set; }
-    
+
         public virtual ICollection<ModuleCompetentie> ModuleCompetentie { get; set; }
     }
 }
