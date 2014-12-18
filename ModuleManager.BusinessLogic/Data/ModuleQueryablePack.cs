@@ -16,43 +16,13 @@ namespace ModuleManager.BusinessLogic.Data
     /// </remarks>
     public class ModuleQueryablePack : IQueryablePack
     {
-        ModuleArguments args;
-        IQueryable<Module> data = new List<Module>() as IQueryable<Module>;
+        public ModuleArguments Args { get; private set; }
+        public IQueryable<Module> Data { get; private set; }
 
-        /// <summary>
-        /// Get the arguments that were passed along in this object.
-        /// </summary>
-        /// <returns>An arguments object containing relevant filtering and sorting info.</returns>
-        public Arguments GetArguments()
+        public ModuleQueryablePack(IQueryable<Module> data, ModuleArguments args) 
         {
-            return args;
-        }
-
-        /// <summary>
-        /// Set arguments to pass along with this object.
-        /// </summary>
-        /// <param name="args">Arguments to be passed along with the data.</param>
-        public void SetArguments(ModuleArguments args)
-        {
-            this.args = args;
-        }
-
-        /// <summary>
-        /// Get the modules that ware passed along in this object.
-        /// </summary>
-        /// <returns>All data to be queried.</returns>
-        public IQueryable<Module> GetData()
-        {
-            return data;
-        }
-
-        /// <summary>
-        /// Set the modules to be passed along.
-        /// </summary>
-        /// <param name="data">A list of modules.</param>
-        public void SetData(IQueryable<Module> data)
-        {
-            this.data = data;
+            Args = args;
+            Data = data;
         }
     }
 }

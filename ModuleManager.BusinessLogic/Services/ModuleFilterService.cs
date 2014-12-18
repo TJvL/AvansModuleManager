@@ -1,4 +1,5 @@
 ﻿using ModuleManager.BusinessLogic.Data;
+using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.DomainDAL;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Services
 {
-    public class FilterService
+    public class ModuleFilterService : IFilterService
     {
-        public IQueryable<Module> FilterModules(ModuleQueryablePack toFilter) 
+        public IEnumerable<Module> Filter(ModuleQueryablePack toQuery)
         {
-            //filter the stuff, and return it;
             throw new NotImplementedException();
         }
     }
