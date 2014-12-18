@@ -5,7 +5,7 @@ using AutoMapper;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.UnitOfWork;
+using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 
@@ -24,10 +24,10 @@ namespace ModuleManager.Web.Controllers.Api
 
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview(Arguments arguments)
-        {            
+        {
             var modules = _moduleRepository.GetAll();
             var moduleListVm = new ModuleListViewModel(modules.Count());
-            var processedData = _filterSorterService.ProcessData(new ModuleQueryablePack(arguments, modules));
+            var processedData = _filterSorterService.ProcessData(new ModuleQueryablePack(arguments, modules as IQueryable<Module>));
 
             var returnData = new Collection<ModuleViewModel>();
             foreach (var m in processedData)

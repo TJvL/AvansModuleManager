@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 
-namespace ModuleManager.DomainDAL.UnitOfWork
+namespace ModuleManager.DomainDAL.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
-        IQueryable<T> GetAll();
+        IEnumerable<T> GetAll();
         T GetOne(string key);
         bool Create(T entity);
         bool Delete(T entity);
