@@ -13,29 +13,32 @@
                 <h2>Curriculum beheer</h2>
                 <br/><br/>
             </div>
-
-            <div class="col-md-12">
+            
+            <div class="col-md-6">
                 <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competentie-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Competenties</h3>
                 <table class="table table-hover">
                     <tbody>
-                        <tr>
-                            <td data-toggle="modal" data-id="1" data-target="#competentie-details">Procesanalyse uitvoeren</td>
-                            <td style="width: 90px">
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-1</td>
+                            <td>Procesanalyse uitvoeren</td>
+                            <td class="actions ninety-width">
                                 <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                 <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td data-toggle="modal" data-id="1" data-target="#competentie-details">Informatieanalyse uitvoeren</td>
-                            <td style="width: 90px">
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-2</td>
+                            <td>Informatieanalyse uitvoeren</td>
+                            <td class="actions ninety-width">
                                 <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                 <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td data-toggle="modal" data-id="1" data-target="#competentie-details">Informatiesysteem ontwerpen</td>
-                            <td style="width: 90px">
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-3</td>
+                            <td>Informatiesysteem ontwerpen</td>
+                            <td class="actions ninety-width">
                                 <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                 <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                             </td>
@@ -44,6 +47,40 @@
                 </table>
             </div>
 
+            <div class="col-md-6">
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#fase-add">Toevoegen</button>
+                <h3 style="margin-top: 0">Fases</h3>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td class="ninety-width">Major</td>
+                            <td>Software ontwikkelaar</td>
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ninety-width">Major</td>
+                            <td>Bedrijfsinformatica</td>
+                            
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ninety-width">Minor</td>
+                            <td>Cybersafety</td>
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
             <div class="col-md-6">
                 <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#leerlijn-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Leerlijnen</h3>
@@ -144,7 +181,7 @@
                                     <td class="ec">3 EC</td>
                                     <td class="status text-success">Compleet</td>
 
-                                    <td class="actions-lg">
+                                    <td class="actions" style="text-align: right;">
                                         <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                         <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     </td>
@@ -159,7 +196,7 @@
                                     <td class="block">Blok 5</td>
                                     <td class="ec">3 EC</td>
                                     <td class="status text-danger">Onvolledig</td>
-                                    <td class="actions-lg">
+                                    <td class="actions" style="text-align: right;">
                                         <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                         <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     </td>
@@ -174,7 +211,7 @@
                                     <td class="block">Blok 5</td>
                                     <td class="ec">3 EC</td>
                                     <td class="status text-danger">Onvolledig</td>
-                                    <td class="actions-lg">
+                                    <td class="actions" style="text-align: right;">
                                         <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                         <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     </td>
@@ -189,7 +226,7 @@
                                     <td class="block">Blok 5</td>
                                     <td class="ec">3 EC</td>
                                     <td class="status text-danger">Onvolledig</td>
-                                    <td class="actions-lg">
+                                    <td class="actions" style="text-align: right;">
                                         <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                         <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     </td>
@@ -204,7 +241,7 @@
                                     <td class="block">Blok 5</td>
                                     <td class="ec">3 EC</td>
                                     <td class="status text-success">Compleet</td>
-                                    <td class="actions-lg">
+                                    <td class="actions" style="text-align: right;">
                                         <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                         <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     </td>
@@ -234,44 +271,28 @@
     </div>
 </div>
 
-<!-- Help MODAL-->
-@Html.Partial("~/Views/Help/Curriculum.cshtml", null);
+<!-- Help MODAL -->
+@Html.Partial("~/Views/Help/Curriculum.cshtml", null)
 
-<!-- Competentie toevoegen MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Competentie/Add.cshtml", null);
-
-<!-- Competentie informatie MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Competentie/Details.cshtml", null);
-
-<!-- Competentie bewerken MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Competentie/Edit.cshtml", null);
-
-<!-- Competentie verwijderen MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Competentie/Delete.cshtml", null);
-
-<!-- Leerlijn toevoegen MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null);
-
-<!-- Leerlijn bewerken MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null);
-
-<!-- Leerlijn verwijderen MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null);
-
-<!-- Tags toevoegen MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Tag/Add.cshtml", null);
-
-<!-- Tags bewerken MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Tag/Edit.cshtml", null);
-
-<!-- Tags verwijderen MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Tag/Delete.cshtml", null);
-
-<!-- Module toevoegen MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Module/Add.cshtml", null);
-
-<!-- Module verwijderen MODAL-->
-@Html.Partial("~/Views/Admin/Curriculum/Module/Delete.cshtml", null);
+<!-- CRUD MODALS -->
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Details.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Module/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Module/Delete.cshtml", null)
 
 <!-- JAVA MEUK -->
 @section Scripts {
@@ -279,7 +300,7 @@
         $(function () {
             // THIS FOR ALL OVERVIEWS
             $(".item td").on("click", function () {
-                if (!$(this).hasClass("actions-lg")) {
+                if (!$(this).hasClass("actions")) {
                     window.location = $(this).parent().data("href");
                 }
             });
@@ -290,13 +311,21 @@
                 }
             });
 
+            $(".competentie-item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    $('#competentie-details').modal('show');
+                }
+            });
+
             // SELECT2
             $("#ModuleAddFases").select2({
                 placeholder: "Fases"
             });
-            $("#ModuleAddYear").select2({
-                placeholder: "Schooljaar"
+
+            $("#FasesType").select2({
+                placeholder: "Type"
             });
+
             $("#ModuleAddBlock").select2({
                 placeholder: "Blok"
             });

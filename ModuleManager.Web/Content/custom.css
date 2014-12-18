@@ -261,10 +261,8 @@ textarea {
      resize: vertical;
 }
 
-.actions {
-    /* TODO: pull-right */
-}
-
-.actions-lg {
-     /* TODO: pull-right */
+.actions {}
+.competentie-item {}
+.ninety-width {
+    width: 90px;
 }

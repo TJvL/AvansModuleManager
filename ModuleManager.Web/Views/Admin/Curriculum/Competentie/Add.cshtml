@@ -16,10 +16,33 @@
                         <label for="name">Naam</label>
                         <input type="text" class="form-control" id="name" placeholder="Naam">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="description">Beschrijving</label>
-                        <textarea class="form-control" id="description" placeholder="Beschrijving"></textarea>
+                        <table id="description" class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>Regel 1</td>
+                                    <td style="width: 90px;">
+                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Regel 2</td>
+                                    <td style="width: 90px;">
+                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Beschrijving">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                            </span>
+                        </div>
                     </div>
                 </form>
             </div>
