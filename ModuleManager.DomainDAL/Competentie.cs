@@ -7,19 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-namespace ModuleManager.DomainDAL {
-    public partial class Competentie {
-        public Competentie() {
+namespace ModuleManager.DomainDAL
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Competentie
+    {
+        public Competentie()
+        {
             this.ModuleCompetentie = new HashSet<ModuleCompetentie>();
         }
-
+    
+        public string Code { get; set; }
+        public int Schooljaar { get; set; }
         public string Naam { get; set; }
-        public DateTime Schooljaar { get; set; }
         public string Beschrijving { get; set; }
-
+    
         public virtual ICollection<ModuleCompetentie> ModuleCompetentie { get; set; }
     }
 }
