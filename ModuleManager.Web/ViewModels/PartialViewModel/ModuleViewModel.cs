@@ -6,8 +6,9 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel {
     /// </summary>
     public class ModuleViewModel {
         /// <summary>
-        /// /// Onderdeel van de Module/Overview
+        /// Onderdeel van de Module/Overview
         /// </summary>
+        public char Icon { get; set; }
         public string Naam { get; set; }
         public string CursusCode { get; set; }
         public int Blok { get; set; }

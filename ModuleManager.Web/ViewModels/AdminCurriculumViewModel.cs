@@ -6,11 +6,6 @@ namespace ModuleManager.Web.ViewModels {
     public class AdminCurriculumViewModel {
 
         /// <summary>
-        /// Gebruikers-informatie rechtboven van de pagina
-        /// Bevat gebruikersnaam & gebruikersrol
-        /// </summary>
-        public UserViewModel User { get; set; }
-        /// <summary>
         /// Bevat alle tags om weer te geven
         /// </summary>
         public ICollection<Tag> Tags { get; set; }
@@ -29,6 +24,6 @@ namespace ModuleManager.Web.ViewModels {
         /// <summary>
         /// Bevat configuratie/argumenten/instellingen voor de filters en de sortering van het moduleoverzicht
         /// </summary>
-        public FilterAndSortingViewModel FilterAndSortingConfig { get; set; }
+        public FilterOptionsViewModel FilterAndSortingConfig { get; set; }
     }
 }

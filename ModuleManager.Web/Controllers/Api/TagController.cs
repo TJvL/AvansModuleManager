@@ -18,31 +18,31 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Tag/Get")]
         public IEnumerable<Tag> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _tagRepository.GetAll();
         }
 
         [HttpGet, Route("api/Tag/Get/{key}")]
         public Tag GetOne(string key)
         {
-            throw new System.NotImplementedException();
+            return _tagRepository.GetOne(key);
         }
 
         [HttpPost, Route("api/Tag/Delete")]
         public bool Delete(Tag entity)
         {
-            throw new System.NotImplementedException();
+            return _tagRepository.Delete(entity);
         }
 
         [HttpPost, Route("api/Tag/Edit")]
         public bool Edit(Tag entity)
         {
-            throw new System.NotImplementedException();
+            return _tagRepository.Edit(entity);
         }
 
         [HttpPost, Route("api/Tag/Create")]
         public bool Create(Tag entity)
         {
-            throw new System.NotImplementedException();
+            return _tagRepository.Create(entity);
         }
     }
 }

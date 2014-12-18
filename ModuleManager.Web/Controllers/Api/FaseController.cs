@@ -18,31 +18,31 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Fase/Get")]
         public IEnumerable<Fase> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _faseRepository.GetAll();
         }
 
         [HttpGet, Route("api/Fase/Get/{key}")]
         public Fase GetOne(string key)
         {
-            throw new System.NotImplementedException();
+            return _faseRepository.GetOne(key);
         }
 
         [HttpPost, Route("api/Fase/Delete")]
         public bool Delete(Fase entity)
         {
-            throw new System.NotImplementedException();
+            return _faseRepository.Delete(entity);
         }
 
         [HttpPost, Route("api/Fase/Edit")]
         public bool Edit(Fase entity)
         {
-            throw new System.NotImplementedException();
+            return _faseRepository.Edit(entity);
         }
 
         [HttpPost, Route("api/Fase/Create")]
         public bool Create(Fase entity)
         {
-            throw new System.NotImplementedException();
+            return _faseRepository.Create(entity);
         }
     }
 }

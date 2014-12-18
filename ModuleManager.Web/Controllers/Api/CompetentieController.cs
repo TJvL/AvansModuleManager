@@ -18,31 +18,31 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Competentie/Get")]
         public IEnumerable<Competentie> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _competentieRepository.GetAll();
         }
 
         [HttpGet, Route("api/Competentie/Get/{key}")]
         public Competentie GetOne(string key)
         {
-            throw new System.NotImplementedException();
+            return _competentieRepository.GetOne(key);
         }
 
         [HttpPost, Route("api/Competentie/Delete")]
         public bool Delete(Competentie entity)
         {
-            throw new System.NotImplementedException();
+            return _competentieRepository.Delete(entity);
         }
 
         [HttpPost, Route("api/Competentie/Edit")]
         public bool Edit(Competentie entity)
         {
-            throw new System.NotImplementedException();
+            return _competentieRepository.Edit(entity);
         }
 
         [HttpPost, Route("api/Competentie/Create")]
         public bool Create(Competentie entity)
         {
-            throw new System.NotImplementedException();
+            return _competentieRepository.Create(entity);
         }
     }
 }
