@@ -18,28 +18,27 @@
                 <form role="form">
                     <div class="form-group">
                         <label for="name">Naam</label>
-                        <input type="text" class="form-control" id="name" placeholder="Naam">
+                        <input type="text" class="form-control" id="name" placeholder="Naam" value="Algoritmiek en Datastructuren" disabled="disabled">
                     </div>
-                    <div class="form-group">
-                        <label for="description">Beschrijving</label>
-                        <textarea class="form-control" id="description" placeholder="Beschrijving"></textarea>
-                    </div>
+
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select class="form-control" id="status">
+                            <option></option>
                             <option>Nieuw</option>
                             <option>Incompleet</option>
-                            <option>Compleet (ongecontroleerd)</option>
+                            <option selected="selected">Compleet (ongecontroleerd)</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Competenties</label>
-                        <select multiple class="form-control" id="minor">
+                        <label for="description">Beschrijving</label>
+                        <textarea class="form-control" id="description" placeholder="Beschrijving"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="competenties">Competenties</label>
+                        <select class="form-control" id="competenties" multiple>
                             <option>Procesanalyse uitvoeren (Beginner)</option>
                             <option>Informatieanalyse uitvoeren (Expert)</option>
                             <option>Informatiesysteem ontwerpen (Ervaren)</option>
@@ -48,12 +47,9 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Leerlijnen</label>
-                        <select multiple class="form-control" id="major">
+                        <label for="leerlijn">Leerlijnen</label>
+                        <select class="form-control" id="leerlijn">
+                            <option></option>
                             <option>Programmeren</option>
                             <option>Moduleren</option>
                             <option>Databases</option>
@@ -61,12 +57,8 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Tags</label>
-                        <select multiple class="form-control" id="major">
+                        <label for="tags">Tags</label>
+                        <select class="form-control" id="tags" multiple>
                             <option>Big Data</option>
                             <option>Milieu</option>
                             <option>Spaans</option>
@@ -80,43 +72,67 @@
                         <table class="table table-bordered table-center table-striped">
                             <tbody>
                                 <tr>
-                                    <th style="min-width: 250px;">Werkvorm</th>
+                                    <th>Programma</th>
                                     <td>
-                                        <select name="werkvorm[]" class="form-control" id="werkvorm" multiple>
+                                        ???
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Omschrijving</th>
+                                    <td>
+                                        ???
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="min-width: 250px;"><label for="werkvorm">Werkvorm</label></th>
+                                    <td>
+                                        <select name="werkvorm" class="form-control" id="werkvorm" multiple>
                                             <option></option>
-                                            <option value="test">HoorCollege (HC)</option>
-                                            <option value="test">WerkCollege (WC)</option>
-                                            <option value="test">WorkShop (WS)</option>
+                                            <option>HoorCollege (HC)</option>
+                                            <option>WerkCollege (WC)</option>
+                                            <option>WorkShop (WS)</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Leerdoelen</th>
+                                    <th>Studiebelasting</th>
                                     <td>
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Een student kan...</th>
+                                                    <th>Activiteit</th>
+                                                    <th>Duur</th>
+                                                    <th>Frequentie</th>
+                                                    <th>SBU</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>De standaard data¬structuren ‘gekoppelde lijst’, ‘array’, ‘binaire boom’ en ‘ hashtabel’ implementeren en toepassen in een algoritme.</td>
+                                                    <td style="width:50px;">Workshop</td>
+                                                    <td>4 weken</td>
+                                                    <td>2 x 2 uur per week</td>
+                                                    <td>16</td>
                                                     <td style="width: 90px;">
                                                         <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>In een praktijksituatie een keuze maken tussen het gebruik van een gekoppelde lijst, array, binaire boom en een hashtabel.</td>
+                                                    <td style="width:50px;">Hoorcollege</td>
+                                                    <td>3 weken</td>
+                                                    <td>2 uur per week</td>
+                                                    <td>6</td>
                                                     <td style="width: 90px;">
                                                         <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Aan de hand van de standaard data¬structuren array en gekoppelde lijst afgeleide data¬structuren ontwerpen en implementeren in een algoritme.</td>
+                                                    <td style="width:50px;">Huiswerkopdrachten</td>
+                                                    <td>4 weken</td>
+                                                    <td>12 uur per week</td>
+                                                    <td>48</td>
                                                     <td style="width: 90px;">
                                                         <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
@@ -124,12 +140,32 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Leerdoel">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
-                                            </span>
+
+                                        <div class="form-inline" style="width: 100%">
+                                            <div class="form-group" style="width: 35%">
+                                                <label class="sr-only">Activiteit</label>
+                                                <input type="text" class="form-control" placeholder="Activiteit" style="width:100%;">
+                                            </div>
+                                            <div class="form-group" style="width: 15%">
+                                                <label class="sr-only">Duur</label>
+                                                <input type="text" class="form-control" placeholder="Duur" style="width:100%;">
+                                            </div>
+                                            <div class="form-group" style="width: 28%">
+                                                <label class="sr-only">Frequentie</label>
+                                                <input type="text" class="form-control" placeholder="Frequentie" style="width:100%;">
+                                            </div>
+                                            <div class="form-group" style="width: 15%">
+                                                <label class="sr-only">SBU</label>
+                                                <input type="text" class="form-control" placeholder="SBU" style="width:100%;">
+                                            </div>
+                                            <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
                                         </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Organisatie</th>
+                                    <td>
+                                        <textarea type="text" class="form-control" rows="5"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -229,93 +265,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Organisatie</th>
-                                    <td>
-                                        <textarea type="text" class="form-control" rows="5"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Toetscode</th>
-                                    <td>
-                                        ???
-                                        <!-- <input type="text" class="form-control" placeholder="Toetscode" /> -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Studiepunten</th>
-                                    <td>
-                                        ???
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Studiebelasting</th>
-                                    <td>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Activiteit</th>
-                                                    <th>Duur</th>
-                                                    <th>Frequentie</th>
-                                                    <th>SBU</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width:50px;">Workshop</td>
-                                                    <td>4 weken</td>
-                                                    <td>2 x 2 uur per week</td>
-                                                    <td>16</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">Hoorcollege</td>
-                                                    <td>3 weken</td>
-                                                    <td>2 uur per week</td>
-                                                    <td>6</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">Huiswerkopdrachten</td>
-                                                    <td>4 weken</td>
-                                                    <td>12 uur per week</td>
-                                                    <td>48</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <div class="form-inline" style="width: 100%">
-                                            <div class="form-group" style="width: 35%">
-                                                <label class="sr-only">Activiteit</label>
-                                                <input type="text" class="form-control" placeholder="Activiteit" style="width:100%;">
-                                            </div>
-                                            <div class="form-group" style="width: 15%">
-                                                <label class="sr-only">Duur</label>
-                                                <input type="text" class="form-control" placeholder="Duur" style="width:100%;">
-                                            </div>
-                                            <div class="form-group" style="width: 28%">
-                                                <label class="sr-only">Frequentie</label>
-                                                <input type="text" class="form-control" placeholder="Frequentie" style="width:100%;">
-                                            </div>
-                                            <div class="form-group" style="width: 15%">
-                                                <label class="sr-only">SBU</label>
-                                                <input type="text" class="form-control" placeholder="SBU" style="width:100%;">
-                                            </div>
-                                            <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th>Leermiddelen</th>
                                     <td>
                                         <table class="table table-bordered">
@@ -351,12 +300,53 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Cursuscode</th>
+                                    <th>Leerdoelen</th>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Een student kan...</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>De standaard data¬structuren ‘gekoppelde lijst’, ‘array’, ‘binaire boom’ en ‘ hashtabel’ implementeren en toepassen in een algoritme.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>In een praktijksituatie een keuze maken tussen het gebruik van een gekoppelde lijst, array, binaire boom en een hashtabel.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Aan de hand van de standaard data¬structuren array en gekoppelde lijst afgeleide data¬structuren ontwerpen en implementeren in een algoritme.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Leerdoel">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Voorkennis</th>
                                     <td>
                                         ???
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -376,6 +366,22 @@
     <script>
         $(function () {
             // SELECT2
+            $("#status").select2({
+                placeholder: "Status"
+            });
+
+            $("#competenties").select2({
+                placeholder: "Competenties"
+            });
+
+            $("#leerlijn").select2({
+                placeholder: "Leerlijn"
+            });
+
+            $("#tags").select2({
+                placeholder: "Tags"
+            });
+
             $("#werkvorm").select2({
                 placeholder: "Werkvorm"
             });
