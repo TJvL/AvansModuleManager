@@ -7,15 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
     using System;
     using System.Collections.Generic;
     
-    public partial class Leerlijn
-    {
-        public Leerlijn()
-        {
+namespace ModuleManager.DomainDAL {
+    public partial class Leerlijn {
+        public Leerlijn() {
             this.Module = new HashSet<Module>();
         }
     

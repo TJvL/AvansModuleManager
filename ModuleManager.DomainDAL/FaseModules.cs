@@ -7,13 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
     using System;
-    using System.Collections.Generic;
     
-    public partial class FaseModules
-    {
+namespace ModuleManager.DomainDAL {
+    public partial class FaseModules {
         public string FaseNaam { get; set; }
         public int FaseSchooljaar { get; set; }
         public string ModuleCursusCode { get; set; }

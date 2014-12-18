@@ -7,15 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
     using System;
     using System.Collections.Generic;
     
-    public partial class Opleiding
-    {
-        public Opleiding()
-        {
+namespace ModuleManager.DomainDAL {
+    public partial class Opleiding {
+        public Opleiding() {
             this.Fase = new HashSet<Fase>();
         }
     

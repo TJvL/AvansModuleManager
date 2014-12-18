@@ -7,15 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
     using System;
     using System.Collections.Generic;
     
-    public partial class Fase
-    {
-        public Fase()
-        {
+namespace ModuleManager.DomainDAL {
+    public partial class Fase {
+        public Fase() {
             this.FaseModules = new HashSet<FaseModules>();
         }
     

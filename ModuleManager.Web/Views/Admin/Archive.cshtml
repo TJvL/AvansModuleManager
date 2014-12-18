@@ -1,0 +1,31 @@
+﻿<div class="container">
+    <div class="row">
+        <div id="primary">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li class="active">Archiveren</li>
+                </ol>
+            </div>
+
+            <div class="col-md-12">
+                <h2>Archiveren</h2>
+                <br />
+            </div>
+
+            <div class="col-md-12">
+                <form role="form">
+                    <div class="alert alert-warning" role="alert">
+                        Nog niet alle modules zijn volledig, Klik <a href="@Url.Action("CheckModules", "Admin")" class="alert-link">hier</a> om naar de Module Controle pagina te gaan!
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm">Weet uw zeker dat uw het huidige cohort wil achiveren? Zoja Type dan "ARCHIVEREN" in hoofdletters hieronder.</label>
+                        <input type="text" class="form-control" id="confirm" placeholder="ARCHIVEREN">
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-lg">Archiveren</button>
+                    <a href="@Url.Action("Index", "Admin")" class="btn btn-default">Annuleren</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
