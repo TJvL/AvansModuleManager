@@ -16,7 +16,7 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
-        public ModuleListViewModel GetOverview(FilterAndSortingViewModel arguments)
+        public ModuleListViewModel GetOverview(FilterOptionsViewModel arguments)
         {
             throw new System.NotImplementedException();
         }

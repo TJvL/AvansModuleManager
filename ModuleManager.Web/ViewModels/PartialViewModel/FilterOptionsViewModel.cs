@@ -6,7 +6,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel {
     ///     - Doorgeven aan de views, welke filtermogelijkheden er zijn en welke kolommen mogelijk zijn voor weergave
     ///     - Het accepteren van de, door de gebruikers geselecteerde, filters/sorters aan de back-end
     /// </summary>
-    public class FilterAndSortingViewModel {
+    public class FilterOptionsViewModel {
 
         /// <summary>
         /// Geselecteerde/mogelijke competentie(s) om op te filteren
@@ -48,9 +48,5 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel {
         /// Geselecteerde/mogelijke status om op te filteren
         /// </summary>
         public string Status1 { get; set; }
-        /// <summary>
-        /// Bevat kolomnamen voor sorteren, met aflopende prioriteit
-        /// </summary>
-        public ICollection<string> SortConfig { get; set; }
     }
 }
