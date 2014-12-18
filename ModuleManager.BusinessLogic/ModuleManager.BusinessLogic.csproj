@@ -41,8 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Arguments.cs" />
+    <Compile Include="Data\ModuleQueryablePack.cs" />
+    <Compile Include="Interfaces\IFilterService.cs" />
+    <Compile Include="Interfaces\IFilterSorterService.cs" />
+    <Compile Include="Interfaces\IQueryablePack.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ModuleFilterService.cs" />
+    <Compile Include="Services\DummyModuleFilterSorterService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exporters\" />
@@ -52,10 +59,13 @@
     <Folder Include="Interfaces\Filters\" />
     <Folder Include="Interfaces\Services\" />
     <Folder Include="Interfaces\Sorters\" />
-    <Folder Include="Services\" />
     <Folder Include="Sorters\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj">
+      <Project>{ac5d926e-de8a-41a5-aed4-8e60dffa7b1d}</Project>
+      <Name>ModuleManager.DomainDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModuleManager.LoggingSysteem\ModuleManager.LoggingSysteem.csproj">
       <Project>{bc407b28-8305-43a9-b2e4-7efc912ad51e}</Project>
       <Name>ModuleManager.LoggingSysteem</Name>

@@ -7,17 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
     using System;
-    using System.Collections.Generic;
     
-    public partial class ModuleCompetentie
-    {
+namespace ModuleManager.DomainDAL {
+    public partial class ModuleCompetentie {
         public string CursusCode { get; set; }
-        public System.DateTime Schooljaar { get; set; }
-        public string CompetentieNaam { get; set; }
-        public System.DateTime CompetentieSchooljaar { get; set; }
+        public int Schooljaar { get; set; }
+        public string CompetentieCode { get; set; }
+        public int CompetentieSchooljaar { get; set; }
         public string Niveau { get; set; }
     
         public virtual Competentie Competentie { get; set; }

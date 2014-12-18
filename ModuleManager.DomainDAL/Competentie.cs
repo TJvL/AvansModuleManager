@@ -19,8 +19,9 @@ namespace ModuleManager.DomainDAL
             this.ModuleCompetentie = new HashSet<ModuleCompetentie>();
         }
     
+        public string Code { get; set; }
+        public int Schooljaar { get; set; }
         public string Naam { get; set; }
-        public System.DateTime Schooljaar { get; set; }
         public string Beschrijving { get; set; }
     
         public virtual ICollection<ModuleCompetentie> ModuleCompetentie { get; set; }

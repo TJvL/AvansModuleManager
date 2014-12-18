@@ -7,17 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
-{
     using System;
-    using System.Collections.Generic;
     
-    public partial class StudiePunten
-    {
+namespace ModuleManager.DomainDAL {
+    public partial class StudiePunten {
         public string CursusCode { get; set; }
-        public System.DateTime Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
         public string ToetsCode { get; set; }
-        public int EC { get; set; }
+        public decimal EC { get; set; }
+        public string Minimum { get; set; }
     
         public virtual Module Module { get; set; }
     }
