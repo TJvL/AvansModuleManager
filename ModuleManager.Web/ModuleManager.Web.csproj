@@ -286,6 +286,7 @@
     <Content Include="Views\Help\UserOverview.cshtml" />
     <Content Include="Views\Help\Login.cshtml" />
     <Content Include="Views\Admin\CheckModules\Reminder.cshtml" />
+    <Content Include="Views\Export\ModuleOverview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
