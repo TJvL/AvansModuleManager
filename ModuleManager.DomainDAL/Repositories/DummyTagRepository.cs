@@ -1,41 +1,87 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.DomainDAL.UnitOfWork;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
     public class DummyTagRepository : IGenericRepository<Tag>
     {
-        private readonly IUnitOfWork _session;
-
-        public DummyTagRepository(IUnitOfWork session)
+        private readonly ICollection<Tag> _tags;
+        public DummyTagRepository()
         {
-            _session = session;
+            _tags = new List<Tag>
+            {
+                new Tag
+                {
+                    Naam = "Big Data",
+                    Schooljaar = 1415
+                },
+                new Tag
+                {
+                    Naam = "Tag1",
+                    Schooljaar = 1415
+                },
+                new Tag
+                {
+                    Naam = "Java",
+                    Schooljaar = 1415
+                },
+                new Tag
+                {
+                    Naam = "UML",
+                    Schooljaar = 1415
+                },
+                new Tag
+                {
+                    Naam = "Massive Data",
+                    Schooljaar = 1415
+                },
+                new Tag
+                {
+                    Naam = "Algoritmiek",
+                    Schooljaar = 1415
+                },
+                new Tag
+                {
+                    Naam = "C#",
+                    Schooljaar = 1415
+                },
+                new Tag
+                {
+                    Naam = "nested for-loops",
+                    Schooljaar = 1415
+                }
+            };
         }
-
-        public IQueryable<Tag> GetAll()
+        public IEnumerable<Tag> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _tags;
         }
-
         public Tag GetOne(string key)
         {
-            throw new System.NotImplementedException();
+            return (_tags.Where(tag => tag.Naam.Equals(key))).First();
         }
-
         public bool Create(Tag entity)
         {
-            throw new System.NotImplementedException();
+            if (_tags != null)
+            {
+                _tags.Add(entity);
+                return true;
+            }
+            return false;
         }
-
         public bool Delete(Tag entity)
         {
-            throw new System.NotImplementedException();
+            return _tags.Remove(entity);
         }
-
         public bool Edit(Tag entity)
         {
-            throw new System.NotImplementedException();
+            Tag oldTag = (_tags.Where(tag => tag.Naam.Equals(entity.Naam))).First();
+            if (Delete(oldTag))
+            {
+                return Create(entity);
+            }
+            return false;
         }
     }
 }
