@@ -38,7 +38,7 @@ namespace ModuleManager.Web.Controllers {
         }
 
         [HttpGet]
-        public ActionResult UserManagement() {
+        public ActionResult UserOverview() {
             return View();
         }
 
