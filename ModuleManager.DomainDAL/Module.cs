@@ -6,9 +6,11 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace ModuleManager.DomainDAL {
+
     using System;
     using System.Collections.Generic;
+    
+namespace ModuleManager.DomainDAL {
     
     public partial class Module
     {
