@@ -10,6 +10,8 @@
     using System;
     using System.Collections.Generic;
     
+namespace ModuleManager.DomainDAL {
+    
     public partial class Module
     {
         public Module()
