@@ -1,4 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@{
+    if (User.IsInRole("Admin")) {
+        ViewBag.HeaderColor = "212121";
+    }
+    else if (User.IsInRole("Docent"))
+    {
+        ViewBag.HeaderColor = "428BCA";
+    }
+    else
+    {
+        ViewBag.HeaderColor = "FF004B";    
+    }
+        
+    ViewBag.Title = "Login";
+}
+
+
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -16,7 +33,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,400italic" rel="stylesheet">
     </head>
     <body>
-        <header id="header" role="header" style="background: #FF004B;">
+        <header id="header" role="header" style="background: #@ViewBag.HeaderColor;">
             <div class="container">
                 <div id="top" class="row">
                     <div class="col-md-6">
