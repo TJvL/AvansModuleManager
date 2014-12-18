@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using ModuleManager.DomainDAL;
+﻿using ModuleManager.DomainDAL;
+using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.Controllers.Api.Interfaces
 {
     public interface IModuleApiController
     {
-        IEnumerable<Module> GetOverview(string argument);
-        string ExportOverview(string argument);
+        ModuleListViewModel GetOverview(FilterAndSortingViewModel arguments);
+        string ExportOverview(ExportViewModel arguments);
         Module GetOne(string key);
         bool Delete(Module entity);
         bool Edit(Module entity);

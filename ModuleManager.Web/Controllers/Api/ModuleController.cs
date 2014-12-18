@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Http;
+﻿using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.UnitOfWork;
 using ModuleManager.Web.Controllers.Api.Interfaces;
+using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.Controllers.Api
 {
@@ -16,14 +15,14 @@ namespace ModuleManager.Web.Controllers.Api
             _moduleRepository = moduleRepository;
         }
 
-        [HttpGet, Route("api/Module/GetOverview")]
-        public IEnumerable<Module> GetOverview(string argument)
+        [HttpPost, Route("api/Module/GetOverview")]
+        public ModuleListViewModel GetOverview(FilterAndSortingViewModel arguments)
         {
             throw new System.NotImplementedException();
         }
 
-        [HttpGet, Route("api/Module/ExportOverview")]
-        public string ExportOverview(string argument)
+        [HttpPost, Route("api/Module/ExportOverview")]
+        public string ExportOverview(ExportViewModel arguments)
         {
             throw new System.NotImplementedException();
         }

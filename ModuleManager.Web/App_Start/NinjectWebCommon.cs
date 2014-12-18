@@ -80,8 +80,8 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericApiController<Competentie>>().To<CompetentieController>();
             kernel.Bind<IGenericApiController<Fase>>().To<FaseController>();
             kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
-            kernel.Bind<IGenericApiController<Module>>().To<ModuleController>();
             kernel.Bind<IGenericApiController<Tag>>().To<TagController>();
+            kernel.Bind<IModuleApiController>().To<ModuleController>();
         }        
     }
 }
