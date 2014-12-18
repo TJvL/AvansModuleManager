@@ -43,7 +43,12 @@
                         <ul class="user-nav">
                             <li><a href="#">Help</a></li>
                             <li class="divider">|</li>
-                            <li><a href="@Url.Action("Login", "Home")"><i class="fa fa-user"></i> Inloggen</a></li>
+                            @if (!User.Identity.IsAuthenticated) { 
+                                <li><a href="@Url.Action("Login", "Home")"><i class="fa fa-user"></i> Inloggen</a></li>
+                            }
+                            else{
+                                <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-user"></i> Uitloggen</a></li>                             
+                            }
                         </ul>
                     </div>
                 </div>
