@@ -15,7 +15,7 @@
             </div>
 
             <div class="col-md-12">
-                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competence-modal">Toevoegen</button>
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competentie-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Competenties</h3>
                 <table class="table table-hover">
                     <tbody>
@@ -237,8 +237,38 @@
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/Curriculum.cshtml", null);
 
+<!-- Competentie toevoegen MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Add.cshtml", null);
+
+<!-- Competentie bewerken MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Edit.cshtml", null);
+
+<!-- Competentie verwijderen MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Delete.cshtml", null);
+
+<!-- Leerlijn toevoegen MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null);
+
+<!-- Leerlijn bewerken MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null);
+
+<!-- Leerlijn verwijderen MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null);
+
+<!-- Tags toevoegen MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Add.cshtml", null);
+
+<!-- Tags bewerken MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Edit.cshtml", null);
+
+<!-- Tags verwijderen MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Delete.cshtml", null);
+
 <!-- Module toevoegen MODAL-->
 @Html.Partial("~/Views/Admin/Curriculum/Module/Add.cshtml", null);
+
+<!-- Module verwijderen MODAL-->
+@Html.Partial("~/Views/Admin/Curriculum/Module/Delete.cshtml", null);
 
 <!-- JAVA MEUK -->
 @section Scripts {
