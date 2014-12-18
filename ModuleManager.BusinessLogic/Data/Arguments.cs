@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 namespace ModuleManager.BusinessLogic.Data
 {
     /// <summary>
-    /// Generic class with shared data that can be used to filter anything.
+    /// Any and All arguments to filter and sort anything.
     /// </summary>
-    /// <remarks>
-    /// This class cannot be instantiated, instead, it is used by the more conctrete argument classes. (e.g. ModuleAgruments)
-    /// </remarks>
-    public abstract class Arguments
+    public class Arguments
     {
         /// <summary>
         /// Bevat kolomnamen voor sorteren, met aflopende prioriteit
@@ -26,5 +23,42 @@ namespace ModuleManager.BusinessLogic.Data
         /// Algemene zoekterm
         /// </summary>
         public string Zoekterm { get; set; }
+
+        /// <summary>
+        /// Geselecteerde/mogelijke competentie(s) om op te filteren
+        /// </summary>
+        public ICollection<string> CompetentieFilter { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke competentieniveau(s) om op te filteren
+        /// </summary>
+        public ICollection<string> CompetentieNiveauFilter { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke tag(s) om op te filteren
+        /// </summary>
+        public ICollection<string> TagFilter { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke leerlijn(en) om op te filteren
+        /// </summary>
+        public ICollection<string> LeerlijnFilter { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke blok(ken) om op te filteren
+        /// </summary>
+        public ICollection<int> Blokken { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke fasenaam(namen) om op te filteren
+        /// </summary>
+        public ICollection<string> FaseNamen { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke Leerjaar om op te filteren
+        /// </summary>
+        public int Leerjaren { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke EC(s) om op te filteren
+        /// </summary>
+        public ICollection<int> ECs { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke status om op te filteren
+        /// </summary>
+        public string Status1 { get; set; }
     }
 }

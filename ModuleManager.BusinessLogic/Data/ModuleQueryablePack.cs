@@ -14,15 +14,25 @@ namespace ModuleManager.BusinessLogic.Data
     /// <remarks>
     /// This implementation offers a collection of Data together with Arguments. The arguments are used to manipulate the data into a manageable chunk of data.
     /// </remarks>
-    public class ModuleQueryablePack : IQueryablePack
+    public class ModuleQueryablePack : IQueryablePack<Module>
     {
-        public ModuleArguments Args { get; private set; }
-        public IQueryable<Module> Data { get; private set; }
+        private readonly IQueryable<Module> _data;
+        private readonly Arguments _args;
 
-        public ModuleQueryablePack(IQueryable<Module> data, ModuleArguments args) 
+        public Arguments Args
         {
-            Args = args;
-            Data = data;
+            get { return _args; }
+        }
+
+        public IQueryable<Module> Data
+        {
+            get { return _data; }
+        }
+
+        public ModuleQueryablePack(Arguments args, IQueryable<Module> data) 
+        {
+            this._data = data;
+            this._args = args;
         }
     }
 }

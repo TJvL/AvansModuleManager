@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Services
 {
-    public class ModuleFilterService : IFilterService
+    public class ModuleFilterService : IFilterService<Module>
     {
-        public IEnumerable<Module> Filter(ModuleQueryablePack toQuery)
+        public IEnumerable<Module> Filter(IQueryablePack<Module> toQuery)
         {
             throw new NotImplementedException();
         }
