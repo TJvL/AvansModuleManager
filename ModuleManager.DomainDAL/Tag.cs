@@ -7,19 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
+    using System;
+    using System.Collections.Generic;
+    
 namespace ModuleManager.DomainDAL {
     public partial class Tag {
         public Tag() {
             this.Module = new HashSet<Module>();
         }
-
+    
         public string Naam { get; set; }
-        public DateTime Schooljaar { get; set; }
-        public string Beschrijving { get; set; }
-
+        public int Schooljaar { get; set; }
+    
         public virtual ICollection<Module> Module { get; set; }
     }
 }

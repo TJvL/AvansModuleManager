@@ -7,22 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
+    using System;
+    using System.Collections.Generic;
+    
 namespace ModuleManager.DomainDAL {
     public partial class Fase {
         public Fase() {
             this.FaseModules = new HashSet<FaseModules>();
         }
-
+    
         public string Naam { get; set; }
-        public DateTime Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
         public string Beschrijving { get; set; }
         public string FaseType { get; set; }
         public string OpleidingNaam { get; set; }
-        public DateTime OpleidingSchooljaar { get; set; }
-
+        public int OpleidingSchooljaar { get; set; }
+    
+        public virtual FaseType FaseType1 { get; set; }
         public virtual Opleiding Opleiding { get; set; }
         public virtual ICollection<FaseModules> FaseModules { get; set; }
     }

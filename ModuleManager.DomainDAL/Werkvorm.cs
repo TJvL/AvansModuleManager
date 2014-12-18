@@ -7,18 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace ModuleManager.DomainDAL
+{
     using System;
     using System.Collections.Generic;
     
-namespace ModuleManager.DomainDAL {
-    public partial class Leerlijn {
-        public Leerlijn() {
-            this.Module = new HashSet<Module>();
+    public partial class Werkvorm
+    {
+        public Werkvorm()
+        {
+            this.ModuleWerkvorm = new HashSet<ModuleWerkvorm>();
         }
     
-        public string Naam { get; set; }
-        public int Schooljaar { get; set; }
+        public string Type { get; set; }
+        public string Omschrijving { get; set; }
     
-        public virtual ICollection<Module> Module { get; set; }
+        public virtual ICollection<ModuleWerkvorm> ModuleWerkvorm { get; set; }
     }
 }
