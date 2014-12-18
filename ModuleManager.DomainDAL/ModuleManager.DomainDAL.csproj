@@ -52,7 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Beoordelingen.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Competentie.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Docent.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Fase.cs">
@@ -65,7 +71,16 @@
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Icons.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Leerdoelen.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Leerlijn.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Leermiddelen.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Module.cs">
@@ -89,6 +104,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModuleManagerDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ModuleWerkvorm.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Niveau.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -109,6 +127,9 @@
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Weekplanning.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Werkvorm.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>

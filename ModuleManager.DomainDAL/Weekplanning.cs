@@ -15,7 +15,7 @@ namespace ModuleManager.DomainDAL
     public partial class Weekplanning
     {
         public string CursusCode { get; set; }
-        public System.DateTime Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
         public int Id { get; set; }
         public string Week { get; set; }
         public string Onderwerp { get; set; }

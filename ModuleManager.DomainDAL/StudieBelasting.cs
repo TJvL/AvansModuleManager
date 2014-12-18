@@ -15,7 +15,7 @@ namespace ModuleManager.DomainDAL
     public partial class StudieBelasting
     {
         public string CursusCode { get; set; }
-        public System.DateTime Schooljaar { get; set; }
+        public int Schooljaar { get; set; }
         public int Id { get; set; }
         public string Activiteit { get; set; }
         public string Duur { get; set; }

@@ -12,13 +12,12 @@ namespace ModuleManager.DomainDAL
     using System;
     using System.Collections.Generic;
     
-    public partial class StudiePunten
+    public partial class Docent
     {
         public string CursusCode { get; set; }
         public int Schooljaar { get; set; }
-        public string ToetsCode { get; set; }
-        public decimal EC { get; set; }
-        public string Minimum { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     
         public virtual Module Module { get; set; }
     }

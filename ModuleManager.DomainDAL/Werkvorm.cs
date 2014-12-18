@@ -12,14 +12,16 @@ namespace ModuleManager.DomainDAL
     using System;
     using System.Collections.Generic;
     
-    public partial class StudiePunten
+    public partial class Werkvorm
     {
-        public string CursusCode { get; set; }
-        public int Schooljaar { get; set; }
-        public string ToetsCode { get; set; }
-        public decimal EC { get; set; }
-        public string Minimum { get; set; }
+        public Werkvorm()
+        {
+            this.ModuleWerkvorm = new HashSet<ModuleWerkvorm>();
+        }
     
-        public virtual Module Module { get; set; }
+        public string Type { get; set; }
+        public string Omschrijving { get; set; }
+    
+        public virtual ICollection<ModuleWerkvorm> ModuleWerkvorm { get; set; }
     }
 }
