@@ -23,12 +23,11 @@
 
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <select class="form-control" id="status">
-                            <option></option>
-                            <option>Nieuw</option>
-                            <option>Incompleet</option>
-                            <option selected="selected">Compleet (ongecontroleerd)</option>
-                        </select>
+                        <div id="status" class="checkbox" style="padding-left: 10px;">
+                            <label>
+                                <input name="status" type="checkbox"> Compleet?
+                            </label>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -37,7 +36,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="competenties">Competenties</label>
+                        <label for="competenties">Competenties <label style="color: red;">(TODO: Niveau selecteren)</label></label>
                         <select class="form-control" id="competenties" multiple>
                             <option>Procesanalyse uitvoeren (Beginner)</option>
                             <option>Informatieanalyse uitvoeren (Expert)</option>
@@ -48,8 +47,7 @@
 
                     <div class="form-group">
                         <label for="leerlijn">Leerlijnen</label>
-                        <select class="form-control" id="leerlijn">
-                            <option></option>
+                        <select class="form-control" id="leerlijn" multiple>
                             <option>Programmeren</option>
                             <option>Moduleren</option>
                             <option>Databases</option>
@@ -71,18 +69,6 @@
 
                         <table class="table table-bordered table-center table-striped">
                             <tbody>
-                                <tr>
-                                    <th>Programma</th>
-                                    <td>
-                                        ???
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Omschrijving</th>
-                                    <td>
-                                        ???
-                                    </td>
-                                </tr>
                                 <tr>
                                     <th style="min-width: 250px;"><label for="werkvorm">Werkvorm</label></th>
                                     <td>
@@ -165,7 +151,42 @@
                                 <tr>
                                     <th>Organisatie</th>
                                     <td>
-                                        <textarea type="text" class="form-control" rows="5"></textarea>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Toelichting op de werkvormen 'Workshop' en 'Hoorcollege':</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>In de workshop wordt door de docent steeds een korte toelichting op een volgend stuk lesstof gegeven,
+                                                        waarna dit meteen in de praktijk gebracht wordt via (een of meer) oefeningen tijdens de workshop. De docent
+                                                        begeleidt de studenten daarbij en geeft (individuele of groeps-) feedback. Iedere workshop wordt afgesloten
+                                                        met het uitreiken van een weekopdracht, die de studenten in duo’s moeten maken. Naast de informatie die tijdens
+                                                        de workshops overgedragen wordt, zal de student ook veel moeten leren door zelfstudie. Voor de workshops is
+                                                        aanwezigheid verplicht.
+                                                    </td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Gedurende het hoorcollege wordt het onderwerp “Wat gebruik ik wanneer?” uitgewerkt.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Organisatie">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                                            </span>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -344,7 +365,7 @@
                                 <tr>
                                     <th>Voorkennis</th>
                                     <td>
-                                        ???
+                                        <label style="color: red;">TODO: Github issue #35</label>
                                     </td>
                                 </tr>
                             </tbody>
@@ -366,10 +387,6 @@
     <script>
         $(function () {
             // SELECT2
-            $("#status").select2({
-                placeholder: "Status"
-            });
-
             $("#competenties").select2({
                 placeholder: "Competenties"
             });
