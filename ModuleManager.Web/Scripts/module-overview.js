@@ -1,10 +1,12 @@
-﻿$(function () {
+﻿var table;
+
+$(function () {
 
     /* Disable closing toggle-columns on click */
     $("body").on("click", ".dropdown-menu", function (e) {
         e.stopPropagation();
     });
-        
+
     init_datatable();
     init_toggle_columns();
     init_select_all();
@@ -12,8 +14,14 @@
 });
 
 function init_datatable() {
+
+    $('#modules tfoot th').each(function () {
+        var title = $('#modules thead th').eq($(this).index()).text();
+        $(this).html('<input class="form-control" style="width:100%;" type="text" placeholder="' + title + '" />');
+    });
+
     /* Datatables */
-    var table = $("#modules").dataTable({
+    table = $("#modules").DataTable({
         dom:
             "<'row'<'col-sm-6'l><'col-sm-6 toolbar text-right'>>" +
             "<'row'<'col-sm-12'tr>>" +
@@ -80,8 +88,45 @@ function init_datatable() {
 
             $(".toolbar").append($("#toggle-columns"));
             $("#toggle-columns").show();
+
+            init_filters();
+
         }
     });
+
+}
+
+function init_filters() {
+
+    var api = $("#modules").dataTable().api();
+
+    /* Search */
+    $('.search-query').keyup(function () {
+        table.search($(this).val()).draw();
+    });
+    
+    /* Block */
+    $("#block select").on('change', function () {
+/*        var val = $.fn.dataTable.util.escapeRegex(
+            $(this).val()
+        );*/
+        api.column(3)
+            //.search(val ? '^' + val + '$' : '', true, false)
+            .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
+            .draw();
+    });
+
+    /* Leerjaar */
+    $("#fase select").on('change', function () {
+/*        var val = $.fn.dataTable.util.escapeRegex(
+            $(this).val()
+        );*/
+        api.column(4)
+            //.search(val ? '^' + val + '$' : '', true, false)
+            .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
+            .draw();
+    });
+
 }
 
 function init_toggle_columns() {
@@ -108,3 +153,4 @@ function init_select_all() {
 
     });
 }
+
