@@ -251,9 +251,17 @@ ul.dropdown-menu-form {
     padding: 5px 30px 0;
     max-height: 300px;
     overflow-y: scroll;
+    min-width: 200px;
     
 }
 
 .dropdown-menu .checkbox {
 	font-weight: 300;
+}
+
+div.dataTables_paginate {
+    float: left !important;
+}
+.dataTables_info {
+    text-align: right;
 }
