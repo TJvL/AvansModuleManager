@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
-using AutoMapper;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.DomainDAL;
@@ -26,15 +24,8 @@ namespace ModuleManager.Web.Controllers.Api
         public ModuleListViewModel GetOverview(Arguments arguments)
         {
             var modules = _moduleRepository.GetAll();
-            var moduleListVm = new ModuleListViewModel(modules.Count());
-            var processedData = _filterSorterService.ProcessData(new ModuleQueryablePack(arguments, modules as IQueryable<Module>));
-
-            var returnData = new Collection<ModuleViewModel>();
-            foreach (var m in processedData)
-            {
-                returnData.Add(Mapper.Map<Module, ModuleViewModel>(m));
-            }
-            moduleListVm.Modules = returnData;
+            var enumerable = modules as Module[] ?? modules.ToArray();
+            var moduleListVm = new ModuleListViewModel(10) { Modules = enumerable };
 
             return moduleListVm;
         }
