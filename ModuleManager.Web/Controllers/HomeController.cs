@@ -9,7 +9,7 @@ namespace ModuleManager.Web.Controllers {
             return View();
         }
 
-        [HttpGet]
+        [HttpGet, Route("Home/Login")]
         public ActionResult Login() {
             return View();
         }

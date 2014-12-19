@@ -1,52 +1,49 @@
 ﻿using System.Collections.Generic;
-namespace ModuleManager.Web.ViewModels.PartialViewModel {
+
+namespace ModuleManager.Web.ViewModels.PartialViewModel
+{
 
     /// <summary>
-    /// Deze klasse heeft twee functies:
-    ///     - Doorgeven aan de views, welke filtermogelijkheden er zijn en welke kolommen mogelijk zijn voor weergave
-    ///     - Het accepteren van de, door de gebruikers geselecteerde, filters/sorters aan de back-end
+    /// Bevat informatie over de filters zodat de betreffende view weet welke filter mogelijkheden een bepaald overzicht heeft
     /// </summary>
-    public class FilterOptionsViewModel {
-
+    /// <remarks>Als een property null is zal dit geen filter optie zijn voor het betreffende overzicht.</remarks>
+    public class FilterOptionsViewModel
+    {
         /// <summary>
-        /// Geselecteerde/mogelijke competentie(s) om op te filteren
+        /// Mogelijke competentie(s) om op te filteren
         /// </summary>
-        public ICollection<string> CompetentieFilter { get; set; }
+        public IEnumerable<string> CompetentieFilter { get; set; }
         /// <summary>
-        /// Geselecteerde/mogelijke competentieniveau(s) om op te filteren
+        /// Mogelijke competentieniveau(s) om op te filteren
         /// </summary>
-        public ICollection<string> CompetentieNiveauFilter { get; set; }
+        public IEnumerable<string> CompetentieNiveauFilter { get; set; }
         /// <summary>
-        /// Geselecteerde/mogelijke tag(s) om op te filteren
+        /// Mogelijke tag(s) om op te filteren
         /// </summary>
-        public ICollection<string> TagFilter { get; set; }
+        public IEnumerable<string> TagFilter { get; set; }
         /// <summary>
-        /// Geselecteerde/mogelijke leerlijn(en) om op te filteren
+        /// Mogelijke leerlijn(en) om op te filteren
         /// </summary>
-        public ICollection<string> LeerlijnFilter { get; set; }
+        public IEnumerable<string> LeerlijnFilter { get; set; }
         /// <summary>
-        /// Zoekterm om op te filteren
+        /// Mogelijke fasenaam(namen) om op te filteren
         /// </summary>
-        public string Zoekterm { get; set; }
+        public IEnumerable<string> FaseNamen { get; set; }
         /// <summary>
-        /// Geselecteerde/mogelijke blok(ken) om op te filteren
+        /// Mogelijke status(en) om op te filteren
         /// </summary>
-        public ICollection<int> Blokken { get; set; }
+        public IEnumerable<string> Status1 { get; set; }
         /// <summary>
-        /// Geselecteerde/mogelijke fasenaam(namen) om op te filteren
+        /// Mogelijke blok(ken) om op te filteren
         /// </summary>
-        public ICollection<string> FaseNamen { get; set; }
+        public IEnumerable<int> Blokken { get; set; }
         /// <summary>
-        /// Geselecteerde/mogelijke Leerjaar om op te filteren
+        /// Mogelijke Leerjaar(jaren) om op te filteren
         /// </summary>
-        public int Leerjaren { get; set; }
+        public IEnumerable<int> Leerjaren { get; set; }
         /// <summary>
-        /// Geselecteerde/mogelijke EC(s) om op te filteren
+        /// Mogelijke EC(s) om op te filteren
         /// </summary>
-        public ICollection<int> ECs { get; set; }
-        /// <summary>
-        /// Geselecteerde/mogelijke status om op te filteren
-        /// </summary>
-        public string Status1 { get; set; }
+        public IEnumerable<double> ECs { get; set; }
     }
 }
