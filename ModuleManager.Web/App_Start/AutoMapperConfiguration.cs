@@ -1,7 +1,7 @@
 ﻿using ModuleManager.DomainDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 
-namespace ModuleManager.Web.App_Start
+namespace ModuleManager.Web
 {
     public static class AutoMapperConfiguration
     {

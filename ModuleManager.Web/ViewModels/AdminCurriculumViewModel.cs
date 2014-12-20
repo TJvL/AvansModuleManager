@@ -2,9 +2,10 @@
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.DomainDAL;
 
-namespace ModuleManager.Web.ViewModels {
-    public class AdminCurriculumViewModel {
-
+namespace ModuleManager.Web.ViewModels
+{
+    public class AdminCurriculumViewModel
+    {
         /// <summary>
         /// Bevat alle tags om weer te geven
         /// </summary>

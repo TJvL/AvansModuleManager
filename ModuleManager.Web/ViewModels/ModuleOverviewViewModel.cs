@@ -1,8 +1,9 @@
 ﻿using ModuleManager.Web.ViewModels.PartialViewModel;
 
-namespace ModuleManager.Web.ViewModels {
-    public class ModuleOverviewViewModel {
-
+namespace ModuleManager.Web.ViewModels
+{
+    public class ModuleOverviewViewModel
+    {
         /// <summary>
         /// Module-informatie zichtbaar in het overview
         /// </summary>

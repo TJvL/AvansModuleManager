@@ -1,8 +1,9 @@
 ﻿using ModuleManager.Web.ViewModels.PartialViewModel;
 
-namespace ModuleManager.Web.ViewModels {
-    public class AdminCheckModuleViewModel {
-
+namespace ModuleManager.Web.ViewModels
+{
+    public class AdminCheckModuleViewModel
+    {
         /// <summary>
         /// Module-informatie zichtbaar in het overview
         /// </summary>
