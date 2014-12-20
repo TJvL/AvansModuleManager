@@ -1,11 +1,12 @@
-﻿using ModuleManager.DomainDAL;
+﻿using ModuleManager.BusinessLogic.Data;
+using ModuleManager.DomainDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.Controllers.Api.Interfaces
 {
     public interface IModuleApiController
     {
-        ModuleListViewModel GetOverview(FilterAndSortingViewModel arguments);
+        ModuleListViewModel GetOverview(Arguments arguments);
         string ExportOverview(ExportViewModel arguments);
         Module GetOne(string key);
         bool Delete(Module entity);

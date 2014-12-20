@@ -1,41 +1,76 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.DomainDAL.UnitOfWork;
-
 namespace ModuleManager.DomainDAL.Repositories
 {
     public class DummyLeerlijnRepository : IGenericRepository<Leerlijn>
     {
-        private readonly IUnitOfWork _session;
+        private readonly ICollection<Leerlijn> _leerlijnen;
 
-        public DummyLeerlijnRepository(IUnitOfWork session)
+        public DummyLeerlijnRepository()
         {
-            _session = session;
+            _leerlijnen = new List<Leerlijn>
+			{
+				new Leerlijn
+				{
+					Naam = "Algoritmiek",
+					Schooljaar = 1415
+				},
+				new Leerlijn
+				{
+					Naam = "Design Principles",
+					Schooljaar = 1415
+				},
+				new Leerlijn
+				{
+					Naam = "Databases",
+					Schooljaar = 1415
+				},
+				new Leerlijn
+				{
+					Naam = "Programmeren",
+					Schooljaar = 1415
+				},
+				new Leerlijn
+				{
+					Naam = "Console-programmas",
+					Schooljaar = 1415
+				}
+			};
         }
-
-        public IQueryable<Leerlijn> GetAll()
+        public IEnumerable<Leerlijn> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _leerlijnen;
         }
 
         public Leerlijn GetOne(string key)
         {
-            throw new System.NotImplementedException();
+            return (_leerlijnen.Where(leerlijn => leerlijn.Naam.Equals(key))).First();
         }
 
         public bool Create(Leerlijn entity)
         {
-            throw new System.NotImplementedException();
+            if (_leerlijnen != null)
+            {
+                _leerlijnen.Add(entity);
+                return true;
+            }
+            return false;
         }
 
         public bool Delete(Leerlijn entity)
         {
-            throw new System.NotImplementedException();
+            return _leerlijnen.Remove(entity);
         }
 
         public bool Edit(Leerlijn entity)
         {
-            throw new System.NotImplementedException();
+            Leerlijn oldComp = (_leerlijnen.Where(leerlijn => leerlijn.Naam.Equals(entity.Naam))).First();
+            if (Delete(oldComp))
+            {
+                return Create(entity);
+            }
+            return false;
         }
     }
 }

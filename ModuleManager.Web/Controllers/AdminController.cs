@@ -1,12 +1,17 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using ModuleManager.BusinessLogic.Data;
 using ModuleManager.DomainDAL;
 using ModuleManager.Web.Controllers.Api.Interfaces;
+using ModuleManager.Web.ViewModels;
+using ModuleManager.Web.ViewModels.PartialViewModel;
 
-namespace ModuleManager.Web.Controllers {
+namespace ModuleManager.Web.Controllers
+{
 
     public class AdminController : Controller
     {
-
+        // TODO: Implementeer de User API om user data op te halen voor display.
         private readonly IModuleApiController _moduleApi;
         private readonly IGenericApiController<Competentie> _competentieApi;
         private readonly IGenericApiController<Leerlijn> _leerlijnApi;
@@ -23,33 +28,82 @@ namespace ModuleManager.Web.Controllers {
             _tagApi = tagApi;
             _faseApi = faseApi;
         }
-        
-        [HttpGet]
-        public ActionResult Index() {
-            //Overview page
+
+        [HttpGet, Route("Admin/Index")]
+        public ActionResult Index()
+        {
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Curriculum() {
-            //Toevoegen/verwijderen/bewerken van leerijnen, tags en competenties doormiddel van pop-up??
-            //Toevoegen van Module is aparte POST
-            return View();
+        [HttpGet, Route("Admin/Curriculum")]
+        public ActionResult Curriculum()
+        {
+            var adminCurriculumVm = new AdminCurriculumViewModel
+            {
+                Competenties = _competentieApi.GetAll(),
+                Leerlijn = _leerlijnApi.GetAll(),
+                Tags = _tagApi.GetAll(),
+                Fases = _faseApi.GetAll(),                //TODO: Toevoegen van start filter argumenten?
+                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                FilterOptions = new FilterOptionsViewModel
+                {   // TODO: Vervang deze code door een call naar de relevante database tabellen.
+                    Blokken = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 },
+                    FaseNamen =
+                        new List<string>
+                        {
+                            "Software Ontwikeling - Major", 
+                            "Software Architectuur - Minor", 
+                            "Informatica - Propedeuse"
+                        }
+                }
+            };
+            return View(adminCurriculumVm);
         }
 
+<<<<<<< HEAD
         [HttpGet]
         public ActionResult UserOverview() {
+=======
+        [HttpGet, Route("Admin/UserManagement")]
+        public ActionResult UserManagement()
+        {
+            // TODO: Implementeer ViewModel en return deze.
+>>>>>>> origin/master_development
             return View();
         }
 
-        [HttpGet]
-        public ActionResult CheckModules() {
-            //herinneringen sturen doormiddel van pop-up/api??
-            return View();
+        [HttpGet, Route("Admin/CheckModules")]
+        public ActionResult CheckModules()
+        {
+            var moduleOverviewVm = new ModuleOverviewViewModel
+            {
+                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                FilterOptions = new FilterOptionsViewModel
+                {   // TODO: Vervang deze code door een call naar de relevante database tabellen.
+                    Blokken = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 },
+                    FaseNamen =
+                        new List<string>
+                        {
+                            "Software Ontwikeling - Major",
+                            "Software Architectuur - Minor",
+                            "Informatica - Propedeuse"
+                        },
+                    Status1 = 
+                        new List<string>
+                        {
+                            "Compleet (ongecontroleerd)",
+                            "Compleet (gecontroleerd",
+                            "Incompleet",
+                            "Nieuw"
+                        }
+                }
+            };
+            return View(moduleOverviewVm);
         }
 
-        [HttpGet]
-        public ActionResult Archive() {
+        [HttpGet, Route("Admin/Archive")]
+        public ActionResult Archive()
+        {
             return View();
         }
     }
