@@ -60,15 +60,11 @@ namespace ModuleManager.Web.Controllers
             return View(adminCurriculumVm);
         }
 
-<<<<<<< HEAD
-        [HttpGet]
-        public ActionResult UserOverview() {
-=======
-        [HttpGet, Route("Admin/UserManagement")]
-        public ActionResult UserManagement()
+
+        [HttpGet, Route("Admin/UserOverview")]
+        public ActionResult UserOverview()
         {
             // TODO: Implementeer ViewModel en return deze.
->>>>>>> origin/master_development
             return View();
         }
 
