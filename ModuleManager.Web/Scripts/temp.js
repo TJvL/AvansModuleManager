@@ -1,39 +1,4 @@
-﻿/* 
- * Controller:  Module/Overview 
- * View:        Module/Overview
- */
-$(function () {
-    // THIS FOR ALL OVERVIEWS
-    $(".item").on("click", function () {
-        window.location = $(this).data("href");
-    });
-
-    //
-    $('.dropdown-menu').on('click', function (e) {
-        if ($(this).hasClass('dropdown-menu-form')) {
-            e.stopPropagation();
-        }
-    });
-
-});
-
-/* 
- * Controller:  Admin/Curriculum 
- * View:        Admin/Curriculum
- */
-$(function () {
-    $('#module-modal').on('show.bs.modal', function(e) {});
-})
-
-/* 
- * Controller:  Module/Edit 
- * View:        Module/Edit
- */
-$(function () {
-    $("#werkvorm").select2();
-});
-
-/*
+﻿/*
  * TEMP
  * TEMP: BackgroundColor in Header
  * TEMP

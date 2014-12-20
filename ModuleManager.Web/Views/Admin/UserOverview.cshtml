@@ -51,7 +51,7 @@
                             <td>Henk van der Sangen</td>
                             <td>henk@vdsangen.nl</td>
                             <td>Gebruiker</td>
-                            <td style="width: 130px">
+                            <td class="actions" style="width: 130px">
                                 <a href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
                                 <a href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
                                 <a href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
@@ -60,7 +60,29 @@
                     </tbody>
                 </table>
             </div>
-
         </div><!-- /#primary -->
     </div>
 </div>
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/UserOverview.cshtml", null);
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    <script>
+        $(function() {
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function() {
+                if (!$(this).hasClass("actions")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
+
+            $('.dropdown-menu').on('click', function(e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
+        });
+    </script>
+}

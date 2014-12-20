@@ -60,8 +60,9 @@ namespace ModuleManager.Web.Controllers
             return View(adminCurriculumVm);
         }
 
-        [HttpGet, Route("Admin/UserManagement")]
-        public ActionResult UserManagement()
+
+        [HttpGet, Route("Admin/UserOverview")]
+        public ActionResult UserOverview()
         {
             // TODO: Implementeer ViewModel en return deze.
             return View();
