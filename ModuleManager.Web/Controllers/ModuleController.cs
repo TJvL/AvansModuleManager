@@ -163,7 +163,6 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{cursusCode}")]
         public ActionResult Details(string cursusCode)
         {
-            cursusCode = "INMODL312345"; // TEMP
             return View(_moduleApi.GetOne(cursusCode));
         }
 
@@ -176,7 +175,6 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Edit/{cursusCode}")]
         public ActionResult Edit(string cursusCode)
         {
-            cursusCode = "INMODL312345"; // TEMP
             return View(_moduleApi.GetOne(cursusCode));
         }
 
