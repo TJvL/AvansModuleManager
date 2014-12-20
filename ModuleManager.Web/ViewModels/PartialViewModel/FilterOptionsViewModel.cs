@@ -13,7 +13,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     public class FilterOptionsViewModel
     {
 
-
         public void AddCompetenties(IEnumerable<Competentie> competentieList)
         {
             CompetentieFilter = competentieList
