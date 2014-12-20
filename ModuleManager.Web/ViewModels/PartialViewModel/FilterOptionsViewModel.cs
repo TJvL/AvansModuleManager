@@ -38,23 +38,25 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
                 .ToList();
         }
 
-        public void AddBlokken(IEnumerable<FaseModules> faseModuleList)
+        public void AddBlokken(IEnumerable<FaseModules> faseModuleList) //
         {
             Blokken = faseModuleList
                 .Select(faseModule => int.Parse(faseModule.Blok))
                 .ToList();
         }
 
-        public void AddFases(IEnumerable<Fase> faseList) // Zie property 'FaseNamen'
+        public void AddFases(IEnumerable<Fase> faseList)
         {
             FaseNamen = faseList
-                .DistinctBy(fase => fase.FaseType)
-                .Select(fase => fase.FaseType)
+                .Select(fase => fase.Naam)
                 .ToList();
+        }
 
-            //FaseNamen = faseList
-            //    .Select(fase => fase.Naam)
-            //    .ToList();
+        public void AddLeerjaren() // no clue?!
+        {
+            //
+            // TODO: MAKEN DEZE SHIZZLE
+            //
         }
 
         public void AddECs(IEnumerable<Module> moduleList) // Zie property 'ECs'
@@ -71,12 +73,11 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
                 .ToList();
         }
 
-        public void AddStatuses(IEnumerable<Status> statusList) // Zie property 'Status1'
+        public void AddStatuses(IEnumerable<Status> statusList)
         {
-            Status1 = statusList
+            Statussen = statusList
                 .Select(status => status.Status1)
-                .First();
-            //.ToList(); // vervangen met .First(); dit kan nu niet omdat 'Status1' een string is i.p.v. IEnumerable<string>
+                .ToList();
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Geselecteerde/mogelijke fasenaam(namen) om op te filteren
         /// </summary>
-        public ICollection<string> FaseNamen { get; set; } // is dit namen (vb. softwareontwikkeling, businessintelligence, software architectuur) of types (vb. minor, major, prop)
+        public ICollection<string> FaseNamen { get; set; }
         /// <summary>
         /// Geselecteerde/mogelijke Leerjaar om op te filteren
         /// </summary>
@@ -118,6 +119,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Geselecteerde/mogelijke status om op te filteren
         /// </summary>
-        public string Status1 { get; set; } // hoe wordt dir meegegeven? moet dit een list<string> worden? om de filter te vullen?
+        public ICollection<string> Statussen { get; set; }
     }
 }

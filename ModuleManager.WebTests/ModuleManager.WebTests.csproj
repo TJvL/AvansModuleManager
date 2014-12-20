@@ -61,7 +61,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Viewmodel_Mapping\ViewmodelMappingTests.cs" />
+    <Compile Include="Viewmodel_Mapping\FilterOptionsMappingTests.cs" />
+    <Compile Include="Viewmodel_Mapping\ModuleMappingTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj">
