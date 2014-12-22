@@ -119,6 +119,8 @@
     <Compile Include="Repositories\DummyFaseRepository.cs" />
     <Compile Include="Repositories\DummyLeerlijnRepository.cs" />
     <Compile Include="Repositories\DummyModuleRepository.cs" />
+    <Compile Include="Repositories\DummyNiveauRepository.cs" />
+    <Compile Include="Repositories\DummyStatusRepository.cs" />
     <Compile Include="Repositories\DummyTagRepository.cs" />
     <Compile Include="Status.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>

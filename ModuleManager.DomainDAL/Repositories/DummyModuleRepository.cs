@@ -11,6 +11,7 @@ namespace ModuleManager.DomainDAL.Repositories
         {
             _modules = new List<Module>
 			{
+                #region first module
 				new Module
 				{
 					CursusCode = "INMODL312345",
@@ -278,6 +279,8 @@ namespace ModuleManager.DomainDAL.Repositories
 						}
 					}
 				},
+                #endregion
+                #region second module
 				new Module
 				{
 				    CursusCode = "IN_ALG612345",
@@ -285,18 +288,18 @@ namespace ModuleManager.DomainDAL.Repositories
 				    Status = "Compleet(gecontroleerd)",
 				    Beoordelingen = new List<Beoordelingen>
 				    {
-				    new Beoordelingen
-				    {
-				        CursusCode = "IN_ALG612345",
-				        Id = 1,
-				        Beschrijving = "ALG-TH: Tentamen voor Modelleren 3, Minimaal een 4"
-				    },
-				    new Beoordelingen
-				    {
-				        CursusCode = "IN_ALG612345",
-				        Id = 2,
-				        Beschrijving = "ALG-PR: Voor alle opdrachten van de workshops moeten minimaal een 4 gehaald worden"
-				    }
+				        new Beoordelingen
+				        {
+				            CursusCode = "IN_ALG612345",
+				            Id = 1,
+				            Beschrijving = "ALG-TH: Tentamen voor Modelleren 3, Minimaal een 4"
+				        },
+				        new Beoordelingen
+				        {
+				            CursusCode = "IN_ALG612345",
+				            Id = 2,
+				            Beschrijving = "ALG-PR: Voor alle opdrachten van de workshops moeten minimaal een 4 gehaald worden"
+				        }
 				    },
 				    Schooljaar = 1415,
 				    Beschrijving = "Dit is de module voor Algoritmiek 3000S." +
@@ -392,6 +395,16 @@ namespace ModuleManager.DomainDAL.Repositories
 				            ModuleCursusCode = "IN_ALG612345",
 				            ModuleSchooljaar = 1415,
 				            Blok = "3",
+				            OpleidingNaam = "Informatica",
+				            OpleidingSchooljaar = 1415
+				        },
+                        new FaseModules
+				        {
+				            FaseNaam = "Software Testin",
+				            FaseSchooljaar = 1415,
+				            ModuleCursusCode = "IN_ALG612345",
+				            ModuleSchooljaar = 1415,
+				            Blok = "4",
 				            OpleidingNaam = "Informatica",
 				            OpleidingSchooljaar = 1415
 				        }
@@ -541,6 +554,8 @@ namespace ModuleManager.DomainDAL.Repositories
 				        }
 				    }
 				},
+                #endregion
+                #region third module
 				new Module
 				{
 				    CursusCode = "IN_PROG4123456",
@@ -657,6 +672,26 @@ namespace ModuleManager.DomainDAL.Repositories
 				            ModuleCursusCode = "IN_PROG4123456",
 				            ModuleSchooljaar = 1415,
 				            Blok = "3",
+				            OpleidingNaam = "Informatica",
+				            OpleidingSchooljaar = 1415
+				        },
+                        new FaseModules
+				        {
+				            FaseNaam = "Business Intelligence",
+				            FaseSchooljaar = 1415,
+				            ModuleCursusCode = "IN_PROG4123456",
+				            ModuleSchooljaar = 1415,
+				            Blok = "3",
+				            OpleidingNaam = "Informatica",
+				            OpleidingSchooljaar = 1415
+				        },
+                        new FaseModules
+				        {
+				            FaseNaam = "TestFase",
+				            FaseSchooljaar = 1415,
+				            ModuleCursusCode = "IN_PROG4123456",
+				            ModuleSchooljaar = 1415,
+				            Blok = "4",
 				            OpleidingNaam = "Informatica",
 				            OpleidingSchooljaar = 1415
 				        }
@@ -790,7 +825,7 @@ namespace ModuleManager.DomainDAL.Repositories
 				        {
 				            Id = 2,
 				            CursusCode = "IN_PROG4123456",
-				            Name = "Meer man",
+				            Name = "Meer Man",
 				            Schooljaar = 1415
 				        },
 				        new Docent
@@ -800,8 +835,9 @@ namespace ModuleManager.DomainDAL.Repositories
 				            Name = "Poco de Man",
 				            Schooljaar = 1415
 				        }
-				    }	
-				}
+				    }
+                }
+                #endregion
 			};
         }
 
@@ -817,7 +853,8 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public bool Create(Module entity)
         {
-            if (_modules == null) return false;
+            if (_modules == null)
+                return false;
             _modules.Add(entity);
             return true;
         }
