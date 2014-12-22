@@ -27,6 +27,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Onderdeel van de Admin/Curriculum
         /// </summary>
-        public ICollection<FaseModules> FaseModules { get; set; } // TODO: uhm help?
+        public ICollection<FaseModules> FaseModules { get; set; }
     }
 }
