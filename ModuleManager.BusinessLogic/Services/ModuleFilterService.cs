@@ -6,24 +6,51 @@ using ModuleManager.DomainDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Services
 {
-    public class ModuleFilterService : IFilterService<Module>
+    /// <summary>
+    /// Filtering and Sorting class for use with Modules
+    /// </summary>
+    public class ModuleFilterService : IFilterService<DomainDAL.Module>
     {
-        IFilter<Module> moduleFilterStrategy;
+        IFilter<DomainDAL.Module> moduleFilterStrategy;
 
+        /// <summary>
+        /// Constructor: Builds the contained Strategy
+        /// </summary>
         public ModuleFilterService() 
         {
             moduleFilterStrategy = new ModulePassiveFilter();
+            
+            // Build Reflection Here
+            var types = from t in Assembly.GetExecutingAssembly().GetTypes()
+                        where t.IsClass && t.Namespace == "ModuleManager.BusinessLogic.Filters.ModuleFilterStack"
+                        select t;
+            Type[] typeArgs = {typeof(IFilter<DomainDAL.Module>)};
 
+            foreach (Type t in types) 
+            {
+                var ctor = t.GetConstructor(typeArgs);
+                if (ctor != null) 
+                {
+                    object[] parameters = { moduleFilterStrategy };
+                    moduleFilterStrategy = ctor.Invoke(parameters) as IFilter<DomainDAL.Module>;
+                }
+            }
         }
 
-        public IEnumerable<Module> Filter(IQueryablePack<Module> qPack)
+        /// <summary>
+        /// Operates the filtering on the input List of Modules
+        /// </summary>
+        /// <param name="qPack">Pack with Data and required Arguments</param>
+        /// <returns>List of Filtered Modules</returns>
+        public IEnumerable<DomainDAL.Module> Filter(IQueryablePack<DomainDAL.Module> qPack)
         {
-            return moduleFilterStrategy.Filter(qPack.Data, qPack.Args);
+            return moduleFilterStrategy.Filter(qPack.Data, qPack.Args) as IEnumerable<DomainDAL.Module>;
         }
     }
 }

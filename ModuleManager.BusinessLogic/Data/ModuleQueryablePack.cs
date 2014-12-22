@@ -19,16 +19,27 @@ namespace ModuleManager.BusinessLogic.Data
         private readonly IQueryable<Module> _data;
         private readonly Arguments _args;
 
+        /// <summary>
+        /// The arguments to go with the Data
+        /// </summary>
         public Arguments Args
         {
             get { return _args; }
         }
 
+        /// <summary>
+        /// The Data to query
+        /// </summary>
         public IQueryable<Module> Data
         {
             get { return _data; }
         }
 
+        /// <summary>
+        /// Constructor for the Pack
+        /// </summary>
+        /// <param name="args">Arguments apliccable to the Data</param>
+        /// <param name="data">The data to manipulate</param>
         public ModuleQueryablePack(Arguments args, IQueryable<Module> data) 
         {
             this._data = data;

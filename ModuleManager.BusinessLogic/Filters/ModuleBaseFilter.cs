@@ -10,16 +10,28 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Filters
 {
+    /// <summary>
+    /// Module Base Filter. This is Extended by all Module Filters, Except the passive.
+    /// </summary>
     public abstract class ModuleBaseFilter : IFilter<Module>
     {
         IFilter<Module> parent;
-
+        /// <summary>
+        /// Constructor tpo make the decorator pattern
+        /// </summary>
+        /// <param name="parent">the previous pattern</param>
         public ModuleBaseFilter(IFilter<Module> parent) 
         {
             this.parent = parent;
         }
 
-        public IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        /// <summary>
+        /// The base function that will filter per argument
+        /// </summary>
+        /// <param name="toQuery">The data that will be queried</param>
+        /// <param name="args">The applied arguments</param>
+        /// <returns>The queried data</returns>
+        public virtual IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
             return parent.Filter(toQuery, args);
         }
