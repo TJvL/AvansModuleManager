@@ -58,8 +58,6 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             var module = _moduleRepository.GetOne("INMODL312345");
             var testViewModel = Mapper.Map<Module, ModuleViewModel>(module);
 
-            string faseNamen = string.Join(",", module.FaseModules.Select(src => src.FaseNaam));
-
             // Act
             #region Expected ModuleViewModel : checkModule
 
