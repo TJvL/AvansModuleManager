@@ -107,7 +107,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             .DistinctBy(module => module.StudiePunten
             .Select(sp => sp.EC))
             .Select(module => module.StudiePunten
-            .Sum(sp => Convert.ToInt32(sp.EC)))
+            .Sum(sp => Convert.ToDouble(sp.EC)))
             .ToList();
         }
 
@@ -157,7 +157,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Geselecteerde/mogelijke EC(s) om op te filteren
         /// </summary>
-        public ICollection<int> ECs { get; set; }
+        public ICollection<double> ECs { get; set; }
         /// <summary>
         /// Geselecteerde/mogelijke status om op te filteren
         /// </summary>
