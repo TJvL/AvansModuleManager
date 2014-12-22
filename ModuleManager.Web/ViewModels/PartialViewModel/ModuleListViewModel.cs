@@ -7,13 +7,9 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 {
     public class ModuleListViewModel
     {
-
         public ICollection<ModuleViewModel> Modules { get; set; }
-
         public int RecordsFiltered { get { return Modules.Count; } }
-
         public int RecordsTotal { get; private set; }
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -22,7 +18,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         {
             RecordsTotal = recordsTotal;
         }
-
         public void AddModules(IEnumerable<Module> moduleList)
         {
             Modules = moduleList

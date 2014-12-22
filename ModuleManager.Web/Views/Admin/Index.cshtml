@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-md-3 category">
-                <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("UserManagement", "Admin")">
+                <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("UserOverview", "Admin")">
                     <i class="fa fa-cogs"></i> Beheer
                 </a>
             </div>
@@ -50,3 +50,6 @@
         </div>
     </div>
 </div>
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/Admin.cshtml", null);

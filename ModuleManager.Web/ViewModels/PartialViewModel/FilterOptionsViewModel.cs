@@ -1,15 +1,14 @@
-﻿using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Ajax.Utilities;
 using System;
-
 namespace ModuleManager.Web.ViewModels.PartialViewModel
 {
     /// <summary>
     /// Deze klasse heeft twee functies:
-    ///     - Doorgeven aan de views, welke filtermogelijkheden er zijn en welke kolommen mogelijk zijn voor weergave
-    ///     - Het accepteren van de, door de gebruikers geselecteerde, filters/sorters aan de back-end
+    /// - Doorgeven aan de views, welke filtermogelijkheden er zijn en welke kolommen mogelijk zijn voor weergave
+    /// - Het accepteren van de, door de gebruikers geselecteerde, filters/sorters aan de back-end
     /// </summary>
     public class FilterOptionsViewModel
     {
@@ -20,8 +19,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddCompetenties(IEnumerable<Competentie> competentieList)
         {
             CompetentieFilter = competentieList
-                .Select(comp => comp.Naam)
-                .ToList();
+            .Select(comp => comp.Naam)
+            .ToList();
         }
 
         /// <summary>
@@ -31,8 +30,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddCompetentieNiveaus(IEnumerable<Niveau> niveauList)
         {
             CompetentieNiveauFilter = niveauList
-                .Select(niveau => niveau.Niveau1)
-                .ToList();
+            .Select(niveau => niveau.Niveau1)
+            .ToList();
         }
 
         /// <summary>
@@ -42,8 +41,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddTags(IEnumerable<Tag> tagList)
         {
             TagFilter = tagList
-                .Select(tag => tag.Naam)
-                .ToList();
+            .Select(tag => tag.Naam)
+            .ToList();
         }
 
         /// <summary>
@@ -53,8 +52,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddLeerlijnen(IEnumerable<Leerlijn> leerlijnenList)
         {
             LeerlijnFilter = leerlijnenList
-                .Select(comp => comp.Naam)
-                .ToList();
+            .Select(comp => comp.Naam)
+            .ToList();
         }
 
         /// <summary>
@@ -69,12 +68,11 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddBlokken(IEnumerable<Module> moduleList)
         {
             Blokken = moduleList
-                .SelectMany(module => module.FaseModules)
-                .Select(fm => fm.Blok)
-                .Distinct()
-                .ToList();
+            .SelectMany(module => module.FaseModules)
+            .Select(fm => fm.Blok)
+            .Distinct()
+            .ToList();
         }
-
 
         /// <summary>
         /// Verkrijgt uit een lijst van alle 'Fase'-objecten alleen de namen en zet deze in het 'FaseNamen' Property
@@ -83,8 +81,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddFases(IEnumerable<Fase> faseList)
         {
             FaseNamen = faseList
-                .Select(fase => fase.Naam)
-                .ToList();
+            .Select(fase => fase.Naam)
+            .ToList();
         }
 
         /// <summary>
@@ -94,9 +92,9 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddLeerjaren(IEnumerable<Module> moduleList)
         {
             Leerjaren = moduleList
-                .DistinctBy(module => module.Schooljaar)
-                .Select(module => module.Schooljaar)
-                .ToList();
+            .DistinctBy(module => module.Schooljaar)
+            .Select(module => module.Schooljaar)
+            .ToList();
         }
 
         /// <summary>
@@ -106,11 +104,11 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddECs(IEnumerable<Module> moduleList)
         {
             ECs = moduleList
-                .DistinctBy(module => module.StudiePunten
-                    .Select(sp => sp.EC))
-                .Select(module => module.StudiePunten
-                    .Sum(sp => Convert.ToInt32(sp.EC)))
-                .ToList();
+            .DistinctBy(module => module.StudiePunten
+            .Select(sp => sp.EC))
+            .Select(module => module.StudiePunten
+            .Sum(sp => Convert.ToInt32(sp.EC)))
+            .ToList();
         }
 
         /// <summary>
@@ -120,8 +118,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddStatuses(IEnumerable<Status> statusList)
         {
             Statussen = statusList
-                .Select(status => status.Status1)
-                .ToList();
+            .Select(status => status.Status1)
+            .ToList();
         }
 
         /// <summary>

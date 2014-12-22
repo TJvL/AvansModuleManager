@@ -5,7 +5,8 @@ namespace ModuleManager.DomainDAL.Repositories
 {
     public class DummyModuleRepository : IGenericRepository<Module>
     {
-        private readonly ICollection<Module> _modules;
+        private readonly IList<Module> _modules;
+
         public DummyModuleRepository()
         {
             _modules = new List<Module>
@@ -852,12 +853,9 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public bool Create(Module entity)
         {
-            if (_modules != null)
-            {
-                _modules.Add(entity);
-                return true;
-            }
-            return false;
+            if (_modules == null) return false;
+            _modules.Add(entity);
+            return true;
         }
 
         public bool Delete(Module entity)
