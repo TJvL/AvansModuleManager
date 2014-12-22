@@ -18,6 +18,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         private DummyTagRepository _tagRepository;
         private DummyNiveauRepository _niveauRepository;
         private DummyStatusRepository _statusRepository;
+        private DummyModuleRepository _moduleRepository;
 
         #region Additional test attributes
         //
@@ -50,6 +51,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             _tagRepository = new DummyTagRepository();
             _statusRepository = new DummyStatusRepository();
             _niveauRepository = new DummyNiveauRepository();
+            _moduleRepository = new DummyModuleRepository();
         }
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             filterViewModel.AddCompetenties(allCompetenties);
 
             // Act
+            // verwachte CompetentieNamen op basis van de DummyCompetentieRepository
             var allCompetentieNamen = new List<string>
             {
                 "Procesanalyse uitvoeren",
@@ -80,7 +83,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         }
 
         /// <summary>
-        /// Deze test methode pakt alle 'Niveau'-objecten van de DummyCompetentieRepository en mapt deze naar een FilterOptionsViewModel
+        /// Deze test methode pakt alle 'Niveau'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
         /// </summary>
         [TestMethod]
         public void FilterOptionsCompetenteNiveaus()
@@ -91,6 +94,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             filterViewModel.AddCompetentieNiveaus(allNiveaus);
 
             // Act
+            // verwachte Niveau's op basis van de DummyNiveauRepository
             var allNiveauNiveaus = new List<string>
             {
                 "Beginner",
@@ -105,7 +109,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         }
 
         /// <summary>
-        /// Deze test methode pakt alle 'Tag'-objecten van de DummyCompetentieRepository en mapt deze naar een FilterOptionsViewModel
+        /// Deze test methode pakt alle 'Tag'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
         /// </summary>
         [TestMethod]
         public void FilterOptionsTags()
@@ -116,6 +120,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             filterViewModel.AddTags(allTags);
 
             // Act
+            // verwachte TagNamen op basis van de DummyRepository
             var allTagNamen = new List<string>
             {
                 "Big Data",
@@ -135,27 +140,28 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         }
 
         /// <summary>
-        /// Deze test methode pakt alle '???'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
+        /// Deze test methode pakt alle 'Module'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
         /// </summary>
-        [TestMethod] // TODO:
+        [TestMethod]
         public void FilterOptionsBlokken()
         {
             // Arrange
             var filterViewModel = new FilterOptionsViewModel();
-            var allLeerlijnen = _leerlijnRepository.GetAll();
-            filterViewModel.AddLeerlijnen(allLeerlijnen);
+            var allModules = _moduleRepository.GetAll();
+            filterViewModel.AddBlokken(allModules);
 
             // Act
-            var allLeerlijnNamen = new List<string>
+            // verwachte Blokken op basis van de DummyRepository
+            var allBlokken = new List<string>
             {
-                "Procesanalyse uitvoeren",
-                "Informatieanalyse uitvoeren",
-                "Over inzet van ICT adviseren",
-                "Analyse van algoritmes",
-                "Vernietigen van code"
+                "3",
+                "4"
             };
 
             // Assert <expected, actual>
+            Assert.AreEqual(allBlokken.Count, filterViewModel.Blokken.Count);
+            Assert.AreEqual(allBlokken.Last(), filterViewModel.Blokken.Last());
+            Assert.AreEqual(allBlokken.ElementAt(1), filterViewModel.Blokken.ElementAt(1));
         }
 
         /// <summary>
@@ -170,6 +176,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             filterViewModel.AddLeerlijnen(allLeerlijnen);
 
             // Act
+            // verwachte LeerlijnNamen op basis van de DummyRepository
             var allLeerlijnNamen = new List<string>
             {
                 "Algoritmiek",
@@ -197,6 +204,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             filterViewModel.AddFases(allFases);
 
             // Act
+            // verwachte FaseNamen op basis van de DummyRepository
             var allFaseNamen = new List<string>
             {
                 "Software Ontwikkeling",
@@ -212,57 +220,55 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         }
 
         /// <summary>
-        /// Deze test methode pakt alle '???'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
+        /// Deze test methode pakt alle 'Module'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
         /// </summary>
-        [TestMethod] // TODO:
+        [TestMethod]
         public void FilterOptionsLeerjaren()
         {
             // Arrange
             var filterViewModel = new FilterOptionsViewModel();
-            var allStatussen = _statusRepository.GetAll();
-            filterViewModel.AddStatuses(allStatussen);
+            var allModules = _moduleRepository.GetAll();
+            filterViewModel.AddLeerjaren(allModules);
 
             // Act
-            var allStatusStatussen = new List<string>
+            // verwachte Leerjaren op basis van de DummyRepository
+            var allLeerjaren = new List<int>
             {
-                "Incompleet",
-                "Nieuw",
-                "Compleet(gecontroleerd)",
-                "Compleet(ongecontroleerd)"
+                1415
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allStatusStatussen.Count, filterViewModel.Statussen.Count);
-            Assert.AreEqual(allStatusStatussen.Last(), filterViewModel.Statussen.Last());
-            Assert.AreEqual(allStatusStatussen.ElementAt(2), filterViewModel.Statussen.ElementAt(2));
+            Assert.AreEqual(allLeerjaren.Count, filterViewModel.Leerjaren.Count);
+            Assert.AreEqual(allLeerjaren.Last(), filterViewModel.Leerjaren.Last());
+            //Assert.AreEqual(allStatusStatussen.ElementAt(2), filterViewModel.Statussen.ElementAt(2));
         }
 
         /// <summary>
-        /// Deze test methode pakt alle '???'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
+        /// Deze test methode pakt alle 'Module'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
         /// </summary>
-        [TestMethod] // TODO:
+        [TestMethod]
         public void FilterOptionsECs()
         {
             // Arrange
             var filterViewModel = new FilterOptionsViewModel();
-            var allLeerlijnen = _leerlijnRepository.GetAll();
-            filterViewModel.AddLeerlijnen(allLeerlijnen);
+            var allModules = _moduleRepository.GetAll();
+            filterViewModel.AddECs(allModules);
 
             // Act
-            var allLeerlijnNamen = new List<string>
+            // verwachte EC's op basis van de DummyRepository
+            var allECs = new List<int>
             {
-                "Procesanalyse uitvoeren",
-                "Informatieanalyse uitvoeren",
-                "Over inzet van ICT adviseren",
-                "Analyse van algoritmes",
-                "Vernietigen van code"
+                5,3,24
             };
 
             // Assert <expected, actual>
+            Assert.AreEqual(allECs.Count, filterViewModel.ECs.Count);
+            Assert.AreEqual(allECs.Last(), filterViewModel.ECs.Last());
+            Assert.AreEqual(allECs.ElementAt(2), filterViewModel.ECs.ElementAt(2));
         }
 
         /// <summary>
-        /// Deze test methode pakt alle '???'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
+        /// Deze test methode pakt alle 'Status'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
         /// </summary>
         [TestMethod]
         public void FilterOptionsStatussen()
@@ -273,6 +279,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             filterViewModel.AddStatuses(allStatussen);
 
             // Act
+            // verwachte Statussen op basis van de DummyRepository
             var allStatusStatussen = new List<string>
             {
                 "Incompleet",
