@@ -77,7 +77,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allCompetentieNamen.Count, filterViewModel.CompetentieFilter.Count);
+            Assert.AreEqual(allCompetentieNamen.Count, filterViewModel.CompetentieFilter.Count());
             Assert.AreEqual(allCompetentieNamen.Last(), filterViewModel.CompetentieFilter.Last());
             Assert.AreEqual(allCompetentieNamen.ElementAt(2), filterViewModel.CompetentieFilter.ElementAt(2));
         }
@@ -103,7 +103,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allNiveauNiveaus.Count, filterViewModel.CompetentieNiveauFilter.Count);
+            Assert.AreEqual(allNiveauNiveaus.Count, filterViewModel.CompetentieNiveauFilter.Count());
             Assert.AreEqual(allNiveauNiveaus.Last(), filterViewModel.CompetentieNiveauFilter.Last());
             Assert.AreEqual(allNiveauNiveaus.ElementAt(2), filterViewModel.CompetentieNiveauFilter.ElementAt(2));
         }
@@ -134,7 +134,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allTagNamen.Count, filterViewModel.TagFilter.Count);
+            Assert.AreEqual(allTagNamen.Count, filterViewModel.TagFilter.Count());
             Assert.AreEqual(allTagNamen.Last(), filterViewModel.TagFilter.Last());
             Assert.AreEqual(allTagNamen.ElementAt(2), filterViewModel.TagFilter.ElementAt(2));
         }
@@ -159,7 +159,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allBlokken.Count, filterViewModel.Blokken.Count);
+            Assert.AreEqual(allBlokken.Count, filterViewModel.Blokken.Count());
             Assert.AreEqual(allBlokken.Last(), filterViewModel.Blokken.Last());
             Assert.AreEqual(allBlokken.ElementAt(1), filterViewModel.Blokken.ElementAt(1));
         }
@@ -187,7 +187,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allLeerlijnNamen.Count, filterViewModel.LeerlijnFilter.Count);
+            Assert.AreEqual(allLeerlijnNamen.Count, filterViewModel.LeerlijnFilter.Count());
             Assert.AreEqual(allLeerlijnNamen.Last(), filterViewModel.LeerlijnFilter.Last());
             Assert.AreEqual(allLeerlijnNamen.ElementAt(2), filterViewModel.LeerlijnFilter.ElementAt(2));
         }
@@ -214,7 +214,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allFaseNamen.Count, filterViewModel.FaseNamen.Count);
+            Assert.AreEqual(allFaseNamen.Count, filterViewModel.FaseNamen.Count());
             Assert.AreEqual(allFaseNamen.Last(), filterViewModel.FaseNamen.Last());
             Assert.AreEqual(allFaseNamen.ElementAt(2), filterViewModel.FaseNamen.ElementAt(2));
         }
@@ -238,7 +238,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allLeerjaren.Count, filterViewModel.Leerjaren.Count);
+            Assert.AreEqual(allLeerjaren.Count, filterViewModel.Leerjaren.Count());
             Assert.AreEqual(allLeerjaren.Last(), filterViewModel.Leerjaren.Last());
             //Assert.AreEqual(allStatusStatussen.ElementAt(2), filterViewModel.Statussen.ElementAt(2));
         }
@@ -262,7 +262,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allECs.Count, filterViewModel.ECs.Count);
+            Assert.AreEqual(allECs.Count, filterViewModel.ECs.Count());
             Assert.AreEqual(allECs.Last(), filterViewModel.ECs.Last());
             Assert.AreEqual(allECs.ElementAt(2), filterViewModel.ECs.ElementAt(2));
         }
@@ -289,7 +289,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             };
 
             // Assert <expected, actual>
-            Assert.AreEqual(allStatusStatussen.Count, filterViewModel.Statussen.Count);
+            Assert.AreEqual(allStatusStatussen.Count, filterViewModel.Statussen.Count());
             Assert.AreEqual(allStatusStatussen.Last(), filterViewModel.Statussen.Last());
             Assert.AreEqual(allStatusStatussen.ElementAt(2), filterViewModel.Statussen.ElementAt(2));
         }

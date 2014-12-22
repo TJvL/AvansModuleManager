@@ -104,7 +104,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         {
             ECs = moduleList
             .DistinctBy(module => module.StudiePunten
-            .Select(sp => sp.EC))
+                .Select(sp => sp.EC))
             .Select(module => module.StudiePunten
             .Sum(sp => Convert.ToDouble(sp.EC)))
             .ToList();

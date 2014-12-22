@@ -58,56 +58,17 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             var module = _moduleRepository.GetOne("INMODL312345");
             var testViewModel = Mapper.Map<Module, ModuleViewModel>(module);
 
+            string faseNamen = string.Join(",", module.FaseModules.Select(src => src.FaseNaam));
+
             // Act
             #region Expected ModuleViewModel : checkModule
 
             var checkModule = new ModuleViewModel
             {
-                Blok = new List<int>
-                {
-                    3
-                },
+                Blokken = "3",
                 CursusCode = "INMODL312345",
-                Docent = new List<Docent>
-					{
-						new Docent
-						{
-							Id = 1,
-							CursusCode = "INMODEL312345",
-							Name = "Jan Stekker",
-							Schooljaar = 1415
-						},
-						new Docent
-						{
-							Id = 2,
-							CursusCode = "INMODEL312345",
-							Name = "Dozijn Ei",
-							Schooljaar = 1415
-						}
-					},
-                FaseModules = new List<FaseModules>
-					{
-						new FaseModules
-						{
-							FaseNaam = "Software Ontwikkeling",
-							FaseSchooljaar = 1415,
-							ModuleCursusCode = "INMODEL312345",
-							ModuleSchooljaar = 1415,
-							Blok = "3",
-							OpleidingNaam = "Informatica",
-							OpleidingSchooljaar = 1415
-						},
-						new FaseModules
-						{
-							FaseNaam = "Business Intelligence",
-							FaseSchooljaar = 1415,
-							ModuleCursusCode = "INMODEL312345",
-							ModuleSchooljaar = 1415,
-							Blok = "3",
-							OpleidingNaam = "Informatica",
-							OpleidingSchooljaar = 1415
-						}
-					},
+                Docenten = "Jan Stekker, Dozijn Ei",
+                FaseNamen = "Software Ontwikkeling, Business Intelligence",
                 Naam = "Modelleren 3",
                 Status = "Compleet(ongecontroleerd)",
                 Verantwoordelijke = "Fahiem Karsodimedjo",
@@ -116,16 +77,15 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
 
             #endregion
 
-            // Assert <expected, actual>
-            Assert.IsNotNull(testViewModel.Docent);
+            // Assert <expected, actual>    
+            Assert.IsNotNull(testViewModel.Docenten);
             Assert.AreEqual(checkModule.CursusCode, testViewModel.CursusCode);
-            Assert.AreEqual(checkModule.Blok.ElementAt(0), testViewModel.Blok.ElementAt(0));
+            Assert.AreEqual(checkModule.Blokken, testViewModel.Blokken);
             Assert.AreEqual(checkModule.Naam, testViewModel.Naam);
-            Assert.AreEqual(checkModule.FaseModules.Count, testViewModel.FaseModules.Count);
-            Assert.AreEqual(checkModule.Docent.ElementAt(0).Id, testViewModel.Docent.ElementAt(0).Id);
-            Assert.AreEqual(checkModule.Docent.ElementAt(1).Name, testViewModel.Docent.ElementAt(1).Name);
-            Assert.AreEqual(checkModule.FaseModules.ElementAt(0).FaseNaam, testViewModel.FaseModules.ElementAt(0).FaseNaam);
+            Assert.AreEqual(checkModule.FaseNamen, testViewModel.FaseNamen);
+            Assert.AreEqual(checkModule.Docenten, testViewModel.Docenten);
             Assert.AreEqual(checkModule.TotalEc, testViewModel.TotalEc);
+            Assert.AreEqual(checkModule.Status, testViewModel.Status);
         }
 
         /// <summary>
@@ -149,51 +109,10 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
                     #region expected first ModuleViewModel
                     new ModuleViewModel
                     {
-                        Blok = new List<int>
-                        {
-                            3
-                        },
+                        Blokken = "3",
                         CursusCode = "INMODL312345",
-                        Docent = new List<Docent>
-					        {
-						        new Docent
-						        {
-							        Id = 1,
-							        CursusCode = "INMODEL312345",
-							        Name = "Jan Stekker",
-							        Schooljaar = 1415
-						        },
-						        new Docent
-						        {
-							        Id = 2,
-							        CursusCode = "INMODEL312345",
-							        Name = "Dozijn Ei",
-							        Schooljaar = 1415
-						        }
-					        },
-                        FaseModules = new List<FaseModules>
-					        {
-						        new FaseModules
-						        {
-							        FaseNaam = "Software Ontwikkeling",
-							        FaseSchooljaar = 1415,
-							        ModuleCursusCode = "INMODEL312345",
-							        ModuleSchooljaar = 1415,
-							        Blok = "3",
-							        OpleidingNaam = "Informatica",
-							        OpleidingSchooljaar = 1415
-						        },
-						        new FaseModules
-						        {
-							        FaseNaam = "Business Intelligence",
-							        FaseSchooljaar = 1415,
-							        ModuleCursusCode = "INMODEL312345",
-							        ModuleSchooljaar = 1415,
-							        Blok = "3",
-							        OpleidingNaam = "Informatica",
-							        OpleidingSchooljaar = 1415
-						        }
-					        },
+                        Docenten = "Jan Stekker, Dozijn Ei",
+                        FaseNamen  = "Software Ontwikkeling, Business Intelligence",
                         Naam = "Modelleren 3",
                         Status = "Compleet(ongecontroleerd)",
                         Verantwoordelijke = "Fahiem Karsodimedjo",
@@ -203,58 +122,10 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
                     #region expected second ModuleViewModel
                     new ModuleViewModel
                     {
-                        Blok = new List<int>
-                        {
-                            3,4
-                        },
+                        Blokken = "3, 4",
                         CursusCode = "IN_ALG612345",
-                        Docent = new List<Docent>
-				        {
-				            new Docent
-				            {
-				                Id = 1,
-				                CursusCode = "INMODEL312345",
-				                Name = "Hans Boos",
-				                Schooljaar = 1415
-				            },
-				            new Docent
-				            {
-				                Id = 2,
-				                CursusCode = "INMODEL312345",
-				                Name = "Zwan Beer",
-				                Schooljaar = 1415
-				            },
-				            new Docent
-				            {
-				                Id = 3,
-				                CursusCode = "INMODEL312345",
-				                Name = "Poco de Man",
-				                Schooljaar = 1415
-				            }
-				        },
-                        FaseModules = new List<FaseModules>
-					        {
-						        new FaseModules
-				                {
-				                    FaseNaam = "Software Architecture",
-				                    FaseSchooljaar = 1415,
-				                    ModuleCursusCode = "IN_ALG612345",
-				                    ModuleSchooljaar = 1415,
-				                    Blok = "3",
-				                    OpleidingNaam = "Informatica",
-				                    OpleidingSchooljaar = 1415
-				                },
-                                new FaseModules
-				                {
-				                    FaseNaam = "Software Testin",
-				                    FaseSchooljaar = 1415,
-				                    ModuleCursusCode = "IN_ALG612345",
-				                    ModuleSchooljaar = 1415,
-				                    Blok = "4",
-				                    OpleidingNaam = "Informatica",
-				                    OpleidingSchooljaar = 1415
-				                }
-					        },
+                        Docenten = "Hans Boos, Zwan Beer, Poco de Man",
+                        FaseNamen = "Software Architecture, Software Testin",
                         Naam = "Algoritmiek 3000S",
                         Status = "Compleet(gecontroleerd)",
                         Verantwoordelijke = "Fahiem Karsodimedjo",
@@ -264,68 +135,10 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
                     #region expected third ModuleViewModel
                     new ModuleViewModel
                     {
-                        Blok = new List<int>
-                        {
-                            3,4
-                        },
+                        Blokken = "3, 4",
                         CursusCode = "IN_PROG4123456",
-                        Docent = new List<Docent>
-				        {
-				            new Docent
-				            {
-				                Id = 1,
-				                CursusCode = "IN_PROG4123456",
-				                Name = "Jan Stekker",
-				                Schooljaar = 1415
-				            },
-				            new Docent
-				            {
-				                Id = 2,
-				                CursusCode = "IN_PROG4123456",
-				                Name = "Meer man",
-				                Schooljaar = 1415
-				            },
-				            new Docent
-				            {
-				                Id = 3,
-				                CursusCode = "IN_PROG4123456",
-				                Name = "Poco de Man",
-				                Schooljaar = 1415
-				            }
-				        },
-                        FaseModules = new List<FaseModules>
-					        {
-						        new FaseModules
-				                {
-				                    FaseNaam = "Software Architecture",
-				                    FaseSchooljaar = 1415,
-				                    ModuleCursusCode = "IN_PROG4123456",
-				                    ModuleSchooljaar = 1415,
-				                    Blok = "3",
-				                    OpleidingNaam = "Informatica",
-				                    OpleidingSchooljaar = 1415
-				                },
-                                new FaseModules
-				                {
-				                    FaseNaam = "Business Intelligence",
-				                    FaseSchooljaar = 1415,
-				                    ModuleCursusCode = "IN_PROG4123456",
-				                    ModuleSchooljaar = 1415,
-				                    Blok = "3",
-				                    OpleidingNaam = "Informatica",
-				                    OpleidingSchooljaar = 1415
-				                },
-                                new FaseModules
-				                {
-				                    FaseNaam = "TestFase",
-				                    FaseSchooljaar = 1415,
-				                    ModuleCursusCode = "IN_PROG4123456",
-				                    ModuleSchooljaar = 1415,
-				                    Blok = "4",
-				                    OpleidingNaam = "Informatica",
-				                    OpleidingSchooljaar = 1415
-				                }
-					        },
+                        Docenten = "Jan Stekker, Meer Man, Poco de Man",
+                        FaseNamen = "Software Architecture, Business Intelligence, TestFase",
                         Naam = "Programmeren 7",
                         Status = "Incompleet",
                         Verantwoordelijke = "Fahiem Karsodimedjo",
@@ -345,12 +158,8 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(1).Status, moduleListViewModel.Modules.ElementAt(1).Status);
             Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(2).Status, moduleListViewModel.Modules.ElementAt(2).Status);
             Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(2).TotalEc, moduleListViewModel.Modules.ElementAt(2).TotalEc);
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(1).Blok.Count, moduleListViewModel.Modules.ElementAt(1).Blok.Count);
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(1).Blok.ElementAt(0), moduleListViewModel.Modules.ElementAt(1).Blok.ElementAt(0));
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(1).Blok.ElementAt(1), moduleListViewModel.Modules.ElementAt(1).Blok.ElementAt(1));
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(2).Blok.Count, moduleListViewModel.Modules.ElementAt(2).Blok.Count);
+            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(1).Blokken, moduleListViewModel.Modules.ElementAt(1).Blokken);
 
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(2).Blok.Count, 2);
             Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(2).TotalEc, 24);
         }
     }

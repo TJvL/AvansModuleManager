@@ -825,7 +825,7 @@ namespace ModuleManager.DomainDAL.Repositories
 				        {
 				            Id = 2,
 				            CursusCode = "IN_PROG4123456",
-				            Name = "Meer man",
+				            Name = "Meer Man",
 				            Schooljaar = 1415
 				        },
 				        new Docent
@@ -853,7 +853,8 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public bool Create(Module entity)
         {
-            if (_modules == null) return false;
+            if (_modules == null)
+                return false;
             _modules.Add(entity);
             return true;
         }
