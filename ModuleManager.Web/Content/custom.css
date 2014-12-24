@@ -18,9 +18,6 @@ header {
 	height: 200px;
 }
 
-header {
-}
-
 
 header #top {
 	margin-top: 4px;
@@ -259,9 +256,23 @@ ul.dropdown-menu-form {
 	font-weight: 300;
 }
 
+<<<<<<< HEAD
 div.dataTables_paginate {
     float: left !important;
 }
 .dataTables_info {
     text-align: right;
 }
+=======
+/* Text Area - Not Compatible with Firefox 4.0, Internet Explorer 8.0 and Opera 11.0
+******************************************************/
+textarea {
+     resize: vertical;
+}
+
+.actions {}
+.competentie-item {}
+.ninety-width {
+    width: 90px;
+}
+>>>>>>> fc613e42322cfaa0c656772ded6ac24df6eaf029

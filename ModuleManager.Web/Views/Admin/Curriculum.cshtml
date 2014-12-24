@@ -13,93 +13,130 @@
                 <h2>Curriculum beheer</h2>
                 <br/><br/>
             </div>
-
-            <div class="col-md-12">
-                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competence-modal">Toevoegen</button>
+            
+            <div class="col-md-6">
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competentie-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Competenties</h3>
                 <table class="table table-hover">
                     <tbody>
-                    <tr>
-                        <td>Procesanalyse uitvoeren</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Informatieanalyse uitvoeren</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Informatiesysteem ontwerpen</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-1</td>
+                            <td>Procesanalyse uitvoeren</td>
+                            <td class="actions ninety-width">
+                                <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-2</td>
+                            <td>Informatieanalyse uitvoeren</td>
+                            <td class="actions ninety-width">
+                                <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-3</td>
+                            <td>Informatiesysteem ontwerpen</td>
+                            <td class="actions ninety-width">
+                                <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="col-md-6">
-                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#learning-modal">Toevoegen</button>
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#fase-add">Toevoegen</button>
+                <h3 style="margin-top: 0">Fases</h3>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td class="ninety-width">Major</td>
+                            <td>Software ontwikkelaar</td>
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ninety-width">Major</td>
+                            <td>Bedrijfsinformatica</td>
+                            
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ninety-width">Minor</td>
+                            <td>Cybersafety</td>
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="col-md-6">
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#leerlijn-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Leerlijnen</h3>
                 <table class="table table-hover">
                     <tbody>
-                    <tr>
-                        <td>Programmeren</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Moduleren</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Databases</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>Programmeren</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Moduleren</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Databases</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="col-md-6">
-                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#learning-modal">Toevoegen</button>
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#tag-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Tags</h3>
                 <table class="table table-hover">
                     <tbody>
-                    <tr>
-                        <td>Big Data</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>PHP</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>MVC</td>
-                        <td style="width: 90px">
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>Big Data</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PHP</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MVC</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -115,86 +152,86 @@
                     <div class="col-md-12">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <td colspan="3">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-                                            <label class="control-label" for="sortorder">Sorteer op: </label>
-                                            <select class="form-control input-sm" id="sortorder" style="width: 200px;">
-                                                <option>Alfabetisch</option>
-                                                <option>EC's</option>
-                                            </select>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-inline">
+                                            <div class="form-group">
+                                                <label class="control-label" for="sortorder">Sorteer op: </label>
+                                                <select class="form-control input-sm" id="sortorder" style="width: 200px;">
+                                                    <option>Alfabetisch</option>
+                                                    <option>EC's</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td colspan="4" class="text-right">
-                                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#module-modal">Toevoegen</button>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td colspan="4" class="text-right">
+                                        <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#module-add">Toevoegen</button>
+                                    </td>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr class="item"data-href="@Url.Action("Edit", "Module")">
-                                <td class="icon"><i class="fa fa-paint-brush"></i></td>
-                                <td class="information">
-                                    <p class="name">Interaction Design Principles</p>
-                                    <p class="instructors">Koen van Brero; Bert Hoeks; Ger Saris; Paul Wagener</p>
-                                </td>
-                                <td class="code">INIDPRI</td>
-                                <td class="block">Blok 5</td>
-                                <td class="ec">3 EC</td>
-                                <td class="status text-success">Compleet</td>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")/INMODL312345">
+                                    <td class="icon"><i class="fa fa-paint-brush"></i></td>
+                                    <td class="information">
+                                        <p class="name">Interaction Design Principles</p>
+                                        <p class="instructors">Bert Hoeks</p>
+                                    </td>
+                                    <td class="code">INIDPRI</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-success">Compleet</td>
 
-                                <td class="actionsS-lg">
-                                    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="item" data-href="@Url.Action("Edit", "Module")">
-                                <td class="icon"><i class="fa fa-code"></i></td>
-                                <td class="information">
-                                    <p class="name">Programmeren 5 - C Sharp</p>
-                                    <p class="instructors">Bart Mutsaers; Ger Saris; Stijn Smulders</p>
-                                </td>
-                                <td class="code">INPROG5</td>
-                                <td class="block">Blok 5</td>
-                                <td class="ec">3 EC</td>
-                                <td class="status text-danger">Onvolledig</td>
-                                <td class="actions-lg">
-                                    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="item" data-href="@Url.Action("Edit", "Module")">
-                                <td class="icon"><i class="fa fa-table"></i></td>
-                                <td class="information">
-                                    <p class="name">Modelleren 3</p>
-                                    <p class="instructors">Ger Saris</p>
-                                </td>
-                                <td class="code">INMODL3</td>
-                                <td class="block">Blok 5</td>
-                                <td class="ec">3 EC</td>
-                                <td class="status text-danger">Onvolledig</td>
-                                <td class="actions-lg">
-                                    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <tr class="item" data-href="@Url.Action("Edit", "Module")">
-                                <td class="icon"><i class="fa fa-database"></i></td>
-                                <td class="information">
-                                    <p class="name">Databases 4</p>
-                                    <p class="instructors">Reinier Dickhout; Ger Saris</p>
-                                </td>
-                                <td class="code">INDATAB4</td>
-                                <td class="block">Blok 5</td>
-                                <td class="ec">3 EC</td>
-                                <td class="status text-danger">Onvolledig</td>
-                                <td class="actions-lg">
-                                    <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                                <tr class="item" data-href="@Url.Action("Edit", "Module")">
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")/INMODL312345" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                    <td class="icon"><i class="fa fa-code"></i></td>
+                                    <td class="information">
+                                        <p class="name">Programmeren 5 - C Sharp</p>
+                                        <p class="instructors">Stijn Smulders</p>
+                                    </td>
+                                    <td class="code">INPROG5</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-danger">Onvolledig</td>
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                    <td class="icon"><i class="fa fa-table"></i></td>
+                                    <td class="information">
+                                        <p class="name">Modelleren 3</p>
+                                        <p class="instructors">Ger Saris</p>
+                                    </td>
+                                    <td class="code">INMODL3</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-danger">Onvolledig</td>
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                    <td class="icon"><i class="fa fa-database"></i></td>
+                                    <td class="information">
+                                        <p class="name">Databases 4</p>
+                                        <p class="instructors">Ger Saris</p>
+                                    </td>
+                                    <td class="code">INDATAB4</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-danger">Onvolledig</td>
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")">
                                     <td class="icon"><i class="fa fa-phone"></i></td>
                                     <td class="information">
                                         <p class="name">Telephoning</p>
@@ -204,9 +241,9 @@
                                     <td class="block">Blok 5</td>
                                     <td class="ec">3 EC</td>
                                     <td class="status text-success">Compleet</td>
-                                    <td class="actions-lg">
-                                        <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
 
@@ -234,89 +271,64 @@
     </div>
 </div>
 
-<!-- Module toevoegen MODAL-->
-<div class="modal fade" id="module-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Module toevoegen</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form">
-                    <div class="form-group">
-                        <label for="name">Naam</label>
-                        <input type="text" class="form-control" id="name" placeholder="Naam">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Beschrijving</label>
-                        <textarea class="form-control" id="description" placeholder="Beschrijving"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select class="form-control" id="status">
-                            <option>Nieuw</option>
-                            <option>Incompleet</option>
-                            <option>Compleet (ongecontroleerd)</option>
-                            <option>Compleet(gecontroleerd)</option>
-                        </select>
-                    </div>
+<!-- Help MODAL -->
+@Html.Partial("~/Views/Help/Curriculum.cshtml", null)
 
-                    <div class="form-group">
-                        <label for="cursorcode">Cursuscode</label>
-                        <input type="text" class="form-control" id="cursorcode" placeholder="Cursuscode">
-                    </div>
+<!-- CRUD MODALS -->
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Details.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Module/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Module/Delete.cshtml", null)
 
-                    <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Majors</label>
-                        <select multiple class="form-control" id="major">
-                            <option>Software ontwikkelaar</option>
-                            <option>Bedrijfsinformatica</option>
-                        </select>
-                    </div>
+<!-- JAVA MEUK -->
+@section Scripts {
+    <script>
+        $(function () {
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
 
-                    <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Minors</label>
-                        <select multiple class="form-control" id="minor">
-                            <option>Business Intelligence & IT Governance</option>
-                            <option>Business Proces Management (BPM)</option>
-                            <option>Corporate Performance Management (CPM)</option>
-                            <option>Cybersafety</option>
-                            <option>Digitale Regelsystemen (DRS)</option>
-                            <option>Embedded Software (EMS)</option>
-                            <option>Everyware in a Mobile World (EVW)</option>
-                            <option>Middleware (MDW)</option>
-                            <option>Product Ontwikkeling (PO)</option>
-                            <option>Signaal bewerking (SB)</option>
-                            <option>Software Architectuur (SWA)</option>
-                        </select>
-                    </div>
+            $('.dropdown-menu').on('click', function (e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
 
-                    <div class="form-group">
-                        <div class="pull-right">
-                            <a class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Toevoegen</a>
-                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Verwijderen</a>
-                        </div>
-                        <label for="minor">Fase</label>
-                        <select multiple class="form-control" id="major">
-                            <option>Propedeuse</option>
-                            <option>Hoofdfase bachelor</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                <button type="button" class="btn btn-success">Opslaan</button>
-            </div>
-        </div>
-    </div>
-</div>
+            $(".competentie-item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    $('#competentie-details').modal('show');
+                }
+            });
+
+            // SELECT2
+            $("#ModuleAddFases").select2({
+                placeholder: "Fases"
+            });
+
+            $("#FasesType").select2({
+                placeholder: "Type"
+            });
+
+            $("#ModuleAddBlock").select2({
+                placeholder: "Blok"
+            });
+        });
+    </script>
+}
