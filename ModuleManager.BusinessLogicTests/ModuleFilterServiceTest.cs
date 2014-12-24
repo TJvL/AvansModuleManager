@@ -4,6 +4,9 @@ using ModuleManager.BusinessLogic.Services;
 using System.Linq;
 using ModuleManager.DomainDAL;
 using System.Collections.Generic;
+using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.BusinessLogic.Interfaces;
+using ModuleManager.BusinessLogic.Data;
 
 namespace ModuleManager.BusinessLogicTests
 {
@@ -11,18 +14,33 @@ namespace ModuleManager.BusinessLogicTests
     public class ModuleFilterServiceTest
     {
         ModuleFilterService mfs;
-        List<Module> data;
+        DummyModuleRepository drp = new DummyModuleRepository();
+        IQueryable<Module> data;
+        IQueryablePack<Module> pack;
 
         [TestInitialize]
         public void setup() 
         {
-            //get data
+            mfs = new ModuleFilterService(); //Just let it run without errors. That's a pass, I guess.
         }
 
         [TestMethod]
-        public void testConstructor()
+        public void testGenericSearch() 
         {
-            mfs = new ModuleFilterService(); //Just let it run without errors. That's a pass, I guess.
+            Arguments args = new Arguments
+            {
+                Zoekterm = "INMODL"
+            };
+            var inbetween = drp.GetAll();
+            data = inbetween as IQueryable<Module>;
+
+            pack = new ModuleQueryablePack(args, data);
+
+            IEnumerable<Module> result;
+            result = mfs.Filter(pack);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count());
+            Assert.AreEqual("INMODL312345", result.First().CursusCode);
         }
     }
 }
