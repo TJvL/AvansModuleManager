@@ -15,7 +15,6 @@ namespace ModuleManager.BusinessLogicTests
     {
         ModuleFilterService mfs;
         DummyModuleRepository drp = new DummyModuleRepository();
-        IQueryable<Module> data;
         IQueryablePack<Module> pack;
 
         [TestInitialize]
@@ -32,7 +31,7 @@ namespace ModuleManager.BusinessLogicTests
                 Zoekterm = "INMODL"
             };
             var inbetween = drp.GetAll();
-            data = inbetween as IQueryable<Module>;
+            var data = inbetween.AsQueryable(); ;
 
             pack = new ModuleQueryablePack(args, data);
 

@@ -28,7 +28,7 @@ namespace ModuleManager.BusinessLogic.Services
             
             // Build Reflection Here
             var types = from t in Assembly.GetExecutingAssembly().GetTypes()
-                        where t.IsClass && t.Namespace == "ModuleManager.BusinessLogic.Filters.ModuleFilterStack"
+                        where t.IsClass && t.Namespace == "@ModuleManager.BusinessLogic.Filters.ModuleFilterStack"
                         select t;
             Type[] typeArgs = {typeof(IFilter<DomainDAL.Module>)};
 
