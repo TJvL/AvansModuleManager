@@ -42,7 +42,7 @@ namespace ModuleManager.Web.Controllers
                 ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
                 FilterOptions = new FilterOptionsViewModel
                 {   // TODO: Vervang deze code door een call naar de relevante database tabellen.
-                    Blokken = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 },
+                    Blokken = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" },
                     FaseNamen =
                         new List<string>
                         {
@@ -50,7 +50,7 @@ namespace ModuleManager.Web.Controllers
                             "Software Architectuur - Minor",
                             "Informatica - Propedeuse"
                         },
-                    Status1 =
+                    Statussen =
                         new List<string>
                         {
                             "Compleet (ongecontroleerd)",
@@ -108,7 +108,7 @@ namespace ModuleManager.Web.Controllers
                 ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
                 FilterOptions = new FilterOptionsViewModel
                 {   // TODO: Vervang deze code door een call naar de relevante database tabellen.
-                    Blokken = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 },
+                    Blokken = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" },
                     FaseNamen =
                         new List<string>
                         {
@@ -116,7 +116,7 @@ namespace ModuleManager.Web.Controllers
                             "Software Architectuur - Minor",
                             "Informatica - Propedeuse"
                         },
-                    Status1 =
+                    Statussen =
                         new List<string>
                         {
                             "Compleet (ongecontroleerd)",

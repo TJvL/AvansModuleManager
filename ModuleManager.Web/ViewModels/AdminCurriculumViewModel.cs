@@ -2,9 +2,10 @@
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.DomainDAL;
 
-namespace ModuleManager.Web.ViewModels 
+
+namespace ModuleManager.Web.ViewModels
 {
-    public class AdminCurriculumViewModel 
+    public class AdminCurriculumViewModel
     {
         /// <summary>
         /// Bevat alle tags om weer te geven
@@ -29,6 +30,6 @@ namespace ModuleManager.Web.ViewModels
         /// <summary>
         /// Bevat configuratie/argumenten/instellingen voor de filters en de sortering van het moduleoverzicht
         /// </summary>
-        public FilterOptionsViewModel FilterOptions{ get; set; }
+        public FilterOptionsViewModel FilterOptions { get; set; }
     }
 }

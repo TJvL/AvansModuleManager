@@ -23,9 +23,9 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview(Arguments arguments)
         {
-            var modules = _moduleRepository.GetAll();
-            var enumerable = modules as Module[] ?? modules.ToArray();
-            var moduleListVm = new ModuleListViewModel(10) { Modules = enumerable };
+            var modules = _moduleRepository.GetAll().ToList();
+            var moduleListVm = new ModuleListViewModel(modules.Count());
+            moduleListVm.AddModules(modules);
 
             return moduleListVm;
         }
