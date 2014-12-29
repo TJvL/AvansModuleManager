@@ -44,6 +44,7 @@
     <Compile Include="Data\Arguments.cs" />
     <Compile Include="Data\ModuleQueryablePack.cs" />
     <Compile Include="Filters\ModuleBaseFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleCompetentieFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleGenericZoektermFilter.cs" />
     <Compile Include="Filters\ModulePassiveFilter.cs" />
     <Compile Include="Interfaces\Filters\IFilter.cs" />

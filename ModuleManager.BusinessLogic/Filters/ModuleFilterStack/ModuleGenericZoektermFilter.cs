@@ -12,7 +12,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
     public class ModuleGenericZoektermFilter : ModuleBaseFilter
     {
         public ModuleGenericZoektermFilter(IFilter<Module> parent) : base(parent) { }
-        public IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
             if (args.Zoekterm != null) 
             {

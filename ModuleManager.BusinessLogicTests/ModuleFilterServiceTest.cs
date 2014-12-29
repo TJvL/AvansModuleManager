@@ -15,12 +15,13 @@ namespace ModuleManager.BusinessLogicTests
     {
         ModuleFilterService mfs;
         DummyModuleRepository drp = new DummyModuleRepository();
-        IQueryablePack<Module> pack;
+        IQueryable<Module> data;
 
         [TestInitialize]
         public void setup() 
         {
             mfs = new ModuleFilterService(); //Just let it run without errors. That's a pass, I guess.
+            data = drp.GetAll().AsQueryable();
         }
 
         [TestMethod]
@@ -30,16 +31,53 @@ namespace ModuleManager.BusinessLogicTests
             {
                 Zoekterm = "INMODL"
             };
-            var inbetween = drp.GetAll();
-            var data = inbetween.AsQueryable(); ;
 
-            pack = new ModuleQueryablePack(args, data);
+            ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
 
             IEnumerable<Module> result;
             result = mfs.Filter(pack);
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Count());
             Assert.AreEqual("INMODL312345", result.First().CursusCode);
+        }
+
+        [TestMethod]
+        public void testCompetentieSearchSingle()
+        {
+            List<string> filtering = new List<string>();
+            filtering.Add("procesanaly");
+
+            Arguments args = new Arguments
+            {
+                CompetentieFilter = filtering
+            };
+
+            ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
+
+            IEnumerable<Module> result;
+            result = mfs.Filter(pack);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void testCompetentieSearchMulti()
+        {
+            List<string> filtering = new List<string>();
+            filtering.Add("procesanaly");
+            filtering.Add("vernietigen");
+
+            Arguments args = new Arguments
+            {
+                CompetentieFilter = filtering
+            };
+
+            ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
+
+            IEnumerable<Module> result;
+            result = mfs.Filter(pack);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
         }
     }
 }
