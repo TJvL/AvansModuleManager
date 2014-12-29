@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace ModuleManager.DomainDAL
+{
     using System;
     using System.Collections.Generic;
-    
-namespace ModuleManager.DomainDAL {
     
     public partial class Module
     {
@@ -28,6 +28,8 @@ namespace ModuleManager.DomainDAL {
             this.Weekplanning = new HashSet<Weekplanning>();
             this.Leerlijn = new HashSet<Leerlijn>();
             this.Tag = new HashSet<Tag>();
+            this.Module1 = new HashSet<Module>();
+            this.Module2 = new HashSet<Module>();
         }
     
         public string CursusCode { get; set; }
@@ -52,5 +54,7 @@ namespace ModuleManager.DomainDAL {
         public virtual ICollection<Weekplanning> Weekplanning { get; set; }
         public virtual ICollection<Leerlijn> Leerlijn { get; set; }
         public virtual ICollection<Tag> Tag { get; set; }
+        public virtual ICollection<Module> Module1 { get; set; }
+        public virtual ICollection<Module> Module2 { get; set; }
     }
 }

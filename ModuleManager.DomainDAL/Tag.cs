@@ -7,12 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace ModuleManager.DomainDAL
+{
     using System;
     using System.Collections.Generic;
     
-namespace ModuleManager.DomainDAL {
-    public partial class Tag {
-        public Tag() {
+    public partial class Tag
+    {
+        public Tag()
+        {
             this.Module = new HashSet<Module>();
         }
     

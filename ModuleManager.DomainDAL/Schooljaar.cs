@@ -12,14 +12,15 @@ namespace ModuleManager.DomainDAL
     using System;
     using System.Collections.Generic;
     
-    public partial class StudiePunten
+    public partial class Schooljaar
     {
-        public string CursusCode { get; set; }
-        public int Schooljaar { get; set; }
-        public string ToetsCode { get; set; }
-        public decimal EC { get; set; }
-        public string Minimum { get; set; }
+        public Schooljaar()
+        {
+            this.Opleiding = new HashSet<Opleiding>();
+        }
     
-        public virtual Module Module { get; set; }
+        public int JaarId { get; set; }
+    
+        public virtual ICollection<Opleiding> Opleiding { get; set; }
     }
 }

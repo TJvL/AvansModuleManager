@@ -7,20 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+namespace ModuleManager.DomainDAL
+{
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-namespace ModuleManager.DomainDAL {
-    public partial class DomainContext : DbContext {
+    public partial class DomainContext : DbContext
+    {
         public DomainContext()
-            : base("name=DomainContext") {
+            : base("name=DomainContext")
+        {
         }
     
-        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
             throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<Beoordelingen> Beoordelingen { get; set; }
+        public virtual DbSet<Blok> Blok { get; set; }
         public virtual DbSet<Competentie> Competentie { get; set; }
         public virtual DbSet<Docent> Docent { get; set; }
         public virtual DbSet<Fase> Fase { get; set; }
@@ -35,6 +41,7 @@ namespace ModuleManager.DomainDAL {
         public virtual DbSet<ModuleWerkvorm> ModuleWerkvorm { get; set; }
         public virtual DbSet<Niveau> Niveau { get; set; }
         public virtual DbSet<Opleiding> Opleiding { get; set; }
+        public virtual DbSet<Schooljaar> Schooljaar { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<StudieBelasting> StudieBelasting { get; set; }
         public virtual DbSet<StudiePunten> StudiePunten { get; set; }

@@ -55,6 +55,9 @@
     <Compile Include="Beoordelingen.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Blok.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Competentie.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
     <Compile Include="Repositories\DummyNiveauRepository.cs" />
     <Compile Include="Repositories\DummyStatusRepository.cs" />
     <Compile Include="Repositories\DummyTagRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Schooljaar.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Status.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -134,14 +141,13 @@
     <Compile Include="Tag.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="Weekplanning.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Werkvorm.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
