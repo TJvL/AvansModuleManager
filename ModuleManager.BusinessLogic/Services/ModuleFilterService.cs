@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,14 +29,14 @@ namespace ModuleManager.BusinessLogic.Services
             
             // Build Reflection Here
             var types = from t in Assembly.GetExecutingAssembly().GetTypes()
-                        where t.IsClass && t.Namespace == "@ModuleManager.BusinessLogic.Filters.ModuleFilterStack"
+                        where t.IsClass && t.Namespace == "ModuleManager.BusinessLogic.Filters.ModuleFilterStack" && !t.IsDefined(typeof (CompilerGeneratedAttribute), false)
                         select t;
             Type[] typeArgs = {typeof(IFilter<DomainDAL.Module>)};
 
             foreach (Type t in types) 
             {
                 var ctor = t.GetConstructor(typeArgs);
-                if (ctor != null) 
+                if (ctor != null)
                 {
                     object[] parameters = { moduleFilterStrategy };
                     moduleFilterStrategy = ctor.Invoke(parameters) as IFilter<DomainDAL.Module>;
