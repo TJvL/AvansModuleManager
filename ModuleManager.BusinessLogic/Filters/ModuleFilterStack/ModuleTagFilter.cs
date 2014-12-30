@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
 {
-    public class ModuleCompetentieFilter : ModuleBaseFilter
+    public class ModuleTagFilter : ModuleBaseFilter
     {
-        public ModuleCompetentieFilter(IFilter<Module> parent) : base(parent) { }
+        public ModuleTagFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.CompetentieFilter != null)
+            if (args.TagFilter != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (string arg in args.CompetentieFilter)
+                foreach (string arg in args.TagFilter)
                 {
                     var selectedModule = 
                         from m in toQuery
                             where
-                                m.ModuleCompetentie.Any(
-                                element => element.Competentie.Naam.ToLower().Contains(arg.ToLower())
+                                m.Tag.Any(
+                                element => element.Naam.ToLower().Contains(arg.ToLower())
                                 )
                         select m;
 

@@ -44,6 +44,14 @@
     <Compile Include="Data\Arguments.cs" />
     <Compile Include="Data\ModuleQueryablePack.cs" />
     <Compile Include="Filters\ModuleBaseFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleFaseNamenFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleLeerlijnFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleBlokFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleLeerjaarFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleECFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleStatusFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleTagFilter.cs" />
+    <Compile Include="Filters\ModuleFilterStack\ModuleCompetentieNiveauFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleCompetentieFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleGenericZoektermFilter.cs" />
     <Compile Include="Filters\ModulePassiveFilter.cs" />

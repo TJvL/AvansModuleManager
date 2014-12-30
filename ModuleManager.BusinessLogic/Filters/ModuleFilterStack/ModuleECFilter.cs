@@ -9,22 +9,20 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
 {
-    public class ModuleCompetentieFilter : ModuleBaseFilter
+    public class ModuleECFilter : ModuleBaseFilter
     {
-        public ModuleCompetentieFilter(IFilter<Module> parent) : base(parent) { }
+        public ModuleECFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.CompetentieFilter != null)
+            if (args.ECs != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (string arg in args.CompetentieFilter)
+                foreach (int arg in args.ECs)
                 {
                     var selectedModule = 
                         from m in toQuery
                             where
-                                m.ModuleCompetentie.Any(
-                                element => element.Competentie.Naam.ToLower().Contains(arg.ToLower())
-                                )
+                                m.StudiePunten.Sum(element => element.EC) == arg
                         select m;
 
                     result.AddRange(selectedModule);
