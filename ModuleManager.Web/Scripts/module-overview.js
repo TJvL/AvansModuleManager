@@ -32,20 +32,19 @@ function init_datatable() {
             url: "/Scripts/dataTables.dutch.js"
         },
         ajax: {
-            url: '/api/Module/GetOverview',
-            type: 'POST'
-            //url: '/Scripts/temp_data.js',
-            //type: 'GET'
+            //url: '/api/Module/GetOverview',
+            //type: 'POST'
+            url: '/Scripts/temp_data.js',
+            type: 'GET'
         },
         columns: [
             { "data": "Icon" },
             { "data": "Naam" },
             { "data": "CursusCode" },
-            { "data": "Blokken" },
-            { "data": "TotalEc" },
-            { "data": "Verantwoordelijke" },
-            { "data": "Docenten" },
-            { "data": "FaseNamen" },
+            { "data": "Blok" },
+            { "data": "Fase" },
+            { "data": "StudiePunten" },
+            { "data": "CursusCode" }
         ],
         aoColumnDefs: [
             {
@@ -58,21 +57,21 @@ function init_datatable() {
             },
             {
                 mRender: function (data, type, full) {
-                    return data + "<br /><span class=\"text-muted\">" + full['Verantwoordelijke'] + ", " + full['Docenten'] + "</span>";
+                    return data + "<br /><span class=\"text-muted\">" + full['Verantwoordelijke'] + "</span>";
                 },
                 aTargets: [1]
             },
-            /*{
+            {
                 mRender: function (data, type, full) {
                     return "Blok " + data;
                 },
                 aTargets: [3]
-            },*/
+            },
             {
                 mRender: function (data, type, full) {
                     return data + " EC";
                 },
-                aTargets: [4]
+                aTargets: [5]
             },
             {
                 sClass: "text-center",
@@ -81,7 +80,7 @@ function init_datatable() {
                     return "<input type=\"checkbox\" class=\"checkbox-module\" data-export=\"data\" />";
                 },
                 bSortable: false,
-                aTargets: [8]
+                aTargets: [6]
             }
         ],
         order: [[1, "asc"]],

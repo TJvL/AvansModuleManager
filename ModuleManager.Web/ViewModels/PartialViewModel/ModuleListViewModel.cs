@@ -7,20 +7,20 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 {
     public class ModuleListViewModel
     {
-        public ICollection<ModuleViewModel> data { get; set; }
-        public int recordsFiltered { get { return data.Count; } }
-        public int recordsTotal { get; private set; }
+        public ICollection<ModuleViewModel> Modules { get; set; }
+        public int RecordsFiltered { get { return Modules.Count; } }
+        public int RecordsTotal { get; private set; }
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="recordsTotal">Totaal aantal modules in de datasource"</param>
         public ModuleListViewModel(int recordsTotal)
         {
-            this.recordsTotal = recordsTotal;
+            RecordsTotal = recordsTotal;
         }
         public void AddModules(IEnumerable<Module> moduleList)
         {
-            data = moduleList
+            Modules = moduleList
                 .Select(Mapper.Map<Module, ModuleViewModel>)
                 .ToList();
         }
