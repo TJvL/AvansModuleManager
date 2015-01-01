@@ -51,7 +51,7 @@ namespace ModuleManager.BusinessLogic.Data
         /// <summary>
         /// Geselecteerde/mogelijke Leerjaar om op te filteren
         /// </summary>
-        public int Leerjaren { get; set; }
+        public int Leerjaar { get; set; }
         /// <summary>
         /// Geselecteerde/mogelijke EC(s) om op te filteren
         /// </summary>

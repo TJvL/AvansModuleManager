@@ -15,7 +15,13 @@ namespace ModuleManager.BusinessLogic.Interfaces
     /// </remarks>
     public interface IQueryablePack<T> where T : class
     {
+        /// <summary>
+        /// Get Property for Arguments (Always the same format)
+        /// </summary>
         Arguments Args { get; }
+        /// <summary>
+        /// get Property for any Data.
+        /// </summary>
         IQueryable<T> Data { get; }
     }
 }
