@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
 {
+    /// <summary>
+    /// Filters Modules based on the related "Blok"
+    /// </summary>
     public class ModuleBlokFilter : ModuleBaseFilter
     {
         public ModuleBlokFilter(IFilter<Module> parent) : base(parent) { }
