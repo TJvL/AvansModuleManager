@@ -56,21 +56,21 @@
     <Compile Include="Filters\ModuleFilterStack\ModuleGenericZoektermFilter.cs" />
     <Compile Include="Filters\ModulePassiveFilter.cs" />
     <Compile Include="Interfaces\Filters\IFilter.cs" />
-    <Compile Include="Interfaces\IFilterService.cs" />
-    <Compile Include="Interfaces\IFilterSorterService.cs" />
+    <Compile Include="Interfaces\Services\IFilterService.cs" />
+    <Compile Include="Interfaces\Services\IFilterSorterService.cs" />
     <Compile Include="Interfaces\IQueryablePack.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\Services\ISorterService.cs" />
+    <Compile Include="Interfaces\Sorters\ISorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ModuleFilterService.cs" />
     <Compile Include="Services\DummyModuleFilterSorterService.cs" />
+    <Compile Include="Sorters\ModuleBaseSorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exporters\" />
     <Folder Include="Factories\" />
     <Folder Include="Interfaces\Exporters\" />
-    <Folder Include="Interfaces\Services\" />
-    <Folder Include="Interfaces\Sorters\" />
-    <Folder Include="Sorters\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj">

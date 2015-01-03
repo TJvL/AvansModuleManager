@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModuleManager.BusinessLogic.Interfaces
+namespace ModuleManager.BusinessLogic.Interfaces.Services
 {
     /// <summary>
     /// Basic Data manipulation class

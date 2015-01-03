@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModuleManager.BusinessLogic.Interfaces
+namespace ModuleManager.BusinessLogic.Interfaces.Services
 {
     /// <summary>
     /// Base Filter Service for EVERYTHING
