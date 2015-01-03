@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace ModuleManager.BusinessLogic.Services
 {
     /// <summary>
-    /// Filtering and Sorting class for use with Modules
+    /// Filtering class for use with Modules
     /// </summary>
     public class ModuleFilterService : IFilterService<DomainDAL.Module>
     {

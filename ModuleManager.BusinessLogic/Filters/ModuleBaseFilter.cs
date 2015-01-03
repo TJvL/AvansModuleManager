@@ -19,7 +19,7 @@ namespace ModuleManager.BusinessLogic.Filters
         /// <summary>
         /// Constructor to make the decorator pattern
         /// </summary>
-        /// <param name="parent">the previous pattern</param>
+        /// <param name="parent">the previous class in the stack</param>
         public ModuleBaseFilter(IFilter<Module> parent) 
         {
             this.parent = parent;
