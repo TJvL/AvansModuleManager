@@ -68,12 +68,12 @@
     <Compile Include="Services\ModuleSorterService.cs" />
     <Compile Include="Sorters\ModuleBaseSorter.cs" />
     <Compile Include="Sorters\ModulePassiveSorter.cs" />
+    <Compile Include="Sorters\ModuleSorterStack\ModuleNaamSorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exporters\" />
     <Folder Include="Factories\" />
     <Folder Include="Interfaces\Exporters\" />
-    <Folder Include="Sorters\ModuleSorterStack\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj">

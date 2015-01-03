@@ -27,7 +27,7 @@ namespace ModuleManager.BusinessLogic.Services
 
             //Build Reflection Here
             var types = from t in Assembly.GetExecutingAssembly().GetTypes()
-                        where t.IsClass && t.Namespace == "ModuleManager.BusinessLogic.Filters.ModuleSorterStack" && !t.IsDefined(typeof(CompilerGeneratedAttribute), false)
+                        where t.IsClass && t.Namespace == "ModuleManager.BusinessLogic.Sorters.ModuleSorterStack" && !t.IsDefined(typeof(CompilerGeneratedAttribute), false)
                         select t;
             Type[] typeArgs = { typeof(ISorter<DomainDAL.Module>) };
             foreach (Type t in types) 
@@ -48,7 +48,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// <returns>List of Sorted Modules</returns>
         public IEnumerable<DomainDAL.Module> Sort(Interfaces.IQueryablePack<DomainDAL.Module> qPack)
         {
-            return moduleSorterStrategy.Sort(qPack.Data, qPack.Args);
+            return moduleSorterStrategy.Sort(qPack.Data, qPack.Args).AsEnumerable();
         }
     }
 }

@@ -38,6 +38,19 @@ namespace ModuleManager.BusinessLogicTests
             //No need to check for count. That is not modified anywhere in this sequence.
         }
 
+        [TestMethod]
+        public void testModuleNaamSorting() 
+        {
+            Arguments args = new Arguments();
+            args.SortFor.Add("Naam", false);
 
+            ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
+
+            IEnumerable<Module> result;
+            result = mss.Sort(pack);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Algoritmiek 3000S", result.First().Naam);
+            Assert.AreEqual("Programmeren 7", result.Last().Naam);
+        }
     }
 }
