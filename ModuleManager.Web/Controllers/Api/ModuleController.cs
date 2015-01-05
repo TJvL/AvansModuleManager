@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using ModuleManager.BusinessLogic.Data;
-using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
@@ -24,9 +23,17 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview(Arguments arguments)
         {
-            var modules = _moduleRepository.GetAll().ToList();
-            var moduleListVm = new ModuleListViewModel(modules.Count());
-            moduleListVm.AddModules(modules);
+            var modules = _moduleRepository.GetAll();
+
+            if (!arguments.IsEmpty)
+            {
+                var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
+                modules = _filterSorterService.ProcessData(queryPack);
+            }
+
+            var modArray = modules.ToArray();
+            var moduleListVm = new ModuleListViewModel(modArray.Count());
+            moduleListVm.AddModules(modArray);
 
             return moduleListVm;
         }

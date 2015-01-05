@@ -16,6 +16,16 @@ namespace ModuleManager.BusinessLogic.Data
             SortFor = new Dictionary<string,bool>();
         }
 
+        public bool IsEmpty
+        {
+            get
+            {
+                return (SortFor.Count == 0) && (Zoekterm == null) && (CompetentieFilter == null) &&
+                       (CompetentieNiveauFilter == null) && (TagFilter == null) && (LeerlijnFilter == null) &&
+                       (Blokken == null) && (FaseNamen == null) && (Leerjaar == 0) && (ECs == null) && (Status1 == null);
+            }
+        }
+
         /// <summary>
         /// Bevat kolomnamen voor sorteren, met aflopende prioriteit
         /// </summary>
