@@ -13,7 +13,7 @@
         public string Naam { get; set; }
         public string CursusCode { get; set; }
         public string Blokken { get; set; }
-        public int TotalEc { get; set; }
+        public decimal TotalEc { get; set; }
 
         /// <summary>
         /// Onderdeel van de Admin/CheckModules

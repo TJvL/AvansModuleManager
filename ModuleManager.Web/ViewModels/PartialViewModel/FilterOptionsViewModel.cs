@@ -1,8 +1,7 @@
 using ModuleManager.DomainDAL;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Ajax.Utilities;
-using System;
+
 namespace ModuleManager.Web.ViewModels.PartialViewModel
 {
     /// <summary>
@@ -11,6 +10,11 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     /// </summary>
     public class FilterOptionsViewModel
     {
+        public FilterOptionsViewModel()
+        {
+            AddECs();
+        }
+
         /// <summary>
         /// Verkrijgt uit een lijst van alle 'Competentie'-objecten alleen de namen en zet deze in het 'CompetentieFilter' Property
         /// </summary>
@@ -56,21 +60,15 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         }
 
         /// <summary>
-        /// Verkrijgt uit een lijst van alle 'Module'-objecten alleen de 'Distinct'-Blokken en zet deze in het 'Blokken' Property
+        /// Verkrijgt uit een lijst van alle 'Blok'-objecten alleen de BlokNummer en zet deze in het 'Blokken' Property
         /// </summary>
-        /// <remarks>
-        /// Mogelijke vervangende parameters zouden zijn:
-        /// -IEnumerable van FaseModule
-        /// -IEnumerable van Fase
-        /// </remarks>
-        /// <param name="moduleList"></param>
-        public void AddBlokken(IEnumerable<Module> moduleList)
+        /// <param name="blokList">Lijst van alle 'Blok'-objecten</param>
+        public void AddBlokken(IEnumerable<Blok> blokList)
         {
-            Blokken = moduleList
-            .SelectMany(module => module.FaseModules)
-            .Select(fm => fm.Blok)
-            .Distinct()
-            .ToList();
+            Blokken = blokList
+                .Select(blok => blok.BlokId)
+                .Distinct()
+                .ToList();
         }
 
         /// <summary>
@@ -85,29 +83,34 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         }
 
         /// <summary>
-        /// Verkrijgt uit een lijst van alle 'Module'-objecten alleen 'Distinct'-Leerjaren en zet deze in het 'FaseNamen' Property
+        /// Verkrijgt uit een lijst van alle 'Schooljaar'-objecten alleen de jaren en zet deze in het 'Leerjaren' Property
         /// </summary>
-        /// <param name="moduleList">Lijst van alle 'Module'-objecten</param>
-        public void AddLeerjaren(IEnumerable<Module> moduleList)
+        /// <param name="schooljaarList">Lijst van alle 'Schooljaar'-objecten</param>
+        public void AddLeerjaren(IEnumerable<Schooljaar> schooljaarList)
         {
-            Leerjaren = moduleList
-            .DistinctBy(module => module.Schooljaar)
-            .Select(module => module.Schooljaar)
-            .ToList();
+            Leerjaren = schooljaarList
+                .Select(jaar => jaar.JaarId)
+                .ToList();
         }
 
         /// <summary>
-        /// Verkrijgt, uit een lijst van alle 'Module'-objecten, de totale EC per Module en zet deze in het 'ECs' Property
+        /// vult de EC-property met waarden
         /// </summary>
-        /// <param name="moduleList">Lijst van alle 'Module'-objecten</param>
-        public void AddECs(IEnumerable<Module> moduleList)
+        public void AddECs()
         {
-            ECs = moduleList
-            .DistinctBy(module => module.StudiePunten
-                .Select(sp => sp.EC))
-            .Select(module => module.StudiePunten
-            .Sum(sp => Convert.ToDouble(sp.EC)))
-            .ToList();
+            ECs = new List<double>
+            {
+                0.5,
+                1,
+                1.5,
+                2,
+                2.5,
+                3,
+                3.5,
+                4,
+                4.5,
+                5
+            };
         }
 
         /// <summary>
