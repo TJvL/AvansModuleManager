@@ -6,6 +6,7 @@ using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using ModuleManager.BusinessLogic.Interfaces.Services;
 
 namespace ModuleManager.Web.Controllers.Api
 {

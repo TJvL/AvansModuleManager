@@ -11,6 +11,11 @@ namespace ModuleManager.BusinessLogic.Data
     /// </summary>
     public class Arguments
     {
+        public Arguments() 
+        {
+            SortFor = new Dictionary<string,bool>();
+        }
+
         /// <summary>
         /// Bevat kolomnamen voor sorteren, met aflopende prioriteit
         /// </summary>

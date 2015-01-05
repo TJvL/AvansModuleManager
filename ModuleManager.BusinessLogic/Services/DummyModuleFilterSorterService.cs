@@ -1,4 +1,5 @@
 ﻿using ModuleManager.BusinessLogic.Interfaces;
+using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
 using System;
 using System.Collections.Generic;

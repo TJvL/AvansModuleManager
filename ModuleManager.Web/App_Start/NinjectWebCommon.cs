@@ -13,6 +13,7 @@ using Ninject.Web.Common;
 using WebActivatorEx;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Services;
+using ModuleManager.BusinessLogic.Interfaces.Services;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
