@@ -76,6 +76,10 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
             kernel.Bind<IGenericRepository<Module>>().To<DummyModuleRepository>();
             kernel.Bind<IGenericRepository<Tag>>().To<DummyTagRepository>();
+            kernel.Bind<IGenericRepository<Blok>>().To<DummyBlokRepository>();
+            kernel.Bind<IGenericRepository<Niveau>>().To<DummyNiveauRepository>();
+            kernel.Bind<IGenericRepository<Schooljaar>>().To<DummySchooljaarRepository>();
+            kernel.Bind<IGenericRepository<Status>>().To<DummyStatusRepository>();
             // UnitOfWork session for repositories to use:
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
@@ -87,7 +91,7 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IModuleApiController>().To<ModuleController>();
 
             // Filter-, Sorter- and Export-services:
-            kernel.Bind<IFilterSorterService<Module>>().To<DummyModuleFilterSorterService>();
+            kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
 
         }        
     }
