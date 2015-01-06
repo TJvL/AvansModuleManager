@@ -5,6 +5,7 @@ using ModuleManager.DomainDAL;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using ModuleManager.UserDAL;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -27,6 +28,7 @@ namespace ModuleManager.Web.Controllers
             _leerlijnApi = leerlijnApi;
             _tagApi = tagApi;
             _faseApi = faseApi;
+            
         }
 
         [HttpGet, Route("Admin/Index")]
@@ -64,8 +66,45 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/UserOverview")]
         public ActionResult UserOverview()
         {
+
+            var mocList = new List<UserViewModel>()
+            {
+                new UserViewModel()
+                {                    
+                    Username = "Friet",
+                    UserEmail = "Friet@piet.nl",
+                    UserRole = "Teacher"
+                },
+                new UserViewModel()
+                {
+                    Username = "Pees",
+                    UserEmail = "Pees@piet.nl",
+                    UserRole = "Adim"
+                },
+                new UserViewModel()
+                {
+                    Username = "Arie",
+                    UserEmail = "Kanarie@piet.nl",
+                    UserRole = "Teacher"
+                },
+                new UserViewModel()
+                {
+                    Username = "Tom",                   
+                    UserEmail = "Bom@piet.nl",
+                    UserRole = "Admin"
+                }
+            };
+
+            var overViewvm = new AdminUserManagementViewModel()
+            {
+                Users = new UserListViewModel(mocList.Count) 
+                { 
+                    Users = mocList
+                }
+            };
+
             // TODO: Implementeer ViewModel en return deze.
-            return View();
+            return View(overViewvm);
         }
 
         [HttpGet, Route("Admin/CheckModules")]
