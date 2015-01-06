@@ -7,9 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Microsoft.AspNet.Identity.EntityFramework;
 namespace ModuleManager.UserDAL {
-    public partial class User :IdentityUser{
+    public partial class User {
         public string UserNaam { get; set; }
         public string Wachtwoord { get; set; }
         public string SysteemRol { get; set; }
