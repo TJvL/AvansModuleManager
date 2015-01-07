@@ -28,6 +28,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             Users = userList
                 .Select(Mapper.Map<User, UserViewModel>)
                 .ToList();
+            
         }
     }
 }
