@@ -4,10 +4,11 @@ using ModuleManager.DomainDAL.Interfaces;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
-    public class DummyTagRepository : IGenericRepository<Tag>
+    public class TagRepository : IGenericRepository<Tag>
     {
         private readonly ICollection<Tag> _tags;
-        public DummyTagRepository()
+        private readonly ModuleManager.DomainDAL.DomainContext dbContext;
+        public TagRepository()
         {
             _tags = new List<Tag>
             {
@@ -55,33 +56,59 @@ namespace ModuleManager.DomainDAL.Repositories
         }
         public IEnumerable<Tag> GetAll()
         {
-            return _tags;
+            return (from b in dbContext.Tag select b).ToList();
         }
+
         public Tag GetOne(string key)
         {
-            return (_tags.Where(tag => tag.Naam.Equals(key))).First();
+            return (from b in dbContext.Tag where b.Naam.Equals(key) select b).First();
         }
+
         public bool Create(Tag entity)
         {
-            if (_tags != null)
+            if (dbContext == null)
+                return false;
+            dbContext.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Added;
+            int changesCount = dbContext.SaveChanges();
+
+            if (changesCount == 1)
             {
-                _tags.Add(entity);
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
+
         public bool Delete(Tag entity)
         {
-            return _tags.Remove(entity);
+            dbContext.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Deleted;
+            int changes = dbContext.SaveChanges();
+
+            if (changes == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
         public bool Edit(Tag entity)
         {
-            Tag oldTag = (_tags.Where(tag => tag.Naam.Equals(entity.Naam))).First();
-            if (Delete(oldTag))
+            dbContext.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Modified;
+            int changes = dbContext.SaveChanges();
+
+            if (changes == 1)
             {
-                return Create(entity);
+                return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

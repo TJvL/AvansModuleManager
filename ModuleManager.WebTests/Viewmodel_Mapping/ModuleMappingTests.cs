@@ -15,7 +15,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
     [TestClass]
     public class ModuleMappingTests
     {
-        private DummyModuleRepository _moduleRepository;
+        private ModuleRepository _moduleRepository;
 
         #region Additional test attributes
 
@@ -44,7 +44,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         [TestInitialize]
         public void ModuleListViewModelMappingTestInit()
         {
-            _moduleRepository = new DummyModuleRepository();
+            _moduleRepository = new ModuleRepository();
             AutoMapperConfiguration.Configure();
         }
 

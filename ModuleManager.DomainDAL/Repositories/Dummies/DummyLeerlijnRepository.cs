@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
-namespace ModuleManager.DomainDAL.Repositories
+namespace ModuleManager.DomainDAL.Repositories.Dummies
 {
     public class DummyLeerlijnRepository : IGenericRepository<Leerlijn>
     {

@@ -13,7 +13,7 @@ namespace ModuleManager.BusinessLogicTests
     public class ModuleFilterSorterServiceTest
     {
         ModuleFilterSorterService mfss;
-        DummyModuleRepository drp = new DummyModuleRepository();
+        ModuleRepository drp = new ModuleRepository();
         IQueryable<Module> data;
 
         [TestInitialize]

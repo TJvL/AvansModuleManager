@@ -2,7 +2,7 @@
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
 
-namespace ModuleManager.DomainDAL.Repositories
+namespace ModuleManager.DomainDAL.Repositories.Dummies
 {
     public class DummySchooljaarRepository : IGenericRepository<Schooljaar>
     {

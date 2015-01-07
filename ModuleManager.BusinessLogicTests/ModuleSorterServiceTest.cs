@@ -15,7 +15,7 @@ namespace ModuleManager.BusinessLogicTests
     public class ModuleSorterServiceTest
     {
         ModuleSorterService mss;
-        DummyModuleRepository drp = new DummyModuleRepository();
+        ModuleRepository drp = new ModuleRepository();
         IQueryable<Module> data;
 
         [TestInitialize]

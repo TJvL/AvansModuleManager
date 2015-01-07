@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
+
 namespace ModuleManager.DomainDAL.Repositories
 {
-    public class DummyCompetentieRepository : IGenericRepository<Competentie>
+    public class CompetentieRepository : IGenericRepository<Competentie>
     {
         private readonly ICollection<Competentie> _competenties;
+        private readonly ModuleManager.DomainDAL.DomainContext dbContext;
 
-        public DummyCompetentieRepository()
+        public CompetentieRepository()
         {
             _competenties = new List<Competentie>
 			{
@@ -81,37 +83,59 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public IEnumerable<Competentie> GetAll()
         {
-            return _competenties;
+            return (from b in dbContext.Competentie select b).ToList();
         }
 
         public Competentie GetOne(string key)
         {
-            return (_competenties.Where(comp => comp.Code.Equals(key))).First();
+            return (from b in dbContext.Competentie where b.Code.Equals(key) select b).First();
         }
 
         public bool Create(Competentie entity)
         {
-            if (_competenties != null)
+            if (dbContext == null)
+                return false;
+            dbContext.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Added;
+            int changesCount = dbContext.SaveChanges();
+
+            if (changesCount == 1)
             {
-                _competenties.Add(entity);
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         public bool Delete(Competentie entity)
         {
-            return _competenties.Remove(entity);
+            dbContext.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Deleted;
+            int changes = dbContext.SaveChanges();
+
+            if (changes == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool Edit(Competentie entity)
         {
-            Competentie oldComp = (_competenties.Where(comp => comp.Code.Equals(entity.Code))).First();
-            if (Delete(oldComp))
+            dbContext.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Modified;
+            int changes = dbContext.SaveChanges();
+
+            if (changes == 1)
             {
-                return Create(entity);
+                return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -12,14 +12,14 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
     [TestClass]
     public class FilterOptionsMappingTests
     {
-        private DummyCompetentieRepository _competentieRepository;
-        private DummyFaseRepository _faseRepository;
-        private DummyLeerlijnRepository _leerlijnRepository;
-        private DummyTagRepository _tagRepository;
-        private DummyNiveauRepository _niveauRepository;
-        private DummyStatusRepository _statusRepository;
-        private DummyBlokRepository _blokRepository;
-        private DummySchooljaarRepository _schooljaarRepository;
+        private CompetentieRepository _competentieRepository;
+        private FaseRepository _faseRepository;
+        private LeerlijnRepository _leerlijnRepository;
+        private TagRepository _tagRepository;
+        private NiveauRepository _niveauRepository;
+        private StatusRepository _statusRepository;
+        private BlokRepository _blokRepository;
+        private SchooljaarRepository _schooljaarRepository;
 
         #region Additional test attributes
         //
@@ -46,14 +46,14 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         [TestInitialize]
         public void ModuleListViewModelMappingTestInit()
         {
-            _competentieRepository = new DummyCompetentieRepository();
-            _faseRepository = new DummyFaseRepository();
-            _leerlijnRepository = new DummyLeerlijnRepository();
-            _tagRepository = new DummyTagRepository();
-            _statusRepository = new DummyStatusRepository();
-            _niveauRepository = new DummyNiveauRepository();
-            _blokRepository = new DummyBlokRepository();
-            _schooljaarRepository = new DummySchooljaarRepository();
+            _competentieRepository = new CompetentieRepository();
+            _faseRepository = new FaseRepository();
+            _leerlijnRepository = new LeerlijnRepository();
+            _tagRepository = new TagRepository();
+            _statusRepository = new StatusRepository();
+            _niveauRepository = new NiveauRepository();
+            _blokRepository = new BlokRepository();
+            _schooljaarRepository = new SchooljaarRepository();
         }
 
         /// <summary>
