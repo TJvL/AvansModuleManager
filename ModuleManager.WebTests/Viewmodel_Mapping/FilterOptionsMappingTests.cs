@@ -18,7 +18,8 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         private DummyTagRepository _tagRepository;
         private DummyNiveauRepository _niveauRepository;
         private DummyStatusRepository _statusRepository;
-        private DummyModuleRepository _moduleRepository;
+        private DummyBlokRepository _blokRepository;
+        private DummySchooljaarRepository _schooljaarRepository;
 
         #region Additional test attributes
         //
@@ -51,7 +52,8 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             _tagRepository = new DummyTagRepository();
             _statusRepository = new DummyStatusRepository();
             _niveauRepository = new DummyNiveauRepository();
-            _moduleRepository = new DummyModuleRepository();
+            _blokRepository = new DummyBlokRepository();
+            _schooljaarRepository = new DummySchooljaarRepository();
         }
 
         /// <summary>
@@ -147,15 +149,18 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         {
             // Arrange
             var filterViewModel = new FilterOptionsViewModel();
-            var allModules = _moduleRepository.GetAll();
-            filterViewModel.AddBlokken(allModules);
+            var alleBlokken = _blokRepository.GetAll();
+            filterViewModel.AddBlokken(alleBlokken);
 
             // Act
             // verwachte Blokken op basis van de DummyRepository
             var allBlokken = new List<string>
             {
+                "1",
+                "2",
                 "3",
-                "4"
+                "4",
+                "5"
             };
 
             // Assert <expected, actual>
@@ -227,14 +232,15 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         {
             // Arrange
             var filterViewModel = new FilterOptionsViewModel();
-            var allModules = _moduleRepository.GetAll();
-            filterViewModel.AddLeerjaren(allModules);
+            var allschooljaar = _schooljaarRepository.GetAll();
+            filterViewModel.AddLeerjaren(allschooljaar);
 
             // Act
             // verwachte Leerjaren op basis van de DummyRepository
             var allLeerjaren = new List<int>
             {
-                1415
+                1415,
+                1516
             };
 
             // Assert <expected, actual>
@@ -251,14 +257,21 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         {
             // Arrange
             var filterViewModel = new FilterOptionsViewModel();
-            var allModules = _moduleRepository.GetAll();
-            filterViewModel.AddECs(allModules);
 
             // Act
             // verwachte EC's op basis van de DummyRepository
-            var allECs = new List<int>
+            var allECs = new List<double>
             {
-                5,3,24
+                0.5,
+                1,
+                1.5,
+                2,
+                2.5,
+                3,
+                3.5,
+                4,
+                4.5,
+                5
             };
 
             // Assert <expected, actual>

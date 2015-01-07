@@ -2,6 +2,7 @@
 using ModuleManager.BusinessLogic.Filters;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Filters;
+using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 namespace ModuleManager.BusinessLogic.Services
 {
     /// <summary>
-    /// Filtering and Sorting class for use with Modules
+    /// Filtering class for use with Modules
     /// </summary>
     public class ModuleFilterService : IFilterService<DomainDAL.Module>
     {

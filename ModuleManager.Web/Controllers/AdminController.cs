@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
@@ -19,16 +20,21 @@ namespace ModuleManager.Web.Controllers
         private readonly IGenericApiController<Tag> _tagApi;
         private readonly IGenericApiController<Fase> _faseApi;
 
+        private readonly IGenericRepository<Blok> _blokRepository;
+        private readonly IGenericRepository<Status> _statusRepository; 
+
         public AdminController(IModuleApiController moduleApi, IGenericApiController<Competentie> competentieApi,
             IGenericApiController<Leerlijn> leerlijnApi, IGenericApiController<Tag> tagApi,
-            IGenericApiController<Fase> faseApi)
+            IGenericApiController<Fase> faseApi, IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository)
         {
             _moduleApi = moduleApi;
             _competentieApi = competentieApi;
             _leerlijnApi = leerlijnApi;
             _tagApi = tagApi;
             _faseApi = faseApi;
-            
+
+            _blokRepository = blokRepository;
+            _statusRepository = statusRepository;
         }
 
         [HttpGet, Route("Admin/Index")]
@@ -40,24 +46,24 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/Curriculum")]
         public ActionResult Curriculum()
         {
+            var competenties = _competentieApi.GetAll();
+            var leerlijnen = _leerlijnApi.GetAll();
+            var tags = _tagApi.GetAll();
+            var fases = _faseApi.GetAll();
+            var blokken = _blokRepository.GetAll();
+
+            var filterOptions = new FilterOptionsViewModel();
+            filterOptions.AddFases(fases);
+            filterOptions.AddBlokken(blokken);
+
             var adminCurriculumVm = new AdminCurriculumViewModel
             {
-                Competenties = _competentieApi.GetAll(),
-                Leerlijn = _leerlijnApi.GetAll(),
-                Tags = _tagApi.GetAll(),
-                Fases = _faseApi.GetAll(),                //TODO: Toevoegen van start filter argumenten?
+                Competenties = competenties,
+                Leerlijn = leerlijnen,
+                Tags = tags,
+                Fases = fases,                //TODO: Toevoegen van start filter argumenten?
                 ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
-                FilterOptions = new FilterOptionsViewModel
-                {   // TODO: Vervang deze code door een call naar de relevante database tabellen.
-                    Blokken = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" },
-                    FaseNamen =
-                        new List<string>
-                        {
-                            "Software Ontwikeling - Major", 
-                            "Software Architectuur - Minor", 
-                            "Informatica - Propedeuse"
-                        }
-                }
+                FilterOptions = filterOptions
             };
             return View(adminCurriculumVm);
         }
@@ -110,28 +116,15 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/CheckModules")]
         public ActionResult CheckModules()
         {
+            var filterOptions = new FilterOptionsViewModel();
+            filterOptions.AddBlokken(_blokRepository.GetAll());
+            filterOptions.AddFases(_faseApi.GetAll());
+            filterOptions.AddStatuses(_statusRepository.GetAll());
+
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
                 ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
-                FilterOptions = new FilterOptionsViewModel
-                {   // TODO: Vervang deze code door een call naar de relevante database tabellen.
-                    Blokken = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" },
-                    FaseNamen =
-                        new List<string>
-                        {
-                            "Software Ontwikeling - Major",
-                            "Software Architectuur - Minor",
-                            "Informatica - Propedeuse"
-                        },
-                    Statussen =
-                        new List<string>
-                        {
-                            "Compleet (ongecontroleerd)",
-                            "Compleet (gecontroleerd",
-                            "Incompleet",
-                            "Nieuw"
-                        }
-                }
+                FilterOptions = filterOptions
             };
             return View(moduleOverviewVm);
         }
