@@ -38,8 +38,6 @@ function init_datatable() {
                 d.filter = {
                     competentie: $("#FilterCompetentie").val(),
                     niveau: $("#FilterCompetentieOpNiveau").val(),
-                    minor: $("#FilterMinor").val(),
-                    major: $("#FilterMajor").val(),
                     fases: $("#FilterFases").val(),
                     leerjaar: $("#FilterLeerjaar").val(),
                     blok: $("#FilterBlok").val(),
@@ -73,12 +71,6 @@ function init_datatable() {
                 },
                 aTargets: [1]
             },
-            /*{
-                mRender: function (data, type, full) {
-                    return "Blok " + data;
-                },
-                aTargets: [3]
-            },*/
             {
                 mRender: function (data, type, full) {
                     return data + " EC";
