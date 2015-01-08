@@ -24,18 +24,26 @@ function init_datatable() {
     table = $("#modules").DataTable({
         dom:
             "<'row'<'col-sm-6'l><'col-sm-6 toolbar text-right'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-6'p><'col-sm-6'i>>",
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-6'p><'col-sm-6'i>>",
         processing: true,
         serverSide: true,
         language: {
             url: "/Scripts/dataTables.dutch.js"
         },
         ajax: {
-            url: '/api/Module/GetOverview',
-            type: 'POST'
-            //url: '/Scripts/temp_data.js',
-            //type: 'GET'
+            url: "/api/Module/GetOverview",
+            type: "POST",
+            data: function (d) {
+                d.filter = {
+                    competentie: $("#FilterCompetentie").val(),
+                    niveau: $("#FilterCompetentieOpNiveau").val(),
+                    fases: $("#FilterFases").val(),
+                    leerjaar: $("#FilterLeerjaar").val(),
+                    blok: $("#FilterBlok").val(),
+                    tags: $("#FilterTags").val()
+                }
+            }
         },
         columns: [
             { "data": "Icon" },
@@ -63,12 +71,6 @@ function init_datatable() {
                 },
                 aTargets: [1]
             },
-            /*{
-                mRender: function (data, type, full) {
-                    return "Blok " + data;
-                },
-                aTargets: [3]
-            },*/
             {
                 mRender: function (data, type, full) {
                     return data + " EC";
