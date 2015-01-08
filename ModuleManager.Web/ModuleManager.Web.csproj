@@ -282,8 +282,21 @@
     <Compile Include="Controllers\Api\LeerlijnController.cs" />
     <Compile Include="Controllers\Api\ModuleController.cs" />
     <Compile Include="Controllers\Api\TagController.cs" />
+    <Compile Include="Controllers\Api\TestModuleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="DataTablesMapping\Column.cs" />
+    <Compile Include="DataTablesMapping\ColumnCollection.cs" />
+    <Compile Include="DataTablesMapping\CustomDataTablesBinder.cs" />
+    <Compile Include="DataTablesMapping\CustomDataTablesRequest.cs" />
+    <Compile Include="DataTablesMapping\DataTablesBinder.cs" />
+    <Compile Include="DataTablesMapping\DataTablesJsonBinder.cs" />
+    <Compile Include="DataTablesMapping\DataTablesResponse.cs" />
+    <Compile Include="DataTablesMapping\DefaultDataTablesRequest.cs" />
+    <Compile Include="DataTablesMapping\FilterCollection.cs" />
+    <Compile Include="DataTablesMapping\IDataTablesRequest.cs" />
+    <Compile Include="DataTablesMapping\NameValueCollectionExtensions.cs" />
+    <Compile Include="DataTablesMapping\Search.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -291,8 +304,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
     <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />
-    <Compile Include="ViewModels\PartialViewModel\ArgumentsViewModel.cs" />
-    <Compile Include="ViewModels\PartialViewModel\ColumnViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />

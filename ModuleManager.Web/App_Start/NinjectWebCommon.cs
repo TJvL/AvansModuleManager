@@ -11,7 +11,6 @@ using ModuleManager.Web.Controllers.Api.Interfaces;
 using Ninject;
 using Ninject.Web.Common;
 using WebActivatorEx;
-using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 
@@ -88,7 +87,7 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericApiController<Fase>>().To<FaseController>();
             kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
             kernel.Bind<IGenericApiController<Tag>>().To<TagController>();
-            kernel.Bind<IModuleApiController>().To<ModuleController>();
+            kernel.Bind<IModuleApiController>().To<TestModuleController>();
 
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();

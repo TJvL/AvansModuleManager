@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
+using ModuleManager.Web.DataTablesMapping;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 
@@ -21,15 +23,12 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
-        public ModuleListViewModel GetOverview(Arguments arguments)
+        public ModuleListViewModel GetOverview([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel)
         {
             var modules = _moduleRepository.GetAll();
 
-            if (!arguments.IsEmpty)
-            {
-                var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
-                modules = _filterSorterService.ProcessData(queryPack);
-            }
+            var queryPack = new ModuleQueryablePack(new Arguments(), modules.AsQueryable());
+            modules = _filterSorterService.ProcessData(queryPack);
 
             var modArray = modules.ToArray();
             var moduleListVm = new ModuleListViewModel(modArray.Count());
