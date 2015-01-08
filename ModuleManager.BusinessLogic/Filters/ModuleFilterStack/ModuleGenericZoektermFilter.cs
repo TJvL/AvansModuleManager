@@ -12,22 +12,22 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
     public class ModuleGenericZoektermFilter : ModuleBaseFilter
     {
         public ModuleGenericZoektermFilter(IFilter<Module> parent) : base(parent) { }
-        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, FilterSorterArguments args)
         {
-            if (args.Zoekterm != null) 
+            if (args.ZoektermFilter != null) 
             {
                 toQuery = from m in toQuery where 
-                              m.Beschrijving.Contains(args.Zoekterm) || 
-                              m.CursusCode.Contains(args.Zoekterm) || 
-                              (from d in m.Docent select d.Name).Contains(args.Zoekterm) ||
-                              (from l in m.Leerdoelen select l.Beschrijving).Contains(args.Zoekterm) ||
-                              (from l in m.Leerdoelen select l.CursusCode).Contains(args.Zoekterm) ||
-                              (from l in m.Leerlijn select l.Naam).Contains(args.Zoekterm) ||
-                              (from lm in m.Leermiddelen select lm.Beschrijving).Contains(args.Zoekterm) ||
-                              (from lm in m.Leermiddelen select lm.CursusCode).Contains(args.Zoekterm) ||
-                              m.Naam.Contains(args.Zoekterm) ||
-                              (from t in m.Tag select t.Naam).Contains(args.Zoekterm) ||
-                              m.Verantwoordelijke.Contains(args.Zoekterm) 
+                              m.Beschrijving.Contains(args.ZoektermFilter) || 
+                              m.CursusCode.Contains(args.ZoektermFilter) || 
+                              (from d in m.Docent select d.Name).Contains(args.ZoektermFilter) ||
+                              (from l in m.Leerdoelen select l.Beschrijving).Contains(args.ZoektermFilter) ||
+                              (from l in m.Leerdoelen select l.CursusCode).Contains(args.ZoektermFilter) ||
+                              (from l in m.Leerlijn select l.Naam).Contains(args.ZoektermFilter) ||
+                              (from lm in m.Leermiddelen select lm.Beschrijving).Contains(args.ZoektermFilter) ||
+                              (from lm in m.Leermiddelen select lm.CursusCode).Contains(args.ZoektermFilter) ||
+                              m.Naam.Contains(args.ZoektermFilter) ||
+                              (from t in m.Tag select t.Naam).Contains(args.ZoektermFilter) ||
+                              m.Verantwoordelijke.Contains(args.ZoektermFilter) 
                           select m; 
             }
 

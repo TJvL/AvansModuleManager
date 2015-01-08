@@ -144,8 +144,8 @@ namespace ModuleManager.Web.DataTablesMapping
         protected virtual NameValueCollection ResolveNameValueCollection(HttpRequestBase request)
         {
             if (request.HttpMethod.ToLower().Equals("get")) return request.QueryString;
-            else if (request.HttpMethod.ToLower().Equals("post")) return request.Form;
-            else throw new ArgumentException(String.Format("The provided HTTP method ({0}) is not a valid method to use with DataTablesBinder. Please, use HTTP GET or POST methods only.", request.HttpMethod), "method");
+            if (request.HttpMethod.ToLower().Equals("post")) return request.Form;
+            throw new ArgumentException(String.Format("The provided HTTP method ({0}) is not a valid method to use with DataTablesBinder. Please, use HTTP GET or POST methods only.", request.HttpMethod), "method");
         }
         /// <summary>
         /// Get's a typed value from the collection using the provided key.

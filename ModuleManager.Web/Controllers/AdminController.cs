@@ -7,6 +7,7 @@ using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.UserDAL;
+using ModuleManager.Web.DataTablesMapping;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -56,13 +57,20 @@ namespace ModuleManager.Web.Controllers
             filterOptions.AddFases(fases);
             filterOptions.AddBlokken(blokken);
 
+            var request = new CustomDataTablesRequest
+            {
+                Arguments = new FilterSorterArguments
+                {
+
+                }
+            };
             var adminCurriculumVm = new AdminCurriculumViewModel
             {
                 Competenties = competenties,
                 Leerlijn = leerlijnen,
                 Tags = tags,
                 Fases = fases,                //TODO: Toevoegen van start filter argumenten?
-                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                ModuleViewModels = _moduleApi.GetOverview(request),
                 FilterOptions = filterOptions
             };
             return View(adminCurriculumVm);
@@ -121,9 +129,16 @@ namespace ModuleManager.Web.Controllers
             filterOptions.AddFases(_faseApi.GetAll());
             filterOptions.AddStatuses(_statusRepository.GetAll());
 
+            var request = new CustomDataTablesRequest
+            {
+                Arguments = new FilterSorterArguments
+                {
+
+                }
+            };
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
-                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                ModuleViewModels = _moduleApi.GetOverview(request),
                 FilterOptions = filterOptions
             };
             return View(moduleOverviewVm);

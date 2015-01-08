@@ -28,7 +28,7 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void testEmptySorting() 
         {
-            Arguments args = new Arguments();
+            FilterSorterArguments args = new FilterSorterArguments();
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
 
@@ -41,8 +41,8 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void testModuleNaamSorting() 
         {
-            Arguments args = new Arguments();
-            args.SortFor.Add("Naam", false);
+            FilterSorterArguments args = new FilterSorterArguments();
+            args.SortArguments.Add("Naam", false);
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
 

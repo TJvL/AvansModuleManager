@@ -4,6 +4,7 @@ using ModuleManager.BusinessLogic.Data;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
+using ModuleManager.Web.DataTablesMapping;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 
@@ -59,9 +60,16 @@ namespace ModuleManager.Web.Controllers
             filterOptions.AddStatuses(_statusRepository.GetAll());
             filterOptions.AddTags(_tagApi.GetAll());
 
+            var request = new CustomDataTablesRequest
+            {
+                Arguments = new FilterSorterArguments
+                {
+
+                }
+            };
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
-                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                ModuleViewModels = _moduleApi.GetOverview(request),
                 FilterOptions = filterOptions
             };
             return View(moduleOverviewVm);
@@ -76,9 +84,16 @@ namespace ModuleManager.Web.Controllers
         {
             var tagFilters = new List<string>();
 
+            var request = new CustomDataTablesRequest
+            {
+                Arguments = new FilterSorterArguments
+                {
+
+                }
+            };
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
-                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                ModuleViewModels = _moduleApi.GetOverview(request),
                 FilterOptions = new FilterOptionsViewModel
                 {   // TODO: Vervang deze code door een call naar de relevante database tabellen.
                     Blokken = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" },

@@ -17,12 +17,12 @@ namespace ModuleManager.BusinessLogic.Data
     public class ModuleQueryablePack : IQueryablePack<Module>
     {
         private readonly IQueryable<Module> _data;
-        private readonly Arguments _args;
+        private readonly FilterSorterArguments _args;
 
         /// <summary>
         /// The arguments to go with the Data
         /// </summary>
-        public Arguments Args
+        public FilterSorterArguments Args
         {
             get { return _args; }
         }
@@ -40,7 +40,7 @@ namespace ModuleManager.BusinessLogic.Data
         /// </summary>
         /// <param name="args">Arguments apliccable to the Data</param>
         /// <param name="data">The data to manipulate</param>
-        public ModuleQueryablePack(Arguments args, IQueryable<Module> data) 
+        public ModuleQueryablePack(FilterSorterArguments args, IQueryable<Module> data) 
         {
             this._data = data;
             this._args = args;

@@ -15,12 +15,12 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
     public class ModuleBlokFilter : ModuleBaseFilter
     {
         public ModuleBlokFilter(IFilter<Module> parent) : base(parent) { }
-        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, FilterSorterArguments args)
         {
-            if (args.Blokken != null)
+            if (args.BlokFilters != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (int arg in args.Blokken)
+                foreach (int arg in args.BlokFilters)
                 {
                     var selectedModule = 
                         from m in toQuery

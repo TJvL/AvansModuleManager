@@ -13,11 +13,11 @@ namespace ModuleManager.BusinessLogic.Sorters.ModuleSorterStack
     {
         public ModuleNaamSorter(ISorter<Module> parent) : base(parent) { }
 
-        public override IQueryable<Module> Sort(IQueryable<Module> toSort, Arguments args) 
+        public override IQueryable<Module> Sort(IQueryable<Module> toSort, FilterSorterArguments args) 
         {
-            if (args.SortFor.ContainsKey("Naam")) 
+            if (args.SortArguments.ContainsKey("Naam")) 
             {
-                if (args.SortFor["Naam"]) 
+                if (args.SortArguments["Naam"]) 
                 {
                     toSort = toSort.OrderByDescending(element => element.Naam);
                 }

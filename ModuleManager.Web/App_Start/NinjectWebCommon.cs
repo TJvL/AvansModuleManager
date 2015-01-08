@@ -87,7 +87,7 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericApiController<Fase>>().To<FaseController>();
             kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
             kernel.Bind<IGenericApiController<Tag>>().To<TagController>();
-            kernel.Bind<IModuleApiController>().To<TestModuleController>();
+            kernel.Bind<IModuleApiController>().To<ModuleController>();
 
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();

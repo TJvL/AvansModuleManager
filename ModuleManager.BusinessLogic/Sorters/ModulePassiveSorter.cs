@@ -19,7 +19,7 @@ namespace ModuleManager.BusinessLogic.Sorters
         /// <param name="toSort">The input data</param>
         /// <param name="args">Apliccable arguments</param>
         /// <returns>The returned data</returns>
-        public IQueryable<Module> Sort(IQueryable<Module> toSort, Data.Arguments args)
+        public IQueryable<Module> Sort(IQueryable<Module> toSort, Data.FilterSorterArguments args)
         {
             return toSort;
         }

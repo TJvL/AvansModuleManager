@@ -282,7 +282,6 @@
     <Compile Include="Controllers\Api\LeerlijnController.cs" />
     <Compile Include="Controllers\Api\ModuleController.cs" />
     <Compile Include="Controllers\Api\TagController.cs" />
-    <Compile Include="Controllers\Api\TestModuleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="DataTablesMapping\Column.cs" />
@@ -293,7 +292,6 @@
     <Compile Include="DataTablesMapping\DataTablesJsonBinder.cs" />
     <Compile Include="DataTablesMapping\DataTablesResponse.cs" />
     <Compile Include="DataTablesMapping\DefaultDataTablesRequest.cs" />
-    <Compile Include="DataTablesMapping\FilterCollection.cs" />
     <Compile Include="DataTablesMapping\IDataTablesRequest.cs" />
     <Compile Include="DataTablesMapping\NameValueCollectionExtensions.cs" />
     <Compile Include="DataTablesMapping\Search.cs" />

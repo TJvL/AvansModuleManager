@@ -5,20 +5,20 @@ namespace ModuleManager.BusinessLogic.Data
     /// <summary>
     /// Any and All arguments to filter and sort anything.
     /// </summary>
-    public class Arguments
+    public class FilterSorterArguments
     {
-        public Arguments() 
+        public FilterSorterArguments() 
         {
-            SortFor = new Dictionary<string,bool>();
+            SortArguments = new Dictionary<string,bool>();
         }
 
         public bool IsEmpty
         {
             get
             {
-                return (SortFor.Count == 0) && (Zoekterm == null) && (CompetentieFilter == null) &&
-                       (CompetentieNiveauFilter == null) && (TagFilter == null) && (LeerlijnFilter == null) &&
-                       (Blokken == null) && (FaseNamen == null) && (Leerjaar == 0) && (ECs == null) && (Status1 == null);
+                return (SortArguments.Count == 0) && (ZoektermFilter == null) && (CompetentieFilters == null) &&
+                       (CompetentieNiveauFilters == null) && (TagFilters == null) && (LeerlijnFilters == null) &&
+                       (BlokFilters == null) && (FaseFilters == null) && (LeerjaarFilter == 0) && (EcFilters == null) && (StatusFilter == null);
             }
         }
 
@@ -28,48 +28,49 @@ namespace ModuleManager.BusinessLogic.Data
         /// <remarks>
         /// string SortArgument, boolean Descending.
         /// </remarks>
-        public Dictionary<string, bool> SortFor { get; set; }
+        public Dictionary<string, bool> SortArguments { get; set; }
 
         /// <summary>
         /// Algemene zoekterm
         /// </summary>
-        public string Zoekterm { get; set; }
+        public string ZoektermFilter { get; set; }
 
-        /// <summary>
-        /// Geselecteerde/mogelijke competentie(s) om op te filteren
-        /// </summary>
-        public ICollection<string> CompetentieFilter { get; set; }
-        /// <summary>
-        /// Geselecteerde/mogelijke competentieniveau(s) om op te filteren
-        /// </summary>
-        public ICollection<string> CompetentieNiveauFilter { get; set; }
-        /// <summary>
-        /// Geselecteerde/mogelijke tag(s) om op te filteren
-        /// </summary>
-        public ICollection<string> TagFilter { get; set; }
-        /// <summary>
-        /// Geselecteerde/mogelijke leerlijn(en) om op te filteren
-        /// </summary>
-        public ICollection<string> LeerlijnFilter { get; set; }
-        /// <summary>
-        /// Geselecteerde/mogelijke blok(ken) om op te filteren
-        /// </summary>
-        public ICollection<int> Blokken { get; set; }
-        /// <summary>
-        /// Geselecteerde/mogelijke fasenaam(namen) om op te filteren
-        /// </summary>
-        public ICollection<string> FaseNamen { get; set; }
-        /// <summary>
-        /// Geselecteerde/mogelijke Leerjaar om op te filteren
-        /// </summary>
-        public int Leerjaar { get; set; }
-        /// <summary>
-        /// Geselecteerde/mogelijke EC(s) om op te filteren
-        /// </summary>
-        public ICollection<int> ECs { get; set; }
         /// <summary>
         /// Geselecteerde/mogelijke status om op te filteren
         /// </summary>
-        public string Status1 { get; set; }
+        public string StatusFilter { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke competentie(s) om op te filteren
+        /// </summary>
+        public ICollection<string> CompetentieFilters { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke competentieniveau(s) om op te filteren
+        /// </summary>
+        public ICollection<string> CompetentieNiveauFilters { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke tag(s) om op te filteren
+        /// </summary>
+        public ICollection<string> TagFilters { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke leerlijn(en) om op te filteren
+        /// </summary>
+        public ICollection<string> LeerlijnFilters { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke fasenaam(namen) om op te filteren
+        /// </summary>
+        public ICollection<string> FaseFilters { get; set; }
+
+        /// <summary>
+        /// Geselecteerde/mogelijke Leerjaar om op te filteren
+        /// </summary>
+        public int LeerjaarFilter { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke EC(s) om op te filteren
+        /// </summary>
+        public ICollection<int> EcFilters { get; set; }
+        /// <summary>
+        /// Geselecteerde/mogelijke blok(ken) om op te filteren
+        /// </summary>
+        public ICollection<int> BlokFilters { get; set; }
     }
 }

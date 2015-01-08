@@ -27,9 +27,9 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void testGenericFilter() 
         {
-            Arguments args = new Arguments
+            FilterSorterArguments args = new FilterSorterArguments
             {
-                Zoekterm = "INMODL"
+                ZoektermFilter = "INMODL"
             };
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
@@ -47,9 +47,9 @@ namespace ModuleManager.BusinessLogicTests
             List<string> competentie = new List<string>();
             competentie.Add("procesanaly");
 
-            Arguments args = new Arguments
+            FilterSorterArguments args = new FilterSorterArguments
             {
-                CompetentieFilter = competentie
+                CompetentieFilters = competentie
             };
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
@@ -67,9 +67,9 @@ namespace ModuleManager.BusinessLogicTests
             competentie.Add("procesanaly");
             competentie.Add("vernietigen");
 
-            Arguments args = new Arguments
+            FilterSorterArguments args = new FilterSorterArguments
             {
-                CompetentieFilter = competentie
+                CompetentieFilters = competentie
             };
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
@@ -83,7 +83,7 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void testEmptyFilter()
         {
-            Arguments args = new Arguments();
+            FilterSorterArguments args = new FilterSorterArguments();
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
 
@@ -121,17 +121,17 @@ namespace ModuleManager.BusinessLogicTests
 
             string status = "Comple";
 
-            Arguments args = new Arguments
+            FilterSorterArguments args = new FilterSorterArguments
             {
-                CompetentieFilter = competentie,
-                CompetentieNiveauFilter = competentieNiveau,
-                TagFilter = tag,
-                LeerlijnFilter = leerlijn,
-                Blokken = blokken,
-                FaseNamen = faseNamen,
-                Leerjaar = leerjaar,
-                ECs = EC,
-                Status1 = status
+                CompetentieFilters = competentie,
+                CompetentieNiveauFilters = competentieNiveau,
+                TagFilters = tag,
+                LeerlijnFilters = leerlijn,
+                BlokFilters = blokken,
+                FaseFilters = faseNamen,
+                LeerjaarFilter = leerjaar,
+                EcFilters = EC,
+                StatusFilter = status
             };
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);

@@ -26,13 +26,13 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void TestFilterSorterCombo()
         {
-            Arguments args = new Arguments();
-            args.SortFor.Add("Naam", true);
+            FilterSorterArguments args = new FilterSorterArguments();
+            args.SortArguments.Add("Naam", true);
 
             List<string> tags = new List<string>();
             tags.Add("C#");
 
-            args.TagFilter = tags;
+            args.TagFilters = tags;
 
             ModuleQueryablePack toProcess = new ModuleQueryablePack(args, data);
 

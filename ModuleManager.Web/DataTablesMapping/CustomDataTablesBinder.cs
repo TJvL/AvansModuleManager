@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web.Mvc;
+using ModuleManager.BusinessLogic.Data;
 
 namespace ModuleManager.Web.DataTablesMapping
 {
@@ -16,15 +18,21 @@ namespace ModuleManager.Web.DataTablesMapping
         {
             var model = (CustomDataTablesRequest)requestModel;
 
-            // var competenties = Get<>()
+            var competenties = Get<string>(requestParameters, "filter[competentie][]").Split(',');
+            var fases = Get<string>(requestParameters, "filter[fases][]").Split(',');
+            var tags = Get<string>(requestParameters, "filter[tags][]").Split(',');
 
+            var arguments = new FilterSorterArguments
+            {
+                CompetentieFilters = competenties, 
+                FaseFilters = fases, 
+                TagFilters = tags
+            };
 
-            // myModel.MyCustomProp = Get<string>(requestParameters, "myCustomProp");
-        }
+            model.Arguments = arguments;
 
-        private List<string> GetCompetentieFilters(NameValueCollection collection)
-        {
-            return null;
+            //var blokken = Array.ConvertAll(Get<string>(requestParameters, "filter[blok][]").Split(','), int.Parse);
+            //var leerjaar = Get<string>(requestParameters, "filter[leerjaar]");
         }
     }
 }

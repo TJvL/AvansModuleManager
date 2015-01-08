@@ -12,12 +12,12 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
     public class ModuleTagFilter : ModuleBaseFilter
     {
         public ModuleTagFilter(IFilter<Module> parent) : base(parent) { }
-        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, FilterSorterArguments args)
         {
-            if (args.TagFilter != null)
+            if (args.TagFilters != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (string arg in args.TagFilter)
+                foreach (string arg in args.TagFilters)
                 {
                     var selectedModule = 
                         from m in toQuery

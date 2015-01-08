@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using ModuleManager.BusinessLogic.Data;
@@ -23,11 +24,12 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
-        public ModuleListViewModel GetOverview([ModelBinder(typeof(DataTablesBinder))] IDataTablesRequest requestModel)
+        public ModuleListViewModel GetOverview([ModelBinder(typeof(CustomDataTablesBinder))] CustomDataTablesRequest requestModel)
         {
+            
             var modules = _moduleRepository.GetAll();
 
-            var queryPack = new ModuleQueryablePack(new Arguments(), modules.AsQueryable());
+            var queryPack = new ModuleQueryablePack(requestModel.Arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
 
             var modArray = modules.ToArray();
