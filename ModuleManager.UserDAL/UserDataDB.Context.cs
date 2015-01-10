@@ -13,7 +13,8 @@ using System.Data.Entity.Infrastructure;
 namespace ModuleManager.UserDAL {
     public partial class UserContext : DbContext {
         public UserContext()
-            : base("name=UserContext") {
+            : base("name=UserContext")
+        {
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
