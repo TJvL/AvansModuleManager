@@ -21,15 +21,17 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
-        public ModuleListViewModel GetOverview(Arguments arguments)
+        public ModuleListViewModel GetOverview()
         {
             var modules = _moduleRepository.GetAll();
 
-            if (!arguments.IsEmpty)
-            {
-                var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
-                modules = _filterSorterService.ProcessData(queryPack);
-            }
+            var test = Request.Content.ReadAsStringAsync().Result;
+
+            //if (!arguments.IsEmpty)
+            //{
+            //    var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
+            //    modules = _filterSorterService.ProcessData(queryPack);
+            //}
 
             var modArray = modules.ToArray();
             var moduleListVm = new ModuleListViewModel(modArray.Count());

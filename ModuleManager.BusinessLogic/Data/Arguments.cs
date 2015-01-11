@@ -75,5 +75,7 @@ namespace ModuleManager.BusinessLogic.Data
         /// Geselecteerde/mogelijke status om op te filteren
         /// </summary>
         public string Status1 { get; set; }
+
+        public int blok { get; set; }
     }
 }

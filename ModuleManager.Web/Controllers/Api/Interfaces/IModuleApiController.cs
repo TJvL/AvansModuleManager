@@ -6,7 +6,7 @@ namespace ModuleManager.Web.Controllers.Api.Interfaces
 {
     public interface IModuleApiController
     {
-        ModuleListViewModel GetOverview(Arguments arguments);
+        ModuleListViewModel GetOverview();
         string ExportOverview(ExportViewModel arguments);
         Module GetOne(string key);
         bool Delete(Module entity);

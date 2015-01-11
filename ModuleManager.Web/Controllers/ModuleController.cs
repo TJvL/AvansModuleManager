@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using ModuleManager.BusinessLogic.Data;
+using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
@@ -12,33 +14,35 @@ namespace ModuleManager.Web.Controllers
 
     public class ModuleController : Controller
     {
-        private readonly IModuleApiController _moduleApi;
-        private readonly IGenericApiController<Competentie> _competentieApi;
-        private readonly IGenericApiController<Leerlijn> _leerlijnApi;
-        private readonly IGenericApiController<Tag> _tagApi;
-        private readonly IGenericApiController<Fase> _faseApi;
-
         private readonly IGenericRepository<Blok> _blokRepository;
         private readonly IGenericRepository<Status> _statusRepository;
         private readonly IGenericRepository<Niveau> _niveauRepository;
         private readonly IGenericRepository<Schooljaar> _schooljaarRepository;
+        private readonly IGenericRepository<Module> _moduleRepository;
+        private readonly IGenericRepository<Competentie> _competentieRepository;
+        private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
+        private readonly IGenericRepository<Tag> _tagRepository;
+        private readonly IGenericRepository<Fase> _faseRepository;
 
-        public ModuleController(IModuleApiController moduleApi, IGenericApiController<Competentie> competentieApi,
-            IGenericApiController<Leerlijn> leerlijnApi, IGenericApiController<Tag> tagApi,
-            IGenericApiController<Fase> faseApi, IGenericRepository<Blok> blokRepository,
+        private readonly IFilterSorterService<Module> _filterSorterService; 
+
+        public ModuleController(IGenericRepository<Blok> blokRepository,
             IGenericRepository<Status> statusRepository, IGenericRepository<Niveau> niveauRepository, 
-            IGenericRepository<Schooljaar> schooljaarRepository)
+            IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository, 
+            IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository, 
+            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, IFilterSorterService<Module> filterSorterService)
         {
-            _moduleApi = moduleApi;
-            _competentieApi = competentieApi;
-            _leerlijnApi = leerlijnApi;
-            _tagApi = tagApi;
-            _faseApi = faseApi;
-
             _blokRepository = blokRepository;
             _statusRepository = statusRepository;
             _niveauRepository = niveauRepository;
             _schooljaarRepository = schooljaarRepository;
+            _moduleRepository = moduleRepository;
+            _competentieRepository = competentieRepository;
+            _leerlijnRepository = leerlijnRepository;
+            _tagRepository = tagRepository;
+            _faseRepository = faseRepository;
+
+            _filterSorterService = filterSorterService;
         }
 
         /// <summary>
@@ -48,87 +52,33 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Overview")]
         public ActionResult Overview()
         {
+            //Collect the modules to be shown in the requested overview page.
+            var arguments = new Arguments
+            {
+
+            };
+            var queryPack = new ModuleQueryablePack(arguments, _moduleRepository.GetAll().AsQueryable());
+            var modules = _filterSorterService.ProcessData(queryPack).ToList();
+            var moduleList = new ModuleListViewModel(modules.Count());
+            moduleList.AddModules(modules);
+
+            //Collect the possible filter options the user can choose.
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_blokRepository.GetAll());
             filterOptions.AddCompetentieNiveaus(_niveauRepository.GetAll());
-            filterOptions.AddCompetenties(_competentieApi.GetAll());
+            filterOptions.AddCompetenties(_competentieRepository.GetAll());
             filterOptions.AddECs();
-            filterOptions.AddFases(_faseApi.GetAll());
+            filterOptions.AddFases(_faseRepository.GetAll());
             filterOptions.AddLeerjaren(_schooljaarRepository.GetAll());
-            filterOptions.AddLeerlijnen(_leerlijnApi.GetAll());
+            filterOptions.AddLeerlijnen(_leerlijnRepository.GetAll());
             filterOptions.AddStatuses(_statusRepository.GetAll());
-            filterOptions.AddTags(_tagApi.GetAll());
+            filterOptions.AddTags(_tagRepository.GetAll());
 
+            //Construct the ViewModel.
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
-                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                ModuleViewModels = moduleList,
                 FilterOptions = filterOptions
-            };
-            return View(moduleOverviewVm);
-        }
-
-        /// <summary>
-        /// Tijdelijke methode om de docent module overzicht pagina op te roepen.
-        /// </summary>
-        /// <returns>Docent module overzicht's pagina</returns>
-        [HttpGet, Route("Module/Overview_Teacher_Temp")]
-        public ActionResult Overview_Teacher_Temp()
-        {
-            var tagFilters = new List<string>();
-
-            var moduleOverviewVm = new ModuleOverviewViewModel
-            {
-                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
-                FilterOptions = new FilterOptionsViewModel
-                {   // TODO: Vervang deze code door een call naar de relevante database tabellen.
-                    Blokken = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" },
-                    FaseNamen =
-                        new List<string>
-                        {
-                            "Software Ontwikeling - Major",
-                            "Software Architectuur - Minor",
-                            "Informatica - Propedeuse"
-                        },
-                    Statussen =
-                        new List<string>
-                        {
-                            "Compleet (ongecontroleerd)",
-                            "Compleet (gecontroleerd",
-                            "Incompleet",
-                            "Nieuw"
-                        },
-                    Leerjaren =
-                        new List<int>
-                        {
-                            1112,
-                            1213,
-                            1314,
-                            1415
-                        },
-                    ECs = new List<double>
-                    {
-                        0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5
-                    },
-                    TagFilter = new List<string>
-                    {
-                        "Big Data",
-                        "Duurzaamheid",
-                        "Worstenfabriek"
-                    },
-                    CompetentieFilter = new List<string>
-                    {
-                        "Proces analyse",
-                        "Modulerrenrnrenn",
-                        "Gevaldingen"
-                    },
-                    LeerlijnFilter = new List<string>
-                    {
-                        "Je moeder",
-                        "Je vader",
-                        "je opa",
-                        "je oma"
-                    }
-                }
             };
             return View(moduleOverviewVm);
         }
@@ -136,31 +86,25 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{cursusCode}")]
         public ActionResult Details(string cursusCode)
         {
-            return View(_moduleApi.GetOne(cursusCode));
-        }
-
-        [HttpGet, Route("Module/Details_Teacher_Temp/{cursusCode}")]
-        public ActionResult Details_Teacher_Temp(string cursusCode)
-        {
-            return View(_moduleApi.GetOne(cursusCode));
+            return View(_moduleRepository.GetOne(cursusCode));
         }
 
         [HttpGet, Route("Module/Edit/{cursusCode}")]
         public ActionResult Edit(string cursusCode)
         {
-            return View(_moduleApi.GetOne(cursusCode));
+            return View(_moduleRepository.GetOne(cursusCode));
         }
 
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(Module entity)
         {
-            var isSucces = _moduleApi.Edit(entity);
+            var isSucces = _moduleRepository.Edit(entity);
 
             if (isSucces)
             {
                 return Redirect("Overview_Teacher_Temp");
             }
-            return View(_moduleApi.GetOne(entity.CursusCode));
+            return View(_moduleRepository.GetOne(entity.CursusCode));
         }
     }
 }
