@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using ModuleManager.DomainDAL.Interfaces;
+using System;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
@@ -56,58 +57,47 @@ namespace ModuleManager.DomainDAL.Repositories
         }
         public IEnumerable<Tag> GetAll()
         {
-            return (from b in dbContext.Tag select b).ToList();
+            using (DomainContext context = new DomainContext())
+            {
+                return (from b in context.Tag select b).ToList();
+            }
         }
 
-        public Tag GetOne(string key)
+        public Tag GetOne(object[] keys)
         {
-            return (from b in dbContext.Tag where b.Naam.Equals(key) select b).First();
+            if (keys.Length != 2)
+                throw new System.ArgumentException();
+
+            using (DomainContext context = new DomainContext())
+            {
+                return (context.Set<Tag>().Find(keys));
+            }
         }
 
         public bool Create(Tag entity)
         {
-            if (dbContext == null)
-                return false;
-            dbContext.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Added;
-            int changesCount = dbContext.SaveChanges();
-
-            if (changesCount == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Added;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Delete(Tag entity)
         {
-            dbContext.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Deleted;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Deleted;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Edit(Tag entity)
         {
-            dbContext.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Modified;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Tag>(entity).State = System.Data.Entity.EntityState.Modified;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
     }

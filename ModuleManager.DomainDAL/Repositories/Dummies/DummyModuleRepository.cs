@@ -846,9 +846,12 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
             return _modules;
         }
 
-        public Module GetOne(string key)
+        public Module GetOne(object[] keys)
         {
-            return (_modules.Where(mod => mod.CursusCode.Equals(key))).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            return (_modules.Where(mod => mod.CursusCode.Equals(keys[0]) && mod.CursusCode.Equals(keys[1]))).First();
         }
 
         public bool Create(Module entity)

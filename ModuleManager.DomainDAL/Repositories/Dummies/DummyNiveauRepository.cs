@@ -32,9 +32,12 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
             return _niveau;
         }
 
-        public Niveau GetOne(string key)
+        public Niveau GetOne(object[] keys)
         {
-            return (_niveau.Where(niveau => niveau.Niveau1.Equals(key))).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            return (_niveau.Where(niveau => niveau.Niveau1.Equals(keys[0]))).First();
         }
 
         public bool Create(Niveau entity)

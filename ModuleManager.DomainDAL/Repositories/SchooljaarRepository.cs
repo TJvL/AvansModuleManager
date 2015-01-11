@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
+using System;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
@@ -26,58 +27,47 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public IEnumerable<Schooljaar> GetAll()
         {
-            return (from b in dbContext.Schooljaar select b).ToList();
+            using (DomainContext context = new DomainContext())
+            {
+                return (from b in context.Schooljaar select b).ToList();
+            }
         }
 
-        public Schooljaar GetOne(string key)
+        public Schooljaar GetOne(object[] keys)
         {
-            return (from b in dbContext.Schooljaar where b.JaarId.Equals(key) select b).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            using (DomainContext context = new DomainContext())
+            {
+                return (context.Set<Schooljaar>().Find(keys));
+            }
         }
 
         public bool Create(Schooljaar entity)
         {
-            if (dbContext == null)
-                return false;
-            dbContext.Entry<Schooljaar>(entity).State = System.Data.Entity.EntityState.Added;
-            int changesCount = dbContext.SaveChanges();
-
-            if (changesCount == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Schooljaar>(entity).State = System.Data.Entity.EntityState.Added;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Delete(Schooljaar entity)
         {
-            dbContext.Entry<Schooljaar>(entity).State = System.Data.Entity.EntityState.Deleted;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Schooljaar>(entity).State = System.Data.Entity.EntityState.Deleted;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Edit(Schooljaar entity)
         {
-            dbContext.Entry<Schooljaar>(entity).State = System.Data.Entity.EntityState.Modified;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Schooljaar>(entity).State = System.Data.Entity.EntityState.Modified;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
     }

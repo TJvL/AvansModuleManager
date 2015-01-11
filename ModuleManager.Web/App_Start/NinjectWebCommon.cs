@@ -72,15 +72,15 @@ namespace ModuleManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             // Domain entity repositories:
-            kernel.Bind<IGenericRepository<Competentie>>().To<CompetentieRepository>();
-            kernel.Bind<IGenericRepository<Fase>>().To<FaseRepository>();
-            kernel.Bind<IGenericRepository<Leerlijn>>().To<LeerlijnRepository>();
-            kernel.Bind<IGenericRepository<Module>>().To<ModuleRepository>();
-            kernel.Bind<IGenericRepository<Tag>>().To<TagRepository>();
-            kernel.Bind<IGenericRepository<Blok>>().To<BlokRepository>();
-            kernel.Bind<IGenericRepository<Niveau>>().To<NiveauRepository>();
-            kernel.Bind<IGenericRepository<Schooljaar>>().To<SchooljaarRepository>();
-            kernel.Bind<IGenericRepository<Status>>().To<StatusRepository>();
+            kernel.Bind<IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
+            kernel.Bind<IGenericRepository<Fase>>().To<DummyFaseRepository>();
+            kernel.Bind<IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
+            kernel.Bind<IGenericRepository<Module>>().To<DummyModuleRepository>();
+            kernel.Bind<IGenericRepository<Tag>>().To<DummyTagRepository>();
+            kernel.Bind<IGenericRepository<Blok>>().To<DummyBlokRepository>();
+            kernel.Bind<IGenericRepository<Niveau>>().To<DummyNiveauRepository>();
+            kernel.Bind<IGenericRepository<Schooljaar>>().To<DummySchooljaarRepository>();
+            kernel.Bind<IGenericRepository<Status>>().To<DummyStatusRepository>();
             // UnitOfWork session for repositories to use:
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 

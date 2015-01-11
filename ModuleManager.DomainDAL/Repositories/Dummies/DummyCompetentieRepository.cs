@@ -85,9 +85,12 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
             return _competenties;
         }
 
-        public Competentie GetOne(string key)
+        public Competentie GetOne(object[] keys)
         {
-            return (_competenties.Where(comp => comp.Code.Equals(key))).First();
+            if (keys.Length != 2)
+                throw new System.ArgumentException();
+
+            return (_competenties.Where(comp => comp.Code.Equals(keys[0]))).First();
         }
 
         public bool Create(Competentie entity)

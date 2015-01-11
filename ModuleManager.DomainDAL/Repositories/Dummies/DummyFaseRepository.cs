@@ -56,9 +56,12 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
             return _fases;
         }
 
-        public Fase GetOne(string key)
+        public Fase GetOne(object[] keys)
         {
-            return (_fases.Where(fase => fase.Naam.Equals(key))).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            return (_fases.Where(fase => fase.Naam.Equals(keys[0]))).First();
         }
 
         public bool Create(Fase entity)

@@ -40,9 +40,12 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
             return _blokken;
         }
 
-        public Blok GetOne(string key)
+        public Blok GetOne(object[] keys)
         {
-            return (_blokken.Where(blok => blok.BlokId.Equals(key))).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            return (_blokken.Where(blok => blok.BlokId.Equals(keys[0]))).First();
         }
 
         public bool Create(Blok entity)

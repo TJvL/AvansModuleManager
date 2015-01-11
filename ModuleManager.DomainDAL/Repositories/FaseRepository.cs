@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
+using System;
 namespace ModuleManager.DomainDAL.Repositories
 {
     public class FaseRepository : IGenericRepository<Fase>
@@ -54,58 +55,47 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public IEnumerable<Fase> GetAll()
         {
-            return (from b in dbContext.Fase select b).ToList();
+            using (DomainContext context = new DomainContext())
+            {
+                return (from b in context.Fase select b).ToList();
+            }
         }
 
-        public Fase GetOne(string key)
+        public Fase GetOne(object[] keys)
         {
-            return (from b in dbContext.Fase where b.Naam.Equals(key) select b).First();
+            if (keys.Length != 4)
+                throw new System.ArgumentException();
+
+            using (DomainContext context = new DomainContext())
+            {
+                return (context.Set<Fase>().Find(keys));
+            }
         }
 
         public bool Create(Fase entity)
         {
-            if (dbContext == null)
-                return false;
-            dbContext.Entry<Fase>(entity).State = System.Data.Entity.EntityState.Added;
-            int changesCount = dbContext.SaveChanges();
-
-            if (changesCount == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Fase>(entity).State = System.Data.Entity.EntityState.Added;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Delete(Fase entity)
         {
-            dbContext.Entry<Fase>(entity).State = System.Data.Entity.EntityState.Deleted;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Fase>(entity).State = System.Data.Entity.EntityState.Deleted;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Edit(Fase entity)
         {
-            dbContext.Entry<Fase>(entity).State = System.Data.Entity.EntityState.Modified;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Fase>(entity).State = System.Data.Entity.EntityState.Modified;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
     }

@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.Web;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 
@@ -15,7 +16,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
     [TestClass]
     public class ModuleMappingTests
     {
-        private ModuleRepository _moduleRepository;
+        private DummyModuleRepository _moduleRepository;
 
         #region Additional test attributes
 
@@ -44,7 +45,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         [TestInitialize]
         public void ModuleListViewModelMappingTestInit()
         {
-            _moduleRepository = new ModuleRepository();
+            _moduleRepository = new DummyModuleRepository();
             AutoMapperConfiguration.Configure();
         }
 
@@ -55,7 +56,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         public void ModuleToViewModelMappingTest()
         {
             // Arrange
-            var module = _moduleRepository.GetOne("INMODL312345");
+            var module = _moduleRepository.GetOne(new object[1]{"INMODL312345"});
             var testViewModel = Mapper.Map<Module, ModuleViewModel>(module);
 
             // Act

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
+using System;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
@@ -83,58 +84,47 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public IEnumerable<Competentie> GetAll()
         {
-            return (from b in dbContext.Competentie select b).ToList();
+            using (DomainContext context = new DomainContext())
+            {
+                return (from b in dbContext.Competentie select b).ToList();
+            }
         }
 
-        public Competentie GetOne(string key)
+        public Competentie GetOne(object[] keys)
         {
-            return (from b in dbContext.Competentie where b.Code.Equals(key) select b).First();
+            if (keys.Length != 2)
+                throw new System.ArgumentException();
+
+            using (DomainContext context = new DomainContext())
+            {
+                return (dbContext.Set<Competentie>().Find(keys));
+            }
         }
 
         public bool Create(Competentie entity)
         {
-            if (dbContext == null)
-                return false;
-            dbContext.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Added;
-            int changesCount = dbContext.SaveChanges();
-
-            if (changesCount == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Added;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Delete(Competentie entity)
         {
-            dbContext.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Deleted;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Deleted;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Edit(Competentie entity)
         {
-            dbContext.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Modified;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Competentie>(entity).State = System.Data.Entity.EntityState.Modified;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
     }

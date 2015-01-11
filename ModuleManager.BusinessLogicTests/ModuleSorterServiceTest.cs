@@ -3,6 +3,7 @@ using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace ModuleManager.BusinessLogicTests
     public class ModuleSorterServiceTest
     {
         ModuleSorterService mss;
-        ModuleRepository drp = new ModuleRepository();
+        DummyModuleRepository drp = new DummyModuleRepository();
         IQueryable<Module> data;
 
         [TestInitialize]

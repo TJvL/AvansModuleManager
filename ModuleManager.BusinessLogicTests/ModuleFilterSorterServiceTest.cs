@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModuleManager.BusinessLogic.Services;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.DomainDAL.Repositories;
 using System.Linq;
 using ModuleManager.DomainDAL;
@@ -13,7 +14,7 @@ namespace ModuleManager.BusinessLogicTests
     public class ModuleFilterSorterServiceTest
     {
         ModuleFilterSorterService mfss;
-        ModuleRepository drp = new ModuleRepository();
+        DummyModuleRepository drp = new DummyModuleRepository();
         IQueryable<Module> data;
 
         [TestInitialize]

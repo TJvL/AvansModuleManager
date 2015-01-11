@@ -24,7 +24,7 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Tag/Get/{key}")]
         public Tag GetOne(string key)
         {
-            return _tagRepository.GetOne(key);
+            return _tagRepository.GetOne(new object[1]{key});
         }
 
         [HttpPost, Route("api/Tag/Delete")]

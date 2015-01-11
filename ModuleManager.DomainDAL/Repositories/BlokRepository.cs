@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
+using System;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
@@ -12,88 +13,53 @@ namespace ModuleManager.DomainDAL.Repositories
         public BlokRepository()
         {
             dbContext = new DomainContext();
-
-            //_blokken = (from b in dbContext.Blok select b).ToList();
-
-            //_blokken = new List<Blok>
-            //{
-            //    new Blok
-            //    {
-            //        BlokId = "1"
-            //    },
-            //    new Blok
-            //    {
-            //        BlokId = "2"
-            //    },
-            //    new Blok
-            //    {
-            //        BlokId = "3"
-            //    },
-            //    new Blok
-            //    {
-            //        BlokId = "4"
-            //    },
-            //    new Blok
-            //    {
-            //        BlokId = "5"
-            //    }
-            //};
         }
 
         public IEnumerable<Blok> GetAll()
         {
-            return (from b in dbContext.Blok select b).ToList();
+            using (DomainContext context = new DomainContext())
+            {
+                return (from b in context.Blok select b).ToList();
+            }
         }
 
-        public Blok GetOne(string key)
+        public Blok GetOne(object[] keys)
         {
-            return (from b in dbContext.Blok where b.BlokId.Equals(key) select b).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            using (DomainContext context = new DomainContext())
+            {
+                return (context.Set<Blok>().Find(keys));
+            }
         }
 
         public bool Create(Blok entity)
         {
-            if (dbContext == null)
-                return false;
-            dbContext.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Added;
-            int changesCount = dbContext.SaveChanges();
+            using (DomainContext context = new DomainContext())
+            {
+                context.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Added;
+                context.SaveChanges();
+            }
 
-            if (changesCount == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
 
         public bool Delete(Blok entity)
         {
-            dbContext.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Deleted;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Deleted;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Edit(Blok entity)
         {
-            dbContext.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Modified;
-            int changes = dbContext.SaveChanges();
-
-            if (changes == 1)
+            using (DomainContext context = new DomainContext())
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                context.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Modified;
+                return Convert.ToBoolean(context.SaveChanges());
             }
         }
     }
