@@ -6,6 +6,7 @@ using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.BusinessLogic.Interfaces.Services;
+using ModuleManager.Web.ViewModels.RequestViewModels;
 
 namespace ModuleManager.Web.Controllers.Api
 {
@@ -21,7 +22,7 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
-        public ModuleListViewModel GetOverview()
+        public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
         {
             var modules = _moduleRepository.GetAll();
 
