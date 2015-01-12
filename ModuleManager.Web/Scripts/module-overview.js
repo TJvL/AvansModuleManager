@@ -24,27 +24,37 @@ function init_datatable() {
     table = $("#modules").DataTable({
         dom:
             "<'row'<'col-sm-6'l><'col-sm-6 toolbar text-right'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-6'p><'col-sm-6'i>>",
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-6'p><'col-sm-6'i>>",
         processing: true,
         serverSide: true,
         language: {
             url: "/Scripts/dataTables.dutch.js"
         },
         ajax: {
-            //url: '/api/Module/GetOverview',
-            //type: 'POST'
-            url: '/Scripts/temp_data.js',
-            type: 'GET'
+            url: "/api/Module/GetOverview",
+            type: "POST",
+            data: function (d) {
+                d.filter = {
+                    competentie: $("#FilterCompetentie").val(),
+                    niveau: $("#FilterCompetentieOpNiveau").val(),
+                    fases: $("#FilterFases").val(),
+                    leerjaar: $("#FilterLeerjaar").val(),
+                    blok: $("#FilterBlok").val(),
+                    tags: $("#FilterTags").val()
+                }
+            }
         },
         columns: [
             { "data": "Icon" },
             { "data": "Naam" },
             { "data": "CursusCode" },
-            { "data": "Blok" },
-            { "data": "Fase" },
-            { "data": "StudiePunten" },
-            { "data": "CursusCode" }
+            { "data": "Blokken" },
+            { "data": "TotalEc" },
+            { "data": "FaseNamen" },
+            { "data": "Verantwoordelijke" },
+            { "data": "Docenten" },
+            { "data": "CursusCode" },
         ],
         aoColumnDefs: [
             {
@@ -57,21 +67,15 @@ function init_datatable() {
             },
             {
                 mRender: function (data, type, full) {
-                    return data + "<br /><span class=\"text-muted\">" + full['Verantwoordelijke'] + "</span>";
+                    return data + "<br /><span class=\"text-muted\">" + full['Verantwoordelijke'] + ", " + full['Docenten'] + "</span>";
                 },
                 aTargets: [1]
             },
             {
                 mRender: function (data, type, full) {
-                    return "Blok " + data;
-                },
-                aTargets: [3]
-            },
-            {
-                mRender: function (data, type, full) {
                     return data + " EC";
                 },
-                aTargets: [5]
+                aTargets: [4]
             },
             {
                 sClass: "text-center",
@@ -80,7 +84,7 @@ function init_datatable() {
                     return "<input type=\"checkbox\" class=\"checkbox-module\" data-export=\"data\" />";
                 },
                 bSortable: false,
-                aTargets: [6]
+                aTargets: [8]
             }
         ],
         order: [[1, "asc"]],
