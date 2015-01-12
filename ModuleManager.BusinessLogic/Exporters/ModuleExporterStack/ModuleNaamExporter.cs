@@ -11,15 +11,25 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 {
     public class ModuleNaamExporter : ModuleBaseExporter
     {
+        /// <summary>
+        /// Constructor for stacking decorators
+        /// </summary>
+        /// <param name="parent">The previous decorator pattern</param>
         public ModuleNaamExporter(IExporter<Module> parent) : base(parent) { }
 
+        /// <summary>
+        /// Export name to a section in a document
+        /// </summary>
+        /// <param name="toExport">The data to export from</param>
+        /// <param name="sect">The section to write on</param>
+        /// <returns>The section with appended data</returns>
         public override Section Export(Module toExport, Section sect) 
         {
             base.Export(toExport, sect);
 
             //custom code
             Paragraph p = sect.AddParagraph();
-            p.AddText("Module Naam");
+            p.AddFormattedText("Module Naam", TextFormat.Bold);
             p.AddLineBreak();
             p.AddText(toExport.Naam);
             p.AddLineBreak();

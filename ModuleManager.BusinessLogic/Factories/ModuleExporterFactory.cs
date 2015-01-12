@@ -11,11 +11,16 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Factories
 {
+    /// <summary>
+    /// Builds exporter patterns based on option object
+    /// </summary>
     public class ModuleExporterFactory
     {
         Dictionary<string, Type> usableTypes = new Dictionary<string, Type>();
 
-        //make sure you keep the ExportOptions in Sync with the Stack. That way, you can just use ifs here.
+        /// <summary>
+        /// Constructor call, builds pre-stack dictionairy for use in deco pattern
+        /// </summary>
         public ModuleExporterFactory()
         {
             var types = from t in Assembly.GetExecutingAssembly().GetTypes()
@@ -28,14 +33,17 @@ namespace ModuleManager.BusinessLogic.Factories
             }
         }
 
+        /// <summary>
+        /// Get a decorator pattern based on given options
+        /// </summary>
+        /// <param name="opt">Pre-defined options</param>
+        /// <returns>Decorator pattern for exporting</returns>
         public IExporter<DomainDAL.Module> GetStrategy(ExportOptions opt) 
         {
+            //make sure you keep the ExportOptions in Sync with the Stack. That way, you can just use ifs here.
             IExporter<DomainDAL.Module> strategy = new ModulePassiveExporter();
 
             Type[] typeArgs = { typeof(IExporter<DomainDAL.Module>) };
-
-            //Create a builder per needed argument
-            //write strategy stack per argument
 
             if (opt.ExportAll || opt.ExportCursusCode)
             {
