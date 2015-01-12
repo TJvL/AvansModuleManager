@@ -623,6 +623,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_ArchiveYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="IN06SOb_ModuleManagerModelStoreContainer">
           <EntitySet Name="Beoordelingen" EntityType="Self.Beoordelingen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Blok" EntityType="Self.Blok" Schema="dbo" store:Type="Tables" />
@@ -1432,6 +1433,7 @@
             <End Role="Module" EntitySet="Module" />
             <End Role="Module1" EntitySet="Module" />
           </AssociationSet>
+          <FunctionImport Name="SP_ArchiveYear" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1688,6 +1690,7 @@
               <ScalarProperty Name="Schooljaar" ColumnName="Voorkennis_Schooljaar" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ArchiveYear" FunctionName="IN06SOb_ModuleManagerModel.Store.SP_ArchiveYear" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
