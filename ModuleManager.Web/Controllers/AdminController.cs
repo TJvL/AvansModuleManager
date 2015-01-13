@@ -35,6 +35,12 @@ namespace ModuleManager.Web.Controllers
 
             _blokRepository = blokRepository;
             _statusRepository = statusRepository;
+
+
+            blokRepository.Create(new Blok() 
+            { 
+                BlokId = "1"                
+            });
         }
 
         [HttpGet, Route("Admin/Index")]

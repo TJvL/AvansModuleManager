@@ -5,6 +5,7 @@ using System.Linq;
 using ModuleManager.DomainDAL;
 using System.Collections.Generic;
 using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Data;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
-namespace ModuleManager.DomainDAL.Repositories
+namespace ModuleManager.DomainDAL.Repositories.Dummies
 {
     public class DummyLeerlijnRepository : IGenericRepository<Leerlijn>
     {
@@ -43,9 +43,12 @@ namespace ModuleManager.DomainDAL.Repositories
             return _leerlijnen;
         }
 
-        public Leerlijn GetOne(string key)
+        public Leerlijn GetOne(object[] keys)
         {
-            return (_leerlijnen.Where(leerlijn => leerlijn.Naam.Equals(key))).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            return (_leerlijnen.Where(leerlijn => leerlijn.Naam.Equals(keys))).First();
         }
 
         public bool Create(Leerlijn entity)

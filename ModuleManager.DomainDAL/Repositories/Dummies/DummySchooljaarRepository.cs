@@ -2,7 +2,7 @@
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
 
-namespace ModuleManager.DomainDAL.Repositories
+namespace ModuleManager.DomainDAL.Repositories.Dummies
 {
     public class DummySchooljaarRepository : IGenericRepository<Schooljaar>
     {
@@ -28,9 +28,12 @@ namespace ModuleManager.DomainDAL.Repositories
             return _schooljaar;
         }
 
-        public Schooljaar GetOne(string key)
+        public Schooljaar GetOne(object[] keys)
         {
-            return (_schooljaar.Where(jaar => jaar.JaarId.Equals(int.Parse(key)))).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            return (_schooljaar.Where(jaar => jaar.JaarId.Equals(int.Parse(keys[0].ToString())))).First();
         }
 
         public bool Create(Schooljaar entity)
