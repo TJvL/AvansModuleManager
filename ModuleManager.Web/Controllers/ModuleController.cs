@@ -20,12 +20,10 @@ namespace ModuleManager.Web.Controllers
         private readonly IGenericRepository<Tag> _tagRepository;
         private readonly IGenericRepository<Fase> _faseRepository;
 
-        private readonly IFilterSorterService<Module> _filterSorterService; 
-
         public ModuleController(IGenericRepository<Blok> blokRepository,
             IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository, 
             IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository, 
-            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, IFilterSorterService<Module> filterSorterService)
+            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository)
         {
             _blokRepository = blokRepository;
             _schooljaarRepository = schooljaarRepository;
@@ -34,8 +32,6 @@ namespace ModuleManager.Web.Controllers
             _leerlijnRepository = leerlijnRepository;
             _tagRepository = tagRepository;
             _faseRepository = faseRepository;
-
-            _filterSorterService = filterSorterService;
         }
 
         /// <summary>
@@ -45,16 +41,6 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Overview")]
         public ActionResult Overview()
         {
-            //Collect the modules to be shown in the requested overview page.
-            var arguments = new Arguments
-            {
-
-            };
-            var queryPack = new ModuleQueryablePack(arguments, _moduleRepository.GetAll().AsQueryable());
-            var modules = _filterSorterService.ProcessData(queryPack).ToList();
-            var moduleList = new ModuleListViewModel(modules.Count());
-            moduleList.AddModules(modules);
-
             //Collect the possible filter options the user can choose.
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_blokRepository.GetAll());
@@ -68,22 +54,23 @@ namespace ModuleManager.Web.Controllers
             //Construct the ViewModel.
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
-                ModuleViewModels = moduleList,
                 FilterOptions = filterOptions
             };
             return View(moduleOverviewVm);
         }
 
-        [HttpGet, Route("Module/Details/{cursusCode}")]
-        public ActionResult Details(string cursusCode)
+        [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
+        public ActionResult Details(string schooljaar, string cursusCode)
         {
-            return View(_moduleRepository.GetOne(cursusCode));
+            var keys = new[] { schooljaar, cursusCode };
+            return View(_moduleRepository.GetOne(keys));
         }
 
-        [HttpGet, Route("Module/Edit/{cursusCode}")]
-        public ActionResult Edit(string cursusCode)
+        [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
+        public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            return View(_moduleRepository.GetOne(cursusCode));
+            var keys = new[] { schooljaar, cursusCode };
+            return View(_moduleRepository.GetOne(keys));
         }
 
         [HttpPost, Route("Module/Edit")]
@@ -93,9 +80,10 @@ namespace ModuleManager.Web.Controllers
 
             if (isSucces)
             {
-                return Redirect("Overview_Teacher_Temp");
+                return Redirect("Overview");
             }
-            return View(_moduleRepository.GetOne(entity.CursusCode));
+            var keys = new[] { entity.Schooljaar.ToString(), entity.CursusCode };
+            return View(_moduleRepository.GetOne(keys));
         }
     }
 }

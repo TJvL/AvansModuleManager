@@ -10,9 +10,7 @@ namespace ModuleManager.Web.Controllers.Api.Interfaces
     {
         ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value);
         string ExportOverview(ExportViewModel arguments);
-        Module GetOne(string key);
         bool Delete(Module entity);
-        bool Edit(Module entity);
         bool Create(Module entity);  
     }
 }

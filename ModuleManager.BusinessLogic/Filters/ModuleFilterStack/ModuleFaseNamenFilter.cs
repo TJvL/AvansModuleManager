@@ -14,10 +14,10 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleFaseNamenFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.FaseNamen != null)
+            if (args.FaseFilters != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (string arg in args.FaseNamen)
+                foreach (string arg in args.FaseFilters)
                 {
                     var selectedModule = 
                         from m in toQuery

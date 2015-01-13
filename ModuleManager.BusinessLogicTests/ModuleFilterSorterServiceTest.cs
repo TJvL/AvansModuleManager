@@ -33,7 +33,7 @@ namespace ModuleManager.BusinessLogicTests
             List<string> tags = new List<string>();
             tags.Add("C#");
 
-            args.TagFilter = tags;
+            args.TagFilters = tags;
 
             ModuleQueryablePack toProcess = new ModuleQueryablePack(args, data);
 
