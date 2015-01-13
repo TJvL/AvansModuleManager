@@ -3,7 +3,6 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Repositories;
 using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.Web;
 using ModuleManager.Web.ViewModels.PartialViewModel;

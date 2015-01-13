@@ -1,4 +1,5 @@
-﻿using MigraDoc.DocumentObjectModel;
+﻿using System.IO;
+using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Services;

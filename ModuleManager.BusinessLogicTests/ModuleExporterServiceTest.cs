@@ -1,11 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ModuleManager.DomainDAL;
-using ModuleManager.BusinessLogic.Services;
-using ModuleManager.DomainDAL.Repositories;
 using ModuleManager.BusinessLogic.Data;
+using ModuleManager.BusinessLogic.Services;
+using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using PdfSharp.Pdf;
 
 namespace ModuleManager.BusinessLogicTests
