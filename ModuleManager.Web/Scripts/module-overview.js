@@ -7,6 +7,7 @@ $(function () {
         e.stopPropagation();
     });
 
+    init_select2();
     init_datatable();
     init_toggle_columns();
     init_select_all();
@@ -41,7 +42,9 @@ function init_datatable() {
                     Fases: $("#FilterFases").val(),
                     Leerjaar: $("#FilterLeerjaar").val(),
                     Blokken: $("#FilterBlokken").val(),
-                    Tags: $("#FilterTags").val()
+                    Tags: $("#FilterTags").val(),
+                    Ec: $("#FilterEc").val(),
+                    Leerlijnen: $("#FilterLeerlijnen").val()
                 }
             }
         },
@@ -124,7 +127,8 @@ function init_filters() {
     });
 
     /* Set filters */
-    $("#FilterTable").on("click", function () {
+    $("#FilterTable").on("click", function (e) {
+        e.preventDefault();
         $("#modules").dataTable().fnDraw();
     });
 
@@ -152,6 +156,30 @@ function init_select_all() {
             $('.checkbox-module').prop("checked", false);
         }
 
+    });
+}
+
+function init_select2() {
+    $("#FilterCompetenties").select2({
+        placeholder: "Competenties"
+    });
+    $("#FilterLeerlijnen").select2({
+        placeholder: "Leerlijnen"
+    });
+    $("#FilterFases").select2({
+        placeholder: "Fases"
+    });
+    $("#FilterLeerjaar").select2({
+        placeholder: "Leerjaar"
+    });
+    $("#FilterEc").select2({
+        placeholder: "EC"
+    });
+    $("#FilterBlokken").select2({
+        placeholder: "Blokken"
+    });
+    $("#FilterTags").select2({
+        placeholder: "Tags"
     });
 }
 

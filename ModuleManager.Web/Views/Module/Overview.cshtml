@@ -84,6 +84,25 @@
                     <div class="panel panel-danger">
                         <div class="panel-heading">
                             <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#leerlijnen">
+                                    Leerlijnen
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="leerlijnen" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select class="form-control ajax" id="FilterLeerlijnen" multiple>
+                                    <option>Leerlijn 1</option>
+                                    <option>Leerlijn 2</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#year">
                                     Leerjaar
                                 </a>
@@ -98,6 +117,28 @@
                                     <option>2013 - 2014</option>
                                     <option>2012 - 2013</option>
                                     <option>2011 - 2012</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="false" href="#ec">
+                                    EC
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="ec" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                                <select name="ec" class="form-control ajax" id="FilterEc">
+                                    <option></option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
                                 </select>
 
                             </div>
@@ -279,25 +320,6 @@
         });
 
         // SELECT2
-        $("#FilterCompetenties").select2({
-            placeholder: "Competenties"
-        });
-        /*$("#FilterCompetentieOpNiveau").select2({
-            placeholder: "Competentie niveau"
-        });*/
-        $("#FilterFases").select2({
-            placeholder: "Fases"
-        });
-        $("#FilterLeerjaar").select2({
-            placeholder: "Leerjaar"
-        });
-        $("#FilterBlokken").select2({
-            placeholder: "Blokken"
-        });
-        $("#FilterTags").select2({
-            placeholder: "Tags"
-        });
-
 
     </script>
 }
