@@ -1,4 +1,5 @@
-﻿using MigraDoc.DocumentObjectModel;
+﻿using System.IO;
+using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Services;
@@ -32,7 +33,7 @@ namespace ModuleManager.BusinessLogic.Services
         }
 
 
-        public System.IO.Stream ExportAsStream(Module toExport)
+        public Stream ExportAsStream(Module toExport)
         {
             MemoryStream ms = new MemoryStream();
             Export(toExport).Save(ms, false);
@@ -44,7 +45,7 @@ namespace ModuleManager.BusinessLogic.Services
             return ms;
         }
 
-        public System.IO.Stream ExportAllAsStream(IExportablePack<Module> pack)
+        public Stream ExportAllAsStream(IExportablePack<Module> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);
