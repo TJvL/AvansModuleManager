@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 
@@ -15,8 +13,6 @@ namespace ModuleManager.Web.Controllers
     public class ModuleController : Controller
     {
         private readonly IGenericRepository<Blok> _blokRepository;
-        private readonly IGenericRepository<Status> _statusRepository;
-        private readonly IGenericRepository<Niveau> _niveauRepository;
         private readonly IGenericRepository<Schooljaar> _schooljaarRepository;
         private readonly IGenericRepository<Module> _moduleRepository;
         private readonly IGenericRepository<Competentie> _competentieRepository;
@@ -27,14 +23,11 @@ namespace ModuleManager.Web.Controllers
         private readonly IFilterSorterService<Module> _filterSorterService; 
 
         public ModuleController(IGenericRepository<Blok> blokRepository,
-            IGenericRepository<Status> statusRepository, IGenericRepository<Niveau> niveauRepository, 
             IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository, 
             IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository, 
             IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, IFilterSorterService<Module> filterSorterService)
         {
             _blokRepository = blokRepository;
-            _statusRepository = statusRepository;
-            _niveauRepository = niveauRepository;
             _schooljaarRepository = schooljaarRepository;
             _moduleRepository = moduleRepository;
             _competentieRepository = competentieRepository;
@@ -65,13 +58,11 @@ namespace ModuleManager.Web.Controllers
             //Collect the possible filter options the user can choose.
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_blokRepository.GetAll());
-            filterOptions.AddCompetentieNiveaus(_niveauRepository.GetAll());
             filterOptions.AddCompetenties(_competentieRepository.GetAll());
             filterOptions.AddECs();
             filterOptions.AddFases(_faseRepository.GetAll());
             filterOptions.AddLeerjaren(_schooljaarRepository.GetAll());
             filterOptions.AddLeerlijnen(_leerlijnRepository.GetAll());
-            filterOptions.AddStatuses(_statusRepository.GetAll());
             filterOptions.AddTags(_tagRepository.GetAll());
 
             //Construct the ViewModel.

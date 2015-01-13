@@ -288,7 +288,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="ModelBinders\WebAPI\DataTablesModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
     <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />
@@ -303,7 +302,6 @@
     <Compile Include="ViewModels\RequestViewModels\Filter.cs" />
     <Compile Include="ViewModels\RequestViewModels\Order.cs" />
     <Compile Include="ViewModels\RequestViewModels\ArgumentsViewModel.cs" />
-    <Compile Include="ViewModels\RequestViewModels\Search.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
