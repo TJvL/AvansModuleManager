@@ -58,7 +58,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 
         public Fase GetOne(object[] keys)
         {
-            if (keys.Length != 1)
+            if (keys.Length != 2)
                 throw new System.ArgumentException();
 
             return (_fases.Where(fase => fase.Naam.Equals(keys[0]))).First();
