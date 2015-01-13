@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Web;
 using System.Web.Http;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.DomainDAL;
@@ -24,6 +25,9 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
         {
+
+            var test = HttpContext.Current;
+
             var modules = _moduleRepository.GetAll();
 
             var test = Request.Content.ReadAsStringAsync().Result;
