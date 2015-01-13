@@ -14,6 +14,7 @@ using WebActivatorEx;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.BusinessLogic.Interfaces.Services;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
@@ -92,6 +93,7 @@ namespace ModuleManager.Web.App_Start
 
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
+            kernel.Bind<IExporterService<Module>>().To<ModuleExporterService>();
 
         }        
     }

@@ -14,10 +14,10 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleECFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.ECs != null)
+            if (args.ECfilters != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (int arg in args.ECs)
+                foreach (int arg in args.ECfilters)
                 {
                     var selectedModule = 
                         from m in toQuery

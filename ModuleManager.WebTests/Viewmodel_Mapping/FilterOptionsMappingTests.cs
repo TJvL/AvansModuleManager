@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,32 +82,6 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             Assert.AreEqual(allCompetentieNamen.Count, filterViewModel.CompetentieFilter.Count());
             Assert.AreEqual(allCompetentieNamen.Last(), filterViewModel.CompetentieFilter.Last());
             Assert.AreEqual(allCompetentieNamen.ElementAt(2), filterViewModel.CompetentieFilter.ElementAt(2));
-        }
-
-        /// <summary>
-        /// Deze test methode pakt alle 'Niveau'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
-        /// </summary>
-        [TestMethod]
-        public void FilterOptionsCompetenteNiveaus()
-        {
-            // Arrange
-            var filterViewModel = new FilterOptionsViewModel();
-            var allNiveaus = _niveauRepository.GetAll();
-            filterViewModel.AddCompetentieNiveaus(allNiveaus);
-
-            // Act
-            // verwachte Niveau's op basis van de DummyNiveauRepository
-            var allNiveauNiveaus = new List<string>
-            {
-                "Beginner",
-                "Beoefend",
-                "Expert"
-            };
-
-            // Assert <expected, actual>
-            Assert.AreEqual(allNiveauNiveaus.Count, filterViewModel.CompetentieNiveauFilter.Count());
-            Assert.AreEqual(allNiveauNiveaus.Last(), filterViewModel.CompetentieNiveauFilter.Last());
-            Assert.AreEqual(allNiveauNiveaus.ElementAt(2), filterViewModel.CompetentieNiveauFilter.ElementAt(2));
         }
 
         /// <summary>

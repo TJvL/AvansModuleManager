@@ -3,6 +3,7 @@ using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using System;
 using System.Collections.Generic;
 using System.Linq;

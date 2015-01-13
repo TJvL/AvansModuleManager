@@ -1,8 +1,9 @@
-﻿using ModuleManager.DomainDAL.Interfaces;
+﻿using System;
+using ModuleManager.DomainDAL.Interfaces;
 
 namespace ModuleManager.DomainDAL.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private DomainContext _context;
 
@@ -11,9 +12,10 @@ namespace ModuleManager.DomainDAL.UnitOfWork
             get { return _context ?? (_context = new DomainContext()); }
         }
 
-        public void Save()
+        public void Dispose()
         {
             _context.SaveChanges();
+            _context.Dispose();
         }
     }
 }

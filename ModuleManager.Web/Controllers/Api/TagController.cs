@@ -21,10 +21,11 @@ namespace ModuleManager.Web.Controllers.Api
             return _tagRepository.GetAll();
         }
 
-        [HttpGet, Route("api/Tag/Get/{key}")]
-        public Tag GetOne(string key)
+        [HttpGet, Route("api/Tag/Get/{schooljaar}/{key}")]
+        public Tag GetOne(string schooljaar, string key)
         {
-            return _tagRepository.GetOne(key);
+            var keys = new[] { schooljaar, key };
+            return _tagRepository.GetOne(keys);
         }
 
         [HttpPost, Route("api/Tag/Delete")]

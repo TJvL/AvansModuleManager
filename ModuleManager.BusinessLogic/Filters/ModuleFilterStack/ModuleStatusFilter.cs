@@ -14,14 +14,14 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleStatusFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.Status1 != null)
+            if (args.StatusFilter != null)
             {
                 List<Module> result = new List<Module>();
 
                 var selectedModule = 
                     from m in toQuery
                         where
-                            m.Status.ToLower().Contains(args.Status1.ToLower())
+                            m.Status.ToLower().Contains(args.StatusFilter.ToLower())
                     select m;
 
                 result.AddRange(selectedModule);

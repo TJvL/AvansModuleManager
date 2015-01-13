@@ -19,6 +19,7 @@ namespace ModuleManager.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfiguration.Configure();
+
         }
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)

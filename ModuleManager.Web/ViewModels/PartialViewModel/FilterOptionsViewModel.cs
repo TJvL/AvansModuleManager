@@ -10,11 +10,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     /// </summary>
     public class FilterOptionsViewModel
     {
-        public FilterOptionsViewModel()
-        {
-            AddECs();
-        }
-
         /// <summary>
         /// Verkrijgt uit een lijst van alle 'Competentie'-objecten alleen de namen en zet deze in het 'CompetentieFilter' Property
         /// </summary>
@@ -23,17 +18,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         {
             CompetentieFilter = competentieList
             .Select(comp => comp.Naam)
-            .ToList();
-        }
-
-        /// <summary>
-        /// Verkrijgt uit een lijst van alle 'Niveau'-objecten alleen het niveau en zet deze in het 'CompetentieNiveauFilter' Property
-        /// </summary>
-        /// <param name="niveauList">Lijst van alle 'Niveau'-objecten</param>
-        public void AddCompetentieNiveaus(IEnumerable<Niveau> niveauList)
-        {
-            CompetentieNiveauFilter = niveauList
-            .Select(niveau => niveau.Niveau1)
             .ToList();
         }
 
@@ -128,10 +112,6 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// Mogelijke competentie(s) om op te filteren
         /// </summary>
         public IEnumerable<string> CompetentieFilter { get; set; }
-        /// <summary>
-        /// Mogelijke competentieniveau(s) om op te filteren
-        /// </summary>
-        public IEnumerable<string> CompetentieNiveauFilter { get; set; }
         /// <summary>
         /// Mogelijke tag(s) om op te filteren
         /// </summary>

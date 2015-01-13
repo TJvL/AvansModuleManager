@@ -21,10 +21,11 @@ namespace ModuleManager.Web.Controllers.Api
             return _faseRepository.GetAll();
         }
 
-        [HttpGet, Route("api/Fase/Get/{key}")]
-        public Fase GetOne(string key)
+        [HttpGet, Route("api/Fase/Get/{schooljaar}/{key}")]
+        public Fase GetOne(string schooljaar, string key)
         {
-            return _faseRepository.GetOne(key);
+            var keys = new[] { schooljaar, key };
+            return _faseRepository.GetOne(keys);
         }
 
         [HttpPost, Route("api/Fase/Delete")]

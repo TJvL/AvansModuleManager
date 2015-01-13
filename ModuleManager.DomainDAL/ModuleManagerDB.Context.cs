@@ -12,6 +12,8 @@ namespace ModuleManager.DomainDAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DomainContext : DbContext
     {
@@ -48,5 +50,10 @@ namespace ModuleManager.DomainDAL
         public virtual DbSet<Tag> Tag { get; set; }
         public virtual DbSet<Weekplanning> Weekplanning { get; set; }
         public virtual DbSet<Werkvorm> Werkvorm { get; set; }
+    
+        public virtual int SP_ArchiveYear()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ArchiveYear");
+        }
     }
 }

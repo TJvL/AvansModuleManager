@@ -14,10 +14,10 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleTagFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.TagFilter != null)
+            if (args.TagFilters != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (string arg in args.TagFilter)
+                foreach (string arg in args.TagFilters)
                 {
                     var selectedModule = 
                         from m in toQuery

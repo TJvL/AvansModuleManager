@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModuleManager.BusinessLogic.Services;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.DomainDAL.Repositories;
 using System.Linq;
 using ModuleManager.DomainDAL;
@@ -32,7 +33,7 @@ namespace ModuleManager.BusinessLogicTests
             List<string> tags = new List<string>();
             tags.Add("C#");
 
-            args.TagFilter = tags;
+            args.TagFilters = tags;
 
             ModuleQueryablePack toProcess = new ModuleQueryablePack(args, data);
 
