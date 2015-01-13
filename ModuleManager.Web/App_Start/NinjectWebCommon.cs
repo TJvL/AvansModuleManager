@@ -14,6 +14,7 @@ using WebActivatorEx;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.BusinessLogic.Interfaces.Services;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]

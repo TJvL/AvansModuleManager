@@ -14,7 +14,7 @@ namespace ModuleManager.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IGenericRepository<Blok> _blokRepository;
-        private readonly IGenericRepository<Status> _statusRepository;
+        private readonly IGenericRepository<Status> _statusRepository; 
         private readonly IGenericRepository<Module> _moduleRepository;
         private readonly IGenericRepository<Competentie> _competentieRepository;
         private readonly IGenericRepository<Leerlijn> _leerlijnRepository;

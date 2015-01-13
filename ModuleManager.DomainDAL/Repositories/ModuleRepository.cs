@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
+using System;
 namespace ModuleManager.DomainDAL.Repositories
 {
-    public class DummyModuleRepository : IGenericRepository<Module>
+    public class ModuleRepository : IGenericRepository<Module>
     {
         private readonly IList<Module> _modules;
+        private readonly ModuleManager.DomainDAL.DomainContext dbContext;
 
-        public DummyModuleRepository()
+        public ModuleRepository()
         {
             _modules = new List<Module>
 			{
@@ -843,35 +845,48 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public IEnumerable<Module> GetAll()
         {
-            return _modules;
+            using (DomainContext context = new DomainContext())
+            {
+                return (from b in context.Module select b).ToList();
+            }
         }
 
-        public Module GetOne(string key)
+        public Module GetOne(object[] keys)
         {
-            return (_modules.Where(mod => mod.CursusCode.Equals(key))).First();
+            if (keys.Length != 2)
+                throw new System.ArgumentException();
+
+            using (DomainContext context = new DomainContext())
+            {
+                return (context.Set<Module>().Find(keys));
+            }
         }
 
         public bool Create(Module entity)
         {
-            if (_modules == null)
-                return false;
-            _modules.Add(entity);
-            return true;
+            using (DomainContext context = new DomainContext())
+            {
+                context.Entry<Module>(entity).State = System.Data.Entity.EntityState.Added;
+                return Convert.ToBoolean(context.SaveChanges());
+            }
         }
 
         public bool Delete(Module entity)
         {
-            return _modules.Remove(entity);
+            using (DomainContext context = new DomainContext())
+            {
+                context.Entry<Module>(entity).State = System.Data.Entity.EntityState.Deleted;
+                return Convert.ToBoolean(context.SaveChanges());
+            }
         }
 
         public bool Edit(Module entity)
         {
-            Module oldModule = (_modules.Where(mod => mod.CursusCode.Equals(entity.Naam))).First();
-            if (Delete(oldModule))
+            using (DomainContext context = new DomainContext())
             {
-                return Create(entity);
+                context.Entry<Module>(entity).State = System.Data.Entity.EntityState.Modified;
+                return Convert.ToBoolean(context.SaveChanges());
             }
-            return false;
         }
     }
 }

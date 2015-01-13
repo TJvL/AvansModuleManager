@@ -1,9 +1,8 @@
-﻿namespace ModuleManager.DomainDAL.Interfaces
+﻿using System;
+namespace ModuleManager.DomainDAL.Interfaces
 {
     public interface IUnitOfWork
     {
         DomainContext Context { get; }
-
-        void Save();
     }
 }

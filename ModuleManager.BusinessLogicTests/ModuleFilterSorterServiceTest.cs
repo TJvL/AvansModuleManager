@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModuleManager.BusinessLogic.Services;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.DomainDAL.Repositories;
 using System.Linq;
 using ModuleManager.DomainDAL;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.Collections.Generic;
 using System.Linq;

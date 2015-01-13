@@ -2,7 +2,7 @@
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
 
-namespace ModuleManager.DomainDAL.Repositories
+namespace ModuleManager.DomainDAL.Repositories.Dummies
 {
     public class DummyStatusRepository : IGenericRepository<Status>
     {
@@ -35,9 +35,12 @@ namespace ModuleManager.DomainDAL.Repositories
             return _status;
         }
 
-        public Status GetOne(string key)
+        public Status GetOne(object[] keys)
         {
-            return (_status.Where(status => status.Status1.Equals(key))).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            return (_status.Where(status => status.Status1.Equals(keys[0]))).First();
         }
 
         public bool Create(Status entity)
