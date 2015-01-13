@@ -2,6 +2,7 @@
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,5 +27,18 @@ namespace ModuleManager.BusinessLogic.Interfaces.Services
         /// <param name="pack">The objects to export</param>
         /// <returns>A PDF Document containing any requested data</returns>
         PdfDocument ExportAll(IExportablePack<Module> pack);
+
+        /// <summary>
+        /// Export a single object
+        /// </summary>
+        /// <param name="toExport">The object to export</param>
+        /// <returns>A PDF Document containing any requested data</returns>
+        Stream ExportAsStream(T toExport);
+        /// <summary>
+        /// Export multiple objects at once to the same document
+        /// </summary>
+        /// <param name="pack">The objects to export</param>
+        /// <returns>A PDF Document containing any requested data</returns>
+        Stream ExportAllAsStream(IExportablePack<Module> pack);
     }
 }
