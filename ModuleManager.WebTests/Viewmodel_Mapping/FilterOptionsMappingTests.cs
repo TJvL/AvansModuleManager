@@ -85,32 +85,6 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         }
 
         /// <summary>
-        /// Deze test methode pakt alle 'Niveau'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
-        /// </summary>
-        [TestMethod]
-        public void FilterOptionsCompetenteNiveaus()
-        {
-            // Arrange
-            var filterViewModel = new FilterOptionsViewModel();
-            var allNiveaus = _niveauRepository.GetAll();
-            filterViewModel.AddCompetentieNiveaus(allNiveaus);
-
-            // Act
-            // verwachte Niveau's op basis van de DummyNiveauRepository
-            var allNiveauNiveaus = new List<string>
-            {
-                "Beginner",
-                "Beoefend",
-                "Expert"
-            };
-
-            // Assert <expected, actual>
-            Assert.AreEqual(allNiveauNiveaus.Count, filterViewModel.CompetentieNiveauFilter.Count());
-            Assert.AreEqual(allNiveauNiveaus.Last(), filterViewModel.CompetentieNiveauFilter.Last());
-            Assert.AreEqual(allNiveauNiveaus.ElementAt(2), filterViewModel.CompetentieNiveauFilter.ElementAt(2));
-        }
-
-        /// <summary>
         /// Deze test methode pakt alle 'Tag'-objecten van de DummyRepository en mapt deze naar een FilterOptionsViewModel
         /// </summary>
         [TestMethod]
