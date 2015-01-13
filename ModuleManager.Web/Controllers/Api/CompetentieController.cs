@@ -21,10 +21,11 @@ namespace ModuleManager.Web.Controllers.Api
             return _competentieRepository.GetAll();
         }
 
-        [HttpGet, Route("api/Competentie/Get/{key}")]
-        public Competentie GetOne(string key)
+        [HttpGet, Route("api/Competentie/Get/{schooljaar}/{key}")]
+        public Competentie GetOne(string schooljaar, string key)
         {
-            return _competentieRepository.GetOne(key);
+            var keys = new[] { schooljaar, key };
+            return _competentieRepository.GetOne(keys);
         }
 
         [HttpPost, Route("api/Competentie/Delete")]

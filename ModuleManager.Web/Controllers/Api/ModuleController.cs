@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using ModuleManager.BusinessLogic.Data;
@@ -7,6 +9,7 @@ using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.BusinessLogic.Interfaces.Services;
+using ModuleManager.Web.ViewModels.RequestViewModels;
 
 namespace ModuleManager.Web.Controllers.Api
 {
@@ -22,18 +25,44 @@ namespace ModuleManager.Web.Controllers.Api
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
-        public ModuleListViewModel GetOverview(Arguments arguments)
+        public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
         {
-
-            var test = HttpContext.Current;
-
             var modules = _moduleRepository.GetAll();
 
-            if (!arguments.IsEmpty)
+            ICollection<string> competentieFilters = null;
+            if (value.Filter.Competenties.First() != null) competentieFilters = value.Filter.Competenties;
+
+            ICollection<string> tagFilters = null;
+            if (value.Filter.Tags.First() != null) tagFilters = value.Filter.Tags;
+
+            ICollection<string> leerlijnFilters = null;
+            if (value.Filter.Leerlijnen.First() != null) leerlijnFilters = value.Filter.Leerlijnen;
+
+            ICollection<string> faseFilters = null;
+            if (value.Filter.Fases.First() != null) faseFilters = value.Filter.Fases;
+
+            ICollection<int> blokFilters = null;
+            if(value.Filter.Blokken.First() != null) blokFilters = Array.ConvertAll(value.Filter.Blokken.ToArray(), int.Parse);
+
+            string zoektermFilter = null;
+            if (value.Filter.Zoekterm != null) zoektermFilter = value.Filter.Zoekterm;
+
+            int leerjaarFilter = 0;
+            if (value.Filter.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filter.Leerjaar);
+
+            var arguments = new Arguments
             {
-                var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
-                modules = _filterSorterService.ProcessData(queryPack);
-            }
+                CompetentieFilters = competentieFilters,
+                TagFilters = tagFilters,
+                LeerlijnFilters = leerlijnFilters,
+                FaseFilters = faseFilters,
+                BlokFilters = blokFilters,
+                ZoektermFilter = zoektermFilter,
+                LeerjaarFilter = leerjaarFilter
+            };
+
+            var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
+            modules = _filterSorterService.ProcessData(queryPack);
 
             var modArray = modules.ToArray();
             var moduleListVm = new ModuleListViewModel(modArray.Count());
@@ -48,10 +77,11 @@ namespace ModuleManager.Web.Controllers.Api
             throw new System.NotImplementedException();
         }
 
-        [HttpGet, Route("api/Module/Get/{key}")]
-        public Module GetOne(string key)
+        [HttpGet, Route("api/Module/Get/{schooljaar}/{key}")]
+        public Module GetOne(string schooljaar, string key)
         {
-            return _moduleRepository.GetOne(key);
+            var keys = new[] { schooljaar, key };
+            return _moduleRepository.GetOne(keys);
         }
 
         [HttpPost, Route("api/Module/Delete")]

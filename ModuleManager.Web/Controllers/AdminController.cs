@@ -1,46 +1,42 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using ModuleManager.BusinessLogic.Data;
+using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.Web.Controllers.Api.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
-using ModuleManager.UserDAL;
 
 namespace ModuleManager.Web.Controllers
 {
 
     public class AdminController : Controller
     {
-        // TODO: Implementeer de User API om user data op te halen voor display.
-        private readonly IModuleApiController _moduleApi;
-        private readonly IGenericApiController<Competentie> _competentieApi;
-        private readonly IGenericApiController<Leerlijn> _leerlijnApi;
-        private readonly IGenericApiController<Tag> _tagApi;
-        private readonly IGenericApiController<Fase> _faseApi;
-
         private readonly IGenericRepository<Blok> _blokRepository;
         private readonly IGenericRepository<Status> _statusRepository; 
+        private readonly IGenericRepository<Module> _moduleRepository;
+        private readonly IGenericRepository<Competentie> _competentieRepository;
+        private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
+        private readonly IGenericRepository<Tag> _tagRepository;
+        private readonly IGenericRepository<Fase> _faseRepository;
 
-        public AdminController(IModuleApiController moduleApi, IGenericApiController<Competentie> competentieApi,
-            IGenericApiController<Leerlijn> leerlijnApi, IGenericApiController<Tag> tagApi,
-            IGenericApiController<Fase> faseApi, IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository)
+        private readonly IFilterSorterService<Module> _filterSorterService; 
+
+        public AdminController(IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository, 
+            IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository, 
+            IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, 
+            IFilterSorterService<Module> filterSorterService)
         {
-            _moduleApi = moduleApi;
-            _competentieApi = competentieApi;
-            _leerlijnApi = leerlijnApi;
-            _tagApi = tagApi;
-            _faseApi = faseApi;
-
             _blokRepository = blokRepository;
             _statusRepository = statusRepository;
+            _moduleRepository = moduleRepository;
+            _competentieRepository = competentieRepository;
+            _leerlijnRepository = leerlijnRepository;
+            _tagRepository = tagRepository;
+            _faseRepository = faseRepository;
 
-
-            blokRepository.Create(new Blok() 
-            { 
-                BlokId = "1"                
-            });
+            _filterSorterService = filterSorterService;
         }
 
         [HttpGet, Route("Admin/Index")]
@@ -52,10 +48,19 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/Curriculum")]
         public ActionResult Curriculum()
         {
-            var competenties = _competentieApi.GetAll();
-            var leerlijnen = _leerlijnApi.GetAll();
-            var tags = _tagApi.GetAll();
-            var fases = _faseApi.GetAll();
+            var arguments = new Arguments
+            {
+
+            };
+            var queryPack = new ModuleQueryablePack(arguments, _moduleRepository.GetAll().AsQueryable());
+            var modules = _filterSorterService.ProcessData(queryPack).ToList();
+            var moduleList = new ModuleListViewModel(modules.Count());
+            moduleList.AddModules(modules);
+
+            var competenties = _competentieRepository.GetAll();
+            var leerlijnen = _leerlijnRepository.GetAll();
+            var tags = _tagRepository.GetAll();
+            var fases = _faseRepository.GetAll();
             var blokken = _blokRepository.GetAll();
 
             var filterOptions = new FilterOptionsViewModel();
@@ -67,8 +72,8 @@ namespace ModuleManager.Web.Controllers
                 Competenties = competenties,
                 Leerlijn = leerlijnen,
                 Tags = tags,
-                Fases = fases,                //TODO: Toevoegen van start filter argumenten?
-                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                Fases = fases,
+                ModuleViewModels = moduleList,
                 FilterOptions = filterOptions
             };
             return View(adminCurriculumVm);
@@ -122,14 +127,23 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/CheckModules")]
         public ActionResult CheckModules()
         {
+            var arguments = new Arguments
+            {
+
+            };
+            var queryPack = new ModuleQueryablePack(arguments, _moduleRepository.GetAll().AsQueryable());
+            var modules = _filterSorterService.ProcessData(queryPack).ToList();
+            var moduleList = new ModuleListViewModel(modules.Count());
+            moduleList.AddModules(modules);
+
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_blokRepository.GetAll());
-            filterOptions.AddFases(_faseApi.GetAll());
+            filterOptions.AddFases(_faseRepository.GetAll());
             filterOptions.AddStatuses(_statusRepository.GetAll());
 
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
-                ModuleViewModels = _moduleApi.GetOverview(new Arguments()),
+                ModuleViewModels = moduleList,
                 FilterOptions = filterOptions
             };
             return View(moduleOverviewVm);
