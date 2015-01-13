@@ -231,6 +231,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         {
             // Arrange
             var filterViewModel = new FilterOptionsViewModel();
+            filterViewModel.AddECs();
 
             // Act
             // verwachte EC's op basis van de DummyRepository

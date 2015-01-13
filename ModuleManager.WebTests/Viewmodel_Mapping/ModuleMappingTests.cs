@@ -56,7 +56,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         public void ModuleToViewModelMappingTest()
         {
             // Arrange
-            var module = _moduleRepository.GetOne(new object[1] { "INMODL312345" });
+            var module = _moduleRepository.GetOne(new[] { "1415", "INMODL312345" });
             var testViewModel = Mapper.Map<Module, ModuleViewModel>(module);
 
             // Act
