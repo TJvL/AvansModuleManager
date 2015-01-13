@@ -9,6 +9,7 @@ using ModuleManager.BusinessLogic.Interfaces.Services;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -63,6 +64,31 @@ namespace ModuleManager.BusinessLogic.Services
             rend.Document = prePdf;
             rend.RenderDocument();
             return rend.PdfDocument;
+        }
+
+
+        public Stream ExportAsStream(DomainDAL.Module toExport)
+        {
+            MemoryStream ms = new MemoryStream();
+            Export(toExport).Save(ms, false);
+            byte[] bytes = ms.ToArray();
+
+            ms.Write(bytes, 0, bytes.Length);
+            ms.Position = 0;
+
+            return ms;
+        }
+
+        public Stream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
+        {
+            MemoryStream ms = new MemoryStream();
+            ExportAll(pack).Save(ms, false);
+            byte[] bytes = ms.ToArray();
+
+            ms.Write(bytes, 0, bytes.Length);
+            ms.Position = 0;
+
+            return ms;
         }
     }
 }
