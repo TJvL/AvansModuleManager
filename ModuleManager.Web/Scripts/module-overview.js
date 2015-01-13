@@ -36,12 +36,12 @@ function init_datatable() {
             type: "POST",
             data: function (d) {
                 d.filter = {
-                    competentie: $("#FilterCompetentie").val(),
-                    niveau: $("#FilterCompetentieOpNiveau").val(),
-                    fases: $("#FilterFases").val(),
-                    leerjaar: $("#FilterLeerjaar").val(),
-                    blok: $("#FilterBlok").val(),
-                    tags: $("#FilterTags").val()
+                    Search: $("#Search").val(),
+                    Competenties: $("#FilterCompetenties").val(),
+                    Fases: $("#FilterFases").val(),
+                    Leerjaar: $("#FilterLeerjaar").val(),
+                    Blokken: $("#FilterBlokken").val(),
+                    Tags: $("#FilterTags").val()
                 }
             }
         },
@@ -111,24 +111,21 @@ function init_filters() {
     
     /* Block */
     $("#block select").on('change', function () {
-/*        var val = $.fn.dataTable.util.escapeRegex(
-            $(this).val()
-        );*/
         api.column(3)
-            //.search(val ? '^' + val + '$' : '', true, false)
             .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
             .draw();
     });
 
     /* Leerjaar */
     $("#fase select").on('change', function () {
-/*        var val = $.fn.dataTable.util.escapeRegex(
-            $(this).val()
-        );*/
         api.column(4)
-            //.search(val ? '^' + val + '$' : '', true, false)
             .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
             .draw();
+    });
+
+    /* Set filters */
+    $("#FilterTable").on("click", function () {
+        $("#modules").dataTable().fnDraw();
     });
 
 }

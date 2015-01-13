@@ -16,7 +16,7 @@
 
             <div class="filters">
                 <div id="search" class="input-group">
-                    <input name="search" type="text" class="form-control search-query ajax" placeholder="Zoekterm" />
+                    <input id="Search" name="search" type="text" class="form-control search-query ajax" placeholder="Zoekterm" />
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-search" type="button"><i class="fa fa-search"></i></button>
                     </span>
@@ -34,30 +34,10 @@
                         <div id="competentie" class="panel-collapse collapse in">
                             <div class="panel-body">
 
-                                <select name="competentie" class="form-control ajax" id="FilterCompetentie" multiple>
+                                <select name="competentie" class="form-control ajax" id="FilterCompetenties" multiple>
                                     <option>Procesanalyse uitvoeren</option>
                                     <option>Informatieanalyse uitvoeren</option>
                                     <option>Informatiesysteem ontwerpen</option>
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="false" href="#competentieniveau">
-                                    Competentie niveau
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="competentieniveau" class="panel-collapse collapse in">
-                            <div class="panel-body">
-
-                                <select name="competentieniveau" class="form-control ajax" id="FilterCompetentieOpNiveau" multiple>
-                                    <option>Beginner</option>
-                                    <option>Ervaren</option>
-                                    <option>Expert</option>
                                 </select>
 
                             </div>
@@ -127,14 +107,14 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#block">
-                                    Blok
+                                    Blokken
                                 </a>
                             </h4>
                         </div>
                         <div id="block" class="panel-collapse collapse in">
                             <div class="panel-body">
 
-                                <select name="year" class="form-control ajax" id="FilterBlok" multiple>
+                                <select name="block" class="form-control ajax" id="FilterBlokken" multiple>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -169,13 +149,14 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#reset">
-                                    Reset Filters
+                                    Acties
                                 </a>
                             </h4>
                         </div>
                         <div id="reset" class="panel-collapse collapse in">
                             <div class="panel-body">
 
+                                <a id="FilterTable" href="#" class="btn btn-success btn-block">Filter</a>
                                 <a href="#" class="btn btn-danger btn-block">Reset</a>
 
                             </div>
@@ -298,20 +279,20 @@
         });
 
         // SELECT2
-        $("#FilterCompetentie").select2({
-            placeholder: "Competentie"
+        $("#FilterCompetenties").select2({
+            placeholder: "Competenties"
         });
-        $("#FilterCompetentieOpNiveau").select2({
+        /*$("#FilterCompetentieOpNiveau").select2({
             placeholder: "Competentie niveau"
-        });
+        });*/
         $("#FilterFases").select2({
             placeholder: "Fases"
         });
         $("#FilterLeerjaar").select2({
             placeholder: "Leerjaar"
         });
-        $("#FilterBlok").select2({
-            placeholder: "Blok"
+        $("#FilterBlokken").select2({
+            placeholder: "Blokken"
         });
         $("#FilterTags").select2({
             placeholder: "Tags"
