@@ -7,6 +7,7 @@ $(function () {
         e.stopPropagation();
     });
 
+    init_select2();
     init_datatable();
     init_toggle_columns();
     init_select_all();
@@ -36,12 +37,14 @@ function init_datatable() {
             type: "POST",
             data: function (d) {
                 d.filter = {
-                    competentie: $("#FilterCompetentie").val(),
-                    niveau: $("#FilterCompetentieOpNiveau").val(),
-                    fases: $("#FilterFases").val(),
-                    leerjaar: $("#FilterLeerjaar").val(),
-                    blok: $("#FilterBlok").val(),
-                    tags: $("#FilterTags").val()
+                    Zoekterm: $("#Zoekterm").val(),
+                    Competenties: $("#FilterCompetenties").val(),
+                    Fases: $("#FilterFases").val(),
+                    Leerjaar: $("#FilterLeerjaar").val(),
+                    Blokken: $("#FilterBlokken").val(),
+                    Tags: $("#FilterTags").val(),
+                    Ec: $("#FilterEc").val(),
+                    Leerlijnen: $("#FilterLeerlijnen").val()
                 }
             }
         },
@@ -111,24 +114,22 @@ function init_filters() {
     
     /* Block */
     $("#block select").on('change', function () {
-/*        var val = $.fn.dataTable.util.escapeRegex(
-            $(this).val()
-        );*/
         api.column(3)
-            //.search(val ? '^' + val + '$' : '', true, false)
             .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
             .draw();
     });
 
     /* Leerjaar */
     $("#fase select").on('change', function () {
-/*        var val = $.fn.dataTable.util.escapeRegex(
-            $(this).val()
-        );*/
         api.column(4)
-            //.search(val ? '^' + val + '$' : '', true, false)
             .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
             .draw();
+    });
+
+    /* Set filters */
+    $("#FilterTable").on("click", function (e) {
+        e.preventDefault();
+        $("#modules").dataTable().fnDraw();
     });
 
 }
@@ -155,6 +156,30 @@ function init_select_all() {
             $('.checkbox-module').prop("checked", false);
         }
 
+    });
+}
+
+function init_select2() {
+    $("#FilterCompetenties").select2({
+        placeholder: "Competenties"
+    });
+    $("#FilterLeerlijnen").select2({
+        placeholder: "Leerlijnen"
+    });
+    $("#FilterFases").select2({
+        placeholder: "Fases"
+    });
+    $("#FilterLeerjaar").select2({
+        placeholder: "Leerjaar"
+    });
+    $("#FilterEc").select2({
+        placeholder: "EC"
+    });
+    $("#FilterBlokken").select2({
+        placeholder: "Blokken"
+    });
+    $("#FilterTags").select2({
+        placeholder: "Tags"
     });
 }
 
