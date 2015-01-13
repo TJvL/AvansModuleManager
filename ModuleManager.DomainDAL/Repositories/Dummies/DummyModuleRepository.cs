@@ -848,7 +848,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 
         public Module GetOne(object[] keys)
         {
-            if (keys.Length != 1)
+            if (keys.Length != 2)
                 throw new System.ArgumentException();
 
             return (_modules.Where(mod => mod.CursusCode.Equals(keys[0]) && mod.CursusCode.Equals(keys[1]))).First();

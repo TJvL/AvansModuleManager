@@ -62,7 +62,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
         }
         public Tag GetOne(object[] keys)
         {
-            if (keys.Length != 1)
+            if (keys.Length != 2)
                 throw new System.ArgumentException();
 
             return (_tags.Where(tag => tag.Naam.Equals(keys[0]))).First();

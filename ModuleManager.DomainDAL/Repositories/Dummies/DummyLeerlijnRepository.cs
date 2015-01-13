@@ -45,7 +45,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 
         public Leerlijn GetOne(object[] keys)
         {
-            if (keys.Length != 1)
+            if (keys.Length != 2)
                 throw new System.ArgumentException();
 
             return (_leerlijnen.Where(leerlijn => leerlijn.Naam.Equals(keys))).First();

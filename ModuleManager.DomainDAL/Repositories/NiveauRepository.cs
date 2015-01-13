@@ -7,31 +7,9 @@ namespace ModuleManager.DomainDAL.Repositories
 {
     public class NiveauRepository : IGenericRepository<Niveau>
     {
-        private readonly ICollection<Niveau> _niveau;
-        private readonly ModuleManager.DomainDAL.DomainContext dbContext;
-
-        public NiveauRepository()
-        {
-            _niveau = new List<Niveau>
-            {
-                new Niveau
-                {
-                    Niveau1 = "Beginner"
-                },
-                new Niveau
-                {
-                    Niveau1 = "Beoefend"
-                },
-                new Niveau
-                {
-                    Niveau1 = "Expert"
-                }
-            };
-        }
-
         public IEnumerable<Niveau> GetAll()
         {
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
                 return (from b in context.Niveau select b).ToList();
             }
@@ -40,9 +18,9 @@ namespace ModuleManager.DomainDAL.Repositories
         public Niveau GetOne(object[] keys)
         {
             if (keys.Length != 1)
-                throw new System.ArgumentException();
+                throw new ArgumentException("keys");
 
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
                 return (context.Set<Niveau>().Find(keys));
             }
@@ -50,27 +28,27 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public bool Create(Niveau entity)
         {
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
-                dbContext.Entry<Niveau>(entity).State = System.Data.Entity.EntityState.Added;
+                context.Entry(entity).State = System.Data.Entity.EntityState.Added;
                 return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Delete(Niveau entity)
         {
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
-                context.Entry<Niveau>(entity).State = System.Data.Entity.EntityState.Deleted;
+                context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Edit(Niveau entity)
         {
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
-                context.Entry<Niveau>(entity).State = System.Data.Entity.EntityState.Modified;
+                context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                 return Convert.ToBoolean(context.SaveChanges());
             }
         }
