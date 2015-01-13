@@ -14,14 +14,14 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleLeerjaarFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.Leerjaar != 0) //quickfix. int cannot be NULL, so it takes "leerjaar = 0" without argument
+            if (args.LeerjaarFilter != 0) //quickfix. int cannot be NULL, so it takes "leerjaar = 0" without argument
             {
                 List<Module> result = new List<Module>();
                     
                 var selectedModule = 
                     from m in toQuery
                         where
-                            m.Schooljaar == args.Leerjaar
+                            m.Schooljaar == args.LeerjaarFilter
                     select m;
                 result.AddRange(selectedModule);
 

@@ -118,16 +118,25 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
-    <Compile Include="Repositories\DummyBlokRepository.cs" />
-    <Compile Include="Repositories\DummyCompetentieRepository.cs" />
-    <Compile Include="Repositories\DummyFaseRepository.cs" />
-    <Compile Include="Repositories\DummyLeerlijnRepository.cs" />
-    <Compile Include="Repositories\DummyModuleRepository.cs" />
-    <Compile Include="Repositories\DummyNiveauRepository.cs" />
-    <Compile Include="Repositories\DummySchooljaarRepository.cs" />
-    <Compile Include="Repositories\DummyStatusRepository.cs" />
-    <Compile Include="Repositories\DummyTagRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummyBlokRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummyCompetentieRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummyFaseRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummyLeerlijnRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummyModuleRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummyNiveauRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummySchooljaarRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummyStatusRepository.cs" />
+    <Compile Include="Repositories\Dummies\DummyTagRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Repositories\BlokRepository.cs" />
+    <Compile Include="Repositories\CompetentieRepository.cs" />
+    <Compile Include="Repositories\FaseRepository.cs" />
+    <Compile Include="Repositories\LeerlijnRepository.cs" />
+    <Compile Include="Repositories\ModuleRepository.cs" />
+    <Compile Include="Repositories\NiveauRepository.cs" />
+    <Compile Include="Repositories\SchooljaarRepository.cs" />
+    <Compile Include="Repositories\StatusRepository.cs" />
+    <Compile Include="Repositories\TagRepository.cs" />
     <Compile Include="Schooljaar.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>

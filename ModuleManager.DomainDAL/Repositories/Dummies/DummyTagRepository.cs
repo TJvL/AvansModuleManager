@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using ModuleManager.DomainDAL.Interfaces;
 
-namespace ModuleManager.DomainDAL.Repositories
+namespace ModuleManager.DomainDAL.Repositories.Dummies
 {
     public class DummyTagRepository : IGenericRepository<Tag>
     {
         private readonly ICollection<Tag> _tags;
         public DummyTagRepository()
         {
+
+
+
             _tags = new List<Tag>
             {
                 new Tag
@@ -57,9 +60,12 @@ namespace ModuleManager.DomainDAL.Repositories
         {
             return _tags;
         }
-        public Tag GetOne(string key)
+        public Tag GetOne(object[] keys)
         {
-            return (_tags.Where(tag => tag.Naam.Equals(key))).First();
+            if (keys.Length != 1)
+                throw new System.ArgumentException();
+
+            return (_tags.Where(tag => tag.Naam.Equals(keys[0]))).First();
         }
         public bool Create(Tag entity)
         {

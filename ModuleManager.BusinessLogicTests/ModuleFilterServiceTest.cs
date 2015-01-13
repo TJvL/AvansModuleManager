@@ -5,6 +5,7 @@ using System.Linq;
 using ModuleManager.DomainDAL;
 using System.Collections.Generic;
 using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Data;
 
@@ -29,7 +30,7 @@ namespace ModuleManager.BusinessLogicTests
         {
             Arguments args = new Arguments
             {
-                Zoekterm = "INMODL"
+                ZoektermFilter = "INMODL"
             };
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
@@ -49,7 +50,7 @@ namespace ModuleManager.BusinessLogicTests
 
             Arguments args = new Arguments
             {
-                CompetentieFilter = competentie
+                CompetentieFilters = competentie
             };
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
@@ -69,7 +70,7 @@ namespace ModuleManager.BusinessLogicTests
 
             Arguments args = new Arguments
             {
-                CompetentieFilter = competentie
+                CompetentieFilters = competentie
             };
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
@@ -123,15 +124,15 @@ namespace ModuleManager.BusinessLogicTests
 
             Arguments args = new Arguments
             {
-                CompetentieFilter = competentie,
-                CompetentieNiveauFilter = competentieNiveau,
-                TagFilter = tag,
-                LeerlijnFilter = leerlijn,
-                Blokken = blokken,
-                FaseNamen = faseNamen,
-                Leerjaar = leerjaar,
-                ECs = EC,
-                Status1 = status
+                CompetentieFilters = competentie,
+                CompetentieNiveauFilters = competentieNiveau,
+                TagFilters = tag,
+                LeerlijnFilters = leerlijn,
+                BlokFilters = blokken,
+                FaseFilters = faseNamen,
+                LeerjaarFilter = leerjaar,
+                ECfilters = EC,
+                StatusFilter = status
             };
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);

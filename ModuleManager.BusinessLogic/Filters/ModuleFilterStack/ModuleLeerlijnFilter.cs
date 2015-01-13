@@ -14,10 +14,10 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleLeerlijnFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.LeerlijnFilter != null)
+            if (args.LeerlijnFilters != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (string arg in args.LeerlijnFilter)
+                foreach (string arg in args.LeerlijnFilters)
                 {
                     var selectedModule = 
                         from m in toQuery

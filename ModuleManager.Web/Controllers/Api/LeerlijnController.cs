@@ -21,10 +21,11 @@ namespace ModuleManager.Web.Controllers.Api
             return _leerlijnRepository.GetAll();
         }
 
-        [HttpGet, Route("api/Leerlijn/Get/{key}")]
-        public Leerlijn GetOne(string key)
+        [HttpGet, Route("api/Leerlijn/Get/{schooljaar}/{key}")]
+        public Leerlijn GetOne(string schooljaar, string key)
         {
-            return _leerlijnRepository.GetOne(key);
+            var keys = new[] { schooljaar, key };
+            return _leerlijnRepository.GetOne(keys);
         }
 
         [HttpPost, Route("api/Leerlijn/Delete")]

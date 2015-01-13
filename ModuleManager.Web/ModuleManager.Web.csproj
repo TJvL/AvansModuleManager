@@ -299,6 +299,9 @@
     <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
     <Compile Include="ViewModels\ModuleOverviewViewModel.cs" />
+    <Compile Include="ViewModels\RequestViewModels\Filter.cs" />
+    <Compile Include="ViewModels\RequestViewModels\Order.cs" />
+    <Compile Include="ViewModels\RequestViewModels\ArgumentsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
