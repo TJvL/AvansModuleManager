@@ -36,7 +36,7 @@ function init_datatable() {
             type: "POST",
             data: function (d) {
                 d.filter = {
-                    Search: $("#Search").val(),
+                    Zoekterm: $("#Zoekterm").val(),
                     Competenties: $("#FilterCompetenties").val(),
                     Fases: $("#FilterFases").val(),
                     Leerjaar: $("#FilterLeerjaar").val(),
