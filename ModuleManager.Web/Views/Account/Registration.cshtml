@@ -1,0 +1,74 @@
+﻿@model ModuleManager.Web.ViewModels.RegistrationVM
+ 
+@{
+    ViewBag.Title = "Registration";
+}
+
+<div id="content" role="content">
+  <div class="container">
+    <div class="row">
+
+      <div id="primary" class="col-md-12">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            
+            <h2>Registreren</h2>
+            <div class="field-validation-error">
+                @ViewBag.UsernameError
+                @Html.ValidationMessage("error")
+            </div>
+
+            <div class="form-group">
+            @Html.LabelFor(model => model.UserNaam)
+            @Html.EditorFor(model => model.UserNaam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserNaam, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Wachtwoord)
+                @Html.EditorFor(model => model.Wachtwoord, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Wachtwoord, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BevestigWachtwoord)
+                @Html.EditorFor(model => model.BevestigWachtwoord, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BevestigWachtwoord, "", new { @class = "text-danger" })
+            </div>
+            
+            <div class="form-group">
+            @Html.DropDownListFor(model => model.SelectedSysteemRol,
+                    new SelectList((from s in Model.SysteemRollen
+                               select new
+                               {
+                                   SelectedSysteemRol = s.Role,
+                                   RolDisplay = s.Role
+                               }), "SelectedSysteemRol", "RolDisplay", null), "-Kies een systeemrol")
+
+            @Html.ValidationMessageFor(model => model.SelectedSysteemRol, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email)
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Naam)
+                @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Naam, "", new { @class = "text-danger" })
+            </div>
+
+            <input name="submit" type="submit" id="submit" value="Registreer" class="btn btn-lg btn-primary btn-block">
+        }
+
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/Login.cshtml", null);
