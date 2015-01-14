@@ -34,7 +34,7 @@
             @Html.ValidationMessageFor(model => model.BevestigWachtwoord, "", new {@class = "text-danger"})
 
             <!-- Rol -->
-            <select name="werkvorm" class="form-control" id="systeemRol" multiple>
+            <select name="werkvorm" class="form-control" id="systeemRol">
                 <option></option>
                 @foreach (SysteemRol s in Model.SysteemRollen)
                 {
