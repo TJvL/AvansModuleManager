@@ -1,4 +1,8 @@
-﻿<div class="modal fade" id="reminder" role="dialog" aria-labelledby="CheckModulesReminder" aria-hidden="true">
+﻿@model ModuleManager.Web.ViewModels.AdminCheckModuleViewModel
+
+@{ var email = Model.ModuleViewModels.data.First().Verantwoordelijke + "@avans.nl"; }
+
+<div class="modal fade" id="reminder" role="dialog" aria-labelledby="CheckModulesReminder" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,12 +12,12 @@
             <div class="modal-body">
                 <form role="form">
                     <p>
-                        De vakcoördinator van Algoritmiek en Datastructuren is <b>Bert Hoeks</b>.
+                        De vakcoördinator van Algoritmiek en Datastructuren is <b>@Model.ModuleViewModels.data.First().Verantwoordelijke</b>.
                         Wilt uw de herinneringsmail naar het volgende e-mailadres versturen?
                     </p>
                     <div class="form-group">
                         <!--<label for="email">E-Mail</label>-->
-                        <input type="text" class="form-control" id="email" value="ltm.hoeks@avans.nl">
+                        <input type="text" class="form-control" id="email" value="@email">
                     </div>
                 </form>
             </div>

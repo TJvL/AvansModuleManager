@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@using ModuleManager.DomainDAL
+@model ModuleManager.Web.ViewModels.AdminCheckModuleViewModel
+<div class="container">
     <div class="row">
 
         <div class="col-md-12">
@@ -172,7 +174,7 @@
 @Html.Partial("~/Views/Help/CheckModules.cshtml", null);
 
 <!-- Reminder MODAL-->
-@Html.Partial("~/Views/Admin/CheckModules/Reminder.cshtml", null);
+@Html.Partial("~/Views/Admin/CheckModules/Reminder.cshtml", Model);
 
 <!-- JAVA MEUK -->
 @section Scripts {

@@ -47,6 +47,15 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 				Schooljaar = 1415,
 				OpleidingNaam = "Informatica",
 				OpleidingSchooljaar = 1415
+				},
+                new Fase
+				{
+				Naam = "SO",
+				Beschrijving = "Dit is een testfase.",
+				FaseType = "Fase",
+				Schooljaar = 1415,
+				OpleidingNaam = "Informatica",
+				OpleidingSchooljaar = 1415
 				}
 			};
         }
