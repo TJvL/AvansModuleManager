@@ -28,11 +28,15 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             base.Export(toExport, sect);
 
             //custom code
-            Paragraph p = sect.AddParagraph();
-            p.AddText("Organisatie");
+            Paragraph p = sect.AddParagraph("Organisatie", "Heading2");
             p.AddLineBreak();
-            p.AddText("PLACEHOLDER");
-            p.AddLineBreak();
+
+            p = sect.AddParagraph();
+            foreach (ModuleWerkvorm wv in toExport.ModuleWerkvorm) 
+            {
+                p.AddText(wv.WerkvormType + ": " + wv.Organisatie);
+                p.AddLineBreak();
+            }
             p.AddLineBreak();
 
             return sect;

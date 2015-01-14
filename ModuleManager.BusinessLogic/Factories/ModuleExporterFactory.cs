@@ -43,24 +43,26 @@ namespace ModuleManager.BusinessLogic.Factories
             //make sure you keep the ExportOptions in Sync with the Stack. That way, you can just use ifs here.
             IExporter<DomainDAL.Module> strategy = new ModulePassiveExporter();
 
-            Type[] typeArgs = { typeof(IExporter<DomainDAL.Module>) };
+            opt.ExportNaam = true; //Always Needed, table of contents is filled with this
 
-            if (opt.ExportAll || opt.ExportCursusCode)
-            {
-                Type t = usableTypes["ModuleCursusCodeExporter"];
-                var ctor = t.GetConstructor(typeArgs);
-                if (ctor != null) 
-                {
-                    object[] parameters = { strategy };
-                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
-                }
-            }
+            Type[] typeArgs = { typeof(IExporter<DomainDAL.Module>) };
 
             if (opt.ExportAll || opt.ExportNaam)
             {
                 Type t = usableTypes["ModuleNaamExporter"];
                 var ctor = t.GetConstructor(typeArgs);
                 if (ctor != null)
+                {
+                    object[] parameters = { strategy };
+                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
+                }
+            }
+
+            if (opt.ExportAll || opt.ExportCursusCode)
+            {
+                Type t = usableTypes["ModuleCursusCodeExporter"];
+                var ctor = t.GetConstructor(typeArgs);
+                if (ctor != null) 
                 {
                     object[] parameters = { strategy };
                     strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Module>;
