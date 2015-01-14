@@ -28,11 +28,16 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             base.Export(toExport, sect);
 
             //custom code
-            Paragraph p = sect.AddParagraph();
-            p.AddText("Leerdoelen");
+            Paragraph p = sect.AddParagraph("Leerdoelen", "Heading2");
             p.AddLineBreak();
-            p.AddText("PLACEHOLDER" + toExport.Leerdoelen.First().Beschrijving);
-            p.AddLineBreak();
+
+            p = sect.AddParagraph();
+
+            foreach (Leerdoelen ld in toExport.Leerdoelen) 
+            {
+                p.AddText(" - " + ld.Beschrijving);
+                p.AddLineBreak();
+            }
             p.AddLineBreak();
 
             return sect;
