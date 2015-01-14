@@ -25,7 +25,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                                 m.StudiePunten.Sum(element => element.EC) == arg
                         select m;
 
-                    result.AddRange(selectedModule);
+                    result.AddRange(selectedModule.Where(x => !result.Contains(x)));
                 }
 
                 toQuery = result.AsQueryable();

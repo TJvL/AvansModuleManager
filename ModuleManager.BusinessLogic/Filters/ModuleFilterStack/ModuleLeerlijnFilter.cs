@@ -27,7 +27,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                                 )
                         select m;
 
-                    result.AddRange(selectedModule);
+                    result.AddRange(selectedModule.Where(x => !result.Contains(x)));
                 }
 
                 toQuery = result.AsQueryable();
