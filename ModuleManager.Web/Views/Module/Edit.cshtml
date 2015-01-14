@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@model ModuleManager.DomainDAL.Module
+
+<div class="container">
     <div class="row">
         <div id="primary">
             <div class="col-md-12">
@@ -14,11 +16,10 @@
             </div>
 
             <div class="col-md-12">
-
                 <form role="form">
                     <div class="form-group">
                         <label for="name">Naam</label>
-                        <input type="text" class="form-control" id="name" placeholder="Naam" value="Algoritmiek en Datastructuren" disabled="disabled">
+                        <input type="text" class="form-control" id="name" placeholder="Naam" value="@Model.Naam" disabled="disabled">
                     </div>
 
                     <div class="form-group">
@@ -32,34 +33,36 @@
 
                     <div class="form-group">
                         <label for="description">Beschrijving</label>
-                        <textarea class="form-control" id="description" placeholder="Beschrijving"></textarea>
+                        <textarea class="form-control" id="description" placeholder="Beschrijving">@Model.Beschrijving</textarea>
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="competenties">Competenties <label style="color: red;">(TODO: Niveau selecteren)</label></label>
                         <select class="form-control" id="competenties" multiple>
-                            <option>Procesanalyse uitvoeren (Beginner)</option>
-                            <option>Informatieanalyse uitvoeren (Expert)</option>
-                            <option>Informatiesysteem ontwerpen (Ervaren)</option>
-                            <option>Doorgronden van hardwareplatform (Expert)</option>
+                            @foreach(var comp in Model.ModuleCompetentie)
+                            { 
+                                <option>@comp.Competentie.Naam (@comp.Niveau)</option>
+                            }
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="leerlijn">Leerlijnen</label>
                         <select class="form-control" id="leerlijn" multiple>
-                            <option>Programmeren</option>
-                            <option>Moduleren</option>
-                            <option>Databases</option>
+                            @foreach (var leerl in Model.Leerlijn)
+                            {
+                                <option>@leerl.Naam</option>
+                            }
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="tags">Tags</label>
                         <select class="form-control" id="tags" multiple>
-                            <option>Big Data</option>
-                            <option>Milieu</option>
-                            <option>Spaans</option>
+                            @foreach(var tag in Model.Tag)
+                            { 
+                                <option>@tag.Naam</option>
+                            }
                         </select>
                     </div>
 
@@ -74,9 +77,9 @@
                                     <td>
                                         <select name="werkvorm" class="form-control" id="werkvorm" multiple>
                                             <option></option>
-                                            <option>HoorCollege (HC)</option>
-                                            <option>WerkCollege (WC)</option>
-                                            <option>WorkShop (WS)</option>
+                                            @foreach (var werkvorm in Model.ModuleWerkvorm) { 
+                                                <option>(@werkvorm.WerkvormType)</option>
+                                            }
                                         </select>
                                     </td>
                                 </tr>
@@ -94,36 +97,19 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="width:50px;">Workshop</td>
-                                                    <td>4 weken</td>
-                                                    <td>2 x 2 uur per week</td>
-                                                    <td>16</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">Hoorcollege</td>
-                                                    <td>3 weken</td>
-                                                    <td>2 uur per week</td>
-                                                    <td>6</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">Huiswerkopdrachten</td>
-                                                    <td>4 weken</td>
-                                                    <td>12 uur per week</td>
-                                                    <td>48</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
+                                                @foreach(var studiebelasting in Model.StudieBelasting)
+                                                {
+                                                    <tr>
+                                                        <td style="width:50px;">@studiebelasting.Activiteit</td>
+                                                        <td>@studiebelasting.Duur</td>
+                                                        <td>@studiebelasting.Frequentie</td>
+                                                        <td>16</td>
+                                                        <td style="width: 90px;">
+                                                            <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>                                                       
+                                                }                                                
                                             </tbody>
                                         </table>
 
@@ -201,38 +187,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="width:50px;">1</td>
-                                                    <td>1ste workshoples: introductie + ongeordende arrays</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">1</td>
-                                                    <td>2e workshoples: geordende arrays+Big-O notatie</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">2</td>
-                                                    <td>1ste workshoples: Sorteren algemeen + bubble sort</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">2</td>
-                                                    <td>2e workshoples: Selection sort + insertion sort</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
+                                                @foreach (var weekplanning in Model.Weekplanning)
+                                                {
+                                                    <tr>
+                                                        <td style="width:50px;">@weekplanning.Week</td>
+                                                        <td>@weekplanning.Onderwerp</td>
+                                                        <td style="width: 90px;">
+                                                            <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }                                                
                                             </tbody>
                                         </table>
 
@@ -261,20 +226,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>ALG-PR: Het cijfer voor de workshop is het gemiddelde van de 8 (vier x twee) huiswerk opgaves. Het practicumcijfer wordt alleen toegekend indien alle uitwerkingen ingeleverd zijn. Het minimumcijfer per opgave is vier.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>ALG-TH : Het cijfer voor de colleges wordt bepaald door een ‘open boek’- practicumtentamen. Het practicumtentamen wordt afgenomen in een PC–lokaal.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
+                                                @foreach (var beoordeling in Model.Beoordelingen)
+                                                {
+                                                    <tr>
+                                                        <td>@beoordeling.Beschrijving</td>
+                                                        <td style="width: 90px;">
+                                                            <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
                                         <div class="input-group">
@@ -296,20 +257,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Alle informatie in bijbehorende BlackBoard-course, tenzij expliciet anders vermeld.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Boek: Data structures & algorithms in JAVA, Second edition, Robert Lafore, ISBN: 0 672 32453 9.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
+                                                @foreach (var leermiddel in Model.Leermiddelen)
+                                                {
+                                                    <tr>
+                                                        <td>@leermiddel.Beschrijving</td>
+                                                        <td style="width: 90px;">
+                                                            <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr> 
+                                                }
                                             </tbody>
                                         </table>
                                         <div class="input-group">
@@ -331,27 +288,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>De standaard data¬structuren ‘gekoppelde lijst’, ‘array’, ‘binaire boom’ en ‘ hashtabel’ implementeren en toepassen in een algoritme.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>In een praktijksituatie een keuze maken tussen het gebruik van een gekoppelde lijst, array, binaire boom en een hashtabel.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Aan de hand van de standaard data¬structuren array en gekoppelde lijst afgeleide data¬structuren ontwerpen en implementeren in een algoritme.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
+                                                @foreach (var leerdoel in Model.Leerdoelen)
+                                                {
+                                                    <tr>
+                                                        <td>@leerdoel.Beschrijving</td>
+                                                        <td style="width: 90px;">
+                                                            <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr> 
+                                                }                                               
                                             </tbody>
                                         </table>
                                         <div class="input-group">

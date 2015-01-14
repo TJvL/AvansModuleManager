@@ -83,7 +83,6 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/UserOverview")]
         public ActionResult UserOverview()
         {
-
             var mocList = new List<UserViewModel>()
             {
                 new UserViewModel()
@@ -136,16 +135,17 @@ namespace ModuleManager.Web.Controllers
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);
 
-            var filterOptions = new FilterOptionsViewModel();
+            var filterOptions = new FilterOptionsViewModel();            
             filterOptions.AddBlokken(_blokRepository.GetAll());
             filterOptions.AddFases(_faseRepository.GetAll());
-            filterOptions.AddStatuses(_statusRepository.GetAll());
+            filterOptions.AddStatuses(_statusRepository.GetAll());            
 
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
                 ModuleViewModels = moduleList,
                 FilterOptions = filterOptions
             };
+
             return View(moduleOverviewVm);
         }
 
