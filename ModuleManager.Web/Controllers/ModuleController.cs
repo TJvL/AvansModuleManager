@@ -6,6 +6,9 @@ using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using ModuleManager.BusinessLogic.Services;
+using System.IO;
+using ModuleManager.BusinessLogic.Interfaces;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -20,10 +23,12 @@ namespace ModuleManager.Web.Controllers
         private readonly IGenericRepository<Tag> _tagRepository;
         private readonly IGenericRepository<Fase> _faseRepository;
 
+        private readonly IExporterService<Module> _moduleExporterService;
+
         public ModuleController(IGenericRepository<Blok> blokRepository,
             IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository, 
             IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository, 
-            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository)
+            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, IExporterService<Module> moduleExporterService)
         {
             _blokRepository = blokRepository;
             _schooljaarRepository = schooljaarRepository;
@@ -32,6 +37,8 @@ namespace ModuleManager.Web.Controllers
             _leerlijnRepository = leerlijnRepository;
             _tagRepository = tagRepository;
             _faseRepository = faseRepository;
+
+            _moduleExporterService = moduleExporterService;
         }
 
         /// <summary>
@@ -84,6 +91,27 @@ namespace ModuleManager.Web.Controllers
             }
             var keys = new[] { entity.Schooljaar.ToString(), entity.CursusCode };
             return View(_moduleRepository.GetOne(keys));
+        }
+
+        //PDF Download Code
+
+        [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
+        public FileStreamResult ExportSingleModule(string schooljaar, string cursusCode)
+        {
+            Stream fStream = _moduleExporterService.ExportAsStream(_moduleRepository.GetOne(new object[]{schooljaar, cursusCode}));
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
+
+            return new FileStreamResult(fStream, "application/pdf");
+        }
+
+        //Kijk hier even naar, wat je wilt met input...
+        [HttpPost, Route("Module/ExportAll")]
+        public FileStreamResult ExportAllModules(IExportablePack<Module> entity)
+        {
+            Stream fStream = _moduleExporterService.ExportAllAsStream(entity);
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
+
+            return new FileStreamResult(fStream, "application/pdf");
         }
     }
 }

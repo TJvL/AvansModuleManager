@@ -1,0 +1,52 @@
+﻿@model ModuleManager.Web.ViewModels.LoginVM
+ 
+@{
+    ViewBag.Title = "Login";
+}
+
+<div id="content" role="content">
+  <div class="container">
+    <div class="row">
+
+      <div id="primary" class="col-md-12">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            
+            <h2>Inloggen</h2>
+            <div class="field-validation-error">
+                @ViewBag.LoginError
+                @Html.ValidationMessage("error")
+            </div>
+
+            <div class="form-group">
+            @Html.LabelFor(model => model.UserNaam)
+            @Html.EditorFor(model => model.UserNaam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserNaam, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Wachtwoord)
+                @Html.EditorFor(model => model.Wachtwoord, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Wachtwoord, "", new { @class = "text-danger" })
+            </div>
+
+            
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Remember)
+                    @Html.EditorFor(x => x.Remember)
+                </div>                
+                <input type="hidden" value="false" name="Remember" />
+                              
+
+            <input name="submit" type="submit" id="submit" value="Inloggen" class="btn btn-lg btn-primary btn-block">
+        }
+
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/Login.cshtml", null);

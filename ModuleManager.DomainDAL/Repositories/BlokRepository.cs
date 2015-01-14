@@ -7,17 +7,9 @@ namespace ModuleManager.DomainDAL.Repositories
 {
     public class BlokRepository : IGenericRepository<Blok>
     {
-        //private readonly ICollection<Blok> _blokken;
-        private readonly ModuleManager.DomainDAL.DomainContext dbContext;
-
-        public BlokRepository()
-        {
-            dbContext = new DomainContext();
-        }
-
         public IEnumerable<Blok> GetAll()
         {
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
                 return (from b in context.Blok select b).ToList();
             }
@@ -26,9 +18,9 @@ namespace ModuleManager.DomainDAL.Repositories
         public Blok GetOne(object[] keys)
         {
             if (keys.Length != 1)
-                throw new System.ArgumentException();
+                throw new ArgumentException();
 
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
                 return (context.Set<Blok>().Find(keys));
             }
@@ -36,9 +28,9 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public bool Create(Blok entity)
         {
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
-                context.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Added;
+                context.Entry(entity).State = System.Data.Entity.EntityState.Added;
                 context.SaveChanges();
             }
 
@@ -47,18 +39,18 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public bool Delete(Blok entity)
         {
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
-                context.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Deleted;
+                context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
                 return Convert.ToBoolean(context.SaveChanges());
             }
         }
 
         public bool Edit(Blok entity)
         {
-            using (DomainContext context = new DomainContext())
+            using (var context = new DomainContext())
             {
-                context.Entry<Blok>(entity).State = System.Data.Entity.EntityState.Modified;
+                context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
                 return Convert.ToBoolean(context.SaveChanges());
             }
         }

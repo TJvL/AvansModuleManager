@@ -154,5 +154,22 @@ namespace ModuleManager.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost, Route("Admin/Archive")]
+        public ActionResult Archive(string code)
+        {
+            if (code != "ARCHIVEREN")
+            {
+                ViewBag.Message = "Invoer incorrect, probeer opnieuw.";
+                return View();
+            }
+                
+            using (var context = new DomainContext())
+            {
+                context.SP_ArchiveYear();
+            }
+
+            return View();
+        }
     }
 }
