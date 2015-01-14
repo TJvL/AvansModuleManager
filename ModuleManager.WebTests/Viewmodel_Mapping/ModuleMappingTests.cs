@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Repositories;
 using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.Web;
 using ModuleManager.Web.ViewModels.PartialViewModel;
@@ -55,7 +56,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
         public void ModuleToViewModelMappingTest()
         {
             // Arrange
-            var module = _moduleRepository.GetOne(new object[1]{"INMODL312345"});
+            var module = _moduleRepository.GetOne(new[] { "1415", "INMODL312345" });
             var testViewModel = Mapper.Map<Module, ModuleViewModel>(module);
 
             // Act
@@ -102,7 +103,7 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
 
             var checkModuleListViewModel = new ModuleListViewModel(3)
             {
-                Modules = new List<ModuleViewModel>
+                data = new List<ModuleViewModel>
                 {
                     #region expected first ModuleViewModel
                     new ModuleViewModel
@@ -149,16 +150,16 @@ namespace ModuleManager.WebTests.Viewmodel_Mapping
             #endregion
 
             // Assert <expected, actual>
-            Assert.AreEqual(checkModuleListViewModel.RecordsFiltered, moduleListViewModel.RecordsFiltered);
-            Assert.AreEqual(checkModuleListViewModel.RecordsTotal, moduleListViewModel.RecordsTotal);
-            Assert.AreEqual(checkModuleListViewModel.Modules.Count, moduleListViewModel.Modules.Count);
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(0).Status, moduleListViewModel.Modules.ElementAt(0).Status);
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(1).Status, moduleListViewModel.Modules.ElementAt(1).Status);
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(2).Status, moduleListViewModel.Modules.ElementAt(2).Status);
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(2).TotalEc, moduleListViewModel.Modules.ElementAt(2).TotalEc);
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(1).Blokken, moduleListViewModel.Modules.ElementAt(1).Blokken);
+            Assert.AreEqual(checkModuleListViewModel.recordsFiltered, moduleListViewModel.recordsFiltered);
+            Assert.AreEqual(checkModuleListViewModel.recordsTotal, moduleListViewModel.recordsTotal);
+            Assert.AreEqual(checkModuleListViewModel.data.Count, moduleListViewModel.data.Count);
+            Assert.AreEqual(checkModuleListViewModel.data.ElementAt(0).Status, moduleListViewModel.data.ElementAt(0).Status);
+            Assert.AreEqual(checkModuleListViewModel.data.ElementAt(1).Status, moduleListViewModel.data.ElementAt(1).Status);
+            Assert.AreEqual(checkModuleListViewModel.data.ElementAt(2).Status, moduleListViewModel.data.ElementAt(2).Status);
+            Assert.AreEqual(checkModuleListViewModel.data.ElementAt(2).TotalEc, moduleListViewModel.data.ElementAt(2).TotalEc);
+            Assert.AreEqual(checkModuleListViewModel.data.ElementAt(1).Blokken, moduleListViewModel.data.ElementAt(1).Blokken);
 
-            Assert.AreEqual(checkModuleListViewModel.Modules.ElementAt(2).TotalEc, 24);
+            Assert.AreEqual(checkModuleListViewModel.data.ElementAt(2).TotalEc, 24);
         }
     }
 }
