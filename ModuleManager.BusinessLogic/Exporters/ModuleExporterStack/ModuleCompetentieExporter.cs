@@ -1,4 +1,5 @@
 ﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
 using ModuleManager.DomainDAL;
 using System;
@@ -28,12 +29,37 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             base.Export(toExport, sect);
 
             //custom code
-            Paragraph p = sect.AddParagraph();
-            p.AddText("Competenties");
+            Paragraph p = sect.AddParagraph("Competenties", "Heading2");
             p.AddLineBreak();
-            p.AddText("DE CODE VAN DIT STUK MODULE IS EEN ROTZOOI? PLACEHOLDER: " + toExport.ModuleCompetentie.First().Competentie.Beschrijving);
-            p.AddLineBreak();
-            p.AddLineBreak();
+
+            foreach (ModuleCompetentie cp in toExport.ModuleCompetentie) 
+            {
+                Table table = sect.AddTable();
+                Column codeCol = table.AddColumn();
+                Column lvlCol = table.AddColumn(Unit.FromCentimeter(3));
+                codeCol.Width = sect.Document.DefaultPageSetup.PageWidth - sect.Document.DefaultPageSetup.RightMargin - sect.Document.DefaultPageSetup.LeftMargin - lvlCol.Width;
+                table.Borders.Width = 0.75;
+                table.Borders.Color = Colors.DarkGray;
+
+                Row row = table.AddRow();
+                row.Cells[0].AddParagraph("Naam").Format.Font.Bold = true;
+                row.Cells[1].AddParagraph("Niveau").Format.Font.Bold = true;
+
+                row = table.AddRow();
+                row.Cells[0].AddParagraph(cp.Competentie.Naam);
+                row.Cells[1].AddParagraph(cp.Niveau);
+
+                row = table.AddRow();
+                row.Cells[0].AddParagraph("Beschrijving").Format.Font.Bold = true;
+                row.Cells[0].MergeRight = 1;
+
+                row = table.AddRow();
+                row.Cells[0].AddParagraph(cp.Competentie.Beschrijving.Replace("$$", "\n"));
+                row.Cells[0].MergeRight = 1;
+
+                p = sect.AddParagraph();
+                p.AddLineBreak();
+            }
 
             return sect;
         }

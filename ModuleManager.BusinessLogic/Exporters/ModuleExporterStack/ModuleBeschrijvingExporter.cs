@@ -29,10 +29,8 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             //custom code
             Paragraph p = sect.AddParagraph();
-            p.AddText("Beschrijving");
             p.AddLineBreak();
-            p.AddText(toExport.Beschrijving);
-            p.AddLineBreak();
+            p.AddText(toExport.Beschrijving.Replace("$$", "\n"));
             p.AddLineBreak();
 
             return sect;

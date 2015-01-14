@@ -29,10 +29,9 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             //custom code
             Paragraph p = sect.AddParagraph();
-            p.AddFormattedText("Module Naam", TextFormat.Bold);
-            p.AddLineBreak();
-            p.AddText(toExport.Naam);
-            p.AddLineBreak();
+            p.AddFormattedText(toExport.Naam, "Heading1");
+            p.Format.OutlineLevel = OutlineLevel.Level1;
+            p.AddBookmark(toExport.Naam);
             p.AddLineBreak();
 
             return sect;
