@@ -16,10 +16,10 @@ $(function () {
 
 function init_datatable() {
 
-    $('#modules tfoot th').each(function () {
+    /*$('#modules tfoot th').each(function () {
         var title = $('#modules thead th').eq($(this).index()).text();
         $(this).html('<input class="form-control" style="width:100%;" type="text" placeholder="' + title + '" />');
-    });
+    });*/
 
     /* Datatables */
     table = $("#modules").DataTable({
@@ -105,31 +105,36 @@ function init_datatable() {
 
 function init_filters() {
 
-    var api = $("#modules").dataTable().api();
+    /* var api = $("#modules").dataTable().api();
 
-    /* Search */
+    Search 
     $('.search-query').keyup(function () {
         table.search($(this).val()).draw();
-    });
+    });*/
     
-    /* Block */
+    /* Block 
     $("#block select").on('change', function () {
         api.column(3)
             .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
             .draw();
-    });
+    });*/
 
-    /* Leerjaar */
+    /* Leerjaar 
     $("#fase select").on('change', function () {
         api.column(4)
             .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
             .draw();
-    });
+    });*/
 
     /* Set filters */
     $("#FilterTable").on("click", function (e) {
         e.preventDefault();
         $("#modules").dataTable().fnDraw();
+    });
+
+    $("#ResetFilters").on("click", function(e) {
+        e.preventDefault();
+        reset_select2();
     });
 
 }
@@ -183,3 +188,15 @@ function init_select2() {
     });
 }
 
+function reset_select2() {
+
+    $('#FilterCompetenties').select2('data', null);
+    $('#FilterLeerlijnen').select2('data', null);
+    $('#FilterFases').select2('data', null);
+    $('#FilterLeerjaar').select2('data', null);
+    $('#FilterEc').select2('data', null);
+    $('#FilterBlokken').select2('data', null);
+    $('#FilterTags').select2('data', null);
+
+    $("#modules").dataTable().fnDraw();
+}
