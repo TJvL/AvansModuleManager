@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="panel-group" id="accordion">
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#competentie">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#fase">
@@ -81,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#leerlijnen">
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#year">
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#ec">
@@ -167,7 +167,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#tag">
@@ -188,7 +188,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#reset">
@@ -200,7 +200,7 @@
                             <div class="panel-body">
 
                                 <a id="FilterTable" href="#" class="btn btn-success btn-block">Filter</a>
-                                <a href="#" class="btn btn-danger btn-block">Reset</a>
+                                <a id="ResetFilters" href="#" class="btn btn-danger btn-block">Reset</a>
 
                             </div>
                         </div>
@@ -289,6 +289,10 @@
             </li>
         </ul>
     </div>
+    <a class="dropdown-toggle btn btn-success btn-sm" href="#" data-toggle="modal" data-target="#exportModal">
+        Exporteren
+        <b class="fa fa-download"></b>
+    </a>
 </div>
 
 <!-- Help MODAL -->
@@ -319,9 +323,7 @@
                     e.stopPropagation();
                 }
             });
+
         });
-
-        // SELECT2
-
     </script>
 }
