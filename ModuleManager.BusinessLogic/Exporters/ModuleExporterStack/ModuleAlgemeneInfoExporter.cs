@@ -48,10 +48,6 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             row.Cells[1].AddParagraph("20" + toExport.Schooljaar.ToString().Substring(0, 2) + "-20" + toExport.Schooljaar.ToString().Substring(2));
 
             row = table.AddRow();
-            row.Cells[0].AddParagraph("Programma").Format.Font.Color = Colors.Red;
-            row.Cells[1].AddParagraph();
-
-            row = table.AddRow();
             row.Cells[0].AddParagraph("Blokken");
             Paragraph pCell = row.Cells[1].AddParagraph();
 

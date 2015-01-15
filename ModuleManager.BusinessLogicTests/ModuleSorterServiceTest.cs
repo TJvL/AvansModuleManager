@@ -43,7 +43,8 @@ namespace ModuleManager.BusinessLogicTests
         public void testModuleNaamSorting() 
         {
             Arguments args = new Arguments();
-            args.SortFor.Add("Naam", false);
+            args.SortBy = "Naam";
+            args.SortDesc = false;
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
 
