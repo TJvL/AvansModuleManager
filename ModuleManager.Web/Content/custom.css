@@ -290,3 +290,9 @@ textarea {
 .DefaultColor {
     background: #FF004B;
 }
+
+body.modal-open {
+    overflow-y: scroll;
+    padding-right: 17px;
+    margin-right: -17px;
+}
