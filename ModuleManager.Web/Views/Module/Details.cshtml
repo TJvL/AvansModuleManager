@@ -60,10 +60,13 @@
                             <td>Cursus</td>
                             <td colspan="2">@Model.CursusCode</td>
                         </tr>
-                        <tr>
-                            <td>Status <label style="color:red;">TODO: Auth</label></td>
-                            <td colspan="2">@Model.Status</td>
-                        </tr>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Docent"))
+                        {
+                            <tr>
+                                <td>Status</td>
+                                <td colspan="2">@Model.Status</td>
+                            </tr>
+                        }
                         <tr>
                             <td>Verantwoordelijke</td>
                             <td colspan="2">@Model.Verantwoordelijke</td>
