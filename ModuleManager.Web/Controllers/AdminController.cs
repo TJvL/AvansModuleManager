@@ -141,10 +141,10 @@ namespace ModuleManager.Web.Controllers
             filterOptions.AddFases(_faseRepository.GetAll());
             filterOptions.AddStatuses(_statusRepository.GetAll());
 
-            var moduleOverviewVm = new ModuleOverviewViewModel
+            var moduleOverviewVm = new AdminCheckModuleViewModel
             {
                 ModuleViewModels = moduleList,
-                FilterOptions = filterOptions
+                FilterAndSortingConfig = filterOptions
             };
             return View(moduleOverviewVm);
         }

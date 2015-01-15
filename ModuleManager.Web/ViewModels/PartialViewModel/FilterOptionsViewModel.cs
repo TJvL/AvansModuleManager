@@ -61,9 +61,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <param name="faseList">Lijst van alle 'Fase'-objecten</param>
         public void AddFases(IEnumerable<Fase> faseList)
         {
-            FaseNamen = faseList
-            .Select(fase => fase.Naam)
-            .ToList();
+            FaseNamen = faseList.ToList();
         }
 
         /// <summary>
@@ -127,7 +125,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// <summary>
         /// Mogelijke fasenaam(namen) om op te filteren
         /// </summary>
-        public IEnumerable<string> FaseNamen { get; set; }
+        public List<Fase> FaseNamen { get; set; }
         /// <summary>
         /// Mogelijke Leerjaar om op te filteren
         /// </summary>

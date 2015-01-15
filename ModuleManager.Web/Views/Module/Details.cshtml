@@ -1,230 +1,225 @@
-﻿<div class="container">
+﻿@using ModuleManager.DomainDAL
+@model  ModuleManager.DomainDAL.Module
+            
+@{
+    // Jaartal
+    var j1 = Model.Schooljaar.ToString();
+    var j2 = Model.Schooljaar.ToString();
+    j1 = j1.Remove(j1.Length - 2);
+    j2 = j2.Remove(0, 2);
+    var jaar = "20" + j1 + "-20" + j2;
+    
+    // Docenten
+    var docenten = @Model.Docent.Aggregate("", (current, docent) => current + (docent.Name + ", "));
+    docenten = docenten.Remove(docenten.Length - 2);
+    
+    // Leerlijnen
+    var leerlijnen = @Model.Leerlijn.Aggregate("", (current, leerlijn) => current + (leerlijn.Naam + ", "));
+    leerlijnen = leerlijnen.Remove(leerlijnen.Length - 2);
+    
+    // Tags
+    var tags = @Model.Tag.Aggregate("", (current, tag) => current + (tag.Naam + ", "));
+    tags = tags.Remove(tags.Length - 2);
+    
+    // Studiepunten        
+    var rowSpanToetscode = @Model.StudiePunten.Count;
+    var firstToetscode = @Model.StudiePunten.First();          
+    
+    // Werkvorm
+    var werkvorm = @Model.ModuleWerkvorm.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
+    werkvorm = werkvorm.Remove(werkvorm.Length - 2);
+}
+
+<div class="container">
     <div class="row">
         <div id="primary">
             <div class="col-md-12">
                 <ol class="breadcrumb">
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li class="active">Algoritmiek en Datastructuren</li>
+                    <li class="active">@Model.Naam</li>
                 </ol>
             </div>
             <div class="col-md-12">
                 <div class="pull-right">
                     <a class="btn btn-default" href="@Url.Action("Overview", "Module")">Terug</a>
-                    <a class="btn btn-success" href="#"><i class="fa fa-download"></i> Exporteren</a>
+                    <a class="btn btn-success" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>
                 </div>
-                <h2 style="margin-top: 0">Algoritmiek en Datastructuren</h2>
+                <h2 style="margin-top: 0">@Model.Naam</h2>
             </div>
             <div class="col-md-12">
                 <h3>Beschrijving</h3>
-                <p>Een van de ruggengraten van de opleiding wordt gevormd door het programmeeronderwijs. Tijdens de propedeusefase ligt de nadruk van dit programmeeronderwijs ( Programmeren 1 – 4) op het visueel en objectgeoriënteerd leren programmeren in Java. In de module  'Algoritmiek en datastructuren' ligt de nadruk meer op een verdieping van de basiskennis en –vaardigheden op het gebied van ontwerpen en programmeren met algoritmes en datastructuren. De bedoeling is dat de student, op basis van een probleemstelling, een correct algoritme kan ontwerpen en dit algoritme kan vertalen in bijvoorbeeld een correct Java, C# en/of C++ -programma. Na een algemene inleiding worden algoritmes van ongeordende en geordende arrays behandeld, waaronder het sorteren van arrays. Tegelijkertijd wordt de ‘Big-O notatie’ behandeld. Daarna worden ‘gekoppelde lijsten’ besproken. Meerdere algoritmes, die gerelateerd zijn aan gekoppelde lijsten, passeren de revue. Tenslotte komen ‘abstract datatypes’ (ADT), zoals de stack en de queue, aan de orde.</p>
+                <p>@Model.Beschrijving</p>
                 <h3>Algemene informatie</h3>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
                             <td>Schooljaar</td>
-                            <td colspan="2">2014</td>
-                        </tr>
-                        <tr>
-                            <td>Programma</td>
-                            <td colspan="2">Hoofdfase 1 - Major Software Ontwikkeling</td>
-                        </tr>
-                        <tr>
-                            <td>Blok</td>
-                            <td colspan="2">SO Blok 5</td>
+                            <td colspan="2">@jaar</td>
                         </tr>
                         <tr>
                             <td>Cursus</td>
-                            <td colspan="2">IIIN-ALG</td>
+                            <td colspan="2">@Model.CursusCode</td>
                         </tr>
                         <tr>
-                            <td>Omschrijving</td>
-                            <td colspan="2">Algoritmiek en Datastructuren</td>
+                            <td>Status <label style="color:red;">TODO: Auth</label></td>
+                            <td colspan="2">@Model.Status</td>
                         </tr>
                         <tr>
-                            <td rowspan="2">Toetscode</td>
-                            <td colspan="2">ALG-TH</td>
+                            <td>Verantwoordelijke</td>
+                            <td colspan="2">@Model.Verantwoordelijke</td>
                         </tr>
                         <tr>
-                            <td colspan="2">ALG-PR</td>
+                            <td>Docenten</td>
+                            <td colspan="2">@docenten</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Leerlijnen</td>
+                            <td colspan="2">@leerlijnen</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Tags</td>
+                            <td colspan="2">@tags</td>
                         </tr>
                         <tr>
-                            <td rowspan="2">EC</td>
-                            <td>ALG-TH</td>
-                            <td>1,5</td>
+                            <td rowspan="@rowSpanToetscode">Toetscode & EC</td>
+                            <td>@firstToetscode.ToetsCode</td>
+                            <td>@firstToetscode.EC</td>
                         </tr>
-                        <tr>
-                            <td>ALG-PR</td>
-                            <td>1,5</td>
-                        </tr>
+                        @foreach (StudiePunten studiePunt in @Model.StudiePunten.Where(studiePunt => studiePunt != firstToetscode))
+                        {
+                            <tr>
+                                <td>@studiePunt.ToetsCode</td>
+                                <td>@studiePunt.EC</td>
+                            </tr>
+                        }
                         <tr>
                             <td>Werkvorm</td>
-                            <td colspan="2">HC+WS</td>
+                            <td colspan="2">@werkvorm</td>
                         </tr>
                     </tbody>
                 </table>
+                
+                <h3>Fases & Blokken</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Blok</th>
+                        </tr>
+                        @foreach (FaseModules faseModules in Model.FaseModules)
+                        {
+                            <tr>
+                                <td>@faseModules.FaseNaam</td>
+                                <td>@faseModules.Blok</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                
+                <h3>Competenties</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Competentie</th>
+                            <th>Omschrijving</th>
+                        </tr>
+                        @foreach (ModuleCompetentie moduleCompetentie in Model.ModuleCompetentie)
+                        {
+                            <tr>
+                                <td>@moduleCompetentie.Competentie.Naam</td>
+                                @{
+                            string[] competenties = null;
+                            competenties = moduleCompetentie.Competentie.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);
+                                }
+                                <td>
+                                    @foreach (string comptentie in competenties)
+                                    {
+                                        @comptentie<br />
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
                 <h3>Studiebelasting</h3>
                 <table class="table table-bordered">
                     <tbody>
-                    <tr>
-                        <th>Activiteit</th>
-                        <th>Duur</th>
-                        <th>Frequentie</th>
-                        <th>SBU</th>
-                    </tr>
-                    <tr>
-                        <td>Workshop</td>
-                        <td>4 weken</td>
-                        <td>2 x 2 uur per week</td>
-                        <td>16</td>
-                    </tr>
-                    <tr>
-                        <td>Hoorcollege</td>
-                        <td>3 weken</td>
-                        <td>2 uur per week</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>Huiswerkopdrachten</td>
-                        <td>4 weken</td>
-                        <td>12 uur per week</td>
-                        <td>48</td>
-                    </tr>
-                    <tr>
-                        <td>Tentamen (voorbereiding, uitvoer & inzage)</td>
-                        <td></td>
-                        <td></td>
-                        <td>14</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <th>Totaal</th>
-                        <td>84</td>
-                    </tr>
+                        <tr>
+                            <th>Activiteit</th>
+                            <th>Duur</th>
+                            <th>Frequentie</th>
+                            <th>SBU</th>
+                        </tr>
+                        @{ var studieBelastingTotaal = 0; }
+                        @foreach (StudieBelasting studieBelasting in Model.StudieBelasting)
+                        {
+                            <tr>
+                                <td>@studieBelasting.Activiteit</td>
+                                <td>@studieBelasting.Duur</td>
+                                <td>@studieBelasting.Frequentie</td>
+                                <td>@studieBelasting.SBU</td>
+                            </tr>
+                            studieBelastingTotaal = studieBelastingTotaal + studieBelasting.SBU;
+                        }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <th>Totaal</th>
+                            <td>@studieBelastingTotaal</td>
+                        </tr>
                     <tbody>
                 </table>
                 <h3>Organisatie</h3>
                 <p>
-                    Toelichting op de werkvormen 'Workshop' en 'Hoorcollege':
+                    Toelichting op de werkvormen @werkvorm:
                     <ul>
-                        <li>
-                            In de workshop wordt door de docent steeds een korte toelichting op een volgend stuk lesstof gegeven,
-                            waarna dit meteen in de praktijk gebracht wordt via (een of meer) oefeningen tijdens de workshop.
-                            De docent begeleidt de studenten daarbij en geeft  (individuele of groeps-) feedback. Iedere workshop
-                            wordt afgesloten met het uitreiken van een weekopdracht, die de studenten in duo’s moeten maken.
-                            Naast de informatie die tijdens de workshops overgedragen wordt, zal de student ook veel moeten
-                            leren door zelfstudie. Voor de workshops is aanwezigheid verplicht.
-                        </li>
-                        <li>
-                            Gedurende het hoorcollege wordt het onderwerp “Wat gebruik ik wanneer?” uitgewerkt.
-                        </li>
+                        @foreach (ModuleWerkvorm moduleWerkvorm in Model.ModuleWerkvorm)
+                        {
+                            <li>@moduleWerkvorm.Organisatie</li>
+                        }
                     </ul>
                 </p>
                 <h3>Weekplanning</h3>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                        <th>Week</th>
-                        <th>Onderwerpen</th>
-                        <tr>
-                            <td rowspan="2">1</td>
-                            <td colspan="2">1ste workshoples: introductie + ongeordende arrays</td>
+                            <th>Week</th>
+                            <th>Onderwerpen</th>
                         </tr>
-                        <tr>
-                            <td colspan="2">2e workshoples:  geordende arrays+Big-O notatie</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="2">2</td>
-                            <td colspan="2">1ste workshoples: Sorteren algemeen + bubble sort</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">2e workshoples:  Selection sort + insertion sort</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="2">3</td>
-                            <td colspan="2">1ste workshoples: Gekoppelde lijsten</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">2e workshoples:  Geavanceerde gejkoppelde lijsten</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="2">4</td>
-                            <td colspan="2">1ste workshoples: Concept ADT + stack</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">2e workshoples:  Queues</td>
-                        </tr>
-                        <tr>
-                        <td>5</td>
-                        <td>Hoorcollege: Wat gebruik ik wanneer? (deel 1)</td>
-                        <tr>
-                        <tr>
-                        <td>6</td>
-                        <td>Hoorcollege: Wat gebruik ik wanneer? (deel 2)</td>
-                        <tr>
-                        <tr>
-                        <td>7</td>
-                        <td>Hoorcollege: Wat gebruik ik wanneer? (deel 3)</td>
-                        <tr>
-                        <tr>
-                        <td>8/9</td>
-                        <td>Practicumtentamen voorbereiding en uitvoer</td>
-                        <tr>
-                        <tr>
-                        <td>10</td>
-                        <td>Practicumtentamen inzage</td>
-                        <tr>
+                        @foreach (Weekplanning weekplanning in Model.Weekplanning)
+                        {
+                            <tr>
+                                <td>@weekplanning.Week</td>
+                                <td>@weekplanning.Onderwerp</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
                 <h3>Beoordeling</h3>
                 <ul>
-                    <li>
-                        ALG-PR: Het cijfer voor de workshop is het gemiddelde van de 8 (vier x  twee) huiswerk opgaves. Het
-                        practicumcijfer wordt alleen toegekend indien alle uitwerkingen ingeleverd zijn. Het minimumcijfer
-                        per opgave is vier.
-                    </li>
-                    <li>
-                        ALG-TH : Het cijfer voor de colleges wordt bepaald door een ‘open boek’- practicumtentamen.
-                        Het practicumtentamen wordt afgenomen in een PC–lokaal.
-                    </li>
+                    @foreach (Beoordelingen beoordelingen in Model.Beoordelingen)
+                    {
+                        <li>@beoordelingen.Beschrijving</li>
+                    }
                 </ul>
                 <h3>Leermiddelen</h3>
                 <ul>
-                    <li>
-                        Alle informatie in bijbehorende BlackBoard-course, tenzij expliciet anders vermeld.
-                    </li>
-                    <li>
-                        Boek: Data structures & algorithms in JAVA, Second edition, Robert Lafore, ISBN: 0 672 32453 9.
-                    </li>
+                    @foreach (Leermiddelen leermiddelen in Model.Leermiddelen)
+                    {
+                        <li>@leermiddelen.Beschrijving</li>
+                    }
                 </ul>
                 <h3>Leerdoelen</h3>
                 <p>
                     De student kan...
                     <ul>
-                        <li>
-                            De standaard data¬structuren ‘gekoppelde lijst’, ‘array’, ‘binaire boom’ en ‘ hashtabel’ implementeren en toepassen in een algoritme.
-                        </li>
-                        <li>
-                            In een praktijksituatie een keuze maken tussen het gebruik van een gekoppelde lijst, array, binaire boom en een hashtabel.
-                        </li>
-                        <li>
-                            Aan de hand van de standaard data¬structuren array en gekoppelde lijst afgeleide data¬structuren ontwerpen en implementeren in een algoritme.
-                        </li>
-                        <li>
-                            Standaardalgoritmen implementeren in een algoritme.
-                        </li>
-                        <li>
-                            Uit een reeks van algoritmen aangeven welke het beste past bij een gegeven vraag¬stelling.
-                        </li>
-                        <li>
-                            In de literatuur vermelde datastructuren analyseren.
-                        </li>
-                        <li>
-                            In de literatuur vermelde datastructuren ontwerpen en implementeren in een algoritme.
-                        </li>
-                        <li>
-                            Aangeven wat het gedrag van een bepaald algoritme is in termen van snelheid afhankelijk van de hoeveelheid gegevens.
-                        </li>
+                       @foreach (Leerdoelen leerdoelen in Model.Leerdoelen)
+                       {
+                           <li>@leerdoelen.Beschrijving</li>
+                       }
                     </ul>
                 </p>
             </div>

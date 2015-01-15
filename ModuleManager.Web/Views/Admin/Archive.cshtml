@@ -14,17 +14,21 @@
             </div>
 
             <div class="col-md-12">
-                <form role="form">
-                    <div class="alert alert-warning" role="alert">
-                        Nog niet alle modules zijn volledig, Klik <a href="@Url.Action("CheckModules", "Admin")" class="alert-link">hier</a> om naar de Module Controle pagina te gaan!
-                    </div>
+                @using (Html.BeginForm())
+                {
+                     if (ViewBag.Message != null)
+                     {
+                         <div class="alert alert-warning">
+                             @ViewBag.Message
+                         </div>
+                     }
                     <div class="form-group">
                         <label for="confirm">Weet uw zeker dat uw het huidige cohort wil achiveren? Zoja Type dan "ARCHIVEREN" in hoofdletters hieronder.</label>
                         <input type="text" class="form-control" id="confirm" placeholder="ARCHIVEREN">
                     </div>
-                    <button type="submit" class="btn btn-danger btn-lg">Archiveren</button>
+                    <button id="archiveBtn" type="submit" class="btn btn-danger btn-lg">Archiveren</button>
                     <a href="@Url.Action("Index", "Admin")" class="btn btn-default">Annuleren</a>
-                </form>
+                }
             </div>
         </div>
     </div>
@@ -32,3 +36,28 @@
 
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/Archive.cshtml", null);
+
+<!-- JAVA MEUK -->
+@section Scripts {
+<script>
+    $(function () {
+        checkArchiveButton();
+        $("#confirm").on("input", function () {
+            console.log($("#confirm").val());
+            checkArchiveButton();
+        });
+
+        function checkArchiveButton() {
+            if ($("#confirm").val() == "ARCHIVEREN") {
+                if ($("#archiveBtn").hasClass("disabled")) {
+                    $("#archiveBtn").removeClass("disabled");
+                }
+            } else {
+                if (!$("#archiveBtn").hasClass("disabled")) {
+                    $("#archiveBtn").addClass("disabled");
+                }
+            }
+        }
+    });
+</script>
+}

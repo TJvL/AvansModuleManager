@@ -11,7 +11,7 @@
 
             <div class="col-md-12">
                 <div class="pull-right">
-                    <a class="btn btn-success" href="#"><i class="fa fa-plus"></i> Nieuwe gebruiker</a>
+                    <a class="btn btn-success" data-toggle="modal" data-target="#user-add" href="#" ><i class="fa fa-plus"></i> Nieuwe gebruiker</a>
                 </div>
                 <h2 style="margin-top: 0">Gebruikers</h2>
             </div>
@@ -87,6 +87,16 @@
                 if ($(this).hasClass('dropdown-menu-form')) {
                     e.stopPropagation();
                 }
+            });
+
+            $(function () {
+                // SELECT2
+                $("#systeemrolCreate").select2({
+                    placeholder: "-- Kies een systeemrol --"
+                });
+                $("#systeemrolEdit").select2({
+                    placeholder: "-- Kies een systeemrol --"
+                });
             });
         });
     </script>
