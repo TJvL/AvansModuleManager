@@ -108,6 +108,9 @@ namespace ModuleManager.Web.Controllers
         [HttpPost, Route("Module/ExportAll")]
         public FileStreamResult ExportAllModules(IExportablePack<Module> entity)
         {
+
+
+
             Stream fStream = _moduleExporterService.ExportAllAsStream(entity);
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
