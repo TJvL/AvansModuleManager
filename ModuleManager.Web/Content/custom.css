@@ -274,3 +274,19 @@ textarea {
 .ninety-width {
     width: 90px;
 }
+
+
+/* HeaderColor
+******************************************************/
+
+.AdminColor {
+    background: #212121;
+}
+
+.DocentColor {
+    background: #428BCA;
+}
+
+.DefaultColor {
+    background: #FF004B;
+}
