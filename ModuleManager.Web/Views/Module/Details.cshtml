@@ -1,5 +1,34 @@
 ﻿@using ModuleManager.DomainDAL
 @model  ModuleManager.DomainDAL.Module
+            
+@{
+    // Jaartal
+    var j1 = Model.Schooljaar.ToString();
+    var j2 = Model.Schooljaar.ToString();
+    j1 = j1.Remove(j1.Length - 2);
+    j2 = j2.Remove(0, 2);
+    var jaar = "20" + j1 + "-20" + j2;
+    
+    // Docenten
+    var docenten = @Model.Docent.Aggregate("", (current, docent) => current + (docent.Name + ", "));
+    docenten = docenten.Remove(docenten.Length - 2);
+    
+    // Leerlijnen
+    var leerlijnen = @Model.Leerlijn.Aggregate("", (current, leerlijn) => current + (leerlijn.Naam + ", "));
+    leerlijnen = leerlijnen.Remove(leerlijnen.Length - 2);
+    
+    // Tags
+    var tags = @Model.Tag.Aggregate("", (current, tag) => current + (tag.Naam + ", "));
+    tags = tags.Remove(tags.Length - 2);
+    
+    // Studiepunten        
+    var rowSpanToetscode = @Model.StudiePunten.Count;
+    var firstToetscode = @Model.StudiePunten.First();          
+    
+    // Werkvorm
+    var werkvorm = @Model.ModuleWerkvorm.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
+    werkvorm = werkvorm.Remove(werkvorm.Length - 2);
+}
 
 <div class="container">
     <div class="row">
@@ -13,7 +42,7 @@
             <div class="col-md-12">
                 <div class="pull-right">
                     <a class="btn btn-default" href="@Url.Action("Overview", "Module")">Terug</a>
-                    <a class="btn btn-success" href="#"><i class="fa fa-download"></i> Exporteren</a>
+                    <a class="btn btn-success" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>
                 </div>
                 <h2 style="margin-top: 0">@Model.Naam</h2>
             </div>
@@ -25,41 +54,36 @@
                     <tbody>
                         <tr>
                             <td>Schooljaar</td>
-                            <td colspan="2">@Model.Schooljaar</td>
-                        </tr>
-                        <tr>
-                            <td>Programma</td>
-                            <td style="color: red;" colspan="2">Niet in Model</td>
-                        </tr>
-                        <tr>
-                            <td>Blok</td>
-                            <td style="color: red;" colspan="2">Niet in Model</td>
+                            <td colspan="2">@jaar</td>
                         </tr>
                         <tr>
                             <td>Cursus</td>
                             <td colspan="2">@Model.CursusCode</td>
                         </tr>
                         <tr>
-                            <td>Omschrijving</td>
-                            <td colspan="2">@Model.Naam</td>
+                            <td>Status <label style="color:red;">TODO: Auth</label></td>
+                            <td colspan="2">@Model.Status</td>
                         </tr>
-                        @{
-                            var rowSpanToetscode = @Model.StudiePunten.Count;
-                            var firstToetscode = @Model.StudiePunten.First();
-                        }
                         <tr>
-                            <td rowspan="@rowSpanToetscode">Toetscode</td>
-                            <td colspan="2">@firstToetscode.ToetsCode</td>
+                            <td>Verantwoordelijke</td>
+                            <td colspan="2">@Model.Verantwoordelijke</td>
                         </tr>
-
-                        @foreach (StudiePunten studiePunt in @Model.StudiePunten.Where(studiePunt => studiePunt != firstToetscode))
-                        {
-                            <tr>
-                                <td colspan="2">@studiePunt.ToetsCode</td>
-                            </tr>
-                        }
                         <tr>
-                            <td rowspan="@rowSpanToetscode">EC</td>
+                            <td>Docenten</td>
+                            <td colspan="2">@docenten</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Leerlijnen</td>
+                            <td colspan="2">@leerlijnen</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Tags</td>
+                            <td colspan="2">@tags</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="@rowSpanToetscode">Toetscode & EC</td>
                             <td>@firstToetscode.ToetsCode</td>
                             <td>@firstToetscode.EC</td>
                         </tr>
@@ -72,14 +96,54 @@
                         }
                         <tr>
                             <td>Werkvorm</td>
-                            @{
-                                var werkvorm = @Model.ModuleWerkvorm.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
-                                werkvorm = werkvorm.Remove(werkvorm.Length - 2);
-                            }
                             <td colspan="2">@werkvorm</td>
                         </tr>
                     </tbody>
                 </table>
+                
+                <h3>Fases & Blokken</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Blok</th>
+                        </tr>
+                        @foreach (FaseModules faseModules in Model.FaseModules)
+                        {
+                            <tr>
+                                <td>@faseModules.FaseNaam</td>
+                                <td>@faseModules.Blok</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                
+                <h3>Competenties</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Competentie</th>
+                            <th>Omschrijving</th>
+                        </tr>
+                        @foreach (ModuleCompetentie moduleCompetentie in Model.ModuleCompetentie)
+                        {
+                            <tr>
+                                <td>@moduleCompetentie.Competentie.Naam</td>
+                                @{
+                            string[] competenties = null;
+                            competenties = moduleCompetentie.Competentie.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);
+                                }
+                                <td>
+                                    @foreach (string comptentie in competenties)
+                                    {
+                                        @comptentie<br />
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
                 <h3>Studiebelasting</h3>
                 <table class="table table-bordered">
                     <tbody>
@@ -122,8 +186,9 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                        <th>Week</th>
-                        <th>Onderwerpen</th>
+                            <th>Week</th>
+                            <th>Onderwerpen</th>
+                        </tr>
                         @foreach (Weekplanning weekplanning in Model.Weekplanning)
                         {
                             <tr>
