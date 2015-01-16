@@ -17,16 +17,6 @@ $(function () {
         exportModules();
     });
 
-
-    $("#modules").on("click", "tbody tr", function () {
-
-        var year = $(this).find(".cursusCode").data("year");
-        var cursusCode = $(this).find(".cursusCode").data("code")
-
-        window.location = "/Module/" + year + "/" + cursusCode;
-    });
-
-
 });
 
 function initDatatable() {
@@ -53,12 +43,12 @@ function initDatatable() {
             { "data": "Icon" },
             { "data": "Naam" },
             { "data": "CursusCode" },
-            { "data": "Schooljaar" },
             { "data": "Blokken" },
             { "data": "TotalEc" },
             { "data": "FaseNamen" },
             { "data": "Verantwoordelijke" },
-            { "data": "Docenten" }
+            { "data": "Docenten" },
+            { "data": "CursusCode" },
         ],
         aoColumnDefs: [
             {
@@ -77,31 +67,19 @@ function initDatatable() {
             },
             {
                 mRender: function (data, type, full) {
-                    return '<span class="cursusCode" data-year="' + full['Schooljaar'] + '" data-code="' + data + '">' + data + '</span>';
-                },
-                aTargets: [2]
-            },
-            {
-                mRender: function (data, type, full) {
-
-                    var original = data.toString();
-                    var years = "20" + original.substring(0, 2) + " - 20" + original.substring(2);
-
-                    return years;
-                },
-                aTargets: [3]
-            },
-            {
-                bSortable: false,
-                mRender: function (data, type, full) {
                     return data + " EC";
                 },
-                aTargets: [5]
+                aTargets: [4]
             },
             {
+                sClass: "text-center",
+                sTitle: "<input type=\"checkbox\" id=\"checkbox-select-all\"></input>",
+                mRender: function (data, type, full) {
+                    return "<input type=\"checkbox\" class=\"checkbox-module\" data-export=\"data\" />";
+                },
                 bSortable: false,
-                aTargets: [4,6,8]
-            },
+                aTargets: [8]
+            }
         ],
         order: [[1, "asc"]],
         initComplete: function () {
