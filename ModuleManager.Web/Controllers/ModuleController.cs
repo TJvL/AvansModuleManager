@@ -127,7 +127,7 @@ namespace ModuleManager.Web.Controllers
             if (value.Filters.Fases.First() != null) faseFilters = value.Filters.Fases;
 
             ICollection<string> blokFilters = null;
-            if ((value.Filters.Blokken.First() != null)&&(value.Filters.Blokken.First() != "")) blokFilters = value.Filters.Blokken.ToArray();
+            if ((value.Filters.Blokken.First() != null)&&(value.Filters.Blokken.First() != "")) blokFilters = value.Filters.Blokken;
 
             string zoektermFilter = null;
             if (value.Filters.Zoekterm != null) zoektermFilter = value.Filters.Zoekterm;
@@ -168,7 +168,7 @@ namespace ModuleManager.Web.Controllers
 
             var exportablePack = new ModuleExportablePack(exportArguments, modules);
 
-            Stream fStream = _moduleExporterService.ExportAllAsStream(exportablePack);
+            BufferedStream fStream = _moduleExporterService.ExportAllAsStream(exportablePack);
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");

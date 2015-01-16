@@ -88,7 +88,7 @@ namespace ModuleManager.BusinessLogic.Services
         }
 
 
-        public Stream ExportAsStream(DomainDAL.Module toExport)
+        public BufferedStream ExportAsStream(DomainDAL.Module toExport)
         {
             MemoryStream ms = new MemoryStream();
             Export(toExport).Save(ms, false);
@@ -100,7 +100,7 @@ namespace ModuleManager.BusinessLogic.Services
             return new BufferedStream(ms);
         }
 
-        public Stream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
+        public BufferedStream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);
