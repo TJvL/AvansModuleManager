@@ -1,11 +1,15 @@
-﻿using ModuleManager.UserDAL.Interfaces;
+﻿using AutoMapper;
+using ModuleManager.UserDAL.Interfaces;
+using ModuleManager.UserDAL;
 using ModuleManager.Web.ViewModels;
+using ModuleManager.Web.ViewModels.PartialViewModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -70,9 +74,8 @@ namespace ModuleManager.Web.Controllers.Api
                         ViewBag.UsernameError = "User Name already in use, please choose another user name";
                     }
                     else
-                    {
-                        string url = Url.Action("UserOverview", "Admin");
-                        return Json(new { success = true, url = url });
+                    {                       
+                        return Json(new { success = true});
                     }
                 }
             }
@@ -81,6 +84,51 @@ namespace ModuleManager.Web.Controllers.Api
             return PartialView("~/Views/Admin/Users/_Add.cshtml", registrationVM);                 
         }
 
+        public ActionResult Edit(string gebruikersnaam)
+        {
+            if (gebruikersnaam == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = _userRepository.GetOne(gebruikersnaam);
+            Mapper.CreateMap<User, UserEditViewModel>().ForMember(x => x.Wachtwoord, opt => opt.Ignore());
+            UserEditViewModel userEditVM = Mapper.Map<UserEditViewModel>(user);
+            
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            userEditVM.SysteemRollen = _systeemRolRepository.GetAll();
+            return PartialView("~/Views/Admin/Users/_Edit.cshtml", userEditVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,City,Street,Phone,PersonID")] UserEditViewModel userEditVM)
+        {
+            if (ModelState.IsValid)
+            {
+                string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    SqlCommand cmd = new SqlCommand("spRegisterUser", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                }
+
+
+                Mapper.CreateMap<UserEditViewModel, User>().ForMember(x => x.SysteemRol1, opt => opt.Ignore());
+                User user = Mapper.Map<User>(userEditVM);
+
+                _userRepository.Edit(user);               
+                return Json(new { success = true});
+            }
+
+            userEditVM.SysteemRollen = _systeemRolRepository.GetAll();
+            return PartialView("~/Views/Admin/Users/_Edit.cshtml", userEditVM);
+        }
 
 
 

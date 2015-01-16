@@ -97,13 +97,6 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericApiController<Tag>>().To<TagController>();
             kernel.Bind<IModuleApiController>().To<ModuleController>();
 
-<<<<<<< HEAD
-           
-=======
-            // User entity repositories:
-            kernel.Bind<IUserRepository>().To<UserRepository>();
->>>>>>> origin/master_development
-
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
             kernel.Bind<IExporterService<Module>>().To<ModuleExporterService>();

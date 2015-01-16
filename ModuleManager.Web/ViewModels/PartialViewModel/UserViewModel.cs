@@ -1,4 +1,8 @@
-﻿namespace ModuleManager.Web.ViewModels.PartialViewModel
+﻿using ModuleManager.UserDAL;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+namespace ModuleManager.Web.ViewModels.PartialViewModel
 {
 
     /// <summary>
@@ -17,5 +21,26 @@
         /// Bevat extra informatie die moet worden weergegeven bij de gebruikers-management
         /// </summary>
         public string Email { get; set; }
+    }
+
+    public class UserEditViewModel
+    {
+        [Required]
+        [DisplayName("Gebruikersnaam")]
+        [StringLength(255, MinimumLength = 3)]
+        public string UserNaam { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string Wachtwoord { get; set; }
+        [DisplayName("systeemrol")]
+        [Required]
+        public string SysteemRol { get; set; }
+
+        public virtual IEnumerable<SysteemRol> SysteemRollen { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        public string Naam { get; set; }
     }
 }

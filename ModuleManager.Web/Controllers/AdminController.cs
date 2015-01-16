@@ -19,10 +19,8 @@ namespace ModuleManager.Web.Controllers
         private readonly IGenericRepository<Competentie> _competentieRepository;
         private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
         private readonly IGenericRepository<Tag> _tagRepository;
-        private readonly IGenericRepository<Fase> _faseRepository;
-        private readonly UserDAL.Interfaces.IUserRepository _userRepository;
+        private readonly IGenericRepository<Fase> _faseRepository;     
 
-<<<<<<< HEAD
         private readonly IUserRepository _userRepository;
 
         private readonly IFilterSorterService<Module> _filterSorterService; 
@@ -31,14 +29,7 @@ namespace ModuleManager.Web.Controllers
             IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository, 
             IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, IUserRepository userRepository,
             IFilterSorterService<Module> filterSorterService)
-=======
-        private readonly IFilterSorterService<Module> _filterSorterService;
 
-        public AdminController(IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository,
-            IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository,
-            IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
-            IFilterSorterService<Module> filterSorterService, UserDAL.Interfaces.IUserRepository userRepository)
->>>>>>> origin/master_development
         {
             _blokRepository = blokRepository;
             _statusRepository = statusRepository;

@@ -364,10 +364,10 @@
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\Users\Edit.cshtml" />
+    <Content Include="Views\Admin\Users\_Edit.cshtml" />
     <Content Include="Views\Admin\Users\_Add.cshtml" />
     <Content Include="Views\Admin\Users\Lock.cshtml" />
-    <Content Include="Views\Admin\Users\Delete.cshtml" />
+    <Content Include="Views\Admin\Users\_Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

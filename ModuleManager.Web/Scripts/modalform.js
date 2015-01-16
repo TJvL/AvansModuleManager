@@ -27,7 +27,8 @@ function bindForm(dialog) {
             success: function (result) {
                 if (result.success) {
                     $('#myModal').modal('hide');
-                    $('#replacetarget').load(result.url); //  Load data from the server and place the returned HTML into the matched element
+                    location.reload();
+                    //$('#replacetarget').reload(result.url); //  Load data from the server and place the returned HTML into the matched element
                 } else {
                     $('#myModalContent').html(result);
                     bindForm();
