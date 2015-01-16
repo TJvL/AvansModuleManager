@@ -40,8 +40,8 @@ namespace ModuleManager.Web.Controllers.Api
             ICollection<string> faseFilters = null;
             if (value.Filter.Fases.First() != null) faseFilters = value.Filter.Fases;
 
-            ICollection<int> blokFilters = null;
-            if(value.Filter.Blokken.First() != null) blokFilters = Array.ConvertAll(value.Filter.Blokken.ToArray(), int.Parse);
+            ICollection<string> blokFilters = null;
+            if(value.Filter.Blokken.First() != null) blokFilters = value.Filter.Blokken.ToArray();
 
             string zoektermFilter = null;
             if (value.Filter.Zoekterm != null) zoektermFilter = value.Filter.Zoekterm;
