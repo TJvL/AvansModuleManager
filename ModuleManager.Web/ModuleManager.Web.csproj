@@ -293,6 +293,7 @@
     <Compile Include="ViewModels\AccountVM.cs" />
     <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
     <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />
+    <Compile Include="ViewModels\CheckModulesViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
@@ -14,19 +13,20 @@ namespace ModuleManager.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IGenericRepository<Blok> _blokRepository;
-        private readonly IGenericRepository<Status> _statusRepository; 
+        private readonly IGenericRepository<Status> _statusRepository;
         private readonly IGenericRepository<Module> _moduleRepository;
         private readonly IGenericRepository<Competentie> _competentieRepository;
         private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
         private readonly IGenericRepository<Tag> _tagRepository;
         private readonly IGenericRepository<Fase> _faseRepository;
+        private readonly UserDAL.Interfaces.IUserRepository _userRepository;
 
-        private readonly IFilterSorterService<Module> _filterSorterService; 
+        private readonly IFilterSorterService<Module> _filterSorterService;
 
-        public AdminController(IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository, 
-            IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository, 
-            IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, 
-            IFilterSorterService<Module> filterSorterService)
+        public AdminController(IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository,
+            IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository,
+            IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
+            IFilterSorterService<Module> filterSorterService, UserDAL.Interfaces.IUserRepository userRepository)
         {
             _blokRepository = blokRepository;
             _statusRepository = statusRepository;
@@ -35,6 +35,8 @@ namespace ModuleManager.Web.Controllers
             _leerlijnRepository = leerlijnRepository;
             _tagRepository = tagRepository;
             _faseRepository = faseRepository;
+
+            _userRepository = userRepository;
 
             _filterSorterService = filterSorterService;
         }
@@ -83,41 +85,13 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/UserOverview")]
         public ActionResult UserOverview()
         {
-
-            var mocList = new List<UserViewModel>()
-            {
-                new UserViewModel()
-                {                    
-                    Username = "Friet",
-                    UserEmail = "Friet@piet.nl",
-                    UserRole = "Teacher"
-                },
-                new UserViewModel()
-                {
-                    Username = "Pees",
-                    UserEmail = "Pees@piet.nl",
-                    UserRole = "Adim"
-                },
-                new UserViewModel()
-                {
-                    Username = "Arie",
-                    UserEmail = "Kanarie@piet.nl",
-                    UserRole = "Teacher"
-                },
-                new UserViewModel()
-                {
-                    Username = "Tom",                   
-                    UserEmail = "Bom@piet.nl",
-                    UserRole = "Admin"
-                }
-            };
+            var userList = _userRepository.GetAll();
+            var usersListVm = new UserListViewModel(userList.Count());
+            usersListVm.AddUsers(userList);
 
             var overViewvm = new AdminUserManagementViewModel()
             {
-                Users = new UserListViewModel(mocList.Count) 
-                { 
-                    Users = mocList
-                }
+                Users = usersListVm
             };
 
             // TODO: Implementeer ViewModel en return deze.
@@ -136,17 +110,16 @@ namespace ModuleManager.Web.Controllers
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);
 
-            var filterOptions = new FilterOptionsViewModel();
-            filterOptions.AddBlokken(_blokRepository.GetAll());
-            filterOptions.AddFases(_faseRepository.GetAll());
-            filterOptions.AddStatuses(_statusRepository.GetAll());
+            var users = _userRepository.GetAll().AsQueryable();
+            var userList = new UserListViewModel(users.Count());
+            userList.AddUsers(users);
 
-            var moduleOverviewVm = new ModuleOverviewViewModel
+            var checkModulesVm = new CheckModulesViewModel
             {
                 ModuleViewModels = moduleList,
-                FilterOptions = filterOptions
+                Users = userList
             };
-            return View(moduleOverviewVm);
+            return View(checkModulesVm);
         }
 
         [HttpGet, Route("Admin/Archive")]
@@ -163,7 +136,7 @@ namespace ModuleManager.Web.Controllers
                 ViewBag.Message = "Invoer incorrect, probeer opnieuw.";
                 return View();
             }
-                
+
             using (var context = new DomainContext())
             {
                 context.SP_ArchiveYear();
