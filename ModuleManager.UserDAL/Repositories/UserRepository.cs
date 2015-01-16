@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 ﻿using ModuleManager.UserDAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+=======
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ModuleManager.UserDAL.Interfaces;
+>>>>>>> origin/master_development
 
 namespace ModuleManager.UserDAL.Repositories
 {
@@ -21,7 +28,11 @@ namespace ModuleManager.UserDAL.Repositories
         {
             using (var context = new UserContext())
             {
+<<<<<<< HEAD
                 return (from u in context.User select u).ToList();
+=======
+                return context.User.ToList();
+>>>>>>> origin/master_development
             }
         }
 
@@ -42,6 +53,9 @@ namespace ModuleManager.UserDAL.Repositories
                 return Convert.ToBoolean(context.SaveChanges());
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master_development
     }
 }
