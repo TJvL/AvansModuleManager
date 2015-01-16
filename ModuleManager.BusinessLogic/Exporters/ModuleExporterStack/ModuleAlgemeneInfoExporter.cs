@@ -45,11 +45,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             Row row = table.AddRow();
             row.Cells[0].AddParagraph("Schooljaar");
-            row.Cells[1].AddParagraph("'" + toExport.Schooljaar.ToString().Substring(0, 2) + "/'" + toExport.Schooljaar.ToString().Substring(2)).Format.Font.Color = Colors.Red;
-
-            row = table.AddRow();
-            row.Cells[0].AddParagraph("Programma").Format.Font.Color = Colors.Red;
-            row.Cells[1].AddParagraph();
+            row.Cells[1].AddParagraph("20" + toExport.Schooljaar.ToString().Substring(0, 2) + "-20" + toExport.Schooljaar.ToString().Substring(2));
 
             row = table.AddRow();
             row.Cells[0].AddParagraph("Blokken");
@@ -69,14 +65,10 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             row.Cells[1].AddParagraph(toExport.CursusCode);
 
             row = table.AddRow();
-            row.Cells[0].AddParagraph("Omschrijving").Format.Font.Color = Colors.Red;
-            row.Cells[1].AddParagraph(toExport.Naam).Format.Font.Color = Colors.Red;
-
-            row = table.AddRow();
             row.Cells[0].AddParagraph("Toetsen");
             foreach (StudiePunten sp in toExport.StudiePunten) 
             {
-                row.Cells[1].AddParagraph(sp.ToetsCode + ": " + sp.EC + " EC").Format.Font.Color = Colors.Red;
+                row.Cells[1].AddParagraph(" - " + sp.ToetsCode + ": " + sp.EC + " EC");
             }
 
             row = table.AddRow();

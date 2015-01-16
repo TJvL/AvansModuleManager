@@ -18,7 +18,14 @@
 
     </head>
     <body>
-        <header id="header" style="background: #FF004B;">
+        @{ var headerColor = "DefaultColor"; }
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("Admin")) { headerColor = "AdminColor"; }
+            else if (User.IsInRole("Docent")) { headerColor = "DocentColor"; }
+            else { headerColor = "DefaultColor"; }
+        }
+        <header id="header" class="@headerColor">
             <div class="container">
                 <div id="top" class="row">
                     <div class="col-md-6">
@@ -54,7 +61,6 @@
         <script src="~/Scripts/jquery-2.1.1.min.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>
         <script src="~/Scripts/select2.min.js"></script>
-        <script src="~/Scripts/temp.js"></script>
         
         @RenderSection("Scripts", false)
 

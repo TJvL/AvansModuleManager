@@ -1,4 +1,7 @@
-﻿<div class="container">
+﻿@using ModuleManager.DomainDAL
+@model ModuleManager.Web.ViewModels.ModuleOverviewViewModel
+
+<div class="container">
     <div class="row">
 
         <div class="col-md-12">
@@ -23,7 +26,7 @@
                 </div>
 
                 <div class="panel-group" id="accordion">
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#competentie">
@@ -33,17 +36,17 @@
                         </div>
                         <div id="competentie" class="panel-collapse collapse in">
                             <div class="panel-body">
-
                                 <select name="competentie" class="form-control ajax" id="FilterCompetenties" multiple>
-                                    <option>Procesanalyse uitvoeren</option>
-                                    <option>Informatieanalyse uitvoeren</option>
-                                    <option>Informatiesysteem ontwerpen</option>
+                                    @foreach (var competentie in Model.FilterOptions.CompetentieFilter)
+                                    {
+                                        <option>@competentie</option>
+                                    }
                                 </select>
 
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#fase">
@@ -56,32 +59,29 @@
 
                                 <select class="form-control ajax" id="FilterFases" multiple>
                                     <optgroup label="Major">
-                                        <option>Software ontwikkelaar</option>
-                                        <option>Bedrijfsinformatica</option>
+                                        @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Major")))
+                                        {
+                                            <option>@fases.Naam</option>
+                                        }
                                     </optgroup>
                                     <optgroup label="Minor">
-                                        <option>Business Intelligence & IT Governance</option>
-                                        <option>Business Proces Management (BPM)</option>
-                                        <option>Corporate Performance Management (CPM)</option>
-                                        <option>Cybersafety</option>
-                                        <option>Digitale Regelsystemen (DRS)</option>
-                                        <option>Embedded Software (EMS)</option>
-                                        <option>Everyware in a Mobile World (EVW)</option>
-                                        <option>Middleware (MDW)</option>
-                                        <option>Product Ontwikkeling (PO)</option>
-                                        <option>Signaal bewerking (SB)</option>
-                                        <option>Software Architectuur (SWA)</option>
+                                        @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Minor")))
+                                        {
+                                            <option>@fases.Naam</option>
+                                        }
                                     </optgroup>
                                     <optgroup label="Opleidingsfase">
-                                        <option>Propedeuse</option>
-                                        <option>Hoofdfase bachelor</option>
+                                        @foreach (var fases in Model.FilterOptions.FaseNamen.Where(fases => fases.FaseType.Equals("Fase")))
+                                        {
+                                            <option>@fases.Naam</option>
+                                        }
                                     </optgroup>
                                 </select>
 
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#leerlijnen">
@@ -93,14 +93,16 @@
                             <div class="panel-body">
 
                                 <select class="form-control ajax" id="FilterLeerlijnen" multiple>
-                                    <option>Leerlijn 1</option>
-                                    <option>Leerlijn 2</option>
+                                    @foreach (var leerlijn in Model.FilterOptions.LeerlijnFilter)
+                                    {
+                                        <option>@leerlijn</option>
+                                    }
                                 </select>
 
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#year">
@@ -113,16 +115,16 @@
 
                                 <select name="year" class="form-control ajax" id="FilterLeerjaar">
                                     <option></option>
-                                    <option>2014 - 2015</option>
-                                    <option>2013 - 2014</option>
-                                    <option>2012 - 2013</option>
-                                    <option>2011 - 2012</option>
+                                    @foreach (var leerjaren in Model.FilterOptions.Leerjaren)
+                                    {
+                                        <option>@leerjaren</option>
+                                    }
                                 </select>
 
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#ec">
@@ -135,10 +137,10 @@
 
                                 <select name="ec" class="form-control ajax" id="FilterEc">
                                     <option></option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
+                                    @foreach (var ecs in Model.FilterOptions.ECs)
+                                    {
+                                        <option>@ecs</option>
+                                    }
                                 </select>
 
                             </div>
@@ -156,17 +158,16 @@
                             <div class="panel-body">
 
                                 <select name="block" class="form-control ajax" id="FilterBlokken" multiple>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    @foreach (var blokken in Model.FilterOptions.Blokken)
+                                    {
+                                        <option>@blokken</option>
+                                    }
                                 </select>
 
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#tag">
@@ -178,15 +179,16 @@
                             <div class="panel-body">
 
                                 <select name="tag" class="form-control ajax" id="FilterTags" multiple>
-                                    <option>Big Data</option>
-                                    <option>Milieu</option>
-                                    <option>Spaans</option>
+                                    @foreach (var tag in Model.FilterOptions.TagFilter)
+                                    {
+                                        <option>@tag</option>
+                                    }
                                 </select>
 
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-danger">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="false" href="#reset">
@@ -198,7 +200,7 @@
                             <div class="panel-body">
 
                                 <a id="FilterTable" href="#" class="btn btn-success btn-block">Filter</a>
-                                <a href="#" class="btn btn-danger btn-block">Reset</a>
+                                <a id="ResetFilters" href="#" class="btn btn-danger btn-block">Reset</a>
 
                             </div>
                         </div>
@@ -287,6 +289,10 @@
             </li>
         </ul>
     </div>
+    <a class="dropdown-toggle btn btn-success btn-sm" href="#" data-toggle="modal" data-target="#exportModal">
+        Exporteren
+        <b class="fa fa-download"></b>
+    </a>
 </div>
 
 <!-- Help MODAL -->
@@ -317,9 +323,7 @@
                     e.stopPropagation();
                 }
             });
+
         });
-
-        // SELECT2
-
     </script>
 }

@@ -48,7 +48,11 @@ namespace ModuleManager.BusinessLogic.Services
         /// <returns>List of Sorted Modules</returns>
         public IEnumerable<DomainDAL.Module> Sort(Interfaces.IQueryablePack<DomainDAL.Module> qPack)
         {
-            return moduleSorterStrategy.Sort(qPack.Data, qPack.Args).AsEnumerable();
+            if (qPack.Args.SortBy != null)
+            {
+                return moduleSorterStrategy.Sort(qPack.Data, qPack.Args).AsEnumerable();
+            }
+            return qPack.Data;
         }
     }
 }

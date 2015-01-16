@@ -7,21 +7,20 @@ $(function () {
         e.stopPropagation();
     });
 
-    init_select2();
-    init_datatable();
-    init_toggle_columns();
-    init_select_all();
+    initSelect2();
+    initDatatable();
+    initToggleColumns();
+    initSelectAll();
+
+    $("#exportModules").on("click", function(e) {
+        e.preventDefault();
+        exportModules();
+    });
 
 });
 
-function init_datatable() {
+function initDatatable() {
 
-    $('#modules tfoot th').each(function () {
-        var title = $('#modules thead th').eq($(this).index()).text();
-        $(this).html('<input class="form-control" style="width:100%;" type="text" placeholder="' + title + '" />');
-    });
-
-    /* Datatables */
     table = $("#modules").DataTable({
         dom:
             "<'row'<'col-sm-6'l><'col-sm-6 toolbar text-right'>>" +
@@ -36,16 +35,7 @@ function init_datatable() {
             url: "/api/Module/GetOverview",
             type: "POST",
             data: function (d) {
-                d.filter = {
-                    Zoekterm: $("#Zoekterm").val(),
-                    Competenties: $("#FilterCompetenties").val(),
-                    Fases: $("#FilterFases").val(),
-                    Leerjaar: $("#FilterLeerjaar").val(),
-                    Blokken: $("#FilterBlokken").val(),
-                    Tags: $("#FilterTags").val(),
-                    Ec: $("#FilterEc").val(),
-                    Leerlijnen: $("#FilterLeerlijnen").val()
-                }
+                d.filter = getFilters();
             }
         },
         columns: [
@@ -96,57 +86,40 @@ function init_datatable() {
             $(".toolbar").append($("#toggle-columns"));
             $("#toggle-columns").show();
 
-            init_filters();
+            initFilters();
 
         }
     });
 
 }
 
-function init_filters() {
+function initFilters() {
 
-    var api = $("#modules").dataTable().api();
-
-    /* Search */
-    $('.search-query').keyup(function () {
-        table.search($(this).val()).draw();
-    });
-    
-    /* Block */
-    $("#block select").on('change', function () {
-        api.column(3)
-            .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
-            .draw();
-    });
-
-    /* Leerjaar */
-    $("#fase select").on('change', function () {
-        api.column(4)
-            .search($(this).val() ? '^' + $(this).val() + '$' : '', true, false)
-            .draw();
-    });
-
-    /* Set filters */
     $("#FilterTable").on("click", function (e) {
         e.preventDefault();
         $("#modules").dataTable().fnDraw();
     });
 
+    $("#ResetFilters").on("click", function(e) {
+        e.preventDefault();
+        resetSelect2();
+    });
+
 }
 
-function init_toggle_columns() {
+function initToggleColumns() {
     /* Toggle columns */
     $(".toggle").on("click", function (e) {
 
         // Get the column API object
-        var column = $("#modules").dataTable().api().column($(this).data("column"))
+        var column = $("#modules").dataTable().api().column($(this).data("column"));
 
         // Toggle the visibility
         column.visible(!column.visible());
     });
 }
 
-function init_select_all() {
+function initSelectAll() {
     /* Select all */
     $("#modules").on("click", "#checkbox-select-all", function () {
 
@@ -159,7 +132,7 @@ function init_select_all() {
     });
 }
 
-function init_select2() {
+function initSelect2() {
     $("#FilterCompetenties").select2({
         placeholder: "Competenties"
     });
@@ -183,3 +156,81 @@ function init_select2() {
     });
 }
 
+function resetSelect2() {
+
+    $('#FilterCompetenties').select2('data', null);
+    $('#FilterLeerlijnen').select2('data', null);
+    $('#FilterFases').select2('data', null);
+    $('#FilterLeerjaar').select2('data', null);
+    $('#FilterEc').select2('data', null);
+    $('#FilterBlokken').select2('data', null);
+    $('#FilterTags').select2('data', null);
+
+    $("#modules").dataTable().fnDraw();
+}
+
+function getFilters() {
+    
+    data = {
+        Zoekterm: $("#Zoekterm").val(),
+        Competenties: $("#FilterCompetenties").val(),
+        Fases: $("#FilterFases").val(),
+        Leerjaar: $("#FilterLeerjaar").val(),
+        Blokken: $("#FilterBlokken").val(),
+        Tags: $("#FilterTags").val(),
+        Ec: $("#FilterEc").val(),
+        Leerlijnen: $("#FilterLeerlijnen").val()
+    }
+
+    return data;
+
+}
+
+function getExports() {
+
+    data = {
+        CursusCode: $("input[name='CursusCode']").is(":checked"),
+        Naam: $("input[name='Naam']").is(":checked"),
+        Beschrijving: $("input[name='Beschrijving']").is(":checked"),
+        AlgemeneInformatie: $("input[name='AlgemeneInformatie']").is(":checked"),
+        Studiebelasting: $("input[name='Studiebelasting']").is(":checked"),
+        Organisatie: $("input[name='Organisatie']").is(":checked"),
+        Weekplanning: $("input[name='Weekplanning']").is(":checked"),
+        Beoordeling: $("input[name='Beoordeling']").is(":checked"),
+        Leermiddelen: $("input[name='Leermiddelen']").is(":checked"),
+        Leerdoelen: $("input[name='Leerdoelen']").is(":checked"),
+        Competenties: $("input[name='Competenties']").is(":checked"),
+        Leerlijnen: $("input[name='Leerlijnen']").is(":checked"),
+        Tags: $("input[name='Tags']").is(":checked")
+    }
+
+    return data;
+
+}
+
+function exportModules() {
+
+    /* Ajax request */
+    $.ajax({
+        type: 'POST',
+        url: '/Module/ExportAll',
+        data: {
+            Filters: getFilters(),
+            Export: getExports()
+        },
+        beforeSend: function () {
+            $("#exportAlert").html("<div class=\"alert alert-info\" role=\"alert\"><strong>Een ogenblik geduld a.u.b.</strong> Uw PDF wordt samengesteld.</div>");
+            $("#exportModules").attr("disabled", "disabled");
+        },
+        success: function (data) {
+            $("#exportAlert").html("");
+            $("#exportModules").removeAttr("disabled", "disabled");
+            // TODO, pdf meegeven aan gebruiker, of gebruiker doorlinken naar .pdf (new tab?)
+        },
+        error: function () {
+            $("#exportAlert").html("<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Er ging iets mis, probeer het opnieuw.</div>");
+            $("#exportModules").removeAttr("disabled", "disabled");
+        }
+    });
+
+}

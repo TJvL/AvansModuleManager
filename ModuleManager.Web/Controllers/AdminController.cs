@@ -114,11 +114,11 @@ namespace ModuleManager.Web.Controllers
             var userList = new UserListViewModel(users.Count());
             userList.AddUsers(users);
 
-            var checkModulesVm = new CheckModulesViewModel
+	var checkModulesVm = new CheckModulesViewModel
             {
                 ModuleViewModels = moduleList,
                 Users = userList
-            };
+	};
             return View(checkModulesVm);
         }
 
