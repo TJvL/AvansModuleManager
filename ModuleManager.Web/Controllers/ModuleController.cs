@@ -75,15 +75,13 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            var keys = new[] { schooljaar, cursusCode };
-            return View(_moduleRepository.GetOne(keys));
+            return View(_moduleRepository.GetOne(new object[] { schooljaar, cursusCode }));
         }
 
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            var keys = new[] { schooljaar, cursusCode };
-            return View(_moduleRepository.GetOne(keys));
+            return View(_moduleRepository.GetOne(new object[] { schooljaar, cursusCode }));
         }
 
         [HttpPost, Route("Module/Edit")]
@@ -95,8 +93,8 @@ namespace ModuleManager.Web.Controllers
             {
                 return Redirect("Overview");
             }
-            var keys = new[] { entity.Schooljaar.ToString(), entity.CursusCode };
-            return View(_moduleRepository.GetOne(keys));
+
+            return View(_moduleRepository.GetOne(new object[] { entity.Schooljaar.ToString(), entity.CursusCode }));
         }
 
         //PDF Download Code
@@ -129,7 +127,7 @@ namespace ModuleManager.Web.Controllers
             if (value.Filters.Fases.First() != null) faseFilters = value.Filters.Fases;
 
             ICollection<int> blokFilters = null;
-            if (value.Filters.Blokken.First() != null) blokFilters = Array.ConvertAll(value.Filters.Blokken.ToArray(), int.Parse);
+            if ((value.Filters.Blokken.First() != null)&&(value.Filters.Blokken.First() != "")) blokFilters = Array.ConvertAll(value.Filters.Blokken.ToArray(), int.Parse);
 
             string zoektermFilter = null;
             if (value.Filters.Zoekterm != null) zoektermFilter = value.Filters.Zoekterm;
