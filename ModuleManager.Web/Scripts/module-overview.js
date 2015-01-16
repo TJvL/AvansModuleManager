@@ -82,6 +82,17 @@ function initDatatable() {
                 aTargets: [2]
             },
             {
+                bSortable: false,
+                mRender: function (data, type, full) {
+
+                    var original = data.toString();
+                    var years = "20" + original.substring(0, 2) + " - 20" + original.substring(2);
+
+                    return years;
+                },
+                aTargets: [3]
+            },
+            {
                 mRender: function (data, type, full) {
                     return data + " EC";
                 },
