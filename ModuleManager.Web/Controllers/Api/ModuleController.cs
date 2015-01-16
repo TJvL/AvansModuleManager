@@ -49,6 +49,37 @@ namespace ModuleManager.Web.Controllers.Api
             int leerjaarFilter = 0;
             if (value.Filter.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filter.Leerjaar);
 
+            int column = value.OrderBy.Column;
+            string columnName;
+            switch (column)
+            {
+                case 1:
+                    columnName = "Naam";
+                    break;
+                case 2:
+                    columnName = "CursusCode";
+                    break;
+                case 3:
+                    columnName = "Schooljaar";
+                    break;
+                case 7:
+                    columnName = "Verantwoordelijke";
+                    break;
+                default:
+                    columnName = "Naam";
+                    break;
+            }
+
+            bool dir;
+            if (value.OrderBy.Dir == "desc")
+            {
+                dir = true;
+            }
+            else
+            {
+                dir = false;
+            }
+
             var arguments = new Arguments
             {
                 CompetentieFilters = competentieFilters,
@@ -57,7 +88,9 @@ namespace ModuleManager.Web.Controllers.Api
                 FaseFilters = faseFilters,
                 BlokFilters = blokFilters,
                 ZoektermFilter = zoektermFilter,
-                LeerjaarFilter = leerjaarFilter
+                LeerjaarFilter = leerjaarFilter,
+                SortBy = columnName,
+                SortDesc = dir
             };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
