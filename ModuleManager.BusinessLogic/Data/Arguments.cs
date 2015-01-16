@@ -11,28 +11,25 @@ namespace ModuleManager.BusinessLogic.Data
     /// </summary>
     public class Arguments
     {
-        public Arguments() 
-        {
-            SortFor = new Dictionary<string,bool>();
-        }
-
         public bool IsEmpty
         {
             get
             {
-                return (SortFor.Count == 0) && (ZoektermFilter == null) && (CompetentieFilters == null) &&
+                return (SortBy == null) && (ZoektermFilter == null) && (CompetentieFilters == null) &&
                        (CompetentieNiveauFilters == null) && (TagFilters == null) && (LeerlijnFilters == null) &&
                        (BlokFilters == null) && (FaseFilters == null) && (LeerjaarFilter == 0) && (ECfilters == null) && (StatusFilter == null);
             }
         }
 
         /// <summary>
-        /// Bevat kolomnamen voor sorteren, met aflopende prioriteit
+        /// Geeft aan op welk veld gesorteerd meot worden.
         /// </summary>
-        /// <remarks>
-        /// string SortArgument, boolean Descending.
-        /// </remarks>
-        public Dictionary<string, bool> SortFor { get; set; }
+        public string SortBy { get; set; }
+
+        /// <summary>
+        /// Geeft aan of sorting oplopend of aflopen gebeurt. true = desc,  false = asc
+        /// </summary>
+        public bool SortDesc { get; set; }
 
         /// <summary>
         /// Geselecteerde/mogelijke competentie(s) om op te filteren

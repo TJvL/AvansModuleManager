@@ -61,7 +61,7 @@ namespace ModuleManager.BusinessLogic.Services
 
             //Document markup
             DefineStyles(prePdf);
-            BuildCover(prePdf, "Module-Overzicht voor Inforamtica");
+            BuildCover(prePdf, "Module-Overzicht voor Informatica");
             DefineTableOfContents(prePdf, pack.ToExport);
 
             //Here starts the real exporting
@@ -139,6 +139,7 @@ namespace ModuleManager.BusinessLogic.Services
             Section sect = doc.AddSection();
 
             //this MIGHT cause trouble later...
+            /*
             string tempImg = System.Environment.CurrentDirectory + "\\tempAvansLogo.jpg";
 
             Resources.Avans_Logo.Save(tempImg, ImageFormat.Jpeg);
@@ -146,6 +147,7 @@ namespace ModuleManager.BusinessLogic.Services
             img.WrapFormat.Style = WrapStyle.Through;
             img.Left = ShapePosition.Right;
             img.Top = ShapePosition.Bottom;
+             */
 
             Paragraph p = sect.AddParagraph("\n\nAvans Hogeschool\n" + coverTitle + "\n\nDatum: " + DateTime.Now.Date.ToString("d-MM-yyyy"));
             p.Format.Font = new Font("Arial", "12");
