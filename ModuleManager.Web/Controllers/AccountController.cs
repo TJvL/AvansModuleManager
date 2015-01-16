@@ -1,4 +1,5 @@
-﻿using ModuleManager.UserDAL.Repositories;
+﻿using ModuleManager.UserDAL.Interfaces;
+using ModuleManager.UserDAL.Repositories;
 using ModuleManager.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,11 @@ namespace ModuleManager.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private SysteemRolRepository _systeemRolRepository;
+        private readonly ISysteemRolRepository _systeemRolRepository;
 
-        public AccountController()
+        public AccountController(ISysteemRolRepository systeemRolRepository)
         {
-            _systeemRolRepository = new SysteemRolRepository();
+            _systeemRolRepository = systeemRolRepository;
         }
 
         [HttpGet]
@@ -83,6 +84,7 @@ namespace ModuleManager.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Registration(RegistrationVM registrationVM)
         {
             if (ModelState.IsValid)

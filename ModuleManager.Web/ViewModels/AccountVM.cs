@@ -23,15 +23,21 @@ namespace ModuleManager.Web.ViewModels
     public class RegistrationVM
     {
         [Required]
+        [DisplayName("Gebruikersnaam")]
+        [StringLength(255, MinimumLength = 3)]
         public string UserNaam { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         public string Wachtwoord { get; set; }
 
-        [Compare("Wachtwoord")]
+        [Required(ErrorMessage="Uw wachtwoord komt niet overeen.")]
+        [DisplayName("Bevestig wachtwoord")]
+        [Compare("Wachtwoord")]        
         [DataType(DataType.Password)]
         public string BevestigWachtwoord { get; set; }
+
+        [DisplayName("systeemrol")]
         [Required]
         public string SelectedSysteemRol { get; set; }
 

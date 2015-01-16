@@ -7,6 +7,7 @@ using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using ModuleManager.UserDAL.Interfaces;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -21,11 +22,13 @@ namespace ModuleManager.Web.Controllers
         private readonly IGenericRepository<Tag> _tagRepository;
         private readonly IGenericRepository<Fase> _faseRepository;
 
+        private readonly IUserRepository _userRepository;
+
         private readonly IFilterSorterService<Module> _filterSorterService; 
 
         public AdminController(IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository, 
             IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository, 
-            IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, 
+            IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, IUserRepository userRepository,
             IFilterSorterService<Module> filterSorterService)
         {
             _blokRepository = blokRepository;
@@ -35,6 +38,8 @@ namespace ModuleManager.Web.Controllers
             _leerlijnRepository = leerlijnRepository;
             _tagRepository = tagRepository;
             _faseRepository = faseRepository;
+
+            _userRepository = userRepository;
 
             _filterSorterService = filterSorterService;
         }

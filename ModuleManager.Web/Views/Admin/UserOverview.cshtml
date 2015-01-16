@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@using ModuleManager.Web.Helpers
+
+<div class="container">
     <div class="row">
         <div id="primary">
             <div class="col-md-12">
@@ -11,7 +13,9 @@
 
             <div class="col-md-12">
                 <div class="pull-right">
-                    <a class="btn btn-success" href="#"><i class="fa fa-plus"></i> Nieuwe gebruiker</a>
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Nieuwe gebruiker", "Add", "Create", "Users", htmlAttributes: new { data_modal = "", @class = "btn btn-success" })
+                    @*<a class="btn btn-success" data-toggle="modal" data-target="#user-add"><i class="fa fa-plus"></i> Nieuwe gebruiker</a>*@
+                    @*<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competentie-add">Toevoegen</button>*@
                 </div>
                 <h2 style="margin-top: 0">Gebruikers</h2>
             </div>
@@ -64,17 +68,21 @@
     </div>
 </div>
 
-<!-- Help MODAL-->
-@Html.Partial("~/Views/Help/UserOverview.cshtml", null);
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
 
-@Html.Partial("~/Views/Admin/Users/Edit.cshtml", null);
-@Html.Partial("~/Views/Admin/Users/Add.cshtml", null);
-@Html.Partial("~/Views/Admin/Users/Lock.cshtml", null);
-@Html.Partial("~/Views/Admin/Users/Delete.cshtml", null);
+
+
 
 <!-- JAVA MEUK -->
 @section Scripts {
-    <script>
+    @*<script>
         $(function() {
             // THIS FOR ALL OVERVIEWS
             $(".item td").on("click", function() {
@@ -89,5 +97,8 @@
                 }
             });
         });
-    </script>
+    </script>*@
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
+    
 }

@@ -15,6 +15,8 @@ using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL.Repositories.Dummies;
+using ModuleManager.UserDAL.Interfaces;
+using ModuleManager.UserDAL.Repositories;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
@@ -71,6 +73,10 @@ namespace ModuleManager.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            // User entity repositories
+            kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<ISysteemRolRepository>().To<SysteemRolRepository>();
+
             // Domain entity repositories:
             kernel.Bind<IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
             kernel.Bind<IGenericRepository<Fase>>().To<DummyFaseRepository>();
@@ -90,6 +96,8 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
             kernel.Bind<IGenericApiController<Tag>>().To<TagController>();
             kernel.Bind<IModuleApiController>().To<ModuleController>();
+
+           
 
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
