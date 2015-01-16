@@ -17,6 +17,16 @@ $(function () {
         exportModules();
     });
 
+
+    $("#modules").on("click", "tbody tr", function () {
+
+        var year = $(this).find(".cursusCode").data("year");
+        var cursusCode = $(this).find(".cursusCode").data("code")
+
+        window.location = "/Module/" + year + "/" + cursusCode;
+    });
+
+
 });
 
 function initDatatable() {
@@ -43,12 +53,12 @@ function initDatatable() {
             { "data": "Icon" },
             { "data": "Naam" },
             { "data": "CursusCode" },
+            { "data": "Schooljaar" },
             { "data": "Blokken" },
             { "data": "TotalEc" },
             { "data": "FaseNamen" },
             { "data": "Verantwoordelijke" },
-            { "data": "Docenten" },
-            { "data": "CursusCode" },
+            { "data": "Docenten" }
         ],
         aoColumnDefs: [
             {
@@ -67,19 +77,31 @@ function initDatatable() {
             },
             {
                 mRender: function (data, type, full) {
-                    return data + " EC";
+                    return '<span class="cursusCode" data-year="' + full['Schooljaar'] + '" data-code="' + data + '">' + data + '</span>';
                 },
-                aTargets: [4]
+                aTargets: [2]
             },
             {
-                sClass: "text-center",
-                sTitle: "<input type=\"checkbox\" id=\"checkbox-select-all\"></input>",
                 mRender: function (data, type, full) {
-                    return "<input type=\"checkbox\" class=\"checkbox-module\" data-export=\"data\" />";
+
+                    var original = data.toString();
+                    var years = "20" + original.substring(0, 2) + " - 20" + original.substring(2);
+
+                    return years;
                 },
+                aTargets: [3]
+            },
+            {
                 bSortable: false,
-                aTargets: [8]
-            }
+                mRender: function (data, type, full) {
+                    return data + " EC";
+                },
+                aTargets: [5]
+            },
+            {
+                bSortable: false,
+                aTargets: [4,6,8]
+            },
         ],
         order: [[1, "asc"]],
         initComplete: function () {
