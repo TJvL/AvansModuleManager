@@ -221,12 +221,12 @@
                                 <th></th>
                                 <th>Naam</th>
                                 <th>Cursuscode</th>
-                                <th>Schooljaar</th>
                                 <th>Blokken</th>
                                 <th>EC</th>
                                 <th>Fase('s)</th>
                                 <th>Verantwoordelijke</th>
                                 <th>Docenten</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -260,36 +260,30 @@
             <li>
                 <label class="checkbox">
                     <input class="toggle" type="checkbox" data-column="3" checked>
-                    Schooljaar
-                </label>
-            </li>
-            <li>
-                <label class="checkbox">
-                    <input class="toggle" type="checkbox" data-column="4" checked>
                     Blokken
                 </label>
             </li>
             <li>
                 <label class="checkbox">
-                    <input class="toggle" type="checkbox" data-column="5" checked>
+                    <input class="toggle" type="checkbox" data-column="4" checked>
                     EC
                 </label>
             </li>
             <li>
                 <label class="checkbox">
-                    <input class="toggle" type="checkbox" data-column="6" checked>
+                    <input class="toggle" type="checkbox" data-column="5" checked>
                     Fase('s)
                 </label>
             </li>
             <li>
                 <label class="checkbox">
-                    <input class="toggle" type="checkbox" data-column="7" checked>
+                    <input class="toggle" type="checkbox" data-column="6" checked>
                     Verantwoordelijke
                 </label>
             </li>
             <li>
                 <label class="checkbox">
-                    <input class="toggle" type="checkbox" data-column="8" checked>
+                    <input class="toggle" type="checkbox" data-column="7" checked>
                     Docenten
                 </label>
             </li>
@@ -300,12 +294,6 @@
         <b class="fa fa-download"></b>
     </a>
 </div>
-
-<style>
-    #modules tbody tr td {
-        cursor: pointer;
-    }
-</style>
 
 <!-- Help MODAL -->
 @Html.Partial("~/Views/Help/ModuleOverview.cshtml", null)
