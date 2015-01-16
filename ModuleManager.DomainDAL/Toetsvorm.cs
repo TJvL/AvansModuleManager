@@ -12,16 +12,15 @@ namespace ModuleManager.DomainDAL
     using System;
     using System.Collections.Generic;
     
-    public partial class StudieBelasting
+    public partial class Toetsvorm
     {
-        public string CursusCode { get; set; }
-        public int Schooljaar { get; set; }
-        public string Activiteit { get; set; }
-        public Nullable<int> ContactUren { get; set; }
-        public string Duur { get; set; }
-        public string Frequentie { get; set; }
-        public int SBU { get; set; }
+        public Toetsvorm()
+        {
+            this.StudiePunten = new HashSet<StudiePunten>();
+        }
     
-        public virtual Module Module { get; set; }
+        public string Type { get; set; }
+    
+        public virtual ICollection<StudiePunten> StudiePunten { get; set; }
     }
 }
