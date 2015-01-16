@@ -82,7 +82,6 @@ function initDatatable() {
                 aTargets: [2]
             },
             {
-                bSortable: false,
                 mRender: function (data, type, full) {
 
                     var original = data.toString();
@@ -93,11 +92,16 @@ function initDatatable() {
                 aTargets: [3]
             },
             {
+                bSortable: false,
                 mRender: function (data, type, full) {
                     return data + " EC";
                 },
                 aTargets: [5]
-            }
+            },
+            {
+                bSortable: false,
+                aTargets: [6,8]
+            },
         ],
         order: [[1, "asc"]],
         initComplete: function () {
