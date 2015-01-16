@@ -13,7 +13,7 @@
 
             <div class="col-md-12">
                 <div class="pull-right">
-                    <a class="btn btn-success" data-toggle="modal" data-target="#user-add" href="#" ><i class="fa fa-plus"></i> Nieuwe gebruiker</a>
+                    <a class="btn btn-success" data-toggle="modal" data-target="#user-add" href="#"><i class="fa fa-plus"></i> Nieuwe gebruiker</a>
                 </div>
                 <h2 style="margin-top: 0">Gebruikers</h2>
             </div>
@@ -88,15 +88,6 @@
                 }
             });
 
-            function fnContains(a, obj) {
-                for (var i = 0; i < a.length; i++) {
-                    if (a[i] === obj) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
             $("#users").dataTable({
                 dom:
                     "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
@@ -109,7 +100,7 @@
                 aoColumnDefs: [
                     { 'bSortable': false, 'aTargets': [4] }
                 ],
-                initComplete: function () {
+                initComplete: function () { // rolfilter
                     var table = $('#users').DataTable();
                     $("#users tfoot th").each(function (i) {
                         var columns = [3];
@@ -127,9 +118,9 @@
                         });
                     });
                 }
-			});
-			
-			$(function () {
+            });
+
+            $(function () {
                 // SELECT2
                 $("#systeemrolCreate").select2({
                     placeholder: "-- Kies een systeemrol --"
@@ -138,5 +129,6 @@
                     placeholder: "-- Kies een systeemrol --"
                 });
             });
+        });
     </script>
 }
