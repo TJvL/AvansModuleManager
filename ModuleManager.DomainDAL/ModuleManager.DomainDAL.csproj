@@ -153,7 +153,6 @@
     <Compile Include="Tag.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="Weekplanning.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>

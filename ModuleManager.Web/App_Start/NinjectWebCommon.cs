@@ -74,15 +74,15 @@ namespace ModuleManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             // Domain entity repositories:
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Fase>>().To<DummyFaseRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<DummyModuleRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Tag>>().To<DummyTagRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Blok>>().To<DummyBlokRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Niveau>>().To<DummyNiveauRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Schooljaar>>().To<DummySchooljaarRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Status>>().To<DummyStatusRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Competentie>>().To<CompetentieRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Fase>>().To<FaseRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Leerlijn>>().To<LeerlijnRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<ModuleRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Tag>>().To<TagRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Blok>>().To<BlokRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Niveau>>().To<NiveauRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Schooljaar>>().To<SchooljaarRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Status>>().To<StatusRepository>();
             // UnitOfWork session for repositories to use:
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
