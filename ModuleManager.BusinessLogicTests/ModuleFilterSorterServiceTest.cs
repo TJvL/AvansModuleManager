@@ -28,7 +28,8 @@ namespace ModuleManager.BusinessLogicTests
         public void TestFilterSorterCombo()
         {
             Arguments args = new Arguments();
-            args.SortFor.Add("Naam", true);
+            args.SortBy = "Naam";
+            args.SortDesc = true;
 
             List<string> tags = new List<string>();
             tags.Add("C#");

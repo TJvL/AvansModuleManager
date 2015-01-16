@@ -28,16 +28,15 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             base.Export(toExport, sect);
 
             //custom code
-            Paragraph p = sect.AddParagraph();
-            p.AddText("Tags");
+            Paragraph p = sect.AddParagraph("Relevante Tags", "Heading2");
             p.AddLineBreak();
 
+            p = sect.AddParagraph();
             foreach (Tag t in toExport.Tag) 
             {
                 p.AddText(" - " + t.Naam);
                 p.AddLineBreak();
             }
-            p.AddLineBreak();
 
             return sect;
         }

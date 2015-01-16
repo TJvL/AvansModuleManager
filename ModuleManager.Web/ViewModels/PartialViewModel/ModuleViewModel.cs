@@ -14,6 +14,7 @@
         public string CursusCode { get; set; }
         public string Blokken { get; set; }
         public decimal TotalEc { get; set; }
+        public int Schooljaar { get; set; }
 
         /// <summary>
         /// Onderdeel van de Admin/CheckModules

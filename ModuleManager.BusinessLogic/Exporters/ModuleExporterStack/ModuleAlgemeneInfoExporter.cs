@@ -1,4 +1,5 @@
 ﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
 using ModuleManager.DomainDAL;
 using System;
@@ -29,12 +30,59 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             //custom code
             Paragraph p = sect.AddParagraph();
-            p.AddText("Algemene Info");
             p.AddLineBreak();
-            p.AddText("Schooljaar: " + toExport.Schooljaar);
-            p.AddLineBreak();
-            p.AddText("PLACEHOLDER ITEM");
-            p.AddLineBreak();
+            p.AddText("Algemene Informatie");
+            p.Style = "Heading2";
+
+            Table table = sect.AddTable();
+            table.Borders.Width = 0.75;
+            table.Borders.Color = Colors.DarkGray;
+
+            Column keyCol = table.AddColumn(Unit.FromCentimeter(3));
+            //Second Column will spread over the remainder of the page.
+            Column infoCol = table.AddColumn();
+            infoCol.Width = sect.Document.DefaultPageSetup.PageWidth - sect.Document.DefaultPageSetup.RightMargin - sect.Document.DefaultPageSetup.LeftMargin - keyCol.Width;
+
+            Row row = table.AddRow();
+            row.Cells[0].AddParagraph("Schooljaar");
+            row.Cells[1].AddParagraph("20" + toExport.Schooljaar.ToString().Substring(0, 2) + "-20" + toExport.Schooljaar.ToString().Substring(2));
+
+            row = table.AddRow();
+            row.Cells[0].AddParagraph("Blokken");
+            Paragraph pCell = row.Cells[1].AddParagraph();
+
+            bool notFirstIteration = false;
+
+            foreach(FaseModules fm in toExport.FaseModules)
+            {
+                if (notFirstIteration) { pCell.AddText(", "); }
+                pCell.AddText("Blok " + fm.Blok);
+                notFirstIteration = true;
+            }
+
+            row = table.AddRow();
+            row.Cells[0].AddParagraph("Cursus Code");
+            row.Cells[1].AddParagraph(toExport.CursusCode);
+
+            row = table.AddRow();
+            row.Cells[0].AddParagraph("Toetsen");
+            foreach (StudiePunten sp in toExport.StudiePunten) 
+            {
+                row.Cells[1].AddParagraph(" - " + sp.ToetsCode + ": " + sp.EC + " EC");
+            }
+
+            row = table.AddRow();
+            row.Cells[0].AddParagraph("Werkvormen");
+            pCell = row.Cells[1].AddParagraph();
+            notFirstIteration = false;
+            foreach(ModuleWerkvorm wv in toExport.ModuleWerkvorm)
+            {
+                if (notFirstIteration) { pCell.AddText("+"); }
+                pCell.AddText(wv.WerkvormType);
+                notFirstIteration = true;
+            }
+
+            p = sect.AddParagraph();
             p.AddLineBreak();
 
             return sect;

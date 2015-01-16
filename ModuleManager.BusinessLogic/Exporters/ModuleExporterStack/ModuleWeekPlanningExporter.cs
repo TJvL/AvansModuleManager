@@ -1,4 +1,5 @@
 ﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
 using ModuleManager.DomainDAL;
 using System;
@@ -28,11 +29,28 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             base.Export(toExport, sect);
 
             //custom code
-            Paragraph p = sect.AddParagraph();
-            p.AddText("Weekplanning");
+            Paragraph p = sect.AddParagraph("Weekplanning", "Heading2");
             p.AddLineBreak();
-            p.AddText("PLACEHOLDER");
-            p.AddLineBreak();
+
+            Table table = sect.AddTable();
+            Column weekCol = table.AddColumn(Unit.FromCentimeter(1.5));
+            Column subjectCol = table.AddColumn();
+            subjectCol.Width = sect.Document.DefaultPageSetup.PageWidth - sect.Document.DefaultPageSetup.RightMargin - sect.Document.DefaultPageSetup.LeftMargin - weekCol.Width;
+            table.Borders.Width = 0.75;
+            table.Borders.Color = Colors.DarkGray;
+
+            Row row = table.AddRow();
+            row.Cells[0].AddParagraph("Week").Format.Font.Bold = true;
+            row.Cells[1].AddParagraph("Onderwerpen").Format.Font.Bold = true;
+
+            foreach (Weekplanning wp in toExport.Weekplanning) 
+            {
+                row = table.AddRow();
+                row.Cells[0].AddParagraph(wp.Week);
+                row.Cells[1].AddParagraph(wp.Onderwerp);
+            }
+
+            p = sect.AddParagraph();
             p.AddLineBreak();
 
             return sect;
