@@ -36,6 +36,7 @@ function initDatatable() {
             type: "POST",
             data: function (d) {
                 d.filter = getFilters();
+                d.orderBy = getOrder();
             }
         },
         columns: [
@@ -202,6 +203,19 @@ function getExports() {
         Competenties: $("input[name='Competenties']").is(":checked"),
         Leerlijnen: $("input[name='Leerlijnen']").is(":checked"),
         Tags: $("input[name='Tags']").is(":checked")
+    }
+
+    return data;
+
+}
+
+function getOrder() {
+    var column = $("#modules").dataTable().fnSettings().aaSorting[0][0];
+    var dir = $("#modules").dataTable().fnSettings().aaSorting[0][1];
+
+    data = {
+        column: column,
+        dir: dir
     }
 
     return data;
