@@ -2,6 +2,7 @@
 using ModuleManager.DomainDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using AutoMapper;
+using ModuleManager.UserDAL;
 
 namespace ModuleManager.Web
 {
@@ -21,7 +22,13 @@ namespace ModuleManager.Web
                 .ForMember(dest => dest.Docenten, opt => opt.MapFrom(
                     src => string.Join(Delimiter, src.Docent.Select(inSrc => inSrc.Name))));
 
-            //AutoMapper.Mapper.CreateMap<User, UserViewModel>();
+            Mapper.CreateMap<User, UserViewModel>()
+                .ForMember(dest => dest.Naam, opt => opt.MapFrom(
+                    src => src.naam))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(
+                    src => src.email))
+                .ForMember(dest => dest.GebruikersNaam, opt => opt.MapFrom(
+                    src => src.UserNaam));
         }
     }
 }

@@ -8,9 +8,9 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     public class UserListViewModel
     {
 
-        public ICollection<UserViewModel> Users { get; set; }
+        public ICollection<UserViewModel> Data { get; set; }
 
-        public int RecordsFiltered { get { return Users.Count; } }
+        public int RecordsFiltered { get { return Data.Count; } }
 
         public int RecordsTotal { get; private set; }
 
@@ -25,10 +25,10 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
         public void AddUsers(IEnumerable<User> userList)
         {
-            Users = userList
+            Data = userList
                 .Select(Mapper.Map<User, UserViewModel>)
                 .ToList();
-            
+
         }
     }
 }

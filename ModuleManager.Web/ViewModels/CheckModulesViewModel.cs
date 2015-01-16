@@ -2,15 +2,17 @@
 
 namespace ModuleManager.Web.ViewModels
 {
-    public class AdminCheckModuleViewModel
+    public class CheckModulesViewModel
     {
         /// <summary>
         /// Module-informatie zichtbaar in het overview
         /// </summary>
         public ModuleListViewModel ModuleViewModels { get; set; }
+
         /// <summary>
-        /// Bevat configuratie/argumenten/instellingen voor de filters en de sortering van het moduleoverzicht
+        /// Gebruikers-informatie die wordt weergegeven in het gebruikersoverview
+        /// Bevat gebruikersnaam & gebruikersrol & email
         /// </summary>
-        public FilterOptionsViewModel FilterAndSortingConfig { get; set; }
+        public UserListViewModel Users { get; set; }
     }
 }
