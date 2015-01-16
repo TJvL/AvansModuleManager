@@ -17,6 +17,16 @@ $(function () {
         exportModules();
     });
 
+
+    $("#modules").on("click", "tbody tr", function () {
+
+        var cursusCode = $(this).find(".cursusCode").html();
+
+        // TODO: 1415 niet hardcoded
+        window.location = "/Module/1415/" + cursusCode;
+    });
+
+
 });
 
 function initDatatable() {
@@ -47,8 +57,7 @@ function initDatatable() {
             { "data": "TotalEc" },
             { "data": "FaseNamen" },
             { "data": "Verantwoordelijke" },
-            { "data": "Docenten" },
-            { "data": "CursusCode" },
+            { "data": "Docenten" }
         ],
         aoColumnDefs: [
             {
@@ -67,18 +76,15 @@ function initDatatable() {
             },
             {
                 mRender: function (data, type, full) {
+                    return '<span class="cursusCode">' + data + '</span>';
+                },
+                aTargets: [2]
+            },
+            {
+                mRender: function (data, type, full) {
                     return data + " EC";
                 },
                 aTargets: [4]
-            },
-            {
-                sClass: "text-center",
-                sTitle: "<input type=\"checkbox\" id=\"checkbox-select-all\"></input>",
-                mRender: function (data, type, full) {
-                    return "<input type=\"checkbox\" class=\"checkbox-module\" data-export=\"data\" />";
-                },
-                bSortable: false,
-                aTargets: [8]
             }
         ],
         order: [[1, "asc"]],

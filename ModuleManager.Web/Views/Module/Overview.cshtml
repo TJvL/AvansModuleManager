@@ -226,7 +226,6 @@
                                 <th>Fase('s)</th>
                                 <th>Verantwoordelijke</th>
                                 <th>Docenten</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -294,6 +293,12 @@
         <b class="fa fa-download"></b>
     </a>
 </div>
+
+<style>
+    #modules tbody tr td {
+        cursor: pointer;
+    }
+</style>
 
 <!-- Help MODAL -->
 @Html.Partial("~/Views/Help/ModuleOverview.cshtml", null)
