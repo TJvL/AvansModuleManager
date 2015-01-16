@@ -126,8 +126,8 @@ namespace ModuleManager.Web.Controllers
             ICollection<string> faseFilters = null;
             if (value.Filters.Fases.First() != null) faseFilters = value.Filters.Fases;
 
-            ICollection<int> blokFilters = null;
-            if ((value.Filters.Blokken.First() != null)&&(value.Filters.Blokken.First() != "")) blokFilters = Array.ConvertAll(value.Filters.Blokken.ToArray(), int.Parse);
+            ICollection<string> blokFilters = null;
+            if ((value.Filters.Blokken.First() != null)&&(value.Filters.Blokken.First() != "")) blokFilters = value.Filters.Blokken.ToArray();
 
             string zoektermFilter = null;
             if (value.Filters.Zoekterm != null) zoektermFilter = value.Filters.Zoekterm;
