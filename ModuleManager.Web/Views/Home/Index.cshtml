@@ -4,11 +4,13 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
                     <h1 style="font-size: 4em">Informatica Modules</h1><br />
-                    <input name="search" type="text" class="form-control search-query ajax input-lg" placeholder="Zoekterm" />
+                    <!--<input name="search" type="text" class="form-control search-query ajax input-lg" placeholder="Zoekterm" />-->
                     <div class="text-center">
-                        <br />
-                        <a href="@Url.Action("Overview", "Module")" class="btn btn-md btn-success">Module zoeken</a>
-                        <a href="@Url.Action("Overview", "Module")" class="btn btn-md btn-default">Ik doe een gok</a>
+                        <a class="btn btn-default fa-button-big" href="@Url.Action("LessenTabel","Module")"><i class="fa fa-table fa-big"></i><br />Lessentabellen</a>
+                        <a class="btn btn-default fa-button-big" href="@Url.Action("Overview","Module")"><i class="fa fa-search fa-big"></i><br />Module Overzicht</a>
+                        <!--<br/>-->
+                        <!--<a href="Url.Action("Overview", "Module")" class="btn btn-md btn-success">Module zoeken</a>-->
+                        <!--<a href="Url.Action("Overview", "Module")" class="btn btn-md btn-default">Ik doe een gok</a>-->
                     </div>
                 </div>
             </div>
