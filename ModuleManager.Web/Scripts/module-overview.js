@@ -100,7 +100,7 @@ function initDatatable() {
             },
             {
                 bSortable: false,
-                aTargets: [6,8]
+                aTargets: [4,6,8]
             },
         ],
         order: [[1, "asc"]],
