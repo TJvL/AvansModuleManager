@@ -21,6 +21,16 @@ namespace ModuleManager.Web
                 .ForMember(dest => dest.Docenten, opt => opt.MapFrom(
                     src => string.Join(Delimiter, src.Docent.Select(inSrc => inSrc.Name))));
 
+            Mapper.CreateMap<Module, ModuleTabelViewModel>()
+                .ForMember(dest => dest, opt => opt.MapFrom(
+                    src => src)) // TODO:
+                .ForMember(dest => dest, opt => opt.MapFrom(
+                    src => src)) // TODO:
+                .ForMember(dest => dest, opt => opt.MapFrom(
+                    src => src)) // TODO:
+                .ForMember(dest => dest, opt => opt.MapFrom(
+                    src => src));
+
             //AutoMapper.Mapper.CreateMap<User, UserViewModel>();
         }
     }

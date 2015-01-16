@@ -284,6 +284,7 @@
     <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\TableController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -293,9 +294,12 @@
     <Compile Include="ViewModels\AdminCheckModuleViewModel.cs" />
     <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
     <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />
+    <Compile Include="ViewModels\LessenTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\LesTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserListViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
@@ -359,6 +363,7 @@
     <Content Include="Views\Admin\Users\Add.cshtml" />
     <Content Include="Views\Admin\Users\Lock.cshtml" />
     <Content Include="Views\Admin\Users\Delete.cshtml" />
+    <Content Include="Views\Table\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
