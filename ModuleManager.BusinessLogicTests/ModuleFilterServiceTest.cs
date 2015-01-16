@@ -118,7 +118,7 @@ namespace ModuleManager.BusinessLogicTests
             int leerjaar = 1415;
 
             List<int> EC = new List<int>();
-            EC.Add(5);
+            EC.Add(3);
 
             string status = "Comple";
 
