@@ -42,7 +42,7 @@ namespace ModuleManager.BusinessLogic.Services
             //Here starts the real exporting
             Section sect = prePdf.AddSection();
 
-            ExportOptions opt = new ExportOptions(){ ExportAll = true };
+            ExportArguments opt = new ExportArguments(){ ExportAll = true };
 
             ModuleExporterFactory mef = new ModuleExporterFactory();
             moduleExporterStrategy = mef.GetStrategy(opt);
