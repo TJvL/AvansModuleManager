@@ -97,7 +97,7 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return ms;
+            return new BufferedStream(ms);
         }
 
         public Stream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
@@ -109,7 +109,7 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return ms;
+            return new BufferedStream(ms);
         }
 
         private void DefineStyles(Document doc) 
