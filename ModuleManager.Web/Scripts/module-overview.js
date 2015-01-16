@@ -20,10 +20,10 @@ $(function () {
 
     $("#modules").on("click", "tbody tr", function () {
 
-        var cursusCode = $(this).find(".cursusCode").html();
+        var year = $(this).find(".cursusCode").data("year");
+        var cursusCode = $(this).find(".cursusCode").data("code")
 
-        // TODO: 1415 niet hardcoded
-        window.location = "/Module/1415/" + cursusCode;
+        window.location = "/Module/" + year + "/" + cursusCode;
     });
 
 
@@ -53,6 +53,7 @@ function initDatatable() {
             { "data": "Icon" },
             { "data": "Naam" },
             { "data": "CursusCode" },
+            { "data": "Schooljaar" },
             { "data": "Blokken" },
             { "data": "TotalEc" },
             { "data": "FaseNamen" },
@@ -76,7 +77,7 @@ function initDatatable() {
             },
             {
                 mRender: function (data, type, full) {
-                    return '<span class="cursusCode">' + data + '</span>';
+                    return '<span class="cursusCode" data-year="' + full['Schooljaar'] + '" data-code="' + data + '">' + data + '</span>';
                 },
                 aTargets: [2]
             },
@@ -84,7 +85,7 @@ function initDatatable() {
                 mRender: function (data, type, full) {
                     return data + " EC";
                 },
-                aTargets: [4]
+                aTargets: [5]
             }
         ],
         order: [[1, "asc"]],
