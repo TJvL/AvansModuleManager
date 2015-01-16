@@ -116,5 +116,11 @@ namespace ModuleManager.Web.Controllers
 
             return new FileStreamResult(fStream, "application/pdf");
         }
+
+        [HttpGet]
+        public ActionResult LessenTabel()
+        {
+            return View();
+        }
     }
 }

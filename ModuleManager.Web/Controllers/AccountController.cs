@@ -62,7 +62,7 @@ namespace ModuleManager.Web.Controllers
                     }
 
                     Response.Cookies.Add(cookie);
-                    return RedirectToAction("Overview", "Module");
+                    return RedirectToAction("Index", "Home");
                    
                 }
                 else
@@ -133,7 +133,7 @@ namespace ModuleManager.Web.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("LogIn", "Account");
+            return RedirectToAction("Index", "Home");
         }
 
         private bool AuthenticateUser(String username, String password)
