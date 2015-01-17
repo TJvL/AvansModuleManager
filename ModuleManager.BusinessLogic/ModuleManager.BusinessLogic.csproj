@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Arguments.cs" />
-    <Compile Include="Data\ExportOptions.cs" />
+    <Compile Include="Data\ExportArguments.cs" />
     <Compile Include="Data\ModuleExportablePack.cs" />
     <Compile Include="Data\ModuleQueryablePack.cs" />
     <Compile Include="Exporters\ModuleBaseExporter.cs" />

@@ -54,7 +54,7 @@ namespace ModuleManager.BusinessLogic.Data
         /// <summary>
         /// Geselecteerde/mogelijke blok(ken) om op te filteren
         /// </summary>
-        public ICollection<int> BlokFilters { get; set; }
+        public ICollection<string> BlokFilters { get; set; }
         /// <summary>
         /// Geselecteerde/mogelijke EC(s) om op te filteren
         /// </summary>
