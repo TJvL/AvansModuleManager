@@ -7,19 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
+namespace ModuleManager.UserDAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class StudiePunten
+    public partial class sp_helpdiagrams_Result
     {
-        public string CursusCode { get; set; }
-        public int Schooljaar { get; set; }
-        public string ToetsCode { get; set; }
-        public decimal EC { get; set; }
-        public string Minimum { get; set; }
-    
-        public virtual Module Module { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

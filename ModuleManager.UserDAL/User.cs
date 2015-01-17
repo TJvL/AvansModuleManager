@@ -17,9 +17,9 @@ namespace ModuleManager.UserDAL
         public string UserNaam { get; set; }
         public string Wachtwoord { get; set; }
         public string SysteemRol { get; set; }
-        public bool Blocked { get; set; }
         public string email { get; set; }
         public string naam { get; set; }
+        public bool Blocked { get; set; }
     
         public virtual SysteemRol SysteemRol1 { get; set; }
     }

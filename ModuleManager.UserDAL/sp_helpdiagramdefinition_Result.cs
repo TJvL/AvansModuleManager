@@ -7,20 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
+namespace ModuleManager.UserDAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Toetsvorm
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public Toetsvorm()
-        {
-            this.StudiePunten = new HashSet<StudiePunten>();
-        }
-    
-        public string Type { get; set; }
-    
-        public virtual ICollection<StudiePunten> StudiePunten { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

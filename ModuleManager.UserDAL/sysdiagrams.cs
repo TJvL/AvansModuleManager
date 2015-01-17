@@ -7,20 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.DomainDAL
+namespace ModuleManager.UserDAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Onderdeel
+    public partial class sysdiagrams
     {
-        public Onderdeel()
-        {
-            this.Module = new HashSet<Module>();
-        }
-    
-        public string Code { get; set; }
-    
-        public virtual ICollection<Module> Module { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
