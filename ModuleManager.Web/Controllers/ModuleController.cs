@@ -178,10 +178,10 @@ namespace ModuleManager.Web.Controllers
 
             string saveTo = DateTime.Now.ToString("yyyy-MM-dd") + "_" + expByName;
             Session[saveTo] = fStream;
-            //HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
-            //return new FileStreamResult(fStream, "application/pdf");
-            //return RedirectToAction("Custom", saveTo);
+            //Return the filename under which you can retrieve it from Session data.
+            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/{saveTo}
+            //This redirect will be caught in the controller action below here.
             return Json(saveTo);
         }
 
