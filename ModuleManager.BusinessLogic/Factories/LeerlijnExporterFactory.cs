@@ -58,6 +58,28 @@ namespace ModuleManager.BusinessLogic.Factories
                     strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Leerlijn>;
                 }
             }
+
+            if (opt.ExportAll || opt.ExportModules)
+            {
+                Type t = usableTypes["LeerlijnModulesExporter"];
+                var ctor = t.GetConstructor(typeArgs);
+                if (ctor != null)
+                {
+                    object[] parameters = { strategy };
+                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Leerlijn>;
+                }
+            }
+
+            if (opt.ExportAll || opt.ExportCompetenties)
+            {
+                Type t = usableTypes["LeerlijnCompetentiesExporter"];
+                var ctor = t.GetConstructor(typeArgs);
+                if (ctor != null)
+                {
+                    object[] parameters = { strategy };
+                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Leerlijn>;
+                }
+            }
             
             return strategy;
         }
