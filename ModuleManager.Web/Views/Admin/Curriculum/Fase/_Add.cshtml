@@ -1,9 +1,9 @@
 ﻿@using ModuleManager.DomainDAL
-@model  ModuleManager.DomainDAL.Competentie
+@model  ModuleManager.DomainDAL.Fase
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h4 class="modal-title" id="CompetentieEdit">Competentie bewerken</h4>
+    <h4 class="modal-title" id="FaseAdd">Fase toevoegen</h4>
 </div>
 
 @using (Html.BeginForm())
@@ -12,9 +12,9 @@
         @Html.AntiForgeryToken()
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Code)
-            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.FaseType)
+            @Html.EditorFor(model => model.FaseType, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FaseType, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
@@ -22,7 +22,7 @@
             @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Naam, "", new { @class = "text-danger" })
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Beschrijving)
             @Html.TextAreaFor(model => model.Beschrijving, new { @class = "form-control" })
