@@ -80,7 +80,7 @@ namespace ModuleManager.Web.Controllers.Api
                 dir = false;
             }
 
-            var arguments = new Arguments
+            var arguments = new ModuleFilterSorterArguments
             {
                 CompetentieFilters = competentieFilters,
                 TagFilters = tagFilters,

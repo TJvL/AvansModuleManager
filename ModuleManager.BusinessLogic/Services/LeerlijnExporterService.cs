@@ -102,7 +102,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="toExport">element to export</param>
         /// <returns>Stream to offer as download</returns>
-        public Stream ExportAsStream(Leerlijn toExport)
+        public BufferedStream ExportAsStream(Leerlijn toExport)
         {
             MemoryStream ms = new MemoryStream();
             Export(toExport).Save(ms, false);
@@ -111,7 +111,7 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return ms;
+            return new BufferedStream(ms);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="pack">pack containing elements to export and arguments to specify the format</param>
         /// <returns>Stream to offer as download</returns>
-        public Stream ExportAllAsStream(IExportablePack<Leerlijn> pack)
+        public BufferedStream ExportAllAsStream(IExportablePack<Leerlijn> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);
@@ -128,7 +128,7 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return ms;
+            return new BufferedStream(ms);
         }
 
         /// <summary>

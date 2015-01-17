@@ -102,7 +102,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="toExport">element to export</param>
         /// <returns>Stream to offer as download</returns>
-        public Stream ExportAsStream(DomainDAL.Module toExport)
+        public BufferedStream ExportAsStream(DomainDAL.Module toExport)
         {
             MemoryStream ms = new MemoryStream();
             Export(toExport).Save(ms, false);
@@ -111,7 +111,7 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return ms;
+            return new BufferedStream(ms);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="pack"></param>
         /// <returns>Stream to offer as download</returns>
-        public Stream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
+        public BufferedStream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);
@@ -128,7 +128,7 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return ms;
+            return new BufferedStream(ms);
         }
 
         /// <summary>

@@ -135,7 +135,7 @@ namespace ModuleManager.Web.Controllers
             int leerjaarFilter = 0;
             if (value.Filters.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filters.Leerjaar);
 
-            var arguments = new Arguments
+            var arguments = new ModuleFilterSorterArguments
             {
                 CompetentieFilters = competentieFilters,
                 TagFilters = tagFilters,
@@ -149,7 +149,7 @@ namespace ModuleManager.Web.Controllers
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
 
-            var exportArguments = new ExportArguments
+            var exportArguments = new ModuleExportArguments
             {
                 ExportCursusCode = value.Export.CursusCode,
                 ExportNaam = value.Export.Naam,
