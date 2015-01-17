@@ -7,14 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.UserDAL {
-    public partial class User {
+namespace ModuleManager.UserDAL
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class User
+    {
         public string UserNaam { get; set; }
         public string Wachtwoord { get; set; }
         public string SysteemRol { get; set; }
+        public bool Blocked { get; set; }
         public string email { get; set; }
         public string naam { get; set; }
-
+    
         public virtual SysteemRol SysteemRol1 { get; set; }
     }
 }
