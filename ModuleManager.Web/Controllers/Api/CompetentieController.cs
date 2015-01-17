@@ -24,26 +24,30 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Competentie/Get/{schooljaar}/{key}")]
         public Competentie GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _competentieRepository.GetOne(keys);
+            var competentie = _competentieRepository.GetOne(new object[] { schooljaar, key });
+            _competentieRepository.SaveAndClose();
+            return competentie;
         }
 
         [HttpPost, Route("api/Competentie/Delete")]
-        public bool Delete(Competentie entity)
+        public void Delete(Competentie entity)
         {
-            return _competentieRepository.Delete(entity);
+            _competentieRepository.Delete(entity);
+            _competentieRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Competentie/Edit")]
-        public bool Edit(Competentie entity)
+        public void Edit(Competentie entity)
         {
-            return _competentieRepository.Edit(entity);
+            _competentieRepository.Edit(entity);
+            _competentieRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Competentie/Create")]
-        public bool Create(Competentie entity)
+        public void Create(Competentie entity)
         {
-            return _competentieRepository.Create(entity);
+            _competentieRepository.Create(entity);
+            _competentieRepository.SaveAndClose();
         }
     }
 }
