@@ -12,7 +12,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
     public class ModuleLeerjaarFilter : ModuleBaseFilter
     {
         public ModuleLeerjaarFilter(IFilter<Module> parent) : base(parent) { }
-        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
             if (args.LeerjaarFilter != 0) //quickfix. int cannot be NULL, so it takes "leerjaar = 0" without argument
             {

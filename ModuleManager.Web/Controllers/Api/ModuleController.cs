@@ -49,7 +49,7 @@ namespace ModuleManager.Web.Controllers.Api
             int leerjaarFilter = 0;
             if (value.Filter.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filter.Leerjaar);
 
-            var arguments = new Arguments
+            var arguments = new ModuleFilterSorterArguments
             {
                 CompetentieFilters = competentieFilters,
                 TagFilters = tagFilters,

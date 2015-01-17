@@ -12,7 +12,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
     public class ModuleFaseNamenFilter : ModuleBaseFilter
     {
         public ModuleFaseNamenFilter(IFilter<Module> parent) : base(parent) { }
-        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
             if (args.FaseFilters != null)
             {

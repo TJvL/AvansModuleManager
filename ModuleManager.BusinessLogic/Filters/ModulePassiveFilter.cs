@@ -20,7 +20,7 @@ namespace ModuleManager.BusinessLogic.Filters
         /// <param name="toQuery">The input data</param>
         /// <param name="args">Apliccable arguments</param>
         /// <returns>The returned data</returns>
-        public IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args) 
+        public IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args) 
         {
             return toQuery;
         }

@@ -32,7 +32,7 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void TestMultiModulePdfOutput() 
         {
-            ExportOptions opt = new ExportOptions(){ ExportAll = true };
+            ModuleExportArguments opt = new ModuleExportArguments(){ ExportAll = true };
             ModuleExportablePack pack = new ModuleExportablePack(opt, data);
             PdfDocument pdf = mes.ExportAll(pack);
             pdf.Save("D:\\Education\\Proj_blk6\\TestIO\\pdf_FULL.pdf");

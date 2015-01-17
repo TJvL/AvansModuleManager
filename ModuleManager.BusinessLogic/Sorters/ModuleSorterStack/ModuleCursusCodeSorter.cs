@@ -13,7 +13,7 @@ namespace ModuleManager.BusinessLogic.Sorters.ModuleSorterStack
     {
         public ModuleCursusCodeSorter(ISorter<Module> parent) : base(parent) { }
 
-        public override IQueryable<Module> Sort(IQueryable<Module> toSort, Arguments args) 
+        public override IQueryable<Module> Sort(IQueryable<Module> toSort, ModuleFilterSorterArguments args) 
         {
             if (args.SortBy.Equals("CursusCode")) 
             {

@@ -12,7 +12,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
     public class ModuleTagFilter : ModuleBaseFilter
     {
         public ModuleTagFilter(IFilter<Module> parent) : base(parent) { }
-        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
             if (args.TagFilters != null)
             {

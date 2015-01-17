@@ -19,6 +19,6 @@ namespace ModuleManager.BusinessLogic.Interfaces.Filters
         /// <param name="toQuery">Data</param>
         /// <param name="args">Arguments Object</param>
         /// <returns>Queried Data</returns>
-        IQueryable<T> Filter(IQueryable<T> toQuery, Arguments args);
+        IQueryable<T> Filter(IQueryable<T> toQuery, ModuleFilterSorterArguments args);
     }
 }
