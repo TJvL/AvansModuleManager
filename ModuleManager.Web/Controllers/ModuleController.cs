@@ -69,6 +69,13 @@ namespace ModuleManager.Web.Controllers
             {
                 FilterOptions = filterOptions
             };
+            _blokRepository.SaveAndClose();
+            _competentieRepository.SaveAndClose();
+            _faseRepository.SaveAndClose();
+            _schooljaarRepository.SaveAndClose();
+            _leerlijnRepository.SaveAndClose();
+            _tagRepository.SaveAndClose();
+
             return View(moduleOverviewVm);
         }
 

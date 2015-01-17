@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
@@ -18,7 +19,9 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Competentie/Get")]
         public IEnumerable<Competentie> GetAll()
         {
-            return _competentieRepository.GetAll();
+            var competenties = _competentieRepository.GetAll().ToArray();
+            _competentieRepository.SaveAndClose();
+            return competenties;
         }
 
         [HttpGet, Route("api/Competentie/Get/{schooljaar}/{key}")]
