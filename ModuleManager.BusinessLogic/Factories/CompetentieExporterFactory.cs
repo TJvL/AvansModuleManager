@@ -58,6 +58,17 @@ namespace ModuleManager.BusinessLogic.Factories
                     strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Competentie>;
                 }
             }
+
+            if (opt.ExportAll || opt.ExportCode)
+            {
+                Type t = usableTypes["CompetentieCodeExporter"];
+                var ctor = t.GetConstructor(typeArgs);
+                if (ctor != null)
+                {
+                    object[] parameters = { strategy };
+                    strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Competentie>;
+                }
+            }
             
             return strategy;
         }

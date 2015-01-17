@@ -69,6 +69,7 @@
     <Compile Include="Data\ModuleExportablePack.cs" />
     <Compile Include="Data\ModuleQueryablePack.cs" />
     <Compile Include="Exporters\CompetentieBaseExporter.cs" />
+    <Compile Include="Exporters\CompetentieExporterStack\CompetentieCodeExporter.cs" />
     <Compile Include="Exporters\CompetentieExporterStack\CompetentieNaamExporter.cs" />
     <Compile Include="Exporters\CompetentiePassiveExporter.cs" />
     <Compile Include="Exporters\LeerlijnBaseExporter.cs" />

@@ -12,5 +12,7 @@ namespace ModuleManager.BusinessLogic.Data
         /// true if name needs to be exported
         /// </summary>
         public bool ExportNaam { get; set; }
+
+        public bool ExportCode { get; set; }
     }
 }
