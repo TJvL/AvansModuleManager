@@ -1,5 +1,5 @@
-﻿@using ModuleManager.DomainDAL
-@model ModuleManager.Web.ViewModels.AdminCheckModuleViewModel
+﻿@model ModuleManager.Web.ViewModels.CheckModulesViewModel
+
 <div class="container">
     <div class="row">
 
@@ -18,151 +18,55 @@
         <div id="primary" class="col-md-12">
             <div id="items" class="row">
                 <div class="col-md-12">
-                    <table class="table table-hover">
+                    <table id="modules" class="table table-hover">
                         <thead>
-                        <tr>
-                            <td colspan="2">
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <label class="control-label" for="sortorder">Sorteer op: </label>
-                                        <select class="form-control input-sm" id="sortorder" style="width:200px;">
-                                            <option>Alfabetisch</option>
-                                            <option>EC's</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                            <td colspan="5" class="text-right">
-                                <div class="dropdown" style="display: inline">
-                                    <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href="#">
-                                        Weergave
-                                        <b class="caret"></b>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-form" role="menu">
-                                        <li>
-                                            <label class="checkbox">
-                                                <input type="checkbox" checked>
-                                                Naam
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox">
-                                                <input type="checkbox" checked>
-                                                Vakcode
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox">
-                                                <input type="checkbox" checked>
-                                                Blok
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox">
-                                                <input type="checkbox">
-                                                Aantal EC
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox">
-                                                <input type="checkbox">
-                                                Leerjaar
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Naam</th>
+                                <th>Cursuscode</th>
+                                <th>Blokken</th>
+                                <th>Fase</th>
+                                <th>Verantwoordelijke</th>
+                                <th>Status</th>
+                                <th>Reminder</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Blokken</th>
+                                <th>Fase</th>
+                                <th>Status</th>
+                            </tr>
+                        </tfoot>
                         <tbody>
-                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
-                                <td class="icon"><i class="fa fa-paint-brush"></i></td>
-                                <td class="information">
-                                    <p class="name">Interaction Design Principles</p>
-                                    <p class="instructors">Koen van Brero;  Bert Hoeks;  Ger Saris;  Paul Wagener</p>
-                                </td>
-                                <td class="code">INIDPRI</td>
-                                <td class="block">Blok 5</td>
-                                <td class="status">Incompleet</td>
 
-                                <td class="actions">
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
-                                </td>
-                            </tr>
-                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
-                                <td class="icon"><i class="fa fa-code"></i></td>
-                                <td class="information">
-                                    <p class="name">Programmeren 5 - C Sharp</p>
-                                    <p class="instructors">Bart Mutsaers;  Ger Saris;  Stijn Smulders</p>
-                                </td>
-                                <td class="code">INPROG5</td>
-                                <td class="block">Blok 5</td>
-                                <td class="status">Incompleet</td>
+                            @foreach (var item in @Model.ModuleViewModels.data)
+                            {
+                                <tr class="item" data-href="@Url.Action("Details", "Module", new RouteValueDictionary(new {schooljaar = @item.Schooljaar, cursusCode = @item.CursusCode}))">
+                                    <td class="icon"><i class="fa fa-paint-brush"></i></td>
+                                    <td class="information">
+                                        <p class="name">@item.Naam</p>
+                                        @*<p class="instructors">@item.Docenten</p>*@
+                                    </td>
+                                    <td class="code">@item.CursusCode</td>
+                                    <td class="block">@item.Blokken</td>
+                                    <td class="">@item.FaseNamen</td>
+                                    <td class="">@item.Verantwoordelijke</td>
+                                    <td class="status">@item.Status</td>
 
-                                <td class="actions">
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
-                                </td>
-                            </tr>
-                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
-                                <td class="icon"><i class="fa fa-table"></i></td>
-                                <td class="information">
-                                    <p class="name">Modelleren 3</p>
-                                    <p class="instructors">Ger Saris</p>
-                                </td>
-                                <td class="code">INMODL3</td>
-                                <td class="block">Blok 5</td>
-                                <td class="status">Incompleet</td>
+                                    @*<td class="status">
+                                            @{ var item1 = @item; }
+                                            @Model.Users.Data.First(src => src.Naam.Equals(item1.Verantwoordelijke)).Email
+                                        </td>*@
 
-                                <td class="actions">
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
-                                </td>
-                            </tr>
-                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
-                                <td class="icon"><i class="fa fa-database"></i></td>
-                                <td class="information">
-                                    <p class="name">Databases 4</p>
-                                    <p class="instructors">Reinier Dickhout;  Ger Saris</p>
-                                </td>
-                                <td class="code">INDATAB4</td>
-                                <td class="block">Blok 5</td>
-                                <td class="status">Incompleet</td>
-
-                                <td class="actions">
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
-                                </td>
-                            </tr>
-                            <tr class="item" data-href="@Url.Action("Details_Teacher_Temp", "Module")">
-                                <td class="icon"><i class="fa fa-phone"></i></td>
-                                <td class="information">
-                                    <p class="name">Telephoning</p>
-                                    <p class="instructors">Angelique van den Bogaard</p>
-                                </td>
-                                <td class="code">INTELPH</td>
-                                <td class="block">Blok 5</td>
-                                <td class="status">Incompleet</td>
-
-                                <td class="actions">
-                                    <a href="#"class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></a>
-                                </td>
-                            </tr>
+                                    <td class="actions">
+                                        <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
+                                    </td>
+                                </tr>
+                            }
 
                         </tbody>
                     </table>
-
-                    <div class="col-md-6">
-                        <ul class="pagination">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li class="active"><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <br />
-                        18 resultaten - Pagina 2 van 4
-                    </div>
-
                 </div>
             </div>
 
@@ -176,22 +80,82 @@
 <!-- Reminder MODAL-->
 @Html.Partial("~/Views/Admin/CheckModules/Reminder.cshtml", Model);
 
-<!-- JAVA MEUK -->
 @section Scripts {
+
+    <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
+
     <script>
-        $(function() {
+        $(function () {
             // THIS FOR ALL OVERVIEWS
-            $(".item td").on("click", function() {
+            $(".item td").on("click", function () {
                 if (!$(this).hasClass("actions")) {
                     window.location = $(this).parent().data("href");
                 }
             });
 
-            $('.dropdown-menu').on('click', function(e) {
+            $('.dropdown-menu').on('click', function (e) {
                 if ($(this).hasClass('dropdown-menu-form')) {
                     e.stopPropagation();
                 }
             });
+
+
+            function fnContains(a, obj) {
+                for (var i = 0; i < a.length; i++) {
+                    if (a[i] === obj) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            //"sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+
+            $("#modules").dataTable({
+                dom:
+                    "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-6'p><'col-sm-6'i>>",
+                language: {
+                    url: "/Scripts/dataTables.dutch.js"
+                },
+                order: [[1, "asc"]],
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [0] },
+                    { 'bSortable': false, 'aTargets': [7] }
+                ],
+                initComplete: function () {
+                    var table = $('#modules').DataTable();
+
+
+                    $("#modules tfoot th").each(function (i) {
+                        var columns = [3, 4, 6];
+                        var text = ["blok", "fase", "status"];
+                        var select = $('<select><option value="">' + text[i] + '-filter</option></select>')
+                            .appendTo($(this).empty()) // positie _ this = (#modules tfoot th)
+                            .on('change', function () {
+                                table.column(columns[i])
+                                    .search($(this).val())
+                                    .draw();
+                            });
+                        var buffer = "";
+                        table.column(columns[i]).data().unique().sort().each(function (d, j) { // concat all values from column to string
+                            buffer = buffer.concat(d + ",");
+                        });
+                        var split = buffer.split(","); // split all values from column to array
+                        var uniques = [];
+                        split.map(function (item) { // add distinct values from column to select-options
+                            var x = fnContains(uniques, item);
+                            if (!x && item !== "") {
+                                uniques.push(uniques, item);
+                                select.append('<option value="' + item + '">' + item + '</option>');
+                            }
+                        });
+                    });
+                }
+            });
+
         });
     </script>
 }
