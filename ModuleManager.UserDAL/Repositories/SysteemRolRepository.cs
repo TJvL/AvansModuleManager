@@ -8,15 +8,18 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.UserDAL.Repositories
 {
-    public class SysteemRolRepository : ISysteemRolRepository
+    public class SysteemRolRepository
     {
+        private UserContext _userContext;
+
+        public SysteemRolRepository()
+        {
+            _userContext =  new UserContext();
+        }
+
         public IEnumerable<SysteemRol> GetAll()
         {
-            using (var context = new UserContext())
-            {
-                return (from s in context.SysteemRol select s).ToList();
-            }
-
+            return _userContext.SysteemRol;
         }
 
     }

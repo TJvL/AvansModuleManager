@@ -20,13 +20,13 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
             if (args.BlokFilters != null)
             {
                 List<Module> result = new List<Module>();
-                foreach (string arg in args.BlokFilters)
+                foreach (int arg in args.BlokFilters)
                 {
                     var selectedModule = 
                         from m in toQuery
                             where
                                 m.FaseModules.Any(
-                                element => element.Blok.Contains(arg)
+                                element => element.Blok.Equals(""+arg)
                                 )
                         select m;
 

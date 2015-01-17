@@ -2,7 +2,7 @@
 {
     public class ArgumentsViewModel
     {
-        public OrderBy OrderBy { get; set; }
+        public Order Order { get; set; }
         public Filter Filter { get; set; }
     }
 }

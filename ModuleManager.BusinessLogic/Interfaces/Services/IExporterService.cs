@@ -33,12 +33,12 @@ namespace ModuleManager.BusinessLogic.Interfaces.Services
         /// </summary>
         /// <param name="toExport">The object to export</param>
         /// <returns>A PDF Document containing any requested data</returns>
-        BufferedStream ExportAsStream(T toExport);
+        Stream ExportAsStream(T toExport);
         /// <summary>
         /// Export multiple objects at once to the same document
         /// </summary>
         /// <param name="pack">The objects to export</param>
         /// <returns>A PDF Document containing any requested data</returns>
-        BufferedStream ExportAllAsStream(IExportablePack<Module> pack);
+        Stream ExportAllAsStream(IExportablePack<Module> pack);
     }
 }

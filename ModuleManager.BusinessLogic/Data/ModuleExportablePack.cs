@@ -13,7 +13,7 @@ namespace ModuleManager.BusinessLogic.Data
     /// </summary>
     public class ModuleExportablePack : IExportablePack<Module>
     {
-        ExportArguments _options;
+        ExportOptions _options;
         IEnumerable<Module> _toExport;
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace ModuleManager.BusinessLogic.Data
         /// </summary>
         /// <param name="opt">Pre-made options pack indicating what to export</param>
         /// <param name="data">The modules to export data from</param>
-        public ModuleExportablePack(ExportArguments opt, IEnumerable<Module> data) 
+        public ModuleExportablePack(ExportOptions opt, IEnumerable<Module> data) 
         {
             this._options = opt;
             this._toExport = data;
@@ -30,7 +30,7 @@ namespace ModuleManager.BusinessLogic.Data
         /// <summary>
         /// The options indicating what to export
         /// </summary>
-        public ExportArguments Options
+        public ExportOptions Options
         {
             get
             {

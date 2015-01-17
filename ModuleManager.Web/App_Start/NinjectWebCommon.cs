@@ -23,20 +23,20 @@ using ModuleManager.UserDAL.Repositories;
 
 namespace ModuleManager.Web.App_Start
 {
-    public static class NinjectWebCommon
+    public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start()
+        public static void Start() 
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-
+        
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -44,7 +44,7 @@ namespace ModuleManager.Web.App_Start
         {
             bootstrapper.ShutDown();
         }
-
+        
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -95,12 +95,11 @@ namespace ModuleManager.Web.App_Start
 
             // User entity repositories:
             kernel.Bind<IUserRepository>().To<UserRepository>();
-            kernel.Bind<ISysteemRolRepository>().To<SysteemRolRepository>();
 
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
             kernel.Bind<IExporterService<Module>>().To<ModuleExporterService>();
 
-        }
+        }        
     }
 }

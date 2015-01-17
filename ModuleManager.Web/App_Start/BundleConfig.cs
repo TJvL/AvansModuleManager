@@ -12,9 +12,6 @@ namespace ModuleManager.Web {
                       "~/Content/bootstrap.css",
                       "~/Content/custom.css",
                       "~/Content/font-awesome.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/modalform").Include(
-                      "~/Scripts/modalform.js"));
         }
     }
 }

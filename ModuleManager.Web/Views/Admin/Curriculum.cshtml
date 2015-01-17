@@ -1,6 +1,4 @@
-﻿@model ModuleManager.Web.ViewModels.AdminCurriculumViewModel
-
-<div class="container">
+﻿<div class="container">
     <div class="row">
         <div id="primary">
             <div class="col-md-12">
@@ -17,123 +15,130 @@
             </div>
             
             <div class="col-md-6">
-                <div id="toolbar" class="competentiesTable" style="display:none;">
-                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competentie-add">Toevoegen</button>
-                </div>
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competentie-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Competenties</h3>
-                
-                <table id="competentiesTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Code</th>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <table class="table table-hover">
                     <tbody>
-                        @foreach (var item in @Model.Competenties)
-                        {
-                            <tr class="competentie-item">
-                                <td class="ninety-width">@item.Code</td>
-                                <td>@item.Naam</td>
-                                <td class="actions ninety-width">
-                                    <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        }
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-1</td>
+                            <td>Procesanalyse uitvoeren</td>
+                            <td class="actions ninety-width">
+                                <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-2</td>
+                            <td>Informatieanalyse uitvoeren</td>
+                            <td class="actions ninety-width">
+                                <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr class="competentie-item">
+                            <td class="ninety-width">BC-3</td>
+                            <td>Informatiesysteem ontwerpen</td>
+                            <td class="actions ninety-width">
+                                <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <br /><br />
             </div>
 
             <div class="col-md-6">
-                <div id="toolbar" class="fasesTable" style="display:none;">
-                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#fase-add">Toevoegen</button>
-                </div>
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#fase-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Fases</h3>
-                
-                <table id="fasesTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <table class="table table-hover">
                     <tbody>
-                        @foreach (var item in @Model.Fases)
-                        {
-                            <tr class="fase-item">
-                                <td class="ninety-width">@item.FaseType</td>
-                                <td>@item.Naam</td>
-                                <td class="actions ninety-width">
-                                    <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        }
+                        <tr>
+                            <td class="ninety-width">Major</td>
+                            <td>Software ontwikkelaar</td>
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ninety-width">Major</td>
+                            <td>Bedrijfsinformatica</td>
+                            
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ninety-width">Minor</td>
+                            <td>Cybersafety</td>
+                            <td class="ninety-width">
+                                <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <br /><br />
             </div>
         
             <div class="col-md-6">
-                <div id="toolbar" class="leerlijnenTable" style="display:none;">
-                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#leerlijn-add">Toevoegen</button>
-                </div>
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#leerlijn-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Leerlijnen</h3>
-                
-                <table id="leerlijnenTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <table class="table table-hover">
                     <tbody>
-                        @foreach (var item in @Model.Leerlijn)
-                        {
-                            <tr class="leerlijn-item">
-                                <td>@item.Naam</td>
-                                <td class="actions ninety-width">
-                                    <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        }
+                        <tr>
+                            <td>Programmeren</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Moduleren</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Databases</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <br /><br />
             </div>
 
             <div class="col-md-6">
-                <div id="toolbar" class="tagsTable" style="display:none;">
-                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#tag-add">Toevoegen</button>
-                </div>
+                <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#tag-add">Toevoegen</button>
                 <h3 style="margin-top: 0">Tags</h3>
-                
-                <table id="tagsTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <table class="table table-hover">
                     <tbody>
-                        @foreach (var item in @Model.Tags)
-                        {
-                            <tr class="tag-item">
-                                <td>@item.Naam</td>
-                                <td class="actions ninety-width">
-                                    <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        }
+                        <tr>
+                            <td>Big Data</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PHP</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MVC</td>
+                            <td style="width: 90px">
+                                <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <br /><br />
             </div>
 
             <div class="col-md-12">
@@ -145,7 +150,6 @@
 
                 <div id="items" class="row">
                     <div class="col-md-12">
-                        
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -292,17 +296,6 @@
 
 <!-- JAVA MEUK -->
 @section Scripts {
-    
-    <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
-    
-    <style>
-        div.dataTables_filter label {
-            float: left !important;
-        }
-    </style>
-
     <script>
         $(function () {
             // THIS FOR ALL OVERVIEWS
@@ -336,60 +329,6 @@
             $("#ModuleAddBlock").select2({
                 placeholder: "Blok"
             });
-
-
-            // GLOBAL DATATABLES SETTINGS
-            $.extend($.fn.dataTable.defaults, {
-                dom:
-                    "<'row'<'col-sm-6'f><'col-sm-6 toolbar'>>" +
-                        "<'row'<'col-sm-12'tr>>" +
-                        "<'row'<'col-sm-8'p><'col-sm-4'i>>",
-                language: {
-                    url: "/Scripts/dataTables.dutch.alt.js",
-                    searchPlaceholder: "Zoeken"
-                },
-                order: [[0, "asc"]],
-                iDisplayLength: 5
-            });
-
-            // DATATABLES
-            $("#competentiesTable").dataTable({
-                aoColumnDefs: [
-                    { 'bSortable': false, 'aTargets': [2] }
-                ],
-                initComplete: function () {
-                    $("#competentiesTable_wrapper").find(".toolbar").append($("#toolbar.competentiesTable").html());
-                }
-            });
-
-            $("#fasesTable").dataTable({
-                aoColumnDefs: [
-                    { 'bSortable': false, 'aTargets': [2] }
-                ],
-                initComplete: function () {
-                    $("#fasesTable_wrapper").find(".toolbar").append($("#toolbar.fasesTable").html());
-                }
-            });
-
-            $("#tagsTable").dataTable({
-                aoColumnDefs: [
-                    { 'bSortable': false, 'aTargets': [1] }
-                ],
-                initComplete: function () {
-                    $("#tagsTable_wrapper").find(".toolbar").append($("#toolbar.tagsTable").html());
-                }
-            });
-
-            $("#leerlijnenTable").dataTable({
-                aoColumnDefs: [
-                    { 'bSortable': false, 'aTargets': [1] }
-                ],
-                initComplete: function () {
-                    $("#leerlijnenTable_wrapper").find(".toolbar").append($("#toolbar.leerlijnenTable").html());
-                }
-            });
-
-
         });
     </script>
 }

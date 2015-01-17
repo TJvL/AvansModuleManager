@@ -9,9 +9,6 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 using ModuleManager.BusinessLogic.Services;
 using System.IO;
 using ModuleManager.BusinessLogic.Interfaces;
-using ModuleManager.Web.ViewModels.RequestViewModels;
-using System.Collections.Generic;
-using System;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -27,13 +24,11 @@ namespace ModuleManager.Web.Controllers
         private readonly IGenericRepository<Fase> _faseRepository;
 
         private readonly IExporterService<Module> _moduleExporterService;
-        private readonly IFilterSorterService<Module> _filterSorterService;
 
         public ModuleController(IGenericRepository<Blok> blokRepository,
             IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository, 
             IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository, 
-            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
-            IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService)
+            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository, IExporterService<Module> moduleExporterService)
         {
             _blokRepository = blokRepository;
             _schooljaarRepository = schooljaarRepository;
@@ -44,7 +39,6 @@ namespace ModuleManager.Web.Controllers
             _faseRepository = faseRepository;
 
             _moduleExporterService = moduleExporterService;
-            _filterSorterService = filterSorterService;
         }
 
         /// <summary>
@@ -75,13 +69,15 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            return View(_moduleRepository.GetOne(new object[] { schooljaar, cursusCode }));
+            var keys = new[] { schooljaar, cursusCode };
+            return View(_moduleRepository.GetOne(keys));
         }
 
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            return View(_moduleRepository.GetOne(new object[] { schooljaar, cursusCode }));
+            var keys = new[] { schooljaar, cursusCode };
+            return View(_moduleRepository.GetOne(keys));
         }
 
         [HttpPost, Route("Module/Edit")]
@@ -93,8 +89,8 @@ namespace ModuleManager.Web.Controllers
             {
                 return Redirect("Overview");
             }
-
-            return View(_moduleRepository.GetOne(new object[] { entity.Schooljaar.ToString(), entity.CursusCode }));
+            var keys = new[] { entity.Schooljaar.ToString(), entity.CursusCode };
+            return View(_moduleRepository.GetOne(keys));
         }
 
         //PDF Download Code
@@ -110,65 +106,12 @@ namespace ModuleManager.Web.Controllers
 
         //Kijk hier even naar, wat je wilt met input...
         [HttpPost, Route("Module/ExportAll")]
-        public FileStreamResult ExportAllModules(ExportArgumentsViewModel value)
+        public FileStreamResult ExportAllModules(IExportablePack<Module> entity)
         {
-            var modules = _moduleRepository.GetAll();
 
-            ICollection<string> competentieFilters = null;
-            if (value.Filters.Competenties.First() != null) competentieFilters = value.Filters.Competenties;
 
-            ICollection<string> tagFilters = null;
-            if (value.Filters.Tags.First() != null) tagFilters = value.Filters.Tags;
 
-            ICollection<string> leerlijnFilters = null;
-            if (value.Filters.Leerlijnen.First() != null) leerlijnFilters = value.Filters.Leerlijnen;
-
-            ICollection<string> faseFilters = null;
-            if (value.Filters.Fases.First() != null) faseFilters = value.Filters.Fases;
-
-            ICollection<string> blokFilters = null;
-            if ((value.Filters.Blokken.First() != null)&&(value.Filters.Blokken.First() != "")) blokFilters = value.Filters.Blokken;
-
-            string zoektermFilter = null;
-            if (value.Filters.Zoekterm != null) zoektermFilter = value.Filters.Zoekterm;
-
-            int leerjaarFilter = 0;
-            if (value.Filters.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filters.Leerjaar);
-
-            var arguments = new Arguments
-            {
-                CompetentieFilters = competentieFilters,
-                TagFilters = tagFilters,
-                LeerlijnFilters = leerlijnFilters,
-                FaseFilters = faseFilters,
-                BlokFilters = blokFilters,
-                ZoektermFilter = zoektermFilter,
-                LeerjaarFilter = leerjaarFilter
-            };
-
-            var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
-            modules = _filterSorterService.ProcessData(queryPack);
-
-            var exportArguments = new ExportArguments
-            {
-                ExportCursusCode = value.Export.CursusCode,
-                ExportNaam = value.Export.Naam,
-                ExportBeschrijving = value.Export.Beschrijving,
-                ExportAlgInfo = value.Export.AlgemeneBeschrijving,
-                ExportStudieBelasting = value.Export.Studiebelasting,
-                ExportOrganisatie = value.Export.Organisatie,
-                ExportWeekplanning = value.Export.Weekplanning,
-                ExportBeoordeling = value.Export.Beoordeling,
-                ExportLeermiddelen = value.Export.Leermiddelen,
-                ExportLeerdoelen = value.Export.Leerdoelen,
-                ExportCompetenties = value.Export.Competenties,
-                ExportLeerlijnen = value.Export.Leerlijnen,
-                ExportTags = value.Export.Tags
-            };
-
-            var exportablePack = new ModuleExportablePack(exportArguments, modules);
-
-            BufferedStream fStream = _moduleExporterService.ExportAllAsStream(exportablePack);
+            Stream fStream = _moduleExporterService.ExportAllAsStream(entity);
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");

@@ -40,45 +40,14 @@ namespace ModuleManager.Web.Controllers.Api
             ICollection<string> faseFilters = null;
             if (value.Filter.Fases.First() != null) faseFilters = value.Filter.Fases;
 
-            ICollection<string> blokFilters = null;
-            if(value.Filter.Blokken.First() != null) blokFilters = value.Filter.Blokken.ToArray();
+            ICollection<int> blokFilters = null;
+            if(value.Filter.Blokken.First() != null) blokFilters = Array.ConvertAll(value.Filter.Blokken.ToArray(), int.Parse);
 
             string zoektermFilter = null;
             if (value.Filter.Zoekterm != null) zoektermFilter = value.Filter.Zoekterm;
 
             int leerjaarFilter = 0;
             if (value.Filter.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filter.Leerjaar);
-
-            int column = value.OrderBy.Column;
-            string columnName;
-            switch (column)
-            {
-                case 1:
-                    columnName = "Naam";
-                    break;
-                case 2:
-                    columnName = "CursusCode";
-                    break;
-                case 3:
-                    columnName = "Schooljaar";
-                    break;
-                case 7:
-                    columnName = "Verantwoordelijke";
-                    break;
-                default:
-                    columnName = "Naam";
-                    break;
-            }
-
-            bool dir;
-            if (value.OrderBy.Dir == "desc")
-            {
-                dir = true;
-            }
-            else
-            {
-                dir = false;
-            }
 
             var arguments = new Arguments
             {
@@ -88,9 +57,7 @@ namespace ModuleManager.Web.Controllers.Api
                 FaseFilters = faseFilters,
                 BlokFilters = blokFilters,
                 ZoektermFilter = zoektermFilter,
-                LeerjaarFilter = leerjaarFilter,
-                SortBy = columnName,
-                SortDesc = dir
+                LeerjaarFilter = leerjaarFilter
             };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());

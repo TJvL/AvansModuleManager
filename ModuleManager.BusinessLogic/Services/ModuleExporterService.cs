@@ -42,7 +42,7 @@ namespace ModuleManager.BusinessLogic.Services
             //Here starts the real exporting
             Section sect = prePdf.AddSection();
 
-            ExportArguments opt = new ExportArguments(){ ExportAll = true };
+            ExportOptions opt = new ExportOptions(){ ExportAll = true };
 
             ModuleExporterFactory mef = new ModuleExporterFactory();
             moduleExporterStrategy = mef.GetStrategy(opt);
@@ -88,7 +88,7 @@ namespace ModuleManager.BusinessLogic.Services
         }
 
 
-        public BufferedStream ExportAsStream(DomainDAL.Module toExport)
+        public Stream ExportAsStream(DomainDAL.Module toExport)
         {
             MemoryStream ms = new MemoryStream();
             Export(toExport).Save(ms, false);
@@ -97,10 +97,10 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return new BufferedStream(ms);
+            return ms;
         }
 
-        public BufferedStream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
+        public Stream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);
@@ -109,7 +109,7 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return new BufferedStream(ms);
+            return ms;
         }
 
         private void DefineStyles(Document doc) 

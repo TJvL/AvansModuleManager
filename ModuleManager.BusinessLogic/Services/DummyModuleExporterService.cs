@@ -33,7 +33,7 @@ namespace ModuleManager.BusinessLogic.Services
         }
 
 
-        public BufferedStream ExportAsStream(Module toExport)
+        public Stream ExportAsStream(Module toExport)
         {
             MemoryStream ms = new MemoryStream();
             Export(toExport).Save(ms, false);
@@ -42,10 +42,10 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return new BufferedStream(ms);
+            return ms;
         }
 
-        public BufferedStream ExportAllAsStream(IExportablePack<Module> pack)
+        public Stream ExportAllAsStream(IExportablePack<Module> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);
@@ -54,7 +54,7 @@ namespace ModuleManager.BusinessLogic.Services
             ms.Write(bytes, 0, bytes.Length);
             ms.Position = 0;
 
-            return new BufferedStream(ms);
+            return ms;
         }
     }
 }

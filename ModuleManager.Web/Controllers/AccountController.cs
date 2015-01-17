@@ -31,8 +31,8 @@ namespace ModuleManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int ReturnValue = AuthenticateUser(loginVM.UserNaam, loginVM.Wachtwoord);
-                if (ReturnValue == 1)
+
+                if (AuthenticateUser(loginVM.UserNaam, loginVM.Wachtwoord))
                 {
                     // Create the authentication cookie and redirect the user to welcome page
                     FormsAuthentication.RedirectFromLoginPage(loginVM.UserNaam, loginVM.Remember);
@@ -65,13 +65,9 @@ namespace ModuleManager.Web.Controllers
                     return RedirectToAction("Index", "Home");
                    
                 }
-                else if (ReturnValue == -2)
-                {
-                    ViewBag.LoginError = "Deze gebruikersnaam is geblokeerd";
-                }
                 else
                 {
-                    ViewBag.LoginError = "Ongeldige gebruikersnaam en/of wachtwoord";
+                    ViewBag.LoginError = "Invalid UserName and/or password";
                 }
             }
             return View(loginVM);
@@ -140,7 +136,7 @@ namespace ModuleManager.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private int AuthenticateUser(String username, String password)
+        private bool AuthenticateUser(String username, String password)
         {
             string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
 
@@ -158,7 +154,7 @@ namespace ModuleManager.Web.Controllers
 
                 con.Open();
                 int ReturnCode = (int)cmd.ExecuteScalar();
-                return ReturnCode;
+                return ReturnCode == 1;
 
             }
         }
