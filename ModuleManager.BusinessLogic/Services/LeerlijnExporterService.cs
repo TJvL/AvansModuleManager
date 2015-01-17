@@ -62,9 +62,36 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="pack">pack containing elements to export and arguments to specify the format</param>
         /// <returns>A PDF Document</returns>
-        public PdfDocument ExportAll(IExportablePack<Module> pack)
+        public PdfDocument ExportAll(IExportablePack<Leerlijn> pack)
         {
-            throw new NotImplementedException();
+            Document prePdf = new Document();
+
+            //Document markup
+            DefineStyles(prePdf);
+            BuildCover(prePdf, "Module-Overzicht voor Informatica");
+            DefineTableOfContents(prePdf, pack.ToExport);
+
+            //Here starts the real exporting
+
+            LeerlijnExporterFactory lef = new LeerlijnExporterFactory();
+            leerlijnExporterStrategy = lef.GetStrategy(pack.Options as LeerlijnExportArguments);
+
+            foreach (DomainDAL.Leerlijn l in pack.ToExport)
+            {
+                Section sect = prePdf.AddSection();
+                sect = leerlijnExporterStrategy.Export(l, sect);
+
+                //Page numbers (only for multi-export)
+                Paragraph p = new Paragraph();
+                p.AddPageField();
+                sect.Footers.Primary.Add(p);
+                sect.Footers.EvenPage.Add(p.Clone());
+            }
+
+            PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
+            rend.Document = prePdf;
+            rend.RenderDocument();
+            return rend.PdfDocument;
         }
 
         /// <summary>
@@ -89,7 +116,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="pack">pack containing elements to export and arguments to specify the format</param>
         /// <returns>Stream to offer as download</returns>
-        public Stream ExportAllAsStream(IExportablePack<Module> pack)
+        public Stream ExportAllAsStream(IExportablePack<Leerlijn> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);

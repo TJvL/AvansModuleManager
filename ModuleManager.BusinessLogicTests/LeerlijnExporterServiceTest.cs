@@ -5,6 +5,7 @@ using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.DomainDAL;
 using System.Collections.Generic;
 using PdfSharp.Pdf;
+using ModuleManager.BusinessLogic.Data;
 
 namespace ModuleManager.BusinessLogicTests
 {
@@ -27,6 +28,16 @@ namespace ModuleManager.BusinessLogicTests
         {
             PdfDocument pdf = les.Export(data[1]);
             pdf.Save("D:\\Education\\Proj_blk6\\TestIO\\ll_pdf_1.pdf");
+        }
+
+        [TestMethod]
+        public void TestMultiLeerlijnPdfOutput()
+        {
+            LeerlijnExportArguments args = new LeerlijnExportArguments(){ ExportAll = true };
+            LeerlijnExportablePack pack = new LeerlijnExportablePack(args, data);
+
+            PdfDocument pdf = les.ExportAll(pack);
+            pdf.Save("D:\\Education\\Proj_blk6\\TestIO\\ll_pdf_FULL.pdf");
         }
     }
 }
