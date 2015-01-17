@@ -114,6 +114,9 @@
     <Compile Include="Niveau.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Onderdeel.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Opleiding.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -144,6 +147,9 @@
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Tag.cs">
+      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Toetsvorm.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Weekplanning.cs">
