@@ -7,21 +7,74 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-
-namespace ModuleManager.UserDAL {
-    public partial class UserContext : DbContext {
+namespace ModuleManager.UserDAL
+{
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
+    
+    public partial class UserContext : DbContext
+    {
         public UserContext()
             : base("name=UserContext")
         {
         }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+    
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
             throw new UnintentionalCodeFirstException();
         }
-
+    
         public virtual DbSet<SysteemRol> SysteemRol { get; set; }
         public virtual DbSet<User> User { get; set; }
+    
+        public virtual ObjectResult<Nullable<int>> spAuthenticateUser(string userName, string password)
+        {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("spAuthenticateUser", userNameParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> spEditUser(string userName)
+        {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("spEditUser", userNameParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> spRegisterUser(string userNaam, string wachtwoord, string systeemRol, string email, string naam)
+        {
+            var userNaamParameter = userNaam != null ?
+                new ObjectParameter("UserNaam", userNaam) :
+                new ObjectParameter("UserNaam", typeof(string));
+    
+            var wachtwoordParameter = wachtwoord != null ?
+                new ObjectParameter("Wachtwoord", wachtwoord) :
+                new ObjectParameter("Wachtwoord", typeof(string));
+    
+            var systeemRolParameter = systeemRol != null ?
+                new ObjectParameter("SysteemRol", systeemRol) :
+                new ObjectParameter("SysteemRol", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var naamParameter = naam != null ?
+                new ObjectParameter("naam", naam) :
+                new ObjectParameter("naam", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("spRegisterUser", userNaamParameter, wachtwoordParameter, systeemRolParameter, emailParameter, naamParameter);
+        }
     }
 }

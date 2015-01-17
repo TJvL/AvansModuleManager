@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ModuleManager.UserDAL
+namespace ModuleManager.DomainDAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class SysteemRol
+    public partial class Toetsvorm
     {
-        public SysteemRol()
+        public Toetsvorm()
         {
-            this.User = new HashSet<User>();
+            this.StudiePunten = new HashSet<StudiePunten>();
         }
     
-        public string Role { get; set; }
+        public string Type { get; set; }
     
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<StudiePunten> StudiePunten { get; set; }
     }
 }

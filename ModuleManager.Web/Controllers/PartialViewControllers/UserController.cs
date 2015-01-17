@@ -151,7 +151,25 @@ namespace ModuleManager.Web.Controllers.Api
             return PartialView("~/Views/Admin/Users/_Edit.cshtml", userEditVM);
         }
 
+        [HttpPost]
+        public ActionResult Block(string gebruikersnaam, bool isBlocked)
+        {
+            if (gebruikersnaam == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = _userRepository.GetOne(gebruikersnaam);           
 
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            user.Blocked = isBlocked;
+            _userRepository.Edit(user);
+
+            return Json(new { success = true });
+        }
 
     }
 }

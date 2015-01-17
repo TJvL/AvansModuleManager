@@ -81,7 +81,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 					{
 						new StudieBelasting
 						{
-							Id = 1,
+							//Id = 1,
 							CursusCode = "INMODL312345",
 							Schooljaar = 1415,
 							Activiteit = "Workshop",
@@ -91,7 +91,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 						},
 						new StudieBelasting
 						{
-							Id = 1,
+							//Id = 1,
 							CursusCode = "INMODL312345",
 							Schooljaar = 1415,
 							Activiteit = "Hoorcollege",
@@ -349,7 +349,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 				    {
 				        new StudieBelasting
 				        {
-				            Id = 1,
+				           // Id = 1,
 				            CursusCode = "IN_ALG612345",
 				            Schooljaar = 1415,
 				            Activiteit = "Workshop",
@@ -359,7 +359,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 				        },
 				        new StudieBelasting
 				        {
-				            Id = 2,
+				           // Id = 2,
 				            CursusCode = "IN_ALG612345",
 				            Schooljaar = 1415,
 				            Activiteit = "Hoorcollege",
@@ -626,7 +626,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 				    {
 				        new StudieBelasting
 				        {
-				            Id = 1,
+				           // Id = 1,
 				            CursusCode = "IN_PROG4123456",
 				            Schooljaar = 1415,
 				            Activiteit = "Workshop",
@@ -636,7 +636,7 @@ namespace ModuleManager.DomainDAL.Repositories.Dummies
 				        },
 				        new StudieBelasting
 				        {
-				            Id = 1,
+				           // Id = 1,
 				            CursusCode = "IN_PROG4123456",
 				            Schooljaar = 1415,
 				            Activiteit = "Hoorcollege",

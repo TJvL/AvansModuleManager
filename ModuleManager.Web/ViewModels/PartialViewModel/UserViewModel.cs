@@ -21,6 +21,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         /// Bevat extra informatie die moet worden weergegeven bij de gebruikers-management
         /// </summary>
         public string Email { get; set; }
+
+        public bool Blocked { get; set; }
     }
 
     public class UserEditViewModel
