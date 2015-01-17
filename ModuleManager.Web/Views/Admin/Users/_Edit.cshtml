@@ -17,6 +17,8 @@
             @Html.ValidationMessage("error")
         </div>
 
+        @Html.HiddenFor(model => model.OudeUserNaam)
+
         <div class="form-group">
             @Html.LabelFor(model => model.UserNaam)
             @Html.EditorFor(model => model.UserNaam, new { htmlAttributes = new { @class = "form-control" } })

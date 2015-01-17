@@ -28,7 +28,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         [Required]
         [DisplayName("Gebruikersnaam")]
         [StringLength(255, MinimumLength = 3)]
-        public string UserNaam { get; set; }
+        public string UserNaam { get; set; }    
+        public string OudeUserNaam { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Wachtwoord { get; set; }

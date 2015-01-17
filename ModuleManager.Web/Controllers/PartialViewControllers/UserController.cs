@@ -92,38 +92,59 @@ namespace ModuleManager.Web.Controllers.Api
             }
             User user = _userRepository.GetOne(gebruikersnaam);
             Mapper.CreateMap<User, UserEditViewModel>().ForMember(x => x.Wachtwoord, opt => opt.Ignore());
-            UserEditViewModel userEditVM = Mapper.Map<UserEditViewModel>(user);
+            UserEditViewModel userEditVM = Mapper.Map<UserEditViewModel>(user);          
             
             if (user == null)
             {
                 return HttpNotFound();
             }
 
+            userEditVM.OudeUserNaam = user.UserNaam;
             userEditVM.SysteemRollen = _systeemRolRepository.GetAll();
             return PartialView("~/Views/Admin/Users/_Edit.cshtml", userEditVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,City,Street,Phone,PersonID")] UserEditViewModel userEditVM)
+        public ActionResult Edit(UserEditViewModel userEditVM)
         {
             if (ModelState.IsValid)
             {
                 string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(CS))
                 {
-                    SqlCommand cmd = new SqlCommand("spRegisterUser", con);
+                    SqlCommand cmd = new SqlCommand("spEditUser", con);
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    SqlParameter newUsername = new SqlParameter("@NewUserNaam", userEditVM.UserNaam);
+                    SqlParameter oldUsername = new SqlParameter("@OldUserNaam", userEditVM.OudeUserNaam);
+                    // FormsAuthentication class is in System.Web.Security namespace
+                    string encryptedPassword = FormsAuthentication.
+                        HashPasswordForStoringInConfigFile(userEditVM.Wachtwoord, "SHA1");
+                    SqlParameter password = new SqlParameter("@Wachtwoord", encryptedPassword);
+                    SqlParameter role = new SqlParameter("@SysteemRol", userEditVM.SysteemRol);
+                    SqlParameter email = new SqlParameter("@email", userEditVM.Email);
+                    SqlParameter name = new SqlParameter("@naam", userEditVM.Naam);
 
+                    cmd.Parameters.Add(oldUsername);
+                    cmd.Parameters.Add(newUsername);
+                    cmd.Parameters.Add(password);
+                    cmd.Parameters.Add(role);
+                    cmd.Parameters.Add(email);
+                    cmd.Parameters.Add(name);
+
+                    con.Open();
+                    int ReturnCode = (int)cmd.ExecuteScalar();
+                    if (ReturnCode == -1)
+                    {
+                        ViewBag.UsernameError = "User Name already in use, please choose another user name";
+                    }
+                    else
+                    {
+                        return Json(new { success = true });
+                    }
                 }
 
-
-                Mapper.CreateMap<UserEditViewModel, User>().ForMember(x => x.SysteemRol1, opt => opt.Ignore());
-                User user = Mapper.Map<User>(userEditVM);
-
-                _userRepository.Edit(user);               
-                return Json(new { success = true});
             }
 
             userEditVM.SysteemRollen = _systeemRolRepository.GetAll();
