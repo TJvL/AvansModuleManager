@@ -3,7 +3,6 @@ using MigraDoc.Rendering;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Exporters;
 using ModuleManager.BusinessLogic.Factories;
-using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Interfaces.Exporters;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
@@ -17,18 +16,17 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Services
 {
-    public class LeerlijnExporterService : AbstractExporterService, IExporterService<Leerlijn>
+    public class CompetentieExporterService : AbstractExporterService, IExporterService<Competentie>
     {
-
-        IExporter<DomainDAL.Leerlijn> leerlijnExporterStrategy;
+        IExporter<DomainDAL.Competentie> competentieExporterStrategy;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public LeerlijnExporterService() 
+        public CompetentieExporterService() 
         {
             //can't be null.
-            leerlijnExporterStrategy = new LeerlijnPassiveExporter();
+            competentieExporterStrategy = new CompetentiePassiveExporter();
         }
 
         /// <summary>
@@ -36,23 +34,23 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="toExport">element to export</param>
         /// <returns>A PDF Document</returns>
-        public PdfDocument Export(Leerlijn toExport)
+        public PdfDocument Export(Competentie toExport)
         {
             Document prePdf = new Document();
 
             //Document markup
             DefineStyles(prePdf);
-            BuildCover(prePdf, "Leerlijn: " + toExport.Naam);
+            BuildCover(prePdf, "Competentie: " + toExport.Naam);
 
             //Here starts the real exporting
             Section sect = prePdf.AddSection();
 
-            LeerlijnExportArguments opt = new LeerlijnExportArguments() { ExportAll = true };
+            CompetentieExportArguments opt = new CompetentieExportArguments() { ExportAll = true };
 
-            LeerlijnExporterFactory lef = new LeerlijnExporterFactory();
-            leerlijnExporterStrategy = lef.GetStrategy(opt);
+            CompetentieExporterFactory cef = new CompetentieExporterFactory();
+            competentieExporterStrategy = cef.GetStrategy(opt);
 
-            sect = leerlijnExporterStrategy.Export(toExport, sect);
+            sect = competentieExporterStrategy.Export(toExport, sect);
 
             PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
             rend.Document = prePdf;
@@ -65,24 +63,24 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="pack">pack containing elements to export and arguments to specify the format</param>
         /// <returns>A PDF Document</returns>
-        public PdfDocument ExportAll(IExportablePack<Leerlijn> pack)
+        public PdfDocument ExportAll(Interfaces.IExportablePack<Competentie> pack)
         {
             Document prePdf = new Document();
 
             //Document markup
             DefineStyles(prePdf);
-            BuildCover(prePdf, "Leerlijn-Overzicht voor Informatica");
+            BuildCover(prePdf, "Competentie-Overzicht voor Informatica");
             DefineTableOfContents(prePdf, pack.ToExport);
 
             //Here starts the real exporting
 
-            LeerlijnExporterFactory lef = new LeerlijnExporterFactory();
-            leerlijnExporterStrategy = lef.GetStrategy(pack.Options as LeerlijnExportArguments);
+            CompetentieExporterFactory cef = new CompetentieExporterFactory();
+            competentieExporterStrategy = cef.GetStrategy(pack.Options as CompetentieExportArguments);
 
-            foreach (DomainDAL.Leerlijn l in pack.ToExport)
+            foreach (DomainDAL.Competentie c in pack.ToExport)
             {
                 Section sect = prePdf.AddSection();
-                sect = leerlijnExporterStrategy.Export(l, sect);
+                sect = competentieExporterStrategy.Export(c, sect);
 
                 //Page numbers (only for multi-export)
                 Paragraph p = new Paragraph();
@@ -102,7 +100,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="toExport">element to export</param>
         /// <returns>Stream to offer as download</returns>
-        public Stream ExportAsStream(Leerlijn toExport)
+        public Stream ExportAsStream(Competentie toExport)
         {
             MemoryStream ms = new MemoryStream();
             Export(toExport).Save(ms, false);
@@ -119,7 +117,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="pack">pack containing elements to export and arguments to specify the format</param>
         /// <returns>Stream to offer as download</returns>
-        public Stream ExportAllAsStream(IExportablePack<Leerlijn> pack)
+        public Stream ExportAllAsStream(Interfaces.IExportablePack<Competentie> pack)
         {
             MemoryStream ms = new MemoryStream();
             ExportAll(pack).Save(ms, false);
@@ -136,7 +134,7 @@ namespace ModuleManager.BusinessLogic.Services
         /// </summary>
         /// <param name="doc">The document to define for</param>
         /// <param name="contents">The content</param>
-        private void DefineTableOfContents(Document doc, IEnumerable<Leerlijn> contents)
+        private void DefineTableOfContents(Document doc, IEnumerable<Competentie> contents)
         {
             Section sect = doc.LastSection;
 
@@ -145,13 +143,13 @@ namespace ModuleManager.BusinessLogic.Services
             p.Format.SpaceAfter = 24;
             p.Format.OutlineLevel = OutlineLevel.Level1;
 
-            foreach (Leerlijn l in contents)
+            foreach (Competentie c in contents)
             {
                 Paragraph p2 = sect.AddParagraph();
                 p2.Style = "TOC";
-                Hyperlink hyperlink = p2.AddHyperlink(l.Naam);
-                hyperlink.AddText(l.Naam + "\t");
-                hyperlink.AddPageRefField(l.Naam);
+                Hyperlink hyperlink = p2.AddHyperlink(c.Naam);
+                hyperlink.AddText(c.Naam + "\t");
+                hyperlink.AddPageRefField(c.Naam);
             }
         }
     }

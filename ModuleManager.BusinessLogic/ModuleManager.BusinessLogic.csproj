@@ -60,12 +60,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\AbstractExportArguments.cs" />
+    <Compile Include="Data\CompetentieExportablePack.cs" />
+    <Compile Include="Data\CompetentieExportArguments.cs" />
     <Compile Include="Data\LeerlijnExportablePack.cs" />
     <Compile Include="Data\LeerlijnExportArguments.cs" />
     <Compile Include="Data\ModuleFilterSorterArguments.cs" />
     <Compile Include="Data\ModuleExportArguments.cs" />
     <Compile Include="Data\ModuleExportablePack.cs" />
     <Compile Include="Data\ModuleQueryablePack.cs" />
+    <Compile Include="Exporters\CompetentieBaseExporter.cs" />
+    <Compile Include="Exporters\CompetentieExporterStack\CompetentieNaamExporter.cs" />
+    <Compile Include="Exporters\CompetentiePassiveExporter.cs" />
     <Compile Include="Exporters\LeerlijnBaseExporter.cs" />
     <Compile Include="Exporters\LeerlijnExporterStack\LeerlijnNaamExporter.cs" />
     <Compile Include="Exporters\LeerlijnPassiveExporter.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="Exporters\ModuleExporterStack\ModuleNaamExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleCursusCodeExporter.cs" />
     <Compile Include="Exporters\ModulePassiveExporter.cs" />
+    <Compile Include="Factories\CompetentieExporterFactory.cs" />
     <Compile Include="Factories\LeerlijnExporterFactory.cs" />
     <Compile Include="Factories\ModuleExporterFactory.cs" />
     <Compile Include="Filters\ModuleBaseFilter.cs" />
@@ -115,6 +121,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\AbstractExporterService.cs" />
+    <Compile Include="Services\CompetentieExporterService.cs" />
     <Compile Include="Services\DummyModuleExporterService.cs" />
     <Compile Include="Services\LeerlijnExporterService.cs" />
     <Compile Include="Services\ModuleExporterService.cs" />
