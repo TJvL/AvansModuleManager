@@ -46,8 +46,8 @@ namespace ModuleManager.Web.Controllers.Api
             string zoektermFilter = null;
             if (value.Filter.Zoekterm != null) zoektermFilter = value.Filter.Zoekterm;
 
-            int leerjaarFilter = 0;
-            if (value.Filter.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filter.Leerjaar);
+            string leerjaarFilter = null;
+            if (value.Filter.Leerjaar != null) leerjaarFilter = value.Filter.Leerjaar;
 
             int column = value.OrderBy.Column;
             string columnName;

@@ -136,8 +136,8 @@ namespace ModuleManager.Web.Controllers
             string zoektermFilter = null;
             if (value.Filters.Zoekterm != null) zoektermFilter = value.Filters.Zoekterm;
 
-            int leerjaarFilter = 0;
-            if (value.Filters.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filters.Leerjaar);
+            string leerjaarFilter = null;
+            if (value.Filters.Leerjaar != null) leerjaarFilter = value.Filters.Leerjaar;
 
             var arguments = new Arguments
         {
