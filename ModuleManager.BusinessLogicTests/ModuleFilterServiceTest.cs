@@ -109,8 +109,8 @@ namespace ModuleManager.BusinessLogicTests
             List<string> leerlijn = new List<string>();
             leerlijn.Add("algo");
 
-            List<int> blokken = new List<int>();
-            blokken.Add(3);
+            List<string> blokken = new List<string>();
+            blokken.Add(""+3);
 
             List<string> faseNamen = new List<string>();
             faseNamen.Add("Intell");

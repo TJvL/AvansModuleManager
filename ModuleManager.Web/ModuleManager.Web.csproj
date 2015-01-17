@@ -224,6 +224,7 @@
     <Content Include="Images\select2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dataTables.dutch.alt.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.bootstrap.js" />
@@ -304,8 +305,10 @@
     <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
     <Compile Include="ViewModels\ModuleOverviewViewModel.cs" />
+    <Compile Include="ViewModels\RequestViewModels\Export.cs" />
+    <Compile Include="ViewModels\RequestViewModels\ExportArgumentsViewModel.cs" />
     <Compile Include="ViewModels\RequestViewModels\Filter.cs" />
-    <Compile Include="ViewModels\RequestViewModels\Order.cs" />
+    <Compile Include="ViewModels\RequestViewModels\OrderBy.cs" />
     <Compile Include="ViewModels\RequestViewModels\ArgumentsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
