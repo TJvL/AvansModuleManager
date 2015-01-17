@@ -10,17 +10,13 @@
 namespace ModuleManager.UserDAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SysteemRol
+    public partial class sp_helpdiagrams_Result
     {
-        public SysteemRol()
-        {
-            this.User = new HashSet<User>();
-        }
-    
-        public string Role { get; set; }
-    
-        public virtual ICollection<User> User { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

@@ -95,6 +95,7 @@ namespace ModuleManager.Web.App_Start
 
             // User entity repositories:
             kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<ISysteemRolRepository>().To<SysteemRolRepository>();
 
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
