@@ -42,14 +42,12 @@ namespace ModuleManager.DomainDAL
         public virtual DbSet<ModuleCompetentie> ModuleCompetentie { get; set; }
         public virtual DbSet<ModuleWerkvorm> ModuleWerkvorm { get; set; }
         public virtual DbSet<Niveau> Niveau { get; set; }
-        public virtual DbSet<Onderdeel> Onderdeel { get; set; }
         public virtual DbSet<Opleiding> Opleiding { get; set; }
         public virtual DbSet<Schooljaar> Schooljaar { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<StudieBelasting> StudieBelasting { get; set; }
         public virtual DbSet<StudiePunten> StudiePunten { get; set; }
         public virtual DbSet<Tag> Tag { get; set; }
-        public virtual DbSet<Toetsvorm> Toetsvorm { get; set; }
         public virtual DbSet<Weekplanning> Weekplanning { get; set; }
         public virtual DbSet<Werkvorm> Werkvorm { get; set; }
     

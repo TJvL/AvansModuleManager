@@ -38,7 +38,6 @@ namespace ModuleManager.DomainDAL
         public string Naam { get; set; }
         public string Verantwoordelijke { get; set; }
         public string Status { get; set; }
-        public string OnderdeelCode { get; set; }
         public string Icon { get; set; }
     
         public virtual ICollection<Beoordelingen> Beoordelingen { get; set; }
@@ -47,7 +46,6 @@ namespace ModuleManager.DomainDAL
         public virtual Icons Icons { get; set; }
         public virtual ICollection<Leerdoelen> Leerdoelen { get; set; }
         public virtual ICollection<Leermiddelen> Leermiddelen { get; set; }
-        public virtual Onderdeel Onderdeel { get; set; }
         public virtual Status Status1 { get; set; }
         public virtual ICollection<ModuleCompetentie> ModuleCompetentie { get; set; }
         public virtual ICollection<ModuleWerkvorm> ModuleWerkvorm { get; set; }
