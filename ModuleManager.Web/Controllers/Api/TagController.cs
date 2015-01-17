@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
@@ -18,32 +19,38 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Tag/Get")]
         public IEnumerable<Tag> GetAll()
         {
-            return _tagRepository.GetAll();
+            var tags = _tagRepository.GetAll().ToArray();
+            _tagRepository.SaveAndClose();
+            return tags;
         }
 
         [HttpGet, Route("api/Tag/Get/{schooljaar}/{key}")]
         public Tag GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _tagRepository.GetOne(keys);
+            var tag = _tagRepository.GetOne(new object[] { schooljaar, key });
+            _tagRepository.SaveAndClose();
+            return tag;
         }
 
         [HttpPost, Route("api/Tag/Delete")]
-        public bool Delete(Tag entity)
+        public void Delete(Tag entity)
         {
-            return _tagRepository.Delete(entity);
+            _tagRepository.Delete(entity);
+            _tagRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Tag/Edit")]
-        public bool Edit(Tag entity)
+        public void Edit(Tag entity)
         {
-            return _tagRepository.Edit(entity);
+            _tagRepository.Edit(entity);
+            _tagRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Tag/Create")]
-        public bool Create(Tag entity)
+        public void Create(Tag entity)
         {
-            return _tagRepository.Create(entity);
+            _tagRepository.Create(entity);
+            _tagRepository.SaveAndClose();
         }
     }
 }

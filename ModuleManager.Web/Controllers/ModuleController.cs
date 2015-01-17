@@ -69,28 +69,28 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            var keys = new[] { schooljaar, cursusCode };
-            return View(_moduleRepository.GetOne(keys));
+            var module = _moduleRepository.GetOne(new object[] {schooljaar, cursusCode});
+            _moduleRepository.SaveAndClose();
+            return View(module);
         }
 
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            var keys = new[] { schooljaar, cursusCode };
-            return View(_moduleRepository.GetOne(keys));
+            var module = _moduleRepository.GetOne(new object[] { schooljaar, cursusCode });
+            _moduleRepository.SaveAndClose();
+            return View(module);
         }
 
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(Module entity)
         {
-            var isSucces = _moduleRepository.Edit(entity);
+            _moduleRepository.Edit(entity);
 
-            if (isSucces)
-            {
-                return Redirect("Overview");
-            }
-            var keys = new[] { entity.Schooljaar.ToString(), entity.CursusCode };
-            return View(_moduleRepository.GetOne(keys));
+            var module = _moduleRepository.GetOne(new object[] { entity.Schooljaar.ToString(), entity.CursusCode });
+            _moduleRepository.SaveAndClose();
+
+            return View(module);
         }
 
         //PDF Download Code
@@ -99,6 +99,8 @@ namespace ModuleManager.Web.Controllers
         public FileStreamResult ExportSingleModule(string schooljaar, string cursusCode)
         {
             Stream fStream = _moduleExporterService.ExportAsStream(_moduleRepository.GetOne(new object[]{schooljaar, cursusCode}));
+            _moduleRepository.SaveAndClose();
+
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");

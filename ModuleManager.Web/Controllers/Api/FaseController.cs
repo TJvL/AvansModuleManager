@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
@@ -18,32 +19,38 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Fase/Get")]
         public IEnumerable<Fase> GetAll()
         {
-            return _faseRepository.GetAll();
+            var fases =_faseRepository.GetAll().ToArray();
+            _faseRepository.SaveAndClose();
+            return fases;
         }
 
         [HttpGet, Route("api/Fase/Get/{schooljaar}/{key}")]
         public Fase GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _faseRepository.GetOne(keys);
+            var fase = _faseRepository.GetOne(new object[] {schooljaar, key});
+            _faseRepository.SaveAndClose();
+            return fase;
         }
 
         [HttpPost, Route("api/Fase/Delete")]
-        public bool Delete(Fase entity)
+        public void Delete(Fase entity)
         {
-            return _faseRepository.Delete(entity);
+            _faseRepository.Delete(entity);
+            _faseRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Fase/Edit")]
-        public bool Edit(Fase entity)
+        public void Edit(Fase entity)
         {
-            return _faseRepository.Edit(entity);
+            _faseRepository.Edit(entity);
+            _faseRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Fase/Create")]
-        public bool Create(Fase entity)
+        public void Create(Fase entity)
         {
-            return _faseRepository.Create(entity);
+            _faseRepository.Create(entity);
+            _faseRepository.SaveAndClose();
         }
     }
 }

@@ -67,38 +67,30 @@ namespace ModuleManager.Web.Controllers.Api
             var moduleListVm = new ModuleListViewModel(modArray.Count());
             moduleListVm.AddModules(modArray);
 
+            _moduleRepository.SaveAndClose();
             return moduleListVm;
-        }
-
-        [HttpPost, Route("api/Module/ExportOverview")]
-        public string ExportOverview(ExportViewModel arguments)
-        {
-            throw new System.NotImplementedException();
         }
 
         [HttpGet, Route("api/Module/Get/{schooljaar}/{key}")]
         public Module GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _moduleRepository.GetOne(keys);
+            var module = _moduleRepository.GetOne(new object[] { schooljaar, key });
+            _moduleRepository.SaveAndClose();
+            return module;
         }
 
         [HttpPost, Route("api/Module/Delete")]
-        public bool Delete(Module entity)
+        public void Delete(Module entity)
         {
-            return _moduleRepository.Delete(entity);
-        }
-
-        [HttpPost, Route("api/Module/Edit")]
-        public bool Edit(Module entity)
-        {
-            return _moduleRepository.Edit(entity);
+            _moduleRepository.Delete(entity);
+            _moduleRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Module/Create")]
-        public bool Create(Module entity)
+        public void Create(Module entity)
         {
-            return _moduleRepository.Create(entity);
+            _moduleRepository.Create(entity);
+            _moduleRepository.SaveAndClose();
         }
     }
 }

@@ -4,6 +4,7 @@ using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.UserDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 
@@ -19,14 +20,14 @@ namespace ModuleManager.Web.Controllers
         private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
         private readonly IGenericRepository<Tag> _tagRepository;
         private readonly IGenericRepository<Fase> _faseRepository;
-        private readonly UserDAL.Interfaces.IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         private readonly IFilterSorterService<Module> _filterSorterService;
 
         public AdminController(IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository,
             IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository,
             IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
-            IFilterSorterService<Module> filterSorterService, UserDAL.Interfaces.IUserRepository userRepository)
+            IFilterSorterService<Module> filterSorterService, IUserRepository userRepository)
         {
             _blokRepository = blokRepository;
             _statusRepository = statusRepository;
@@ -59,11 +60,11 @@ namespace ModuleManager.Web.Controllers
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);
 
-            var competenties = _competentieRepository.GetAll();
-            var leerlijnen = _leerlijnRepository.GetAll();
-            var tags = _tagRepository.GetAll();
-            var fases = _faseRepository.GetAll();
-            var blokken = _blokRepository.GetAll();
+            var competenties = _competentieRepository.GetAll().ToArray();
+            var leerlijnen = _leerlijnRepository.GetAll().ToArray();
+            var tags = _tagRepository.GetAll().ToArray();
+            var fases = _faseRepository.GetAll().ToArray();
+            var blokken = _blokRepository.GetAll().ToArray();
 
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddFases(fases);
@@ -78,6 +79,14 @@ namespace ModuleManager.Web.Controllers
                 ModuleViewModels = moduleList,
                 FilterOptions = filterOptions
             };
+
+            _moduleRepository.SaveAndClose();
+            _competentieRepository.SaveAndClose();
+            _leerlijnRepository.SaveAndClose();
+            _tagRepository.SaveAndClose();
+            _faseRepository.SaveAndClose();
+            _blokRepository.SaveAndClose();
+
             return View(adminCurriculumVm);
         }
 
@@ -85,7 +94,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/UserOverview")]
         public ActionResult UserOverview()
         {
-            var userList = _userRepository.GetAll();
+            var userList = _userRepository.GetAll().ToArray();
             var usersListVm = new UserListViewModel(userList.Count());
             usersListVm.AddUsers(userList);
 
@@ -94,7 +103,6 @@ namespace ModuleManager.Web.Controllers
                 Users = usersListVm
             };
 
-            // TODO: Implementeer ViewModel en return deze.
             return View(overViewvm);
         }
 
@@ -114,11 +122,13 @@ namespace ModuleManager.Web.Controllers
             var userList = new UserListViewModel(users.Count());
             userList.AddUsers(users);
 
-	var checkModulesVm = new CheckModulesViewModel
+	        var checkModulesVm = new CheckModulesViewModel
             {
                 ModuleViewModels = moduleList,
                 Users = userList
-	};
+	        };
+
+            _moduleRepository.SaveAndClose();
             return View(checkModulesVm);
         }
 

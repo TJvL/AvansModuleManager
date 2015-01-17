@@ -71,15 +71,15 @@ namespace ModuleManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             // Domain entity repositories:
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<GenericRepository<Module>>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Status>>().To<GenericRepository<Status>>();
+            kernel.Bind<IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
+            kernel.Bind<IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
+            kernel.Bind<IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
+            kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>();
+            kernel.Bind<IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
+            kernel.Bind<IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
+            kernel.Bind<IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
+            kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
+            kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
             // Domain entity API controllers:

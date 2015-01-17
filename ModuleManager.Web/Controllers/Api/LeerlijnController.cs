@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
@@ -18,32 +19,38 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Leerlijn/Get")]
         public IEnumerable<Leerlijn> GetAll()
         {
-            return _leerlijnRepository.GetAll();
+            var leerlijnen = _leerlijnRepository.GetAll().ToArray();
+            _leerlijnRepository.SaveAndClose();
+            return leerlijnen;
         }
 
         [HttpGet, Route("api/Leerlijn/Get/{schooljaar}/{key}")]
         public Leerlijn GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _leerlijnRepository.GetOne(keys);
+            var leerlijn = _leerlijnRepository.GetOne(new object[] { schooljaar, key });
+            _leerlijnRepository.SaveAndClose();
+            return leerlijn;
         }
 
         [HttpPost, Route("api/Leerlijn/Delete")]
-        public bool Delete(Leerlijn entity)
+        public void Delete(Leerlijn entity)
         {
-            return _leerlijnRepository.Delete(entity);
+            _leerlijnRepository.Delete(entity);
+            _leerlijnRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Leerlijn/Edit")]
-        public bool Edit(Leerlijn entity)
+        public void Edit(Leerlijn entity)
         {
-            return _leerlijnRepository.Edit(entity);
+            _leerlijnRepository.Edit(entity);
+            _leerlijnRepository.SaveAndClose();
         }
 
         [HttpPost, Route("api/Leerlijn/Create")]
-        public bool Create(Leerlijn entity)
+        public void Create(Leerlijn entity)
         {
-            return _leerlijnRepository.Create(entity);
+            _leerlijnRepository.Create(entity);
+            _leerlijnRepository.SaveAndClose();
         }
     }
 }
