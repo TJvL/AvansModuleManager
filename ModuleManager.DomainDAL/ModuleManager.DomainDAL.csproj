@@ -131,12 +131,15 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Repositories\BlokRepository.cs" />
     <Compile Include="Repositories\CompetentieRepository.cs" />
+    <Compile Include="Repositories\FaseModuleRepository.cs" />
     <Compile Include="Repositories\FaseRepository.cs" />
+    <Compile Include="Repositories\FaseTypeRepository.cs" />
     <Compile Include="Repositories\LeerlijnRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Repositories\NiveauRepository.cs" />
     <Compile Include="Repositories\SchooljaarRepository.cs" />
     <Compile Include="Repositories\StatusRepository.cs" />
+    <Compile Include="Repositories\StudiePuntenRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
     <Compile Include="Schooljaar.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>

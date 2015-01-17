@@ -22,14 +22,15 @@ namespace ModuleManager.Web
                     src => string.Join(Delimiter, src.Docent.Select(inSrc => inSrc.Name))));
 
             Mapper.CreateMap<Module, ModuleTabelViewModel>()
-                .ForMember(dest => dest, opt => opt.MapFrom(
-                    src => src)) // TODO:
-                .ForMember(dest => dest, opt => opt.MapFrom(
-                    src => src)) // TODO:
-                .ForMember(dest => dest, opt => opt.MapFrom(
-                    src => src)) // TODO:
-                .ForMember(dest => dest, opt => opt.MapFrom(
-                    src => src));
+                //.ForMember(dest => dest.Onderdeel, opt => opt.MapFrom(
+                //    src => src.OnderdeelCode)) // TODO:
+                .ForMember(dest => dest.Cursuscode, opt => opt.MapFrom(
+                    src => src.CursusCode)) // TODO:
+                .ForMember(dest => dest.Omschrijving, opt => opt.MapFrom(
+                    src => src.Beschrijving)) // TODO:
+                //.ForMember(dest => dest.Werkvormen, opt => opt.MapFrom(
+                //    src => string.Join(Delimiter, src.ModuleWerkvorm.Select(inSrc => inSrc.WerkvormType))))
+                .ForMember(dest => dest.Studiepunten, opt => opt.Ignore());
 
             //AutoMapper.Mapper.CreateMap<User, UserViewModel>();
         }

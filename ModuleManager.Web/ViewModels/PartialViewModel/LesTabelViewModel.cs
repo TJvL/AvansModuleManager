@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ModuleManager.Web.ViewModels.PartialViewModel
 {
+    // één lessentabel
     public class LesTabelViewModel
     {
-        public string FaseType { get; set; }
+        public LesTabelViewModel()
+        {
+            Modules = new List<ModuleTabelViewModel>();
+        }
+
         public string FaseNaam { get; set; }
         public string Blok { get; set; }
 
@@ -14,6 +21,23 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
             {
                 return Blok;
             }
+        }
+
+        //string[] values = s.Split(',').Select(sValue => sValue.Trim()).ToArray();
+        public int TotaleContactUren
+        {
+            get
+            {
+                return Modules
+                    .Aggregate("", (current, m) => current + (m.Contacturen + "+"))
+                    .Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Sum(retValue => Convert.ToInt32(retValue));
+            }
+        }
+
+        public int TotaleEcs
+        {
+            get { return (int)Modules.Select(src => src.Studiepunten).Sum(src => src.EC); }
         }
 
         public ICollection<ModuleTabelViewModel> Modules { get; set; }

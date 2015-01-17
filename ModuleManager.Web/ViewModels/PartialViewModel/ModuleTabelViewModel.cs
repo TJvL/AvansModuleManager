@@ -2,6 +2,8 @@
 
 namespace ModuleManager.Web.ViewModels.PartialViewModel
 {
+
+    // één row in de lessentabel
     public class ModuleTabelViewModel
     {
         public string Onderdeel { get; set; }

@@ -21,20 +21,20 @@ using ModuleManager.DomainDAL.Repositories.Dummies;
 
 namespace ModuleManager.Web.App_Start
 {
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -42,7 +42,7 @@ namespace ModuleManager.Web.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -75,12 +75,15 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
             kernel.Bind<IGenericRepository<Fase>>().To<DummyFaseRepository>();
             kernel.Bind<IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
-            kernel.Bind<IGenericRepository<Module>>().To<DummyModuleRepository>();
+            //kernel.Bind<IGenericRepository<Module>>().To<DummyModuleRepository>();
             kernel.Bind<IGenericRepository<Tag>>().To<DummyTagRepository>();
             kernel.Bind<IGenericRepository<Blok>>().To<DummyBlokRepository>();
             kernel.Bind<IGenericRepository<Niveau>>().To<DummyNiveauRepository>();
             kernel.Bind<IGenericRepository<Schooljaar>>().To<DummySchooljaarRepository>();
             kernel.Bind<IGenericRepository<Status>>().To<DummyStatusRepository>();
+            kernel.Bind<IGenericRepository<FaseType>>().To<FaseTypeRepository>(); //
+            kernel.Bind<IGenericRepository<FaseModules>>().To<FaseModulesRepository>(); //
+            kernel.Bind<IGenericRepository<Module>>().To<ModuleRepository>(); //
             // UnitOfWork session for repositories to use:
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
@@ -95,6 +98,6 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
             kernel.Bind<IExporterService<Module>>().To<ModuleExporterService>();
 
-        }        
+        }
     }
 }
