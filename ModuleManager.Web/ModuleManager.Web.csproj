@@ -359,6 +359,7 @@
     <Content Include="Views\Admin\Users\Add.cshtml" />
     <Content Include="Views\Admin\Users\Lock.cshtml" />
     <Content Include="Views\Admin\Users\Delete.cshtml" />
+    <Content Include="Views\Module\Partials\_StudieBelasting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
