@@ -25,6 +25,22 @@ namespace ModuleManager.Web.Controllers.Api
             _competentieRepository = competentieRepository;
         }
 
+        public ActionResult Details(string code)
+        {
+            if (code == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Competentie competentie = _competentieRepository.GetOne(new object[] { code });
+
+            if (competentie == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("~/Views/Admin/Curriculum/Competentie/_Details.cshtml", competentie);
+        }
+
         public ActionResult Create()
         {
             Competentie competentie = new Competentie();
@@ -55,7 +71,37 @@ namespace ModuleManager.Web.Controllers.Api
             return PartialView("~/Views/Admin/Curriculum/Competentie/_Edit.cshtml", competentie);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Competentie entity)
+        {
+            var isSucces = _competentieRepository.Edit(entity);
+            return Json(new { success = isSucces });
+        }
 
+        public ActionResult Delete(string code)
+        {
+            if (code == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Competentie competentie = _competentieRepository.GetOne(new object[] { code });
+
+            if (competentie == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("~/Views/Admin/Curriculum/Competentie/_Delete.cshtml", competentie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Competentie entity)
+        {
+            var isSucces = _competentieRepository.Delete(entity);
+            return Json(new { success = isSucces });
+        }
         
     }
 }
