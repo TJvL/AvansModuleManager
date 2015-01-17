@@ -18,7 +18,6 @@
           <Property Name="UserNaam" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Wachtwoord" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SysteemRol" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Blocked" Type="bit" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="naam" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -34,20 +33,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="spAuthenticateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserName" Type="varchar" Mode="In" />
-          <Parameter Name="Password" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="spEditUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserName" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="spRegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserNaam" Type="varchar" Mode="In" />
-          <Parameter Name="Wachtwoord" Type="varchar" Mode="In" />
-          <Parameter Name="SysteemRol" Type="varchar" Mode="In" />
-          <Parameter Name="email" Type="varchar" Mode="In" />
-          <Parameter Name="naam" Type="varchar" Mode="In" />
-        </Function>
         <EntityContainer Name="IN06SOb_UserDataModelStoreContainer">
           <EntitySet Name="SysteemRol" EntityType="Self.SysteemRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -75,7 +60,6 @@
           <Property Name="UserNaam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Wachtwoord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SysteemRol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Blocked" Type="Boolean" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SysteemRol1" Relationship="Self.FK_User_SysteemRol" FromRole="User" ToRole="SysteemRol" />
@@ -99,20 +83,6 @@
             <End Role="SysteemRol" EntitySet="SysteemRol" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <FunctionImport Name="spAuthenticateUser" ReturnType="Collection(Int32)">
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="spEditUser" ReturnType="Collection(Int32)">
-            <Parameter Name="UserName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="spRegisterUser" ReturnType="Collection(Int32)">
-            <Parameter Name="UserNaam" Mode="In" Type="String" />
-            <Parameter Name="Wachtwoord" Mode="In" Type="String" />
-            <Parameter Name="SysteemRol" Mode="In" Type="String" />
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="naam" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -133,15 +103,11 @@
                 <ScalarProperty Name="UserNaam" ColumnName="UserNaam" />
                 <ScalarProperty Name="Wachtwoord" ColumnName="Wachtwoord" />
                 <ScalarProperty Name="SysteemRol" ColumnName="SysteemRol" />
-                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="naam" ColumnName="naam" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="spAuthenticateUser" FunctionName="IN06SOb_UserDataModel.Store.spAuthenticateUser" />
-          <FunctionImportMapping FunctionImportName="spEditUser" FunctionName="IN06SOb_UserDataModel.Store.spEditUser" />
-          <FunctionImportMapping FunctionImportName="spRegisterUser" FunctionName="IN06SOb_UserDataModel.Store.spRegisterUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

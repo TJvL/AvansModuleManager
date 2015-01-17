@@ -114,9 +114,6 @@
     <Compile Include="Niveau.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Onderdeel.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Opleiding.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -138,11 +135,9 @@
     <Compile Include="Repositories\LeerlijnRepository.cs" />
     <Compile Include="Repositories\ModuleRepository.cs" />
     <Compile Include="Repositories\NiveauRepository.cs" />
-    <Compile Include="Repositories\OnderdeelRepository.cs" />
     <Compile Include="Repositories\SchooljaarRepository.cs" />
     <Compile Include="Repositories\StatusRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
-    <Compile Include="Repositories\ToetsvormRepository.cs" />
     <Compile Include="Schooljaar.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
@@ -156,9 +151,6 @@
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Tag.cs">
-      <DependentUpon>ModuleManagerDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Toetsvorm.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWork\UnitOfWork.cs" />

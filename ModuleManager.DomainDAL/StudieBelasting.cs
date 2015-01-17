@@ -16,8 +16,8 @@ namespace ModuleManager.DomainDAL
     {
         public string CursusCode { get; set; }
         public int Schooljaar { get; set; }
+        public int Id { get; set; }
         public string Activiteit { get; set; }
-        public Nullable<int> ContactUren { get; set; }
         public string Duur { get; set; }
         public string Frequentie { get; set; }
         public int SBU { get; set; }
