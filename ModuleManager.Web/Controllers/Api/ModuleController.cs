@@ -107,7 +107,7 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Module/Get/{schooljaar}/{key}")]
         public Module GetOne(string schooljaar, string key)
         {
-            var module = _moduleRepository.GetOne(new object[] { schooljaar, key });
+            var module = _moduleRepository.GetOne(new object[] { key, schooljaar });
             _moduleRepository.SaveAndClose();
             return module;
         }

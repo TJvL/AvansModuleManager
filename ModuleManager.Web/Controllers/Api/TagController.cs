@@ -27,7 +27,7 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Tag/Get/{schooljaar}/{key}")]
         public Tag GetOne(string schooljaar, string key)
         {
-            var tag = _tagRepository.GetOne(new object[] { schooljaar, key });
+            var tag = _tagRepository.GetOne(new object[] { key, schooljaar });
             _tagRepository.SaveAndClose();
             return tag;
         }

@@ -75,7 +75,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            var module = _moduleRepository.GetOne(new object[] {schooljaar, cursusCode});
+            var module = _moduleRepository.GetOne(new object[] { cursusCode, schooljaar });
             _moduleRepository.SaveAndClose();
             return View(module);
         }
@@ -83,7 +83,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            var module = _moduleRepository.GetOne(new object[] { schooljaar, cursusCode });
+            var module = _moduleRepository.GetOne(new object[] { cursusCode, schooljaar });
             _moduleRepository.SaveAndClose();
             return View(module);
         }
@@ -93,7 +93,7 @@ namespace ModuleManager.Web.Controllers
         {
             _moduleRepository.Edit(entity);
 
-            var module = _moduleRepository.GetOne(new object[] { entity.Schooljaar.ToString(), entity.CursusCode });
+            var module = _moduleRepository.GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
             _moduleRepository.SaveAndClose();
 
             return View(module);
@@ -104,7 +104,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
         public FileStreamResult ExportSingleModule(string schooljaar, string cursusCode)
         {
-            Stream fStream = _moduleExporterService.ExportAsStream(_moduleRepository.GetOne(new object[]{schooljaar, cursusCode}));
+            Stream fStream = _moduleExporterService.ExportAsStream(_moduleRepository.GetOne(new object[] { cursusCode, schooljaar }));
             _moduleRepository.SaveAndClose();
 
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
