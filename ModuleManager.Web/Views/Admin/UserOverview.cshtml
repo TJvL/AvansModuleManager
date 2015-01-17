@@ -1,4 +1,8 @@
-﻿<div class="container">
+﻿@using ModuleManager.Web.Helpers
+
+@model ModuleManager.Web.ViewModels.AdminUserManagementViewModel
+
+<div class="container">
     <div class="row">
         <div id="primary">
             <div class="col-md-12">
@@ -11,52 +15,49 @@
 
             <div class="col-md-12">
                 <div class="pull-right">
-                    <a class="btn btn-success" data-toggle="modal" data-target="#user-add" href="#" ><i class="fa fa-plus"></i> Nieuwe gebruiker</a>
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Nieuwe gebruiker", "Toevoegen", "Create", "Users", htmlAttributes: new { data_modal = "", @class = "btn btn-success" })
                 </div>
                 <h2 style="margin-top: 0">Gebruikers</h2>
             </div>
 
             <div class="col-md-12">
-                <table class="table table-hover">
+                <table id="users" class="table table-hover">
                     <thead>
                         <tr>
+                            <th>Gebruikersnaam</th>
                             <th>Naam</th>
                             <th>Email</th>
                             <th>Rol</th>
                             <th>Acties</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Rol</th>
+                        </tr>
+                    </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Henk van der Sangen</td>
-                            <td>henk@vdsangen.nl</td>
-                            <td>Administrator</td>
-                            <td style="width: 130px">
-                                <a data-toggle="modal" data-target="#user-edit" href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
-                                <a data-toggle="modal" data-target="#user-lock" href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
-                                <a data-toggle="modal" data-target="#user-delete" href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Henk van der Sangen</td>
-                            <td>henk@vdsangen.nl</td>
-                            <td>Gebruiker</td>
-                            <td style="width: 130px">
-                                <a data-toggle="modal" data-target="#user-edit" href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
-                                <a data-toggle="modal" data-target="#user-lock" href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
-                                <a data-toggle="modal" data-target="#user-delete" href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Henk van der Sangen</td>
-                            <td>henk@vdsangen.nl</td>
-                            <td>Gebruiker</td>
-                            <td class="actions" style="width: 130px">
-                                <a data-toggle="modal" data-target="#user-edit" href="#" class="btn btn-warning btn-sm" title="Bewerken"><i class="fa fa-pencil"></i></a>
-                                <a data-toggle="modal" data-target="#user-lock" href="#" class="btn btn-primary btn-sm" title="Wachtwoord mailen"><i class="fa fa-lock"></i></a>
-                                <a data-toggle="modal" data-target="#user-delete" href="#" class="btn btn-danger btn-sm" title="Verwijderen"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        @foreach (var item in @Model.Users.Data)
+                        {
+                            <tr>
+                                <td class="name">@item.GebruikersNaam</td>
+                                <td class="name">@item.Naam</td>
+                                <td>@item.Email</td>
+                                <td>@item.SysteemRol</td>
+                                <td class="actions" style="width: 130px">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                                    @if (!item.Blocked)
+                                    {
+                                        @Html.NoEncodeActionLink("<span i class='fa fa-lock'></span>", "Blokeren", "Lock", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam, Blocked = true }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })                                        
+                                    }
+                                    else
+                                    {
+                                        @Html.NoEncodeActionLink("<span i class='fa fa-unlock'></span>", "Deblokeren", "Lock", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam, Blocked = false }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })                                       
+                                    }
+                                   
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -64,28 +65,73 @@
     </div>
 </div>
 
-<!-- Help MODAL-->
-@Html.Partial("~/Views/Help/UserOverview.cshtml", null);
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
 
-@Html.Partial("~/Views/Admin/Users/Edit.cshtml", null);
-@Html.Partial("~/Views/Admin/Users/Add.cshtml", null);
-@Html.Partial("~/Views/Admin/Users/Lock.cshtml", null);
-@Html.Partial("~/Views/Admin/Users/Delete.cshtml", null);
+
+
 
 <!-- JAVA MEUK -->
 @section Scripts {
+    
+    @Scripts.Render("~/bundles/modalform")
+    <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
+
     <script>
-        $(function() {
+
+        $(function () {
+
+
             // THIS FOR ALL OVERVIEWS
-            $(".item td").on("click", function() {
+            $(".item td").on("click", function () {
                 if (!$(this).hasClass("actions")) {
                     window.location = $(this).parent().data("href");
                 }
             });
 
-            $('.dropdown-menu').on('click', function(e) {
+            $('.dropdown-menu').on('click', function (e) {
                 if ($(this).hasClass('dropdown-menu-form')) {
                     e.stopPropagation();
+                }
+            });
+
+            $("#users").dataTable({
+                dom:
+                    "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-6'p><'col-sm-6'i>>",
+                language: {
+                    url: "/Scripts/dataTables.dutch.js"
+                },
+                order: [[0, "asc"]],
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [4] }
+                ],
+                initComplete: function () { // rolfilter
+                    var table = $('#users').DataTable();
+                    $("#users tfoot th").each(function (i) {
+                        var columns = [3];
+                        var text = ["rol"];
+                        var select = $('<select><option value="">' + text[i] + '-filter</option></select>')
+                            .appendTo($(this).empty()) // positie _ this = (#users tfoot th)
+                            .on('change', function () {
+                                table.column(columns[i])
+                                    .search($(this).val())
+                                    .draw();
+                            });
+
+                        table.column(columns[i]).data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                    });
                 }
             });
 
@@ -100,4 +146,5 @@
             });
         });
     </script>
+
 }
