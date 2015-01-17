@@ -22,7 +22,6 @@ namespace ModuleManager.Web
                 .ForMember(dest => dest.Docenten, opt => opt.MapFrom(
                     src => string.Join(Delimiter, src.Docent.Select(inSrc => inSrc.Name))));
 
-<<<<<<< HEAD
             Mapper.CreateMap<Module, ModuleTabelViewModel>()
                 //.ForMember(dest => dest.Onderdeel, opt => opt.MapFrom(
                 //    src => src.OnderdeelCode)) // TODO:
@@ -34,8 +33,6 @@ namespace ModuleManager.Web
                 //    src => string.Join(Delimiter, src.ModuleWerkvorm.Select(inSrc => inSrc.WerkvormType))))
                 .ForMember(dest => dest.Studiepunten, opt => opt.Ignore());
 
-            //AutoMapper.Mapper.CreateMap<User, UserViewModel>();
-=======
             Mapper.CreateMap<User, UserViewModel>()
                 .ForMember(dest => dest.Naam, opt => opt.MapFrom(
                     src => src.naam))
@@ -43,7 +40,6 @@ namespace ModuleManager.Web
                     src => src.email))
                 .ForMember(dest => dest.GebruikersNaam, opt => opt.MapFrom(
                     src => src.UserNaam));
->>>>>>> origin/master_development
         }
     }
 }
