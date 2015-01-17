@@ -20,6 +20,7 @@ namespace ModuleManager.DomainDAL
         public DomainContext()
             : base("name=DomainContext")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -1,7 +1,8 @@
 ﻿using System;
+
 namespace ModuleManager.DomainDAL.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         DomainContext Context { get; }
     }

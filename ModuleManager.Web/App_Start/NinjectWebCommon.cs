@@ -4,17 +4,14 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.DomainDAL.Repositories;
-using ModuleManager.DomainDAL.UnitOfWork;
 using ModuleManager.Web.App_Start;
 using ModuleManager.Web.Controllers.Api;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 using Ninject;
 using Ninject.Web.Common;
 using WebActivatorEx;
-using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.UserDAL.Interfaces;
 using ModuleManager.UserDAL.Repositories;
 
@@ -74,16 +71,15 @@ namespace ModuleManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             // Domain entity repositories:
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Competentie>>().To<CompetentieRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Fase>>().To<FaseRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Leerlijn>>().To<LeerlijnRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<ModuleRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Tag>>().To<TagRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Blok>>().To<BlokRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Niveau>>().To<NiveauRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Schooljaar>>().To<SchooljaarRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Status>>().To<StatusRepository>();
-            // UnitOfWork session for repositories to use:
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<GenericRepository<Module>>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Status>>().To<GenericRepository<Status>>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
             // Domain entity API controllers:
