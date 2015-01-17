@@ -15,12 +15,12 @@ namespace ModuleManager.DomainDAL
     public partial class FaseModules
     {
         public string FaseNaam { get; set; }
-        public int FaseSchooljaar { get; set; }
+        public string FaseSchooljaar { get; set; }
         public string ModuleCursusCode { get; set; }
-        public int ModuleSchooljaar { get; set; }
+        public string ModuleSchooljaar { get; set; }
         public string Blok { get; set; }
         public string OpleidingNaam { get; set; }
-        public int OpleidingSchooljaar { get; set; }
+        public string OpleidingSchooljaar { get; set; }
     
         public virtual Blok Blok1 { get; set; }
         public virtual Fase Fase { get; set; }
