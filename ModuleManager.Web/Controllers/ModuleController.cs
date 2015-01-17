@@ -110,7 +110,7 @@ namespace ModuleManager.Web.Controllers
 
         //Kijk hier even naar, wat je wilt met input...
         [HttpPost, Route("Module/ExportAll")]
-        public FileStreamResult ExportAllModules(ExportArgumentsViewModel value)
+        public ActionResult ExportAllModules(ExportArgumentsViewModel value)
         {
             var modules = _moduleRepository.GetAll();
 
@@ -169,7 +169,28 @@ namespace ModuleManager.Web.Controllers
             var exportablePack = new ModuleExportablePack(exportArguments, modules);
 
             BufferedStream fStream = _moduleExporterService.ExportAllAsStream(exportablePack);
+
+            string expByName = User.Identity.Name;
+            if(expByName == null || expByName.Equals(""))
+            {
+                expByName = "download";
+            }
+
+            string saveTo = DateTime.Now.ToString("yyyy-MM-dd") + "_" + expByName;
+            Session[saveTo] = fStream;
+            //HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
+
+            //return new FileStreamResult(fStream, "application/pdf");
+            //return RedirectToAction("Custom", saveTo);
+            return Json(saveTo);
+        }
+
+        [HttpGet, Route("Module/Export/{loadFrom}")]
+        public FileStreamResult GetExportAllModules(string loadFrom)
+        {
+            BufferedStream fStream = Session[loadFrom] as BufferedStream;
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
+            Session[loadFrom] = null;
 
             return new FileStreamResult(fStream, "application/pdf");
         }
