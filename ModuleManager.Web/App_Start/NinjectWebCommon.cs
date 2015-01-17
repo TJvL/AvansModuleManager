@@ -15,6 +15,8 @@ using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL.Repositories.Dummies;
+using ModuleManager.UserDAL.Interfaces;
+using ModuleManager.UserDAL.Repositories;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
@@ -72,6 +74,7 @@ namespace ModuleManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             // Domain entity repositories:
+<<<<<<< HEAD
             kernel.Bind<IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
             kernel.Bind<IGenericRepository<Fase>>().To<DummyFaseRepository>();
             kernel.Bind<IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
@@ -84,6 +87,17 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericRepository<FaseType>>().To<FaseTypeRepository>(); //
             kernel.Bind<IGenericRepository<FaseModules>>().To<FaseModulesRepository>(); //
             kernel.Bind<IGenericRepository<Module>>().To<ModuleRepository>(); //
+=======
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Fase>>().To<DummyFaseRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<DummyModuleRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Tag>>().To<DummyTagRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Blok>>().To<DummyBlokRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Niveau>>().To<DummyNiveauRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Schooljaar>>().To<DummySchooljaarRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Status>>().To<DummyStatusRepository>();
+>>>>>>> origin/master_development
             // UnitOfWork session for repositories to use:
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
@@ -93,6 +107,9 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
             kernel.Bind<IGenericApiController<Tag>>().To<TagController>();
             kernel.Bind<IModuleApiController>().To<ModuleController>();
+
+            // User entity repositories:
+            kernel.Bind<IUserRepository>().To<UserRepository>();
 
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
