@@ -23,7 +23,7 @@ $(function () {
         var year = $(this).find(".cursusCode").data("year");
         var cursusCode = $(this).find(".cursusCode").data("code")
 
-        window.location = "/Module/" + year + "/" + cursusCode;
+        window.location = "/Module/Details/" + year + "/" + cursusCode;
     });
 
 
