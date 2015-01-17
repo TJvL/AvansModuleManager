@@ -288,6 +288,8 @@
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\PartialViewControllers\CompetentieController.cs" />
     <Compile Include="Controllers\PartialViewControllers\FaseController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\LeerlijnController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\TagController.cs" />
     <Compile Include="Controllers\PartialViewControllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -373,6 +375,12 @@
     <Content Include="Views\Admin\Curriculum\Fase\_Add.cshtml" />
     <Content Include="Views\Admin\Curriculum\Fase\_Edit.cshtml" />
     <Content Include="Views\Admin\Curriculum\Fase\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Leerlijn\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Leerlijn\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Leerlijn\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -382,6 +390,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Leerlijn\" />
+    <Folder Include="Views\Tag\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
