@@ -282,6 +282,7 @@
     <Compile Include="Controllers\Api\Interfaces\IGenericApiController.cs" />
     <Compile Include="Controllers\Api\Interfaces\IModuleApiController.cs" />
     <Compile Include="Controllers\Api\LeerlijnController.cs" />
+	<Compile Include="Controllers\Api\OnderdeelController.cs" />
     <Compile Include="Controllers\Api\ModuleController.cs" />
     <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

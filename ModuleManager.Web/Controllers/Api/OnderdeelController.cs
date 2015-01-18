@@ -6,44 +6,45 @@ using ModuleManager.Web.Controllers.Api.Interfaces;
 
 namespace ModuleManager.Web.Controllers.Api
 {
-    public class OnderdeelController : ApiController, IGenericApiController<Leerlijn> // TODO: replace-all 'Leerlijn' => 'Onderdeel'
+    public class OnderdeelController : ApiController, IGenericApiController<Onderdeel> // TODO: replace-all 'Onderdeel' => 'Onderdeel'
     {
-        private readonly IGenericRepository<Leerlijn> _onderdeelRepository;
+        private readonly IGenericRepository<Onderdeel> _onderdeelRepository;
 
-        public OnderdeelController(IGenericRepository<Leerlijn> onderdeelRepository)
+        public OnderdeelController(IGenericRepository<Onderdeel> onderdeelRepository)
         {
             _onderdeelRepository = onderdeelRepository;
         }
 
         [HttpGet, Route("api/Onderdeel/Get")]
-        public IEnumerable<Leerlijn> GetAll()
+        public IEnumerable<Onderdeel> GetAll()
         {
             return _onderdeelRepository.GetAll();
         }
 
-        [HttpGet, Route("api/Onderdeel/Get/{schooljaar}/{key}")]
-        public Leerlijn GetOne(string schooljaar, string key) // TODO: Pas keys aan
+        [HttpGet, Route("api/Onderdeel/Get/{key}")]
+        //public Onderdeel GetOne(string key)
+        public Onderdeel GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
+            var keys = new object[] { key };
             return _onderdeelRepository.GetOne(keys);
         }
 
         [HttpPost, Route("api/Onderdeel/Delete")]
-        public bool Delete(Leerlijn entity)
+        public void Delete(Onderdeel entity)
         {
-            return _onderdeelRepository.Delete(entity);
+            _onderdeelRepository.Delete(entity);
         }
 
         [HttpPost, Route("api/Onderdeel/Edit")]
-        public bool Edit(Leerlijn entity)
+        public void Edit(Onderdeel entity)
         {
-            return _onderdeelRepository.Edit(entity);
+            _onderdeelRepository.Edit(entity);
         }
 
         [HttpPost, Route("api/Onderdeel/Create")]
-        public bool Create(Leerlijn entity)
+        public void Create(Onderdeel entity)
         {
-            return _onderdeelRepository.Create(entity);
+            _onderdeelRepository.Create(entity);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
         public int TotaleEcs
         {
-            get { return (int)Modules.Select(src => src.Studiepunten).Sum(src => src.EC); }
+            get { return (int)Modules.SelectMany(src => src.Studiepunten).Sum(src => src.EC); }
         }
 
         public ICollection<ModuleTabelViewModel> Modules { get; set; }

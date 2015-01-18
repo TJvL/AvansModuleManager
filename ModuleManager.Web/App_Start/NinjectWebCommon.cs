@@ -71,7 +71,7 @@ namespace ModuleManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             // Domain entity repositories:          
-			kernel.Bind<IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
+            kernel.Bind<IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
             kernel.Bind<IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
             kernel.Bind<IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
             kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>();
@@ -80,10 +80,10 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
             kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
             kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
-			kernel.Bind<DomainDAL.Interfaces.IGenericRepository<FaseType>>().To<FaseTypeRepository>(); //
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<FaseModules>>().To<FaseModulesRepository>(); //
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<ModuleRepository>(); //
-			
+            kernel.Bind<IGenericRepository<FaseType>>().To<GenericRepository<FaseType>>(); //
+            kernel.Bind<IGenericRepository<FaseModules>>().To<GenericRepository<FaseModules>>(); //
+            kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>(); //
+
             // UnitOfWork session for repositories to use:
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 

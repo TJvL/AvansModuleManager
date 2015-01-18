@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
-using System.Web.Services.Description;
 using AutoMapper;
 using Microsoft.Ajax.Utilities;
 using ModuleManager.DomainDAL.Interfaces;
@@ -13,17 +11,11 @@ namespace ModuleManager.Web.Controllers
 {
     public class StudieGidsController : Controller
     {
-        private readonly IGenericRepository<Module> _moduleRepository;
-        private readonly IGenericRepository<Fase> _faseRepository;
-        private readonly IGenericRepository<FaseType> _faseTypeRepository;
-        private readonly IGenericRepository<FaseModules> _faseModuleRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public StudieGidsController(IGenericRepository<Module> moduleRepository, IGenericRepository<Fase> faseRepository, IGenericRepository<FaseModules> faseModuleRepository, IGenericRepository<FaseType> faseTypeRepository)
+        public StudieGidsController(IUnitOfWork unitOfWork)
         {
-            _moduleRepository = moduleRepository;
-            _faseRepository = faseRepository;
-            _faseTypeRepository = faseTypeRepository;
-            _faseModuleRepository = faseModuleRepository;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: Table
@@ -31,15 +23,15 @@ namespace ModuleManager.Web.Controllers
         {
             var vm = new StudiegidsViewModel();
 
-            foreach (var ft in _faseTypeRepository.GetAll())
+            foreach (var ft in _unitOfWork.GetRepository<FaseType>().GetAll())
             {
                 var tabellenlijst = new LessenTabelViewModel { FaseType = ft.Type };
-                var fasems = _faseModuleRepository.GetAll().ToList();
-                var fases = _faseRepository.GetAll().ToList();
-                //return CollectionViewModel.AllMerkProducten
-                //  .Join(AvailableReceptMerkProducten,
-                //      a => new { a.ProductNaam, a.MerkNaam },
-                //      b => new { b.ProductNaam, b.MerkNaam },
+                var fasems = _unitOfWork.GetRepository<FaseModules>().GetAll().ToList();
+                var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
+                //return CollectionA
+                //  .Join(CollectionB,
+                //      a => new { a.KeyA, a.KeyB },
+                //      b => new { b.KeyA, b.KeyB },
                 //      (a, b) => new { a, b })
                 var joined = fasems
                     .Join(fases,
@@ -49,12 +41,13 @@ namespace ModuleManager.Web.Controllers
                 foreach (var random in joined.Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType)).DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })) // fasemodule collectie WHERE fasetype.EQUALS(ft.Type)
                 {
                     var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
-                    foreach (var fm2 in _faseModuleRepository.GetAll()
+                    foreach (var fm2 in _unitOfWork.GetRepository<FaseModules>().GetAll()
                         .Where(src => src.Blok.Equals(tabel.Blok))
                         .Where(src => src.FaseNaam.Equals(tabel.FaseNaam))) // WTF DOE IK HIER?!
                     {
                         var keys = new object[] { fm2.ModuleCursusCode, fm2.ModuleSchooljaar };
-                        var row = Mapper.Map<Module, ModuleTabelViewModel>(_moduleRepository.GetOne(keys));
+                        var module = _unitOfWork.GetRepository<Module>().GetOne(keys);
+                        var row = Mapper.Map<Module, ModuleTabelViewModel>(module);
                         tabel.Modules.Add(row);
                     }
                     tabellenlijst.Tabellen.Add(tabel);
@@ -62,7 +55,7 @@ namespace ModuleManager.Web.Controllers
                 vm.Opleidingsfasen.Add(tabellenlijst);
             }
 
-            return View();
+            return View(vm);
         }
     }
 }
