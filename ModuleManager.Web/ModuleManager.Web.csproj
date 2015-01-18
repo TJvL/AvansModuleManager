@@ -313,6 +313,9 @@
     <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\WeekplanningViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\WerkvormViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleEditOptionsViewModel.cs" />
+    <Compile Include="ViewModels\ModuleEditViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\LessenTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
@@ -381,11 +384,6 @@
     <Content Include="Views\Admin\Curriculum\Fase\Delete.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\Users\Edit.cshtml" />
-    <Content Include="Views\Admin\Users\Add.cshtml" />
-    <Content Include="Views\Admin\Users\Lock.cshtml" />
-    <Content Include="Views\Admin\Users\Delete.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\StudieGids\Index.cshtml" />
     <Content Include="Views\Admin\Users\_Lock.cshtml" />
