@@ -23,7 +23,7 @@ $(function () {
         var year = $(this).find(".cursusCode").data("year");
         var cursusCode = $(this).find(".cursusCode").data("code")
 
-        window.location = "/Module/" + year + "/" + cursusCode;
+        window.location = "/Module/Details/" + year + "/" + cursusCode;
     });
 
 
@@ -262,6 +262,7 @@ function exportModules() {
             $("#exportAlert").html("");
             $("#exportModules").removeAttr("disabled", "disabled");
             // TODO, pdf meegeven aan gebruiker, of gebruiker doorlinken naar .pdf (new tab?)
+            top.location.href = 'Export/' + data;
         },
         error: function () {
             $("#exportAlert").html("<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Er ging iets mis, probeer het opnieuw.</div>");

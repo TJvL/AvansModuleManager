@@ -1,5 +1,5 @@
-﻿@using ModuleManager.DomainDAL
-@model  ModuleManager.DomainDAL.Module
+﻿@using ModuleManager.Web.ViewModels.EntityViewModel
+@model  ModuleManager.Web.ViewModels.EntityViewModel.ModuleViewModel
             
 @{
     // Jaartal
@@ -87,7 +87,7 @@
                             <td>@firstToetscode.ToetsCode</td>
                             <td>@firstToetscode.EC</td>
                         </tr>
-                        @foreach (StudiePunten studiePunt in @Model.StudiePunten.Where(studiePunt => studiePunt != firstToetscode))
+                        @foreach (StudiePuntenViewModel studiePunt in @Model.StudiePunten.Where(studiePunt => studiePunt != firstToetscode))
                         {
                             <tr>
                                 <td>@studiePunt.ToetsCode</td>
@@ -108,7 +108,7 @@
                             <th>Fase</th>
                             <th>Blok</th>
                         </tr>
-                        @foreach (FaseModules faseModules in Model.FaseModules)
+                        @foreach (FaseModulesViewModel faseModules in Model.FaseModules)
                         {
                             <tr>
                                 <td>@faseModules.FaseNaam</td>
@@ -125,7 +125,7 @@
                             <th>Competentie</th>
                             <th>Omschrijving</th>
                         </tr>
-                        @foreach (ModuleCompetentie moduleCompetentie in Model.ModuleCompetentie)
+                        @foreach (ModuleCompetentieViewModel moduleCompetentie in Model.ModuleCompetentie)
                         {
                             <tr>
                                 <td>@moduleCompetentie.Competentie.Naam</td>
@@ -154,7 +154,7 @@
                             <th>SBU</th>
                         </tr>
                         @{ var studieBelastingTotaal = 0; }
-                        @foreach (StudieBelasting studieBelasting in Model.StudieBelasting)
+                        @foreach (StudieBelastingViewModel studieBelasting in Model.StudieBelasting)
                         {
                             <tr>
                                 <td>@studieBelasting.Activiteit</td>
@@ -176,7 +176,7 @@
                 <p>
                     Toelichting op de werkvormen @werkvorm:
                     <ul>
-                        @foreach (ModuleWerkvorm moduleWerkvorm in Model.ModuleWerkvorm)
+                        @foreach (ModuleWerkvormViewModel moduleWerkvorm in Model.ModuleWerkvorm)
                         {
                             <li>@moduleWerkvorm.Organisatie</li>
                         }
@@ -189,7 +189,7 @@
                             <th>Week</th>
                             <th>Onderwerpen</th>
                         </tr>
-                        @foreach (Weekplanning weekplanning in Model.Weekplanning)
+                        @foreach (WeekplanningViewModel weekplanning in Model.Weekplanning)
                         {
                             <tr>
                                 <td>@weekplanning.Week</td>
@@ -200,14 +200,14 @@
                 </table>
                 <h3>Beoordeling</h3>
                 <ul>
-                    @foreach (Beoordelingen beoordelingen in Model.Beoordelingen)
+                    @foreach (BeoordelingenViewModel beoordelingen in Model.Beoordelingen)
                     {
                         <li>@beoordelingen.Beschrijving</li>
                     }
                 </ul>
                 <h3>Leermiddelen</h3>
                 <ul>
-                    @foreach (Leermiddelen leermiddelen in Model.Leermiddelen)
+                    @foreach (LeermiddelenViewModel leermiddelen in Model.Leermiddelen)
                     {
                         <li>@leermiddelen.Beschrijving</li>
                     }
@@ -216,7 +216,7 @@
                 <p>
                     De student kan...
                     <ul>
-                       @foreach (Leerdoelen leerdoelen in Model.Leerdoelen)
+                       @foreach (LeerdoelenViewModel leerdoelen in Model.Leerdoelen)
                        {
                            <li>@leerdoelen.Beschrijving</li>
                        }

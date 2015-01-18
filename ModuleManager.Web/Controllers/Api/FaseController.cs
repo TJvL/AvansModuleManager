@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
@@ -8,42 +9,49 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class FaseController : ApiController, IGenericApiController<Fase>
     {
-        private readonly IGenericRepository<Fase> _faseRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public FaseController(IGenericRepository<Fase> faseRepository)
+        public FaseController(IUnitOfWork unitOfWork)
         {
-            _faseRepository = faseRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet, Route("api/Fase/Get")]
         public IEnumerable<Fase> GetAll()
         {
-            return _faseRepository.GetAll();
+            var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToArray();
+            return fases;
         }
 
         [HttpGet, Route("api/Fase/Get/{schooljaar}/{key}")]
         public Fase GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _faseRepository.GetOne(keys);
+            var fase = _unitOfWork.GetRepository<Fase>().GetOne(new object[] { key, schooljaar });
+            return fase;
         }
 
         [HttpPost, Route("api/Fase/Delete")]
-        public bool Delete(Fase entity)
+        public void Delete(Fase entity)
         {
-            return _faseRepository.Delete(entity);
+            _unitOfWork.GetRepository<Fase>().Delete(entity);
         }
 
         [HttpPost, Route("api/Fase/Edit")]
-        public bool Edit(Fase entity)
+        public void Edit(Fase entity)
         {
-            return _faseRepository.Edit(entity);
+            _unitOfWork.GetRepository<Fase>().Edit(entity);
         }
 
         [HttpPost, Route("api/Fase/Create")]
-        public bool Create(Fase entity)
+        public void Create(Fase entity)
         {
-            return _faseRepository.Create(entity);
+            _unitOfWork.GetRepository<Fase>().Create(entity);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
