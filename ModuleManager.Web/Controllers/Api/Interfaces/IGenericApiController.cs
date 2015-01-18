@@ -6,8 +6,8 @@ namespace ModuleManager.Web.Controllers.Api.Interfaces
     {
         IEnumerable<T> GetAll();
         T GetOne(string schooljaar, string key);
-        bool Delete(T entity);
-        bool Edit(T entity);
-        bool Create(T entity); 
+        void Delete(T entity);
+        void Edit(T entity);
+        void Create(T entity); 
     }
 }

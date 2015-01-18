@@ -4,17 +4,17 @@
     /// <summary>
     /// Moduleinformatie weergegeven voor de module overview-pagina's
     /// </summary>
-    public class ModuleViewModel
+    public class ModulePartialViewModel
     {
         /// <summary>
         /// Onderdeel van de Module/Overview
         /// </summary>
-        public char Icon { get; set; }
+        public string Icon { get; set; }
         public string Naam { get; set; }
         public string CursusCode { get; set; }
         public string Blokken { get; set; }
         public decimal TotalEc { get; set; }
-        public int Schooljaar { get; set; }
+        public string Schooljaar { get; set; }
 
         /// <summary>
         /// Onderdeel van de Admin/CheckModules
