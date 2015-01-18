@@ -1,0 +1,231 @@
+﻿@using ModuleManager.DomainDAL
+@model  ModuleManager.DomainDAL.Module
+            
+@{
+    // Jaartal
+    var j1 = Model.Schooljaar.ToString();
+    var j2 = Model.Schooljaar.ToString();
+    j1 = j1.Remove(j1.Length - 2);
+    j2 = j2.Remove(0, 2);
+    var jaar = "20" + j1 + "-20" + j2;
+    
+    // Docenten
+    var docenten = @Model.Docent.Aggregate("", (current, docent) => current + (docent.Name + ", "));
+    docenten = docenten.Remove(docenten.Length - 2);
+    
+    // Leerlijnen
+    var leerlijnen = @Model.Leerlijn.Aggregate("", (current, leerlijn) => current + (leerlijn.Naam + ", "));
+    leerlijnen = leerlijnen.Remove(leerlijnen.Length - 2);
+    
+    // Tags
+    var tags = @Model.Tag.Aggregate("", (current, tag) => current + (tag.Naam + ", "));
+    tags = tags.Remove(tags.Length - 2);
+    
+    // Studiepunten        
+    var rowSpanToetscode = @Model.StudiePunten.Count;
+    var firstToetscode = @Model.StudiePunten.First();          
+    
+    // Werkvorm
+    var werkvorm = @Model.ModuleWerkvorm.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
+    werkvorm = werkvorm.Remove(werkvorm.Length - 2);
+}
+
+<div class="container">
+    <div class="row">
+        <div id="primary">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="active">@Model.Naam</li>
+                </ol>
+            </div>
+            <div class="col-md-12">
+                <div class="pull-right">
+                    <a class="btn btn-default" href="@Url.Action("Overview", "Module")">Terug</a>
+                    <a class="btn btn-success" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>
+                </div>
+                <h2 style="margin-top: 0">@Model.Naam</h2>
+            </div>
+            <div class="col-md-12">
+                <h3>Beschrijving</h3>
+                <p>@Model.Beschrijving</p>
+                <h3>Algemene informatie</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Schooljaar</td>
+                            <td colspan="2">@jaar</td>
+                        </tr>
+                        <tr>
+                            <td>Cursus</td>
+                            <td colspan="2">@Model.CursusCode</td>
+                        </tr>
+                        <tr>
+                            <td>Status <label style="color:red;">TODO: Auth</label></td>
+                            <td colspan="2">@Model.Status</td>
+                        </tr>
+                        <tr>
+                            <td>Verantwoordelijke</td>
+                            <td colspan="2">@Model.Verantwoordelijke</td>
+                        </tr>
+                        <tr>
+                            <td>Docenten</td>
+                            <td colspan="2">@docenten</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Leerlijnen</td>
+                            <td colspan="2">@leerlijnen</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Tags</td>
+                            <td colspan="2">@tags</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="@rowSpanToetscode">Toetscode & EC</td>
+                            <td>@firstToetscode.ToetsCode</td>
+                            <td>@firstToetscode.EC</td>
+                        </tr>
+                        @foreach (StudiePunten studiePunt in @Model.StudiePunten.Where(studiePunt => studiePunt != firstToetscode))
+                        {
+                            <tr>
+                                <td>@studiePunt.ToetsCode</td>
+                                <td>@studiePunt.EC</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>Werkvorm</td>
+                            <td colspan="2">@werkvorm</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Fases & Blokken</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Fase</th>
+                            <th>Blok</th>
+                        </tr>
+                        @foreach (FaseModules faseModules in Model.FaseModules)
+                        {
+                            <tr>
+                                <td>@faseModules.FaseNaam</td>
+                                <td>@faseModules.Blok</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                
+                <h3>Competenties</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Competentie</th>
+                            <th>Omschrijving</th>
+                        </tr>
+                        @foreach (ModuleCompetentie moduleCompetentie in Model.ModuleCompetentie)
+                        {
+                            <tr>
+                                <td>@moduleCompetentie.Competentie.Naam</td>
+                                @{
+                            string[] competenties = null;
+                            competenties = moduleCompetentie.Competentie.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);
+                                }
+                                <td>
+                                    @foreach (string comptentie in competenties)
+                                    {
+                                        @comptentie<br />
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <h3>Studiebelasting</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Activiteit</th>
+                            <th>Duur</th>
+                            <th>Frequentie</th>
+                            <th>SBU</th>
+                        </tr>
+                        @{ var studieBelastingTotaal = 0; }
+                        @foreach (StudieBelasting studieBelasting in Model.StudieBelasting)
+                        {
+                            <tr>
+                                <td>@studieBelasting.Activiteit</td>
+                                <td>@studieBelasting.Duur</td>
+                                <td>@studieBelasting.Frequentie</td>
+                                <td>@studieBelasting.SBU</td>
+                            </tr>
+                            studieBelastingTotaal = studieBelastingTotaal + studieBelasting.SBU;
+                        }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <th>Totaal</th>
+                            <td>@studieBelastingTotaal</td>
+                        </tr>
+                    <tbody>
+                </table>
+                <h3>Organisatie</h3>
+                <p>
+                    Toelichting op de werkvormen @werkvorm:
+                    <ul>
+                        @foreach (ModuleWerkvorm moduleWerkvorm in Model.ModuleWerkvorm)
+                        {
+                            <li>@moduleWerkvorm.Organisatie</li>
+                        }
+                    </ul>
+                </p>
+                <h3>Weekplanning</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Week</th>
+                            <th>Onderwerpen</th>
+                        </tr>
+                        @foreach (Weekplanning weekplanning in Model.Weekplanning)
+                        {
+                            <tr>
+                                <td>@weekplanning.Week</td>
+                                <td>@weekplanning.Onderwerp</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <h3>Beoordeling</h3>
+                <ul>
+                    @foreach (Beoordelingen beoordelingen in Model.Beoordelingen)
+                    {
+                        <li>@beoordelingen.Beschrijving</li>
+                    }
+                </ul>
+                <h3>Leermiddelen</h3>
+                <ul>
+                    @foreach (Leermiddelen leermiddelen in Model.Leermiddelen)
+                    {
+                        <li>@leermiddelen.Beschrijving</li>
+                    }
+                </ul>
+                <h3>Leerdoelen</h3>
+                <p>
+                    De student kan...
+                    <ul>
+                       @foreach (Leerdoelen leerdoelen in Model.Leerdoelen)
+                       {
+                           <li>@leerdoelen.Beschrijving</li>
+                       }
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/ModuleDetails.cshtml", null);

@@ -1,0 +1,395 @@
+﻿@model ModuleManager.Web.ViewModels.AdminCurriculumViewModel
+
+<div class="container">
+    <div class="row">
+        <div id="primary">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+                    <li class="active">Curriculum beheer</li>
+                </ol>
+            </div>
+
+            <div class="col-md-12">
+                <h2>Curriculum beheer</h2>
+                <br/><br/>
+            </div>
+            
+            <div class="col-md-6">
+                <div id="toolbar" class="competentiesTable" style="display:none;">
+                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competentie-add">Toevoegen</button>
+                </div>
+                <h3 style="margin-top: 0">Competenties</h3>
+                
+                <table id="competentiesTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Competenties)
+                        {
+                            <tr class="competentie-item">
+                                <td class="ninety-width">@item.Code</td>
+                                <td>@item.Naam</td>
+                                <td class="actions ninety-width">
+                                    <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+
+            <div class="col-md-6">
+                <div id="toolbar" class="fasesTable" style="display:none;">
+                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#fase-add">Toevoegen</button>
+                </div>
+                <h3 style="margin-top: 0">Fases</h3>
+                
+                <table id="fasesTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Fases)
+                        {
+                            <tr class="fase-item">
+                                <td class="ninety-width">@item.FaseType</td>
+                                <td>@item.Naam</td>
+                                <td class="actions ninety-width">
+                                    <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+        
+            <div class="col-md-6">
+                <div id="toolbar" class="leerlijnenTable" style="display:none;">
+                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#leerlijn-add">Toevoegen</button>
+                </div>
+                <h3 style="margin-top: 0">Leerlijnen</h3>
+                
+                <table id="leerlijnenTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Leerlijn)
+                        {
+                            <tr class="leerlijn-item">
+                                <td>@item.Naam</td>
+                                <td class="actions ninety-width">
+                                    <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+
+            <div class="col-md-6">
+                <div id="toolbar" class="tagsTable" style="display:none;">
+                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#tag-add">Toevoegen</button>
+                </div>
+                <h3 style="margin-top: 0">Tags</h3>
+                
+                <table id="tagsTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Tags)
+                        {
+                            <tr class="tag-item">
+                                <td>@item.Naam</td>
+                                <td class="actions ninety-width">
+                                    <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                    <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Modules</h3>
+                    </div>
+                </div>
+
+                <div id="items" class="row">
+                    <div class="col-md-12">
+                        
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-inline">
+                                            <div class="form-group">
+                                                <label class="control-label" for="sortorder">Sorteer op: </label>
+                                                <select class="form-control input-sm" id="sortorder" style="width: 200px;">
+                                                    <option>Alfabetisch</option>
+                                                    <option>EC's</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td colspan="4" class="text-right">
+                                        <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#module-add">Toevoegen</button>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")/INMODL312345">
+                                    <td class="icon"><i class="fa fa-paint-brush"></i></td>
+                                    <td class="information">
+                                        <p class="name">Interaction Design Principles</p>
+                                        <p class="instructors">Bert Hoeks</p>
+                                    </td>
+                                    <td class="code">INIDPRI</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-success">Compleet</td>
+
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")/INMODL312345" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                    <td class="icon"><i class="fa fa-code"></i></td>
+                                    <td class="information">
+                                        <p class="name">Programmeren 5 - C Sharp</p>
+                                        <p class="instructors">Stijn Smulders</p>
+                                    </td>
+                                    <td class="code">INPROG5</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-danger">Onvolledig</td>
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                    <td class="icon"><i class="fa fa-table"></i></td>
+                                    <td class="information">
+                                        <p class="name">Modelleren 3</p>
+                                        <p class="instructors">Ger Saris</p>
+                                    </td>
+                                    <td class="code">INMODL3</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-danger">Onvolledig</td>
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                    <td class="icon"><i class="fa fa-database"></i></td>
+                                    <td class="information">
+                                        <p class="name">Databases 4</p>
+                                        <p class="instructors">Ger Saris</p>
+                                    </td>
+                                    <td class="code">INDATAB4</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-danger">Onvolledig</td>
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                <tr class="item" data-href="@Url.Action("Details", "Module")">
+                                    <td class="icon"><i class="fa fa-phone"></i></td>
+                                    <td class="information">
+                                        <p class="name">Telephoning</p>
+                                        <p class="instructors">Angelique van den Bogaard</p>
+                                    </td>
+                                    <td class="code">INTELPH</td>
+                                    <td class="block">Blok 5</td>
+                                    <td class="ec">3 EC</td>
+                                    <td class="status text-success">Compleet</td>
+                                    <td class="actions" style="text-align: right;">
+                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="col-md-6">
+                            <ul class="pagination">
+                                <li><a href="#">&laquo;</a></li>
+                                <li><a href="#">1</a></li>
+                                <li class="active"><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">&raquo;</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <br/>
+                            18 resultaten - Pagina 2 van 4
+                        </div>
+                    </div>
+                </div> <!-- #ITEMS -->
+            </div><!-- Modules -->
+        </div>
+    </div>
+</div>
+
+<!-- Help MODAL -->
+@Html.Partial("~/Views/Help/Curriculum.cshtml", null)
+
+<!-- CRUD MODALS -->
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Details.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Competentie/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Fase/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Edit.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Tag/Delete.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Module/Add.cshtml", null)
+@Html.Partial("~/Views/Admin/Curriculum/Module/Delete.cshtml", null)
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    
+    <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
+    
+    <style>
+        div.dataTables_filter label {
+            float: left !important;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
+
+            $('.dropdown-menu').on('click', function (e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
+
+            $(".competentie-item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    $('#competentie-details').modal('show');
+                }
+            });
+
+            // SELECT2
+            $("#ModuleAddFases").select2({
+                placeholder: "Fases"
+            });
+
+            $("#FasesType").select2({
+                placeholder: "Type"
+            });
+
+            $("#ModuleAddBlock").select2({
+                placeholder: "Blok"
+            });
+
+
+            // GLOBAL DATATABLES SETTINGS
+            $.extend($.fn.dataTable.defaults, {
+                dom:
+                    "<'row'<'col-sm-6'f><'col-sm-6 toolbar'>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-8'p><'col-sm-4'i>>",
+                language: {
+                    url: "/Scripts/dataTables.dutch.alt.js",
+                    searchPlaceholder: "Zoeken"
+                },
+                order: [[0, "asc"]],
+                iDisplayLength: 5
+            });
+
+            // DATATABLES
+            $("#competentiesTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [2] }
+                ],
+                initComplete: function () {
+                    $("#competentiesTable_wrapper").find(".toolbar").append($("#toolbar.competentiesTable").html());
+                }
+            });
+
+            $("#fasesTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [2] }
+                ],
+                initComplete: function () {
+                    $("#fasesTable_wrapper").find(".toolbar").append($("#toolbar.fasesTable").html());
+                }
+            });
+
+            $("#tagsTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [1] }
+                ],
+                initComplete: function () {
+                    $("#tagsTable_wrapper").find(".toolbar").append($("#toolbar.tagsTable").html());
+                }
+            });
+
+            $("#leerlijnenTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [1] }
+                ],
+                initComplete: function () {
+                    $("#leerlijnenTable_wrapper").find(".toolbar").append($("#toolbar.leerlijnenTable").html());
+                }
+            });
+
+
+        });
+    </script>
+}

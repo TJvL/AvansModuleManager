@@ -1,0 +1,161 @@
+﻿@model ModuleManager.Web.ViewModels.CheckModulesViewModel
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+                <li class="active">Module Controle</li>
+            </ol>
+        </div>
+
+        <div class="col-md-12">
+            <h2>Zoekresultaten</h2>
+        </div>
+
+        <div id="primary" class="col-md-12">
+            <div id="items" class="row">
+                <div class="col-md-12">
+                    <table id="modules" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Naam</th>
+                                <th>Cursuscode</th>
+                                <th>Blokken</th>
+                                <th>Fase</th>
+                                <th>Verantwoordelijke</th>
+                                <th>Status</th>
+                                <th>Reminder</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Blokken</th>
+                                <th>Fase</th>
+                                <th>Status</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+
+                            @foreach (var item in @Model.ModuleViewModels.data)
+                            {
+                                <tr class="item" data-href="@Url.Action("Details", "Module", new RouteValueDictionary(new {schooljaar = @item.Schooljaar, cursusCode = @item.CursusCode}))">
+                                    <td class="icon"><i class="fa fa-paint-brush"></i></td>
+                                    <td class="information">
+                                        <p class="name">@item.Naam</p>
+                                        @*<p class="instructors">@item.Docenten</p>*@
+                                    </td>
+                                    <td class="code">@item.CursusCode</td>
+                                    <td class="block">@item.Blokken</td>
+                                    <td class="">@item.FaseNamen</td>
+                                    <td class="">@item.Verantwoordelijke</td>
+                                    <td class="status">@item.Status</td>
+
+                                    @*<td class="status">
+                                            @{ var item1 = @item; }
+                                            @Model.Users.Data.First(src => src.Naam.Equals(item1.Verantwoordelijke)).Email
+                                        </td>*@
+
+                                    <td class="actions">
+                                        <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/CheckModules.cshtml", null);
+
+<!-- Reminder MODAL-->
+@Html.Partial("~/Views/Admin/CheckModules/Reminder.cshtml", Model);
+
+@section Scripts {
+
+    <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
+
+    <script>
+        $(function () {
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
+
+            $('.dropdown-menu').on('click', function (e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
+
+
+            function fnContains(a, obj) {
+                for (var i = 0; i < a.length; i++) {
+                    if (a[i] === obj) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            //"sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
+
+            $("#modules").dataTable({
+                dom:
+                    "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-6'p><'col-sm-6'i>>",
+                language: {
+                    url: "/Scripts/dataTables.dutch.js"
+                },
+                order: [[1, "asc"]],
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [0] },
+                    { 'bSortable': false, 'aTargets': [7] }
+                ],
+                initComplete: function () {
+                    var table = $('#modules').DataTable();
+
+
+                    $("#modules tfoot th").each(function (i) {
+                        var columns = [3, 4, 6];
+                        var text = ["blok", "fase", "status"];
+                        var select = $('<select><option value="">' + text[i] + '-filter</option></select>')
+                            .appendTo($(this).empty()) // positie _ this = (#modules tfoot th)
+                            .on('change', function () {
+                                table.column(columns[i])
+                                    .search($(this).val())
+                                    .draw();
+                            });
+                        var buffer = "";
+                        table.column(columns[i]).data().unique().sort().each(function (d, j) { // concat all values from column to string
+                            buffer = buffer.concat(d + ",");
+                        });
+                        var split = buffer.split(","); // split all values from column to array
+                        var uniques = [];
+                        split.map(function (item) { // add distinct values from column to select-options
+                            var x = fnContains(uniques, item);
+                            if (!x && item !== "") {
+                                uniques.push(uniques, item);
+                                select.append('<option value="' + item + '">' + item + '</option>');
+                            }
+                        });
+                    });
+                }
+            });
+
+        });
+    </script>
+}

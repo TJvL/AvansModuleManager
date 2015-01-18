@@ -1,0 +1,407 @@
+﻿<div class="container">
+    <div class="row">
+        <div id="primary">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Overview_Teacher_Temp", "Module")">Home</a></li>
+                    <li class="active">Module bewerken</li>
+                </ol>
+            </div>
+
+            <div class="col-md-12">
+                <h2>Module bewerken</h2>
+                <br />
+            </div>
+
+            <div class="col-md-12">
+
+                <form role="form">
+                    <div class="form-group">
+                        <label for="name">Naam</label>
+                        <input type="text" class="form-control" id="name" placeholder="Naam" value="Algoritmiek en Datastructuren" disabled="disabled">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <div id="status" class="checkbox" style="padding-left: 10px;">
+                            <label>
+                                <input name="status" type="checkbox"> Compleet?
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Beschrijving</label>
+                        <textarea class="form-control" id="description" placeholder="Beschrijving"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="competenties">Competenties <label style="color: red;">(TODO: Niveau selecteren)</label></label>
+                        <select class="form-control" id="competenties" multiple>
+                            <option>Procesanalyse uitvoeren (Beginner)</option>
+                            <option>Informatieanalyse uitvoeren (Expert)</option>
+                            <option>Informatiesysteem ontwerpen (Ervaren)</option>
+                            <option>Doorgronden van hardwareplatform (Expert)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="leerlijn">Leerlijnen</label>
+                        <select class="form-control" id="leerlijn" multiple>
+                            <option>Programmeren</option>
+                            <option>Moduleren</option>
+                            <option>Databases</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <select class="form-control" id="tags" multiple>
+                            <option>Big Data</option>
+                            <option>Milieu</option>
+                            <option>Spaans</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="general-information">Algemene informatie</label>
+
+
+                        <table class="table table-bordered table-center table-striped">
+                            <tbody>
+                                <tr>
+                                    <th style="min-width: 250px;"><label for="werkvorm">Werkvorm</label></th>
+                                    <td>
+                                        <select name="werkvorm" class="form-control" id="werkvorm" multiple>
+                                            <option></option>
+                                            <option>HoorCollege (HC)</option>
+                                            <option>WerkCollege (WC)</option>
+                                            <option>WorkShop (WS)</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Studiebelasting</th>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Activiteit</th>
+                                                    <th>Duur</th>
+                                                    <th>Frequentie</th>
+                                                    <th>SBU</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:50px;">Workshop</td>
+                                                    <td>4 weken</td>
+                                                    <td>2 x 2 uur per week</td>
+                                                    <td>16</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:50px;">Hoorcollege</td>
+                                                    <td>3 weken</td>
+                                                    <td>2 uur per week</td>
+                                                    <td>6</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:50px;">Huiswerkopdrachten</td>
+                                                    <td>4 weken</td>
+                                                    <td>12 uur per week</td>
+                                                    <td>48</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="form-inline" style="width: 100%">
+                                            <div class="form-group" style="width: 35%">
+                                                <label class="sr-only">Activiteit</label>
+                                                <input type="text" class="form-control" placeholder="Activiteit" style="width:100%;">
+                                            </div>
+                                            <div class="form-group" style="width: 15%">
+                                                <label class="sr-only">Duur</label>
+                                                <input type="text" class="form-control" placeholder="Duur" style="width:100%;">
+                                            </div>
+                                            <div class="form-group" style="width: 28%">
+                                                <label class="sr-only">Frequentie</label>
+                                                <input type="text" class="form-control" placeholder="Frequentie" style="width:100%;">
+                                            </div>
+                                            <div class="form-group" style="width: 15%">
+                                                <label class="sr-only">SBU</label>
+                                                <input type="text" class="form-control" placeholder="SBU" style="width:100%;">
+                                            </div>
+                                            <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Organisatie</th>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Toelichting op de werkvormen 'Workshop' en 'Hoorcollege':</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>In de workshop wordt door de docent steeds een korte toelichting op een volgend stuk lesstof gegeven,
+                                                        waarna dit meteen in de praktijk gebracht wordt via (een of meer) oefeningen tijdens de workshop. De docent
+                                                        begeleidt de studenten daarbij en geeft (individuele of groeps-) feedback. Iedere workshop wordt afgesloten
+                                                        met het uitreiken van een weekopdracht, die de studenten in duo’s moeten maken. Naast de informatie die tijdens
+                                                        de workshops overgedragen wordt, zal de student ook veel moeten leren door zelfstudie. Voor de workshops is
+                                                        aanwezigheid verplicht.
+                                                    </td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Gedurende het hoorcollege wordt het onderwerp “Wat gebruik ik wanneer?” uitgewerkt.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Organisatie">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Weekplanning</th>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Week</th>
+                                                    <th>Onderwerpen</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:50px;">1</td>
+                                                    <td>1ste workshoples: introductie + ongeordende arrays</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:50px;">1</td>
+                                                    <td>2e workshoples: geordende arrays+Big-O notatie</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:50px;">2</td>
+                                                    <td>1ste workshoples: Sorteren algemeen + bubble sort</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:50px;">2</td>
+                                                    <td>2e workshoples: Selection sort + insertion sort</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="form-inline" style="width: 100%">
+                                            <div class="form-group" style="width: 15%">
+                                                <label class="sr-only">Weeknummer</label>
+                                                <input type="text" class="form-control" placeholder="Weeknummer" style="width:100%;">
+                                            </div>
+                                            <div class="form-group" style="width: 79%">
+                                                <label for="inputPassword2" class="sr-only">Beschrijving</label>
+                                                <input type="text" class="form-control" placeholder="Beschrijving" style="width:100%;">
+                                            </div>
+                                            <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Beoordeling</th>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Beoordelingen</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>ALG-PR: Het cijfer voor de workshop is het gemiddelde van de 8 (vier x twee) huiswerk opgaves. Het practicumcijfer wordt alleen toegekend indien alle uitwerkingen ingeleverd zijn. Het minimumcijfer per opgave is vier.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ALG-TH : Het cijfer voor de colleges wordt bepaald door een ‘open boek’- practicumtentamen. Het practicumtentamen wordt afgenomen in een PC–lokaal.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Beoordeling">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Leermiddelen</th>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Leermiddelen</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Alle informatie in bijbehorende BlackBoard-course, tenzij expliciet anders vermeld.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Boek: Data structures & algorithms in JAVA, Second edition, Robert Lafore, ISBN: 0 672 32453 9.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Leermiddel">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Leerdoelen</th>
+                                    <td>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Een student kan...</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>De standaard data¬structuren ‘gekoppelde lijst’, ‘array’, ‘binaire boom’ en ‘ hashtabel’ implementeren en toepassen in een algoritme.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>In een praktijksituatie een keuze maken tussen het gebruik van een gekoppelde lijst, array, binaire boom en een hashtabel.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Aan de hand van de standaard data¬structuren array en gekoppelde lijst afgeleide data¬structuren ontwerpen en implementeren in een algoritme.</td>
+                                                    <td style="width: 90px;">
+                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Leerdoel">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Voorkennis</th>
+                                    <td>
+                                        <label style="color: red;">TODO: Github issue #35</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg">Opslaan</button>
+                    <a href="@Url.Action("Overview_Teacher_Temp", "Module")" class="btn btn-default">Annuleren</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/ModuleEdit.cshtml", null);
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    <script>
+        $(function () {
+            // SELECT2
+            $("#competenties").select2({
+                placeholder: "Competenties"
+            });
+
+            $("#leerlijn").select2({
+                placeholder: "Leerlijn"
+            });
+
+            $("#tags").select2({
+                placeholder: "Tags"
+            });
+
+            $("#werkvorm").select2({
+                placeholder: "Werkvorm"
+            });
+        });
+    </script>
+}

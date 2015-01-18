@@ -1,0 +1,148 @@
+﻿using System.Linq;
+using System.Web.Mvc;
+using ModuleManager.BusinessLogic.Data;
+using ModuleManager.BusinessLogic.Interfaces.Services;
+using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Web.ViewModels;
+using ModuleManager.Web.ViewModels.PartialViewModel;
+
+namespace ModuleManager.Web.Controllers
+{
+
+    public class AdminController : Controller
+    {
+        private readonly IGenericRepository<Blok> _blokRepository;
+        private readonly IGenericRepository<Status> _statusRepository;
+        private readonly IGenericRepository<Module> _moduleRepository;
+        private readonly IGenericRepository<Competentie> _competentieRepository;
+        private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
+        private readonly IGenericRepository<Tag> _tagRepository;
+        private readonly IGenericRepository<Fase> _faseRepository;
+        private readonly UserDAL.Interfaces.IUserRepository _userRepository;
+
+        private readonly IFilterSorterService<Module> _filterSorterService;
+
+        public AdminController(IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository,
+            IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository,
+            IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
+            IFilterSorterService<Module> filterSorterService, UserDAL.Interfaces.IUserRepository userRepository)
+        {
+            _blokRepository = blokRepository;
+            _statusRepository = statusRepository;
+            _moduleRepository = moduleRepository;
+            _competentieRepository = competentieRepository;
+            _leerlijnRepository = leerlijnRepository;
+            _tagRepository = tagRepository;
+            _faseRepository = faseRepository;
+
+            _userRepository = userRepository;
+
+            _filterSorterService = filterSorterService;
+        }
+
+        [HttpGet, Route("Admin/Index")]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet, Route("Admin/Curriculum")]
+        public ActionResult Curriculum()
+        {
+            var arguments = new Arguments
+            {
+
+            };
+            var queryPack = new ModuleQueryablePack(arguments, _moduleRepository.GetAll().AsQueryable());
+            var modules = _filterSorterService.ProcessData(queryPack).ToList();
+            var moduleList = new ModuleListViewModel(modules.Count());
+            moduleList.AddModules(modules);
+
+            var competenties = _competentieRepository.GetAll();
+            var leerlijnen = _leerlijnRepository.GetAll();
+            var tags = _tagRepository.GetAll();
+            var fases = _faseRepository.GetAll();
+            var blokken = _blokRepository.GetAll();
+
+            var filterOptions = new FilterOptionsViewModel();
+            filterOptions.AddFases(fases);
+            filterOptions.AddBlokken(blokken);
+
+            var adminCurriculumVm = new AdminCurriculumViewModel
+            {
+                Competenties = competenties,
+                Leerlijn = leerlijnen,
+                Tags = tags,
+                Fases = fases,
+                ModuleViewModels = moduleList,
+                FilterOptions = filterOptions
+            };
+            return View(adminCurriculumVm);
+        }
+
+
+        [HttpGet, Route("Admin/UserOverview")]
+        public ActionResult UserOverview()
+        {
+            var userList = _userRepository.GetAll();
+            var usersListVm = new UserListViewModel(userList.Count());
+            usersListVm.AddUsers(userList);
+
+            var overViewvm = new AdminUserManagementViewModel()
+            {
+                Users = usersListVm
+            };
+
+            // TODO: Implementeer ViewModel en return deze.
+            return View(overViewvm);
+        }
+
+        [HttpGet, Route("Admin/CheckModules")]
+        public ActionResult CheckModules()
+        {
+            var arguments = new Arguments
+            {
+
+            };
+            var queryPack = new ModuleQueryablePack(arguments, _moduleRepository.GetAll().AsQueryable());
+            var modules = _filterSorterService.ProcessData(queryPack).ToList();
+            var moduleList = new ModuleListViewModel(modules.Count());
+            moduleList.AddModules(modules);
+
+            var users = _userRepository.GetAll().AsQueryable();
+            var userList = new UserListViewModel(users.Count());
+            userList.AddUsers(users);
+
+	var checkModulesVm = new CheckModulesViewModel
+            {
+                ModuleViewModels = moduleList,
+                Users = userList
+	};
+            return View(checkModulesVm);
+        }
+
+        [HttpGet, Route("Admin/Archive")]
+        public ActionResult Archive()
+        {
+            return View();
+        }
+
+        [HttpPost, Route("Admin/Archive")]
+        public ActionResult Archive(string code)
+        {
+            if (code != "ARCHIVEREN")
+            {
+                ViewBag.Message = "Invoer incorrect, probeer opnieuw.";
+                return View();
+            }
+
+            using (var context = new DomainContext())
+            {
+                context.SP_ArchiveYear();
+            }
+
+            return View();
+        }
+    }
+}

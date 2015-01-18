@@ -1,30 +1,42 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(ModuleManager.Web.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(ModuleManager.Web.App_Start.NinjectWebCommon), "Stop")]
+using System;
+using System.Web;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.DomainDAL.Repositories;
+using ModuleManager.DomainDAL.UnitOfWork;
+using ModuleManager.Web.App_Start;
+using ModuleManager.Web.Controllers.Api;
+using ModuleManager.Web.Controllers.Api.Interfaces;
+using Ninject;
+using Ninject.Web.Common;
+using WebActivatorEx;
+using ModuleManager.BusinessLogic.Interfaces;
+using ModuleManager.BusinessLogic.Services;
+using ModuleManager.BusinessLogic.Interfaces.Services;
+using ModuleManager.DomainDAL.Repositories.Dummies;
+using ModuleManager.UserDAL.Interfaces;
+using ModuleManager.UserDAL.Repositories;
+
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace ModuleManager.Web.App_Start
 {
-    using System;
-    using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -32,7 +44,7 @@ namespace ModuleManager.Web.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -61,6 +73,34 @@ namespace ModuleManager.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+            // Domain entity repositories:
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Fase>>().To<DummyFaseRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<DummyModuleRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Tag>>().To<DummyTagRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Blok>>().To<DummyBlokRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Niveau>>().To<DummyNiveauRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Schooljaar>>().To<DummySchooljaarRepository>();
+            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Status>>().To<DummyStatusRepository>();
+            // UnitOfWork session for repositories to use:
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+
+            // Domain entity API controllers:
+            kernel.Bind<IGenericApiController<Competentie>>().To<CompetentieController>();
+            kernel.Bind<IGenericApiController<Fase>>().To<FaseController>();
+            kernel.Bind<IGenericApiController<Leerlijn>>().To<LeerlijnController>();
+            kernel.Bind<IGenericApiController<Tag>>().To<TagController>();
+            kernel.Bind<IModuleApiController>().To<ModuleController>();
+
+            // User entity repositories:
+            kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<ISysteemRolRepository>().To<SysteemRolRepository>();
+
+            // Filter-, Sorter- and Export-services:
+            kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
+            kernel.Bind<IExporterService<Module>>().To<ModuleExporterService>();
+
+        }
     }
 }
