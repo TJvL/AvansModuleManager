@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
+using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.IO;
 using ModuleManager.Web.ViewModels.RequestViewModels;
@@ -55,15 +57,25 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
-            return View(module);
+            ModuleViewModel modVm;
+            using (var context = new DomainContext())
+            {
+                var module = context.Set<Module>().Find(cursusCode, schooljaar);
+                modVm = Mapper.Map<Module, ModuleViewModel>(module);
+            }
+            return View(modVm);
         }
 
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
-            return View(module);
+            ModuleViewModel modVm;
+            using (var context = new DomainContext())
+            {
+                var module = context.Set<Module>().Find(cursusCode, schooljaar);
+                modVm = Mapper.Map<Module, ModuleViewModel>(module);
+            }
+            return View(modVm);
         }
 
         [HttpPost, Route("Module/Edit")]
@@ -71,9 +83,13 @@ namespace ModuleManager.Web.Controllers
         {
             _unitOfWork.GetRepository<Module>().Edit(entity);
 
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
-
-            return View(module);
+            ModuleViewModel modVm;
+            using (var context = new DomainContext())
+            {
+                var module = context.Set<Module>().Find(entity.CursusCode, entity.Schooljaar);
+                modVm = Mapper.Map<Module, ModuleViewModel>(module);
+            }
+            return View(modVm);
         }
 
         //PDF Download Code
@@ -159,12 +175,6 @@ namespace ModuleManager.Web.Controllers
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _unitOfWork.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

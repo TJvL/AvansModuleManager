@@ -7,7 +7,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 {
     public class ModuleListViewModel
     {
-        public ICollection<ModuleOverviewViewModel> data { get; set; }
+        public ICollection<ModulePartialViewModel> data { get; set; }
         public int recordsFiltered { get { return data.Count; } }
         public int recordsTotal { get; private set; }
         /// <summary>
@@ -21,7 +21,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public void AddModules(IEnumerable<Module> moduleList)
         {
             data = moduleList
-                .Select(Mapper.Map<Module, ModuleOverviewViewModel>)
+                .Select(Mapper.Map<Module, ModulePartialViewModel>)
                 .ToList();
         }
     }
