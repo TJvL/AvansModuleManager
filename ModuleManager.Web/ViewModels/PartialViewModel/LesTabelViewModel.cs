@@ -19,7 +19,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         {
             get
             {
-                return Blok;
+                return "" + Math.Ceiling(Convert.ToInt32(Blok) / 2.0);
             }
         }
 

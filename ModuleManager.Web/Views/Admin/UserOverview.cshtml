@@ -108,6 +108,7 @@
                     "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-6'p><'col-sm-6'i>>",
+                oLanguage: { "sSearch": "" },
                 language: {
                     url: "/Scripts/dataTables.dutch.js"
                 },
@@ -120,7 +121,7 @@
                     $("#users tfoot th").each(function (i) {
                         var columns = [3];
                         var text = ["rol"];
-                        var select = $('<select class="form-control"><option value="">' + text[i] + '-filter</option></select>')
+                        var select = $('<select id="filterRol" class="form-control input-sm"><option value="">Rollen Filter</option></select>')
                             .appendTo($(this).empty()) // positie _ this = (#users tfoot th)
                             .on('change', function () {
                                 table.column(columns[i])
@@ -131,11 +132,12 @@
                         table.column(columns[i]).data().unique().sort().each(function (d, j) {
                             select.append('<option value="' + d + '">' + d + '</option>');
                         });
+
+                        $('.dataTables_filter input').attr("placeholder", "Zoeken");
+                        $("#filterRol").select2({});
                     });
                 }
             });
-            $("#users_filter").textContent = "<input type=\"search\" class=\"form-control input-sm\" placeholder=\"Zoeken\" aria-controls=\"users\"><div id=\"filterRightUp\"></div>";
-
 
             $(function () {
                 // SELECT2

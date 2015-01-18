@@ -30,47 +30,53 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(var module in tabellen.Modules) {
-                                    if (module.Studiepunten.Count == 1)
+                                @foreach(var onderdeel in tabellen.Onderdelen) 
+                                {
+                                    @onderdeel.Onderdeel
+                                    foreach (var module in onderdeel.Modules)
                                     {
-                                        <tr>
-                                            <td>@module.Onderdeel</td>
-                                            <td>@module.Cursuscode</td>
-                                            <td>@module.Omschrijving</td>
-                                            <td>@module.Contacturen</td>
-                                            <td>@module.Werkvormen</td>
-                                            <td>@module.Studiepunten.First().ToetsCode</td>
-                                            <td>@module.Studiepunten.First().Toetsvorm</td>
-                                            <td>@module.Studiepunten.First().EC</td>
-                                            <td>@module.Studiepunten.First().Minimum</td>
-                                        </tr>
-                                    }
-                                    else if (module.Studiepunten.Count >= 2)
-                                    {
-                                        int count = @module.Studiepunten.Count;
-                                        <tr>
-                                            <td rowspan="@count">@module.Onderdeel</td>
-                                            <td rowspan="@count">@module.Cursuscode</td>
-                                            <td rowspan="@count">@module.Omschrijving</td>
-                                            <td rowspan="@count">@module.Contacturen</td>
-                                            <td rowspan="@count">@module.Werkvormen</td>
-                                            <td>@module.Studiepunten.First().ToetsCode</td>
-                                            <td>@module.Studiepunten.First().Toetsvorm</td>
-                                            <td>@module.Studiepunten.First().EC</td>
-                                            <td>@module.Studiepunten.First().Minimum</td>
-                                        </tr>
 
-                                        var module1 = module;
-                                        foreach (var studiePunt in module.Studiepunten.Where(s => s != module1.Studiepunten.First()))
-                                        {
-                                            <tr>
-                                                <td>@studiePunt.ToetsCode</td>
-                                                <td>@studiePunt.Toetsvorm</td>
-                                                <td>@studiePunt.EC</td>
-                                                <td>@studiePunt.Minimum</td>
-                                            </tr>
-                                        }
-                                    }
+                                         if (module.Studiepunten.Count == 1)
+                                         {
+                                             <tr>
+                                                 <td>@module.Onderdeel</td>
+                                                 <td>@module.Cursuscode</td>
+                                                 <td>@module.Omschrijving</td>
+                                                 <td>@module.Contacturen</td>
+                                                 <td>@module.Werkvormen</td>
+                                                 <td>@module.Studiepunten.First().ToetsCode</td>
+                                                 <td>@module.Studiepunten.First().Toetsvorm</td>
+                                                 <td>@module.Studiepunten.First().EC</td>
+                                                 <td>@module.Studiepunten.First().Minimum</td>
+                                             </tr>
+                                         }
+                                         else if (module.Studiepunten.Count >= 2)
+                                         {
+                                             int count = @module.Studiepunten.Count;
+                                             <tr>
+                                                 <td rowspan="@count">@module.Onderdeel</td>
+                                                 <td rowspan="@count">@module.Cursuscode</td>
+                                                 <td rowspan="@count">@module.Omschrijving</td>
+                                                 <td rowspan="@count">@module.Contacturen</td>
+                                                 <td rowspan="@count">@module.Werkvormen</td>
+                                                 <td>@module.Studiepunten.First().ToetsCode</td>
+                                                 <td>@module.Studiepunten.First().Toetsvorm</td>
+                                                 <td>@module.Studiepunten.First().EC</td>
+                                                 <td>@module.Studiepunten.First().Minimum</td>
+                                             </tr>
+
+                                             var module1 = module;
+                                             foreach (var studiePunt in module.Studiepunten.Where(s => s != module1.Studiepunten.First()))
+                                             {
+                                                 <tr>
+                                                     <td>@studiePunt.ToetsCode</td>
+                                                     <td>@studiePunt.Toetsvorm</td>
+                                                     <td>@studiePunt.EC</td>
+                                                     <td>@studiePunt.Minimum</td>
+                                                 </tr>
+                                             }
+                                         }
+                                     }
                                 }
                                 <tr style="background: #CDEBF0;">
                                     <td colspan="2"></td>
