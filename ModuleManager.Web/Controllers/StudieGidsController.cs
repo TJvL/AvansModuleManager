@@ -57,5 +57,11 @@ namespace ModuleManager.Web.Controllers
 
             return View(vm);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

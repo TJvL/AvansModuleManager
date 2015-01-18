@@ -8,6 +8,7 @@ using ModuleManager.DomainDAL.Repositories;
 using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.Web;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using ModuleManager.Web.ViewModels.EntityViewModel;
 
 namespace ModuleManager.WebTests.Viewmodel_Mapping
 {

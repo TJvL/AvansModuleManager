@@ -26,6 +26,7 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public void Create(T entity)
         {
+			_context.Entry(entity).State = EntityState.Added;
         }
 
         public void Delete(T entity)
