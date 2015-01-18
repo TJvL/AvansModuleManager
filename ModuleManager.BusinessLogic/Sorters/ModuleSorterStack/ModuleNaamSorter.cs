@@ -15,9 +15,9 @@ namespace ModuleManager.BusinessLogic.Sorters.ModuleSorterStack
 
         public override IQueryable<Module> Sort(IQueryable<Module> toSort, Arguments args) 
         {
-            if (args.SortFor.ContainsKey("Naam")) 
+            if (args.SortBy.Equals("Naam")) 
             {
-                if (args.SortFor["Naam"]) 
+                if (args.SortDesc) 
                 {
                     toSort = toSort.OrderByDescending(element => element.Naam);
                 }

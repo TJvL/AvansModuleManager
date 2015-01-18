@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
@@ -8,42 +9,49 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class TagController : ApiController, IGenericApiController<Tag>
     {
-        private readonly IGenericRepository<Tag> _tagRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TagController(IGenericRepository<Tag> tagRepository)
+        public TagController(IUnitOfWork unitOfWork)
         {
-            _tagRepository = tagRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet, Route("api/Tag/Get")]
         public IEnumerable<Tag> GetAll()
         {
-            return _tagRepository.GetAll();
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
+            return tags;
         }
 
         [HttpGet, Route("api/Tag/Get/{schooljaar}/{key}")]
         public Tag GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _tagRepository.GetOne(keys);
+            var tag = _unitOfWork.GetRepository<Tag>().GetOne(new object[] { key, schooljaar });
+            return tag;
         }
 
         [HttpPost, Route("api/Tag/Delete")]
-        public bool Delete(Tag entity)
+        public void Delete(Tag entity)
         {
-            return _tagRepository.Delete(entity);
+            _unitOfWork.GetRepository<Tag>().Delete(entity);
         }
 
         [HttpPost, Route("api/Tag/Edit")]
-        public bool Edit(Tag entity)
+        public void Edit(Tag entity)
         {
-            return _tagRepository.Edit(entity);
+            _unitOfWork.GetRepository<Tag>().Edit(entity);
         }
 
         [HttpPost, Route("api/Tag/Create")]
-        public bool Create(Tag entity)
+        public void Create(Tag entity)
         {
-            return _tagRepository.Create(entity);
+            _unitOfWork.GetRepository<Tag>().Create(entity);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

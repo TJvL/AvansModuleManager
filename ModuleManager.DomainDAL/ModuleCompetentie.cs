@@ -15,9 +15,9 @@ namespace ModuleManager.DomainDAL
     public partial class ModuleCompetentie
     {
         public string CursusCode { get; set; }
-        public int Schooljaar { get; set; }
+        public string Schooljaar { get; set; }
         public string CompetentieCode { get; set; }
-        public int CompetentieSchooljaar { get; set; }
+        public string CompetentieSchooljaar { get; set; }
         public string Niveau { get; set; }
     
         public virtual Competentie Competentie { get; set; }

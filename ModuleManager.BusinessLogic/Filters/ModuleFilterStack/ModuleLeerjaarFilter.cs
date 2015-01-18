@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleLeerjaarFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
         {
-            if (args.LeerjaarFilter != 0) //quickfix. int cannot be NULL, so it takes "leerjaar = 0" without argument
+            if (args.LeerjaarFilter != null) //quickfix. int cannot be NULL, so it takes "leerjaar = 0" without argument
             {
                 List<Module> result = new List<Module>();
                     
@@ -23,7 +23,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                         where
                             m.Schooljaar == args.LeerjaarFilter
                     select m;
-                result.AddRange(selectedModule);
+                result.AddRange(selectedModule.Where(x => !result.Contains(x)));
 
                 toQuery = result.AsQueryable();
             }
