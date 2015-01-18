@@ -20,7 +20,6 @@ namespace ModuleManager.BusinessLogic.Exporters
         /// Returns an unmodified PDF Document.
         /// </summary>
         /// <param name="toExport">The raw data from which to build the PDF</param>
-        /// <param name="opt">Options object that specifies what to take from the Data</param>
         /// <param name="pdf">The document to build on</param>
         /// <returns>Unmodified input "pdf"</returns>
         public Section Export(Module toExport, Section sect)

@@ -29,7 +29,7 @@ namespace ModuleManager.BusinessLogic.Sorters
         /// <param name="toSort">The data that will be sorted</param>
         /// <param name="args">The applied arguments</param>
         /// <returns>The sorted data</returns>
-        public virtual IQueryable<Module> Sort(IQueryable<Module> toSort, Data.Arguments args)
+        public virtual IQueryable<Module> Sort(IQueryable<Module> toSort, Data.ModuleFilterSorterArguments args)
         {
             return parent.Sort(toSort, args);
         }

@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Sorters.ModuleSorterStack
 {
-    public class ModuleCursusCodeSorter : ModuleBaseSorter
+    public class ModuleLeerjaarSorter : ModuleBaseSorter
     {
-        public ModuleCursusCodeSorter(ISorter<Module> parent) : base(parent) { }
+        public ModuleLeerjaarSorter(ISorter<Module> parent) : base(parent) { }
 
         public override IQueryable<Module> Sort(IQueryable<Module> toSort, ModuleFilterSorterArguments args) 
         {
-            if (args.SortBy.Equals("CursusCode")) 
+            if (args.SortBy.Equals("Schooljaar")) 
             {
                 if (args.SortDesc) 
                 {
-                    toSort = toSort.OrderByDescending(element => element.CursusCode);
+                    toSort = toSort.OrderByDescending(element => element.Schooljaar);
                 }
                 else 
                 {
-                    toSort = toSort.OrderBy(element => element.CursusCode); 
+                    toSort = toSort.OrderBy(element => element.Schooljaar); 
                 }
             }
 

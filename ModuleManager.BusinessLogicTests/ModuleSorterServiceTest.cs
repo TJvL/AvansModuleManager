@@ -29,7 +29,7 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void testEmptySorting() 
         {
-            Arguments args = new Arguments();
+            ModuleFilterSorterArguments args = new ModuleFilterSorterArguments();
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
 
@@ -42,7 +42,7 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void testModuleNaamSorting() 
         {
-            Arguments args = new Arguments();
+            ModuleFilterSorterArguments args = new ModuleFilterSorterArguments();
             args.SortBy = "Naam";
             args.SortDesc = false;
 

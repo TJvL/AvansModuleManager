@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Data
 {
-    public class ExportArguments
+    public class ModuleExportArguments : AbstractExportArguments
     {
-        /// <summary>
-        /// Setting this to "true" will override any options you have, and export everything.
-        /// </summary>
-        public bool ExportAll { get; set; }
         /// <summary>
         /// Export the Cursus ID
         /// </summary>
