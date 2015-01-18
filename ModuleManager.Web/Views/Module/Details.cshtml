@@ -3,10 +3,8 @@
             
 @{
     // Jaartal
-    var j1 = Model.Schooljaar.ToString();
-    var j2 = Model.Schooljaar.ToString();
-    j1 = j1.Remove(j1.Length - 2);
-    j2 = j2.Remove(0, 2);
+    var j1 = Model.Schooljaar.Remove(Model.Schooljaar.Length - 2);
+    var j2 = Model.Schooljaar.Remove(0, 2);
     var jaar = "20" + j1 + "-20" + j2;
     
     // Docenten
@@ -29,7 +27,6 @@
     var werkvorm = @Model.ModuleWerkvorm.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
     werkvorm = werkvorm.Remove(werkvorm.Length - 2);
 }
-
 <div class="container">
     <div class="row">
         <div id="primary">
@@ -101,6 +98,18 @@
                             <td>Werkvorm</td>
                             <td colspan="2">@werkvorm</td>
                         </tr>
+                        <tr>
+                            <td>Voorkennis</td>
+                            <td colspan="2">
+                                @foreach (var i in Model.Module2)
+                                {
+                                    <a href="@Url.Action("Details", "Module", new {schooljaar = i.Schooljaar, cursuscode = i.CursusCode})">@i.Naam</a>
+                                    if (Model.Module2.Last().Naam != i.Naam && Model.Module2.Last().Schooljaar != i.Schooljaar && Model.Module2.Last().CursusCode != i.CursusCode)
+                                    {
+                                        <label>,&nbsp;</label>
+                                    }
+                                }
+                        </tr>
                     </tbody>
                 </table>
                 
@@ -120,7 +129,7 @@
                         }
                     </tbody>
                 </table>
-                
+
                 <h3>Competenties</h3>
                 <table class="table table-bordered">
                     <tbody>
