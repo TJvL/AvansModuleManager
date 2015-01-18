@@ -16,7 +16,7 @@ namespace ModuleManager.BusinessLogic.Interfaces
         /// <summary>
         /// The options object that will tell what to export
         /// </summary>
-        ExportOptions Options { get; set; }
+        ExportArguments Options { get; set; }
         /// <summary>
         /// The data from which there will be exported
         /// </summary>

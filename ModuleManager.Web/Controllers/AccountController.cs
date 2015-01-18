@@ -1,11 +1,10 @@
-﻿using ModuleManager.UserDAL.Repositories;
+﻿using ModuleManager.UserDAL.Interfaces;
+using ModuleManager.UserDAL.Repositories;
 using ModuleManager.Web.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -14,11 +13,11 @@ namespace ModuleManager.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private SysteemRolRepository _systeemRolRepository;
+        private readonly ISysteemRolRepository _systeemRolRepository;
 
-        public AccountController()
+        public AccountController(ISysteemRolRepository systeemRolRepository)
         {
-            _systeemRolRepository = new SysteemRolRepository();
+            _systeemRolRepository = systeemRolRepository;
         }
 
         [HttpGet]
@@ -31,8 +30,8 @@ namespace ModuleManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                if (AuthenticateUser(loginVM.UserNaam, loginVM.Wachtwoord))
+                int ReturnValue = AuthenticateUser(loginVM.UserNaam, loginVM.Wachtwoord);
+                if (ReturnValue == 1)
                 {
                     // Create the authentication cookie and redirect the user to welcome page
                     FormsAuthentication.RedirectFromLoginPage(loginVM.UserNaam, loginVM.Remember);
@@ -65,9 +64,13 @@ namespace ModuleManager.Web.Controllers
                     return RedirectToAction("Index", "Home");
                    
                 }
+                else if (ReturnValue == -2)
+                {
+                    ViewBag.LoginError = "Deze gebruikersnaam is geblokeerd";
+                }
                 else
                 {
-                    ViewBag.LoginError = "Invalid UserName and/or password";
+                    ViewBag.LoginError = "Ongeldige gebruikersnaam en/of wachtwoord";
                 }
             }
             return View(loginVM);
@@ -136,7 +139,7 @@ namespace ModuleManager.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private bool AuthenticateUser(String username, String password)
+        private int AuthenticateUser(String username, String password)
         {
             string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
 
@@ -154,7 +157,7 @@ namespace ModuleManager.Web.Controllers
 
                 con.Open();
                 int ReturnCode = (int)cmd.ExecuteScalar();
-                return ReturnCode == 1;
+                return ReturnCode;
 
             }
         }

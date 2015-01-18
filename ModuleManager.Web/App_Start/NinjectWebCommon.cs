@@ -4,17 +4,14 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.DomainDAL.Repositories;
-using ModuleManager.DomainDAL.UnitOfWork;
 using ModuleManager.Web.App_Start;
 using ModuleManager.Web.Controllers.Api;
 using ModuleManager.Web.Controllers.Api.Interfaces;
 using Ninject;
 using Ninject.Web.Common;
 using WebActivatorEx;
-using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.BusinessLogic.Services;
 using ModuleManager.BusinessLogic.Interfaces.Services;
-using ModuleManager.DomainDAL.Repositories.Dummies;
 using ModuleManager.UserDAL.Interfaces;
 using ModuleManager.UserDAL.Repositories;
 
@@ -73,19 +70,20 @@ namespace ModuleManager.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            // Domain entity repositories:
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Competentie>>().To<DummyCompetentieRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Fase>>().To<DummyFaseRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Leerlijn>>().To<DummyLeerlijnRepository>();
-            //kernel.Bind<IGenericRepository<Module>>().To<DummyModuleRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Tag>>().To<DummyTagRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Blok>>().To<DummyBlokRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Niveau>>().To<DummyNiveauRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Schooljaar>>().To<DummySchooljaarRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Status>>().To<DummyStatusRepository>();
-            kernel.Bind<DomainDAL.Interfaces.IGenericRepository<FaseType>>().To<FaseTypeRepository>(); //
+            // Domain entity repositories:          
+			kernel.Bind<IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
+            kernel.Bind<IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
+            kernel.Bind<IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
+            kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>();
+            kernel.Bind<IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
+            kernel.Bind<IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
+            kernel.Bind<IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
+            kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
+            kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
+			kernel.Bind<DomainDAL.Interfaces.IGenericRepository<FaseType>>().To<FaseTypeRepository>(); //
             kernel.Bind<DomainDAL.Interfaces.IGenericRepository<FaseModules>>().To<FaseModulesRepository>(); //
             kernel.Bind<DomainDAL.Interfaces.IGenericRepository<Module>>().To<ModuleRepository>(); //
+			
             // UnitOfWork session for repositories to use:
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
@@ -98,6 +96,7 @@ namespace ModuleManager.Web.App_Start
 
             // User entity repositories:
             kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<ISysteemRolRepository>().To<SysteemRolRepository>();
 
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();

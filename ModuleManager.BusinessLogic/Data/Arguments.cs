@@ -17,7 +17,7 @@ namespace ModuleManager.BusinessLogic.Data
             {
                 return (SortBy == null) && (ZoektermFilter == null) && (CompetentieFilters == null) &&
                        (CompetentieNiveauFilters == null) && (TagFilters == null) && (LeerlijnFilters == null) &&
-                       (BlokFilters == null) && (FaseFilters == null) && (LeerjaarFilter == 0) && (ECfilters == null) && (StatusFilter == null);
+                       (BlokFilters == null) && (FaseFilters == null) && (LeerjaarFilter == null) && (ECfilters == null) && (StatusFilter == null);
             }
         }
 
@@ -54,7 +54,7 @@ namespace ModuleManager.BusinessLogic.Data
         /// <summary>
         /// Geselecteerde/mogelijke blok(ken) om op te filteren
         /// </summary>
-        public ICollection<int> BlokFilters { get; set; }
+        public ICollection<string> BlokFilters { get; set; }
         /// <summary>
         /// Geselecteerde/mogelijke EC(s) om op te filteren
         /// </summary>
@@ -70,6 +70,6 @@ namespace ModuleManager.BusinessLogic.Data
         /// <summary>
         /// Geselecteerde/mogelijke Leerjaar om op te filteren
         /// </summary>
-        public int LeerjaarFilter { get; set; }
+        public string LeerjaarFilter { get; set; }
     }
 }

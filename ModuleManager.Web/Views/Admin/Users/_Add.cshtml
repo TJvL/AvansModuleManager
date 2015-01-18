@@ -1,0 +1,74 @@
+﻿@model ModuleManager.Web.ViewModels.RegistrationVM
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Account toevoegen</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+        <div class="field-validation-error">
+            @ViewBag.UsernameError
+            @Html.ValidationMessage("error")
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserNaam)
+            @Html.EditorFor(model => model.UserNaam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserNaam, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Wachtwoord)
+            @Html.EditorFor(model => model.Wachtwoord, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Wachtwoord, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BevestigWachtwoord)
+            @Html.EditorFor(model => model.BevestigWachtwoord, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BevestigWachtwoord, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.DropDownListFor(model => model.SelectedSysteemRol,
+                    new SelectList((from s in Model.SysteemRollen
+                                    select new
+                                    {
+                                        SelectedSysteemRol = s.Role,
+                                        RolDisplay = s.Role
+                                    }), "SelectedSysteemRol", "RolDisplay", null), "-Kies een systeemrol")
+
+            @Html.ValidationMessageFor(model => model.SelectedSysteemRol, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Naam)
+            @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Naam, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" type="button" data-dismiss="modal">Anuleren</button>
+        <input class="btn btn-primary" type="submit" value="Voeg toe" />
+    </div>
+
+}   
+
+@section Scripts{
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/modalform")
+}
