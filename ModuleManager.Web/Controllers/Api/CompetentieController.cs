@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
@@ -8,42 +9,49 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class CompetentieController : ApiController, IGenericApiController<Competentie>
     {
-        private readonly IGenericRepository<Competentie> _competentieRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CompetentieController(IGenericRepository<Competentie> competentieRepository)
+        public CompetentieController(IUnitOfWork unitOfWork)
         {
-            _competentieRepository = competentieRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet, Route("api/Competentie/Get")]
         public IEnumerable<Competentie> GetAll()
         {
-            return _competentieRepository.GetAll();
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
+            return competenties;
         }
 
         [HttpGet, Route("api/Competentie/Get/{schooljaar}/{key}")]
         public Competentie GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _competentieRepository.GetOne(keys);
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { key, schooljaar });
+            return competentie;
         }
 
         [HttpPost, Route("api/Competentie/Delete")]
-        public bool Delete(Competentie entity)
+        public void Delete(Competentie entity)
         {
-            return _competentieRepository.Delete(entity);
+            _unitOfWork.GetRepository<Competentie>().Delete(entity);
         }
 
         [HttpPost, Route("api/Competentie/Edit")]
-        public bool Edit(Competentie entity)
+        public void Edit(Competentie entity)
         {
-            return _competentieRepository.Edit(entity);
+            _unitOfWork.GetRepository<Competentie>().Edit(entity);
         }
 
         [HttpPost, Route("api/Competentie/Create")]
-        public bool Create(Competentie entity)
+        public void Create(Competentie entity)
         {
-            return _competentieRepository.Create(entity);
+            _unitOfWork.GetRepository<Competentie>().Create(entity);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
