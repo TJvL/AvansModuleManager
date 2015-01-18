@@ -72,13 +72,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ModuleExporterServiceTest.cs" />
-    <Compile Include="ModuleFilterSorterServiceTest.cs" />
-    <Compile Include="ModuleSorterServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ModuleFilterServiceTest.cs" />
-    <Compile Include="LeerlijnExporterServiceTest.cs" />
-    <Compile Include="CompetentieExporterServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleManager.BusinessLogic\ModuleManager.BusinessLogic.csproj">

@@ -21,7 +21,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                 var selectedModule = 
                     from m in toQuery
                         where
-                            m.Schooljaar == args.LeerjaarFilter
+                            m.Schooljaar.Contains(args.LeerjaarFilter)
                     select m;
                 result.AddRange(selectedModule.Where(x => !result.Contains(x)));
 
