@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.DomainDAL.Repositories;
 using ModuleManager.UserDAL;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
@@ -19,8 +20,8 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class FasesController : Controller
     {
-        private readonly IGenericRepository<Fase> _faseRepository;
-        public FasesController(IGenericRepository<Fase> faseRepository)
+        private readonly GenericRepository<Fase> _faseRepository;
+        public FasesController(GenericRepository<Fase> faseRepository)
         {
             _faseRepository = faseRepository;
         }
@@ -35,17 +36,18 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Create(Fase entity)
         {
-            var isSucces = _faseRepository.Create(entity);
-            return Json(new { success = isSucces });
+            _faseRepository.Create(entity);
+            return Json(new { success = true });
         }
 
-        public ActionResult Edit(string naam)
+        public ActionResult Edit(string naam, string schooljaar, string opleidingsNaam, string opleidingsSchooljaar)
         {
             if (naam == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fase fase = _faseRepository.GetOne(new object[] { naam });
+
+            Fase fase = _faseRepository.GetOne(new object[] { naam, schooljaar, opleidingsNaam, opleidingsSchooljaar });
 
             if (fase == null)
             {
@@ -59,17 +61,17 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Fase entity)
         {
-            var isSucces = _faseRepository.Edit(entity);
-            return Json(new { success = isSucces });
+            _faseRepository.Edit(entity);
+            return Json(new { success = true });
         }
 
-        public ActionResult Delete(string code)
+        public ActionResult Delete(string naam, string schooljaar, string opleidingsNaam, string opleidingsSchooljaar)
         {
-            if (code == null)
+            if (naam == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fase fase = _faseRepository.GetOne(new object[] { code });
+            Fase fase = _faseRepository.GetOne(new object[] { naam, schooljaar, opleidingsNaam, opleidingsSchooljaar });
 
             if (fase == null)
             {
@@ -83,8 +85,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Fase entity)
         {
-            var isSucces = _faseRepository.Delete(entity);
-            return Json(new { success = isSucces });
+            _faseRepository.Delete(entity);
+            return Json(new { success = true });
         }
 
     }

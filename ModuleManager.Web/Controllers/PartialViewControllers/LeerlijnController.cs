@@ -35,8 +35,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Create(Leerlijn entity)
         {
-            var isSucces = _leerlijnRepository.Create(entity);
-            return Json(new { success = isSucces });
+            _leerlijnRepository.Create(entity);
+            return Json(new { success = true });
         }
 
         public ActionResult Edit(string naam)
@@ -59,8 +59,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Leerlijn entity)
         {
-            var isSucces = _leerlijnRepository.Edit(entity);
-            return Json(new { success = isSucces });
+            _leerlijnRepository.Edit(entity);
+            return Json(new { success = true });
         }
 
         public ActionResult Delete(string naam)
@@ -83,8 +83,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Leerlijn entity)
         {
-            var isSucces = _leerlijnRepository.Delete(entity);
-            return Json(new { success = isSucces });
+            _leerlijnRepository.Delete(entity);
+            return Json(new { success = true });
         }
 
     }

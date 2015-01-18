@@ -51,8 +51,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Create(Competentie entity)
         {
-            var isSucces = _competentieRepository.Create(entity);
-            return Json(new { success = isSucces });
+            _competentieRepository.Create(entity);
+            return Json(new { success = true });
         }
 
         public ActionResult Edit(string code)
@@ -75,8 +75,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Competentie entity)
         {
-            var isSucces = _competentieRepository.Edit(entity);
-            return Json(new { success = isSucces });
+            _competentieRepository.Edit(entity);
+            return Json(new { success = true });
         }
 
         public ActionResult Delete(string code)
@@ -99,8 +99,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Competentie entity)
         {
-            var isSucces = _competentieRepository.Delete(entity);
-            return Json(new { success = isSucces });
+            _competentieRepository.Delete(entity);
+            return Json(new { success = true });
         }
         
     }

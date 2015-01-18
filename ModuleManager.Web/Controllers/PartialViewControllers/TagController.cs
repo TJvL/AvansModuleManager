@@ -35,8 +35,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Create(Tag entity)
         {
-            var isSucces = _tagRepository.Create(entity);
-            return Json(new { success = isSucces });
+            _tagRepository.Create(entity);
+            return Json(new { success = true });
         }
 
         public ActionResult Edit(string naam)
@@ -59,8 +59,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Tag entity)
         {
-            var isSucces = _tagRepository.Edit(entity);
-            return Json(new { success = isSucces });
+            _tagRepository.Edit(entity);
+            return Json(new { success = true });
         }
 
         public ActionResult Delete(string naam)
@@ -83,8 +83,8 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Tag entity)
         {
-            var isSucces = _tagRepository.Delete(entity);
-            return Json(new { success = isSucces });
+            _tagRepository.Delete(entity);
+            return Json(new { success = true });
         }
 
     }
