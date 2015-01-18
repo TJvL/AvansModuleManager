@@ -187,12 +187,6 @@ namespace ModuleManager.Web.Controllers
             return new FileStreamResult(fStream, "application/pdf");
         }
 
-        [HttpGet]
-        public ActionResult LessenTabel()
-        {
-            return View();
-        }
-
         protected override void Dispose(bool disposing)
         {
             _unitOfWork.Dispose();

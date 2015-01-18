@@ -19,6 +19,7 @@ namespace ModuleManager.Web.Controllers
         }
 
         // GET: Table
+        [HttpGet]
         public ActionResult Index()
         {
             var vm = new StudiegidsViewModel();
