@@ -28,7 +28,7 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void testGenericFilter() 
         {
-            Arguments args = new Arguments
+            ModuleFilterSorterArguments args = new ModuleFilterSorterArguments
             {
                 ZoektermFilter = "INMODL"
             };
@@ -48,7 +48,7 @@ namespace ModuleManager.BusinessLogicTests
             List<string> competentie = new List<string>();
             competentie.Add("procesanaly");
 
-            Arguments args = new Arguments
+            ModuleFilterSorterArguments args = new ModuleFilterSorterArguments
             {
                 CompetentieFilters = competentie
             };
@@ -68,7 +68,7 @@ namespace ModuleManager.BusinessLogicTests
             competentie.Add("procesanaly");
             competentie.Add("vernietigen");
 
-            Arguments args = new Arguments
+            ModuleFilterSorterArguments args = new ModuleFilterSorterArguments
             {
                 CompetentieFilters = competentie
             };
@@ -84,7 +84,7 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void testEmptyFilter()
         {
-            Arguments args = new Arguments();
+            ModuleFilterSorterArguments args = new ModuleFilterSorterArguments();
 
             ModuleQueryablePack pack = new ModuleQueryablePack(args, data);
 
@@ -122,7 +122,7 @@ namespace ModuleManager.BusinessLogicTests
 
             string status = "Comple";
 
-            Arguments args = new Arguments
+            ModuleFilterSorterArguments args = new ModuleFilterSorterArguments
             {
                 CompetentieFilters = competentie,
                 CompetentieNiveauFilters = competentieNiveau,

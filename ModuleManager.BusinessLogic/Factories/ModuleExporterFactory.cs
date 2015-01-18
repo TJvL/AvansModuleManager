@@ -38,7 +38,7 @@ namespace ModuleManager.BusinessLogic.Factories
         /// </summary>
         /// <param name="opt">Pre-defined options</param>
         /// <returns>Decorator pattern for exporting</returns>
-        public IExporter<DomainDAL.Module> GetStrategy(ExportArguments opt) 
+        public IExporter<DomainDAL.Module> GetStrategy(ModuleExportArguments opt) 
         {
             //make sure you keep the ExportOptions in Sync with the Stack. That way, you can just use ifs here.
             IExporter<DomainDAL.Module> strategy = new ModulePassiveExporter();

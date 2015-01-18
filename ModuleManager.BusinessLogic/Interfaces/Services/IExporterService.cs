@@ -26,7 +26,7 @@ namespace ModuleManager.BusinessLogic.Interfaces.Services
         /// </summary>
         /// <param name="pack">The objects to export</param>
         /// <returns>A PDF Document containing any requested data</returns>
-        PdfDocument ExportAll(IExportablePack<Module> pack);
+        PdfDocument ExportAll(IExportablePack<T> pack);
 
         /// <summary>
         /// Export a single object
@@ -39,6 +39,6 @@ namespace ModuleManager.BusinessLogic.Interfaces.Services
         /// </summary>
         /// <param name="pack">The objects to export</param>
         /// <returns>A PDF Document containing any requested data</returns>
-        BufferedStream ExportAllAsStream(IExportablePack<Module> pack);
+        BufferedStream ExportAllAsStream(IExportablePack<T> pack);
     }
 }

@@ -34,7 +34,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/Curriculum")]
         public ActionResult Curriculum()
         {
-            var arguments = new Arguments
+            var arguments = new ModuleFilterSorterArguments
             {
 
             };
@@ -85,7 +85,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/CheckModules")]
         public ActionResult CheckModules()
         {
-            var arguments = new Arguments
+            var arguments = new ModuleFilterSorterArguments
             {
 
             };

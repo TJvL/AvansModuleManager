@@ -18,7 +18,7 @@ namespace ModuleManager.BusinessLogic.Interfaces
         /// <summary>
         /// Get Property for Arguments (Always the same format)
         /// </summary>
-        Arguments Args { get; }
+        ModuleFilterSorterArguments Args { get; }
         /// <summary>
         /// get Property for any Data.
         /// </summary>
