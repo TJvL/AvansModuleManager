@@ -13,13 +13,13 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public IGenericRepository<T> GetRepository<T>() where T : class
         {
-            return new GenericRepository<T>(_context);
+            return new GenericRepository<T>(Context);
         }
 
         public void Dispose()
         {
-            Context.SaveChanges();
-            Context.Dispose();
+            _context.SaveChanges();
+            _context.Dispose();
         }
     }
 }

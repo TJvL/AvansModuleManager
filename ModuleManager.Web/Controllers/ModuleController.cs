@@ -58,12 +58,9 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            ModuleViewModel modVm;
-            using (var context = new DomainContext())
-            {
-                var module = context.Set<Module>().Find(cursusCode, schooljaar);
-                modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            }
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
+            _unitOfWork.Dispose();
             return View(modVm);
         }
 
@@ -175,7 +172,7 @@ namespace ModuleManager.Web.Controllers
             BufferedStream fStream = _moduleExporterService.ExportAllAsStream(exportablePack);
 
             string expByName = User.Identity.Name;
-            if(expByName == null || expByName.Equals(""))
+            if (expByName == null || expByName.Equals(""))
             {
                 expByName = "download";
             }
