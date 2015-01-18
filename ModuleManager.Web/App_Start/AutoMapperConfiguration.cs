@@ -11,7 +11,7 @@ namespace ModuleManager.Web
         const string Delimiter = ", ";
         public static void Configure()
         {
-            Mapper.CreateMap<Module, ModuleViewModel>()
+            Mapper.CreateMap<Module, ModuleOverviewViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(
                     src => src.StudiePunten
                         .Select(sp => sp.EC).Sum()))

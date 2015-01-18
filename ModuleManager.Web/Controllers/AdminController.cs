@@ -13,32 +13,15 @@ namespace ModuleManager.Web.Controllers
 
     public class AdminController : Controller
     {
-        private readonly IGenericRepository<Blok> _blokRepository;
-        private readonly IGenericRepository<Status> _statusRepository;
-        private readonly IGenericRepository<Module> _moduleRepository;
-        private readonly IGenericRepository<Competentie> _competentieRepository;
-        private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
-        private readonly IGenericRepository<Tag> _tagRepository;
-        private readonly IGenericRepository<Fase> _faseRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
 
         private readonly IFilterSorterService<Module> _filterSorterService;
 
-        public AdminController(IGenericRepository<Blok> blokRepository, IGenericRepository<Status> statusRepository,
-            IGenericRepository<Module> moduleRepository, IGenericRepository<Competentie> competentieRepository,
-            IGenericRepository<Leerlijn> leerlijnRepository, IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
-            IFilterSorterService<Module> filterSorterService, IUserRepository userRepository)
+        public AdminController(IFilterSorterService<Module> filterSorterService, IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
-            _blokRepository = blokRepository;
-            _statusRepository = statusRepository;
-            _moduleRepository = moduleRepository;
-            _competentieRepository = competentieRepository;
-            _leerlijnRepository = leerlijnRepository;
-            _tagRepository = tagRepository;
-            _faseRepository = faseRepository;
-
             _userRepository = userRepository;
-
+            _unitOfWork = unitOfWork;
             _filterSorterService = filterSorterService;
         }
 
@@ -55,16 +38,16 @@ namespace ModuleManager.Web.Controllers
             {
 
             };
-            var queryPack = new ModuleQueryablePack(arguments, _moduleRepository.GetAll().AsQueryable());
+            var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
             var modules = _filterSorterService.ProcessData(queryPack).ToList();
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);
 
-            var competenties = _competentieRepository.GetAll().ToArray();
-            var leerlijnen = _leerlijnRepository.GetAll().ToArray();
-            var tags = _tagRepository.GetAll().ToArray();
-            var fases = _faseRepository.GetAll().ToArray();
-            var blokken = _blokRepository.GetAll().ToArray();
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
+            var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToArray();
+            var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToArray();
 
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddFases(fases);
@@ -79,13 +62,6 @@ namespace ModuleManager.Web.Controllers
                 ModuleViewModels = moduleList,
                 FilterOptions = filterOptions
             };
-
-            _moduleRepository.SaveAndClose();
-            _competentieRepository.SaveAndClose();
-            _leerlijnRepository.SaveAndClose();
-            _tagRepository.SaveAndClose();
-            _faseRepository.SaveAndClose();
-            _blokRepository.SaveAndClose();
 
             return View(adminCurriculumVm);
         }
@@ -113,7 +89,7 @@ namespace ModuleManager.Web.Controllers
             {
 
             };
-            var queryPack = new ModuleQueryablePack(arguments, _moduleRepository.GetAll().AsQueryable());
+            var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
             var modules = _filterSorterService.ProcessData(queryPack).ToList();
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);
@@ -128,7 +104,6 @@ namespace ModuleManager.Web.Controllers
                 Users = userList
 	        };
 
-            _moduleRepository.SaveAndClose();
             return View(checkModulesVm);
         }
 
@@ -153,6 +128,12 @@ namespace ModuleManager.Web.Controllers
             }
 
             return View();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

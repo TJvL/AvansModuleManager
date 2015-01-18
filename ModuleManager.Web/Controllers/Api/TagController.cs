@@ -9,48 +9,49 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class TagController : ApiController, IGenericApiController<Tag>
     {
-        private readonly IGenericRepository<Tag> _tagRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TagController(IGenericRepository<Tag> tagRepository)
+        public TagController(IUnitOfWork unitOfWork)
         {
-            _tagRepository = tagRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet, Route("api/Tag/Get")]
         public IEnumerable<Tag> GetAll()
         {
-            var tags = _tagRepository.GetAll().ToArray();
-            _tagRepository.SaveAndClose();
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
             return tags;
         }
 
         [HttpGet, Route("api/Tag/Get/{schooljaar}/{key}")]
         public Tag GetOne(string schooljaar, string key)
         {
-            var tag = _tagRepository.GetOne(new object[] { key, schooljaar });
-            _tagRepository.SaveAndClose();
+            var tag = _unitOfWork.GetRepository<Tag>().GetOne(new object[] { key, schooljaar });
             return tag;
         }
 
         [HttpPost, Route("api/Tag/Delete")]
         public void Delete(Tag entity)
         {
-            _tagRepository.Delete(entity);
-            _tagRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Tag>().Delete(entity);
         }
 
         [HttpPost, Route("api/Tag/Edit")]
         public void Edit(Tag entity)
         {
-            _tagRepository.Edit(entity);
-            _tagRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Tag>().Edit(entity);
         }
 
         [HttpPost, Route("api/Tag/Create")]
         public void Create(Tag entity)
         {
-            _tagRepository.Create(entity);
-            _tagRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Tag>().Create(entity);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

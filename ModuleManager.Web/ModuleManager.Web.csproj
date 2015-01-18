@@ -299,7 +299,7 @@
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />
-    <Compile Include="ViewModels\PartialViewModel\ModuleViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleOverviewViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserListViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
@@ -372,6 +372,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\EntityViewModel\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

@@ -14,19 +14,19 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class ModuleController : ApiController, IModuleApiController
     {
-        private readonly IGenericRepository<Module> _moduleRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IFilterSorterService<Module> _filterSorterService;
 
-        public ModuleController(IGenericRepository<Module> moduleRepository, IFilterSorterService<Module> filterSorterService)
+        public ModuleController(IFilterSorterService<Module> filterSorterService, IUnitOfWork unitOfWork)
         {
-            _moduleRepository = moduleRepository;
             _filterSorterService = filterSorterService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
         {
-            var modules = _moduleRepository.GetAll();
+            var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
             ICollection<string> competentieFilters = null;
             if (value.Filter.Competenties.First() != null) competentieFilters = value.Filter.Competenties;
@@ -100,30 +100,32 @@ namespace ModuleManager.Web.Controllers.Api
             var moduleListVm = new ModuleListViewModel(modArray.Count());
             moduleListVm.AddModules(modArray);
 
-            _moduleRepository.SaveAndClose();
             return moduleListVm;
         }
 
         [HttpGet, Route("api/Module/Get/{schooljaar}/{key}")]
         public Module GetOne(string schooljaar, string key)
         {
-            var module = _moduleRepository.GetOne(new object[] { key, schooljaar });
-            _moduleRepository.SaveAndClose();
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { key, schooljaar });
             return module;
         }
 
         [HttpPost, Route("api/Module/Delete")]
         public void Delete(Module entity)
         {
-            _moduleRepository.Delete(entity);
-            _moduleRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Module>().Delete(entity);
         }
 
         [HttpPost, Route("api/Module/Create")]
         public void Create(Module entity)
         {
-            _moduleRepository.Create(entity);
-            _moduleRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Module>().Create(entity);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

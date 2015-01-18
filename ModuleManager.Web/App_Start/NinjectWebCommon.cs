@@ -71,18 +71,16 @@ namespace ModuleManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             // Domain entity repositories:
-            kernel.Bind<IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
-            kernel.Bind<IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
-            kernel.Bind<IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
-            kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>();
-            kernel.Bind<IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
-            kernel.Bind<IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
-            kernel.Bind<IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
-            kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
-            kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
+            //kernel.Bind<IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
+            //kernel.Bind<IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
+            //kernel.Bind<IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
+            //kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>();
+            //kernel.Bind<IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
+            //kernel.Bind<IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
+            //kernel.Bind<IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
+            //kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
+            //kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
-
-            kernel.Bind<INewGenericRepository>().To<NewGenericRepository>();
 
             // Domain entity API controllers:
             kernel.Bind<IGenericApiController<Competentie>>().To<CompetentieController>();

@@ -9,6 +9,5 @@ namespace ModuleManager.DomainDAL.Interfaces
         void Create(T entity);
         void Delete(T entity);
         void Edit(T entity);
-        void SaveAndClose();
     }
 }

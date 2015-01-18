@@ -6,49 +6,24 @@ using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.Web.ViewModels.PartialViewModel;
-using ModuleManager.BusinessLogic.Services;
 using System.IO;
-using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 using System.Collections.Generic;
-using System;
 
 namespace ModuleManager.Web.Controllers
 {
 
     public class ModuleController : Controller
     {
-        private readonly IGenericRepository<Blok> _blokRepository;
-        private readonly IGenericRepository<Schooljaar> _schooljaarRepository;
-        private readonly IGenericRepository<Module> _moduleRepository;
-        private readonly IGenericRepository<Competentie> _competentieRepository;
-        private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
-        private readonly IGenericRepository<Tag> _tagRepository;
-        private readonly IGenericRepository<Fase> _faseRepository;
-
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IExporterService<Module> _moduleExporterService;
         private readonly IFilterSorterService<Module> _filterSorterService;
 
-        private readonly INewGenericRepository _repository; // 
-
-        public ModuleController(IGenericRepository<Blok> blokRepository,
-            IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository,
-            IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository,
-            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
-            IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService, INewGenericRepository repository)
+        public ModuleController(IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService, IUnitOfWork unitOfWork)
         {
-            _blokRepository = blokRepository;
-            _schooljaarRepository = schooljaarRepository;
-            _moduleRepository = moduleRepository;
-            _competentieRepository = competentieRepository;
-            _leerlijnRepository = leerlijnRepository;
-            _tagRepository = tagRepository;
-            _faseRepository = faseRepository;
-
             _moduleExporterService = moduleExporterService;
             _filterSorterService = filterSorterService;
-
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -60,25 +35,19 @@ namespace ModuleManager.Web.Controllers
         {
             //Collect the possible filter options the user can choose.
             var filterOptions = new FilterOptionsViewModel();
-            filterOptions.AddBlokken(_blokRepository.GetAll());
-            filterOptions.AddCompetenties(_competentieRepository.GetAll());
+            filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll());
+            filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll());
             filterOptions.AddECs();
-            filterOptions.AddFases(_faseRepository.GetAll());
-            filterOptions.AddLeerjaren(_schooljaarRepository.GetAll());
-            filterOptions.AddLeerlijnen(_leerlijnRepository.GetAll());
-            filterOptions.AddTags(_tagRepository.GetAll());
+            filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll());
+            filterOptions.AddLeerjaren(_unitOfWork.GetRepository<Schooljaar>().GetAll());
+            filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll());
+            filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll());
 
             //Construct the ViewModel.
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
                 FilterOptions = filterOptions
             };
-            _blokRepository.SaveAndClose();
-            _competentieRepository.SaveAndClose();
-            _faseRepository.SaveAndClose();
-            _schooljaarRepository.SaveAndClose();
-            _leerlijnRepository.SaveAndClose();
-            _tagRepository.SaveAndClose();
 
             return View(moduleOverviewVm);
         }
@@ -86,26 +55,23 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            var module = _repository.GetOne<Module>(new object[] { cursusCode, schooljaar });
-            _moduleRepository.SaveAndClose();
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
             return View(module);
         }
 
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            var module = _moduleRepository.GetOne(new object[] { cursusCode, schooljaar });
-            _moduleRepository.SaveAndClose();
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
             return View(module);
         }
 
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(Module entity)
         {
-            _moduleRepository.Edit(entity);
+            _unitOfWork.GetRepository<Module>().Edit(entity);
 
-            var module = _moduleRepository.GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
-            _moduleRepository.SaveAndClose();
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
 
             return View(module);
         }
@@ -115,8 +81,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
         public FileStreamResult ExportSingleModule(string schooljaar, string cursusCode)
         {
-            Stream fStream = _moduleExporterService.ExportAsStream(_moduleRepository.GetOne(new object[] { cursusCode, schooljaar }));
-            _moduleRepository.SaveAndClose();
+            Stream fStream = _moduleExporterService.ExportAsStream(_unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar }));
 
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
@@ -127,7 +92,7 @@ namespace ModuleManager.Web.Controllers
         [HttpPost, Route("Module/ExportAll")]
         public FileStreamResult ExportAllModules(ExportArgumentsViewModel value)
         {
-            var modules = _moduleRepository.GetAll();
+            var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
             ICollection<string> competentieFilters = null;
             if (value.Filters.Competenties.First() != null)
@@ -194,6 +159,12 @@ namespace ModuleManager.Web.Controllers
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

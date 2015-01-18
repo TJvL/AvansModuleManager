@@ -1407,7 +1407,7 @@
           <End Role="Module" Type="Self.Module" Multiplicity="*" />
           <End Role="Module1" Type="Self.Module" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="DomainContext" annotation:LazyLoadingEnabled="false">
+        <EntityContainer Name="DomainContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Beoordelingen" EntityType="Self.Beoordelingen" />
           <EntitySet Name="Blok" EntityType="Self.Blok" />
           <EntitySet Name="Competentie" EntityType="Self.Competentie" />

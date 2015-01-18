@@ -1,5 +1,4 @@
-﻿using System;
-using ModuleManager.DomainDAL.Interfaces;
+﻿using ModuleManager.DomainDAL.Interfaces;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
@@ -12,10 +11,15 @@ namespace ModuleManager.DomainDAL.Repositories
             get { return _context ?? (_context = new DomainContext()); }
         }
 
+        public IGenericRepository<T> GetRepository<T>() where T : class
+        {
+            return new GenericRepository<T>(_context);
+        }
+
         public void Dispose()
         {
-            _context.SaveChanges();
-            _context.Dispose();
+            Context.SaveChanges();
+            Context.Dispose();
         }
     }
 }

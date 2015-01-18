@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ModuleManager.DomainDAL.Interfaces;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
+        private readonly DomainContext _context;
 
+        public GenericRepository(DomainContext context)
+        {
+            _context = context;
+        }
 
         public IEnumerable<T> GetAll()
         {
@@ -50,11 +52,6 @@ namespace ModuleManager.DomainDAL.Repositories
             {
                 context.Entry(entity).State = EntityState.Modified;
             }
-        }
-
-        public void SaveAndClose()
-        {
-
         }
     }
 }

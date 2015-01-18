@@ -9,48 +9,49 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class CompetentieController : ApiController, IGenericApiController<Competentie>
     {
-        private readonly IGenericRepository<Competentie> _competentieRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CompetentieController(IGenericRepository<Competentie> competentieRepository)
+        public CompetentieController(IUnitOfWork unitOfWork)
         {
-            _competentieRepository = competentieRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet, Route("api/Competentie/Get")]
         public IEnumerable<Competentie> GetAll()
         {
-            var competenties = _competentieRepository.GetAll().ToArray();
-            _competentieRepository.SaveAndClose();
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
             return competenties;
         }
 
         [HttpGet, Route("api/Competentie/Get/{schooljaar}/{key}")]
         public Competentie GetOne(string schooljaar, string key)
         {
-            var competentie = _competentieRepository.GetOne(new object[] { key, schooljaar });
-            _competentieRepository.SaveAndClose();
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { key, schooljaar });
             return competentie;
         }
 
         [HttpPost, Route("api/Competentie/Delete")]
         public void Delete(Competentie entity)
         {
-            _competentieRepository.Delete(entity);
-            _competentieRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Competentie>().Delete(entity);
         }
 
         [HttpPost, Route("api/Competentie/Edit")]
         public void Edit(Competentie entity)
         {
-            _competentieRepository.Edit(entity);
-            _competentieRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Competentie>().Edit(entity);
         }
 
         [HttpPost, Route("api/Competentie/Create")]
         public void Create(Competentie entity)
         {
-            _competentieRepository.Create(entity);
-            _competentieRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Competentie>().Create(entity);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

@@ -4,7 +4,7 @@
     /// <summary>
     /// Moduleinformatie weergegeven voor de module overview-pagina's
     /// </summary>
-    public class ModuleViewModel
+    public class ModuleOverviewViewModel
     {
         /// <summary>
         /// Onderdeel van de Module/Overview

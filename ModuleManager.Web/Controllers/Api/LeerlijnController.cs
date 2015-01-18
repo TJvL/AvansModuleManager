@@ -9,48 +9,49 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class LeerlijnController : ApiController, IGenericApiController<Leerlijn>
     {
-        private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public LeerlijnController(IGenericRepository<Leerlijn> leerlijnRepository)
+        public LeerlijnController(IUnitOfWork unitOfWork)
         {
-            _leerlijnRepository = leerlijnRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet, Route("api/Leerlijn/Get")]
         public IEnumerable<Leerlijn> GetAll()
         {
-            var leerlijnen = _leerlijnRepository.GetAll().ToArray();
-            _leerlijnRepository.SaveAndClose();
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
             return leerlijnen;
         }
 
         [HttpGet, Route("api/Leerlijn/Get/{schooljaar}/{key}")]
         public Leerlijn GetOne(string schooljaar, string key)
         {
-            var leerlijn = _leerlijnRepository.GetOne(new object[] { key, schooljaar });
-            _leerlijnRepository.SaveAndClose();
+            var leerlijn = _unitOfWork.GetRepository<Leerlijn>().GetOne(new object[] { key, schooljaar });
             return leerlijn;
         }
 
         [HttpPost, Route("api/Leerlijn/Delete")]
         public void Delete(Leerlijn entity)
         {
-            _leerlijnRepository.Delete(entity);
-            _leerlijnRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Leerlijn>().Delete(entity);
         }
 
         [HttpPost, Route("api/Leerlijn/Edit")]
         public void Edit(Leerlijn entity)
         {
-            _leerlijnRepository.Edit(entity);
-            _leerlijnRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Leerlijn>().Edit(entity);
         }
 
         [HttpPost, Route("api/Leerlijn/Create")]
         public void Create(Leerlijn entity)
         {
-            _leerlijnRepository.Create(entity);
-            _leerlijnRepository.SaveAndClose();
+            _unitOfWork.GetRepository<Leerlijn>().Create(entity);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
