@@ -60,19 +60,14 @@ namespace ModuleManager.Web.Controllers
         {
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
             var modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            _unitOfWork.Dispose();
             return View(modVm);
         }
 
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            ModuleViewModel modVm;
-            using (var context = new DomainContext())
-            {
-                var module = context.Set<Module>().Find(cursusCode, schooljaar);
-                modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            }
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
             return View(modVm);
         }
 
@@ -81,12 +76,8 @@ namespace ModuleManager.Web.Controllers
         {
             _unitOfWork.GetRepository<Module>().Edit(entity);
 
-            ModuleViewModel modVm;
-            using (var context = new DomainContext())
-            {
-                var module = context.Set<Module>().Find(entity.CursusCode, entity.Schooljaar);
-                modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            }
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
+            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
             return View(modVm);
         }
 
@@ -194,6 +185,12 @@ namespace ModuleManager.Web.Controllers
             Session[loadFrom] = null;
 
             return new FileStreamResult(fStream, "application/pdf");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
