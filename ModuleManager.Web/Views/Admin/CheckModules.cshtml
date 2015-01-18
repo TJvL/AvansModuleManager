@@ -42,7 +42,7 @@
 
                             @foreach (var item in @Model.ModuleViewModels.data)
                             {
-                                <tr class="item" data-href="@Url.Action("Details", "Module", new RouteValueDictionary(new {schooljaar = @item.Schooljaar, cursusCode = @item.CursusCode}))">
+                                <tr class="item" data-href="@Url.Action("Edit", "Module", new RouteValueDictionary(new {schooljaar = @item.Schooljaar, cursusCode = @item.CursusCode}))">
                                     <td class="icon"><i class="fa fa-paint-brush"></i></td>
                                     <td class="information">
                                         <p class="name">@item.Naam</p>
