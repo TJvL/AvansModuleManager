@@ -16,42 +16,27 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            using (var context = new DomainContext())
-            {
-                return context.Set<T>().ToList();
-            }
+            return _context.Set<T>().ToList();
         }
 
         public T GetOne(object[] keys)
         {
-            using (var context = new DomainContext())
-            {
-                return context.Set<T>().Find(keys);
-            }
+            return _context.Set<T>().Find(keys);
         }
 
         public void Create(T entity)
         {
-            using (var context = new DomainContext())
-            {
-                context.Entry(entity).State = EntityState.Added;
-            }
+            _context.Entry(entity).State = EntityState.Added;
         }
 
         public void Delete(T entity)
         {
-            using (var context = new DomainContext())
-            {
-                context.Entry(entity).State = EntityState.Deleted;
-            }
+            _context.Entry(entity).State = EntityState.Deleted;
         }
 
         public void Edit(T entity)
         {
-            using (var context = new DomainContext())
-            {
-                context.Entry(entity).State = EntityState.Modified;
-            }
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }
