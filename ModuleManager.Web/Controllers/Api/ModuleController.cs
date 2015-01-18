@@ -14,19 +14,19 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class ModuleController : ApiController, IModuleApiController
     {
-        private readonly IGenericRepository<Module> _moduleRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IFilterSorterService<Module> _filterSorterService;
 
-        public ModuleController(IGenericRepository<Module> moduleRepository, IFilterSorterService<Module> filterSorterService)
+        public ModuleController(IFilterSorterService<Module> filterSorterService, IUnitOfWork unitOfWork)
         {
-            _moduleRepository = moduleRepository;
             _filterSorterService = filterSorterService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
         {
-            var modules = _moduleRepository.GetAll();
+            var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
             ICollection<string> competentieFilters = null;
             if (value.Filter.Competenties.First() != null) competentieFilters = value.Filter.Competenties;
@@ -46,8 +46,8 @@ namespace ModuleManager.Web.Controllers.Api
             string zoektermFilter = null;
             if (value.Filter.Zoekterm != null) zoektermFilter = value.Filter.Zoekterm;
 
-            int leerjaarFilter = 0;
-            if (value.Filter.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filter.Leerjaar);
+            string leerjaarFilter = null;
+            if (value.Filter.Leerjaar != null) leerjaarFilter = value.Filter.Leerjaar;
 
             int column = value.OrderBy.Column;
             string columnName;
@@ -103,35 +103,29 @@ namespace ModuleManager.Web.Controllers.Api
             return moduleListVm;
         }
 
-        [HttpPost, Route("api/Module/ExportOverview")]
-        public string ExportOverview(ExportViewModel arguments)
-        {
-            throw new System.NotImplementedException();
-        }
-
         [HttpGet, Route("api/Module/Get/{schooljaar}/{key}")]
         public Module GetOne(string schooljaar, string key)
         {
-            var keys = new[] { schooljaar, key };
-            return _moduleRepository.GetOne(keys);
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { key, schooljaar });
+            return module;
         }
 
         [HttpPost, Route("api/Module/Delete")]
-        public bool Delete(Module entity)
+        public void Delete(Module entity)
         {
-            return _moduleRepository.Delete(entity);
-        }
-
-        [HttpPost, Route("api/Module/Edit")]
-        public bool Edit(Module entity)
-        {
-            return _moduleRepository.Edit(entity);
+            _unitOfWork.GetRepository<Module>().Delete(entity);
         }
 
         [HttpPost, Route("api/Module/Create")]
-        public bool Create(Module entity)
+        public void Create(Module entity)
         {
-            return _moduleRepository.Create(entity);
+            _unitOfWork.GetRepository<Module>().Create(entity);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

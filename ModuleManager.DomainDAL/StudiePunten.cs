@@ -15,11 +15,13 @@ namespace ModuleManager.DomainDAL
     public partial class StudiePunten
     {
         public string CursusCode { get; set; }
-        public int Schooljaar { get; set; }
+        public string Schooljaar { get; set; }
         public string ToetsCode { get; set; }
+        public string Toetsvorm { get; set; }
         public decimal EC { get; set; }
         public string Minimum { get; set; }
     
         public virtual Module Module { get; set; }
+        public virtual Toetsvorm Toetsvorm1 { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace ModuleManager.DomainDAL
             this.Opleiding = new HashSet<Opleiding>();
         }
     
-        public int JaarId { get; set; }
+        public string JaarId { get; set; }
     
         public virtual ICollection<Opleiding> Opleiding { get; set; }
     }
