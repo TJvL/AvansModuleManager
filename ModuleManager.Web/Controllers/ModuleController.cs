@@ -12,6 +12,7 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.IO;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 using System.Collections.Generic;
+using WebGrease;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -67,8 +68,24 @@ namespace ModuleManager.Web.Controllers
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
-            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            return View(modVm);
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll();
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll();
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll();
+            var werkvormen = _unitOfWork.GetRepository<Werkvorm>().GetAll();
+
+            var moduleEditViewModel = new ModuleEditViewModel
+            {
+                Module = Mapper.Map<Module, ModuleViewModel>(module),
+                Options = new ModuleEditOptionsViewModel
+                {
+                    Competenties = competenties.Select(Mapper.Map<Competentie, CompetentieViewModel>).ToList(),
+                    Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
+                    Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
+                    Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList()
+                }
+            };
+
+            return View(moduleEditViewModel);
         }
 
         [HttpPost, Route("Module/Edit")]

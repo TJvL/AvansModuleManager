@@ -282,7 +282,7 @@
     <Compile Include="Controllers\Api\Interfaces\IGenericApiController.cs" />
     <Compile Include="Controllers\Api\Interfaces\IModuleApiController.cs" />
     <Compile Include="Controllers\Api\LeerlijnController.cs" />
-	<Compile Include="Controllers\Api\OnderdeelController.cs" />
+    <Compile Include="Controllers\Api\OnderdeelController.cs" />
     <Compile Include="Controllers\Api\ModuleController.cs" />
     <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -313,7 +313,10 @@
     <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\WeekplanningViewModel.cs" />
-	<Compile Include="ViewModels\PartialViewModel\LessenTabelViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\WerkvormViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleEditOptionsViewModel.cs" />
+    <Compile Include="ViewModels\ModuleEditViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\LessenTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\LesTabelViewModel.cs" />
