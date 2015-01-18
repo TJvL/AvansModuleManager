@@ -1,16 +1,20 @@
 ﻿using System.Web.Mvc;
 
-namespace ModuleManager.Web.Controllers {
+namespace ModuleManager.Web.Controllers
+{
 
-    public class HomeController : Controller {
+    public class HomeController : Controller
+    {
 
         [HttpGet]
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             return View();
         }
 
         [HttpGet, Route("Home/Login")]
-        public ActionResult Login() {
+        public ActionResult Login()
+        {
             return View();
         }
 
