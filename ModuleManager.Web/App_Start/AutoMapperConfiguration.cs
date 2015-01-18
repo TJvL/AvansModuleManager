@@ -13,14 +13,8 @@ namespace ModuleManager.Web
         public static void Configure()
         {
             Mapper.CreateMap<Module, ModuleViewModel>();
-            //.ForMember(dest => dest.StudiePunten, opt => opt.MapFrom(
-            //    src => src.StudiePunten))
-            //.ForMember(dest => dest.ModuleCompetentie, opt => opt.MapFrom(
-            //    src => src.ModuleCompetentie));
 
             Mapper.CreateMap<ModuleCompetentie, ModuleCompetentieViewModel>();
-            //.ForMember(dest => dest.Competentie, opt => opt.MapFrom(
-            //    src => src.Competentie));
 
             Mapper.CreateMap<Competentie, CompetentieViewModel>();
 
@@ -47,6 +41,8 @@ namespace ModuleManager.Web
             Mapper.CreateMap<Tag, TagViewModel>();
 
             Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
+
+            Mapper.CreateMap<Werkvorm, WerkvormViewModel>();
 
             Mapper.CreateMap<Module, ModulePartialViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(
