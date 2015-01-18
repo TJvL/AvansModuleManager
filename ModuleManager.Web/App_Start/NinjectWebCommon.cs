@@ -82,6 +82,8 @@ namespace ModuleManager.Web.App_Start
             kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
+            kernel.Bind<INewGenericRepository>().To<NewGenericRepository>();
+
             // Domain entity API controllers:
             kernel.Bind<IGenericApiController<Competentie>>().To<CompetentieController>();
             kernel.Bind<IGenericApiController<Fase>>().To<FaseController>();

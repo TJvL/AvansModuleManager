@@ -29,11 +29,13 @@ namespace ModuleManager.Web.Controllers
         private readonly IExporterService<Module> _moduleExporterService;
         private readonly IFilterSorterService<Module> _filterSorterService;
 
+        private readonly INewGenericRepository _repository; // 
+
         public ModuleController(IGenericRepository<Blok> blokRepository,
-            IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository, 
-            IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository, 
+            IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository,
+            IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository,
             IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
-            IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService)
+            IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService, INewGenericRepository repository)
         {
             _blokRepository = blokRepository;
             _schooljaarRepository = schooljaarRepository;
@@ -45,6 +47,8 @@ namespace ModuleManager.Web.Controllers
 
             _moduleExporterService = moduleExporterService;
             _filterSorterService = filterSorterService;
+
+            _repository = repository;
         }
 
         /// <summary>
@@ -82,7 +86,7 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            var module = _moduleRepository.GetOne(new object[] { cursusCode, schooljaar });
+            var module = _repository.GetOne<Module>(new object[] { cursusCode, schooljaar });
             _moduleRepository.SaveAndClose();
             return View(module);
         }
@@ -126,36 +130,43 @@ namespace ModuleManager.Web.Controllers
             var modules = _moduleRepository.GetAll();
 
             ICollection<string> competentieFilters = null;
-            if (value.Filters.Competenties.First() != null) competentieFilters = value.Filters.Competenties;
+            if (value.Filters.Competenties.First() != null)
+                competentieFilters = value.Filters.Competenties;
 
             ICollection<string> tagFilters = null;
-            if (value.Filters.Tags.First() != null) tagFilters = value.Filters.Tags;
+            if (value.Filters.Tags.First() != null)
+                tagFilters = value.Filters.Tags;
 
             ICollection<string> leerlijnFilters = null;
-            if (value.Filters.Leerlijnen.First() != null) leerlijnFilters = value.Filters.Leerlijnen;
+            if (value.Filters.Leerlijnen.First() != null)
+                leerlijnFilters = value.Filters.Leerlijnen;
 
             ICollection<string> faseFilters = null;
-            if (value.Filters.Fases.First() != null) faseFilters = value.Filters.Fases;
+            if (value.Filters.Fases.First() != null)
+                faseFilters = value.Filters.Fases;
 
             ICollection<string> blokFilters = null;
-            if ((value.Filters.Blokken.First() != null)&&(value.Filters.Blokken.First() != "")) blokFilters = value.Filters.Blokken;
+            if ((value.Filters.Blokken.First() != null) && (value.Filters.Blokken.First() != ""))
+                blokFilters = value.Filters.Blokken;
 
             string zoektermFilter = null;
-            if (value.Filters.Zoekterm != null) zoektermFilter = value.Filters.Zoekterm;
+            if (value.Filters.Zoekterm != null)
+                zoektermFilter = value.Filters.Zoekterm;
 
             string leerjaarFilter = null;
-            if (value.Filters.Leerjaar != null) leerjaarFilter = value.Filters.Leerjaar;
+            if (value.Filters.Leerjaar != null)
+                leerjaarFilter = value.Filters.Leerjaar;
 
             var arguments = new Arguments
         {
-                CompetentieFilters = competentieFilters,
-                TagFilters = tagFilters,
-                LeerlijnFilters = leerlijnFilters,
-                FaseFilters = faseFilters,
-                BlokFilters = blokFilters,
-                ZoektermFilter = zoektermFilter,
-                LeerjaarFilter = leerjaarFilter
-            };
+            CompetentieFilters = competentieFilters,
+            TagFilters = tagFilters,
+            LeerlijnFilters = leerlijnFilters,
+            FaseFilters = faseFilters,
+            BlokFilters = blokFilters,
+            ZoektermFilter = zoektermFilter,
+            LeerjaarFilter = leerjaarFilter
+        };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
