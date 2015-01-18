@@ -9,7 +9,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
     {
         public LesTabelViewModel()
         {
-            Modules = new List<ModuleTabelViewModel>();
+            Onderdelen = new List<OnderdeelTabelViewModel>();
         }
 
         public string FaseNaam { get; set; }
@@ -28,7 +28,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         {
             get
             {
-                return Modules
+                return Onderdelen.SelectMany(src => src.Modules)
                     .Aggregate("", (current, m) => current + (m.Contacturen + "+"))
                     .Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
                     .Sum(retValue => Convert.ToInt32(retValue));
@@ -37,9 +37,9 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
 
         public int TotaleEcs
         {
-            get { return (int)Modules.SelectMany(src => src.Studiepunten).Sum(src => src.EC); }
+            get { return (int)Onderdelen.SelectMany(src => src.Modules).SelectMany(src => src.Studiepunten).Sum(src => src.EC); }
         }
 
-        public ICollection<ModuleTabelViewModel> Modules { get; set; }
+        public ICollection<OnderdeelTabelViewModel> Onderdelen { get; set; }
     }
 }

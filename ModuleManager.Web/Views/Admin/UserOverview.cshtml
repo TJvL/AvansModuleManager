@@ -120,7 +120,7 @@
                     $("#users tfoot th").each(function (i) {
                         var columns = [3];
                         var text = ["rol"];
-                        var select = $('<select><option value="">' + text[i] + '-filter</option></select>')
+                        var select = $('<select class="form-control"><option value="">' + text[i] + '-filter</option></select>')
                             .appendTo($(this).empty()) // positie _ this = (#users tfoot th)
                             .on('change', function () {
                                 table.column(columns[i])
@@ -134,6 +134,8 @@
                     });
                 }
             });
+            $("#users_filter").textContent = "<input type=\"search\" class=\"form-control input-sm\" placeholder=\"Zoeken\" aria-controls=\"users\"><div id=\"filterRightUp\"></div>";
+
 
             $(function () {
                 // SELECT2

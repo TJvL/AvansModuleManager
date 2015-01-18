@@ -6,6 +6,7 @@ using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.DomainDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using System.Collections.Generic;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -42,18 +43,34 @@ namespace ModuleManager.Web.Controllers
                 foreach (var random in joined.Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType)).DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })) // fasemodule collectie WHERE fasetype.EQUALS(ft.Type)
                 {
                     var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
+                    var rows = new List<ModuleTabelViewModel>();
                     foreach (var fm2 in _unitOfWork.GetRepository<FaseModules>().GetAll()
                         .Where(src => src.Blok.Equals(tabel.Blok))
                         .Where(src => src.FaseNaam.Equals(tabel.FaseNaam))) // WTF DOE IK HIER?!
                     {
-                        var keys = new object[] { fm2.ModuleCursusCode, fm2.ModuleSchooljaar };
-                        var module = _unitOfWork.GetRepository<Module>().GetOne(keys);
+                        var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { fm2.ModuleCursusCode, fm2.ModuleSchooljaar });
                         var row = Mapper.Map<Module, ModuleTabelViewModel>(module);
-                        tabel.Modules.Add(row);
+                        rows.Add(row);
+                    }
+                    var orderedRows = rows.OrderBy(src => src.Onderdeel).ToList();
+                    var uniqueOnderdelen = orderedRows.Select(src => src.Onderdeel).Distinct();
+                    foreach (var onderdeel in uniqueOnderdelen)
+                    {
+                        tabel.Onderdelen.Add(new OnderdeelTabelViewModel { Onderdeel = onderdeel });
+                    }
+                    foreach (var module in orderedRows)
+                    {
+                        OnderdeelTabelViewModel onderdeelTabelViewModel = tabel.Onderdelen.FirstOrDefault(src => src.Onderdeel.Equals(module.Onderdeel));
+                        if (onderdeelTabelViewModel != null)
+                            onderdeelTabelViewModel.Modules.Add(module);
                     }
                     tabellenlijst.Tabellen.Add(tabel);
                 }
                 vm.Opleidingsfasen.Add(tabellenlijst);
+                vm.Opleidingsfasen = vm.Opleidingsfasen.OrderBy(src => src.FaseType).ToList();
+                var last = vm.Opleidingsfasen.LastOrDefault();
+                vm.Opleidingsfasen.Remove(last);
+                vm.Opleidingsfasen.Insert(0, last);
             }
 
             return View(vm);
