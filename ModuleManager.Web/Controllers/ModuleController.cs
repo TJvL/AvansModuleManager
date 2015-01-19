@@ -75,6 +75,7 @@ namespace ModuleManager.Web.Controllers
             var toetsvormen = _unitOfWork.GetRepository<Toetsvorm>().GetAll();
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
             var niveaus = _unitOfWork.GetRepository<Niveau>().GetAll();
+            var docenten = _unitOfWork.GetRepository<Docent>().GetAll();
 
             var isComplete = true;
             if (module.Status != "Compleet (ongecontroleerd)")
@@ -99,7 +100,8 @@ namespace ModuleManager.Web.Controllers
                     Toetsvormen = toetsvormen.Select(Mapper.Map<Toetsvorm, ToetsvormViewModel>).ToList(),
                     VoorkennisModules = modules.Select(Mapper.Map<Module, ModuleVoorkennisViewModel>).ToList(),
                     Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList(),
-                    Niveaus = niveaus.Select(Mapper.Map<Niveau, NiveauViewModel>).ToList()
+                    Niveaus = niveaus.Select(Mapper.Map<Niveau, NiveauViewModel>).ToList(),
+                    Docenten = docenten.Select(Mapper.Map<Docent, DocentViewModel>).ToList()
                 }
             };
 
@@ -113,7 +115,7 @@ namespace ModuleManager.Web.Controllers
             
             moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
             moduleToEdit.Docent = moduleVm.Module.MapToDocent();
-            moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
+            //moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
             moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
             moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn();
             moduleToEdit.Leermiddelen = moduleVm.Module.MapToLeermiddelen();

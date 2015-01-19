@@ -24,7 +24,7 @@
             </div>
 
             <div class="col-md-12">
-                @using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { @id="module_edit_form" }))
+                @using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { @id = "module_edit_form" }))
                 {
                     <div id="hidden-values">
                         @Html.HiddenFor(model => model.Module.CursusCode, new { @id = "cursuscode" });
@@ -35,6 +35,18 @@
                         </div>
 
                         <div id="hidden-voorkennis">
+                        </div>
+
+                        <div id="hidden-tags">
+
+                        </div>
+
+                        <div id="hidden-competenties">
+
+                        </div>
+
+                        <div id="hidden-docenten">
+
                         </div>
                     </div>
 
@@ -47,8 +59,8 @@
                                 <input type="text" class="form-control" id="name" placeholder="Naam" value="@Model.Module.Naam" disabled="disabled">
                             </td>
                         </tr>
-                    </table>                    
-                
+                    </table>
+
                     <table class="table">
                         <tr>
                             <td><label for="tags">Beschrijving</label></td>
@@ -58,24 +70,24 @@
                                 <textarea class="form-control" id="description" placeholder="Beschrijving">@Model.Module.Beschrijving</textarea>
                             </td>
                         </tr>
-                    </table>                    
+                    </table>
 
-                    <table style="width:100%;" class="table">
+                    <table style="width:100%;" class="table" id="comp-table" data-niveaus='@Html.Raw(Json.Encode(from n in Model.Options.Niveaus select n.Niveau1))'>
                         <tr>
                             <td><label>Competentie</label></td>
-                            <td style="width:20%"><label>Niveau</label></td>
+                            <td></td>
+                            <td></td>
                         </tr>
-                        <tr>
-                            <td>
-                                @Html.DropDownList("ModuleCompetentie", new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", Model.Module.ModuleCompetentie.Select(m => m.Competentie.Naam)), new { @id = "competenties", @multiple = "form-control", @class = "form-control" })
+                        @for (int i = 0; i < Model.Options.Niveaus.Count; i++)
+                        {
+                            <tr>
+                                <td></td>
+                                <td><label for="@Model.Options.Niveaus.ElementAt(i).Niveau1-select">@Model.Options.Niveaus.ElementAt(i).Niveau1</label></td>
+                                <td>@Html.DropDownList("ModuleCompetentie", new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", (from c in Model.Module.ModuleCompetentie where c.Niveau == Model.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList()), new { @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", @multiple = "form-control", @class = "form-control" })</td>
+                            </tr>
+                        }
+                    </table>
 
-                            </td>
-                            <td>
-                                @Html.DropDownList("Niveau", new MultiSelectList(Model.Options.Niveaus, "Niveau1", "Niveau1"), new { @class = "form-control" })
-                            </td>
-                        </tr>
-                    </table>    
-                
                     <table class="table">
                         <tr>
                             <td><label>Leerlijnen</label></td>
@@ -86,14 +98,36 @@
                             </td>
                         </tr>
                     </table>
-                    
+
+                    <table class="table">
+                        <tr>
+                            <td><label for="voorkennis">Tags</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("Tags", new MultiSelectList(Model.Options.Tags, "Naam", "Naam", Model.Module.Tag.Select(m => m.Naam)), new { @id = "tags", @multiple = "multiple", @class = "form-control" })
+                            </td>
+                        </tr>
+                    </table>
+
                     <table class="table">
                         <tr>
                             <td><label for="voorkennis">Voorkennis</label></td>
                         </tr>
                         <tr>
                             <td>
-                                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.Module2.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" }) 
+                                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.Module2.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" })
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table">
+                        <tr>
+                            <td><label for="voorkennis">Docenten</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("Docenten", new MultiSelectList(Model.Options.Docenten, "Name", "Name", Model.Module.Docent.Select(m => m.Name)), new { @id = "docenten", @multiple = "multiple", @class = "form-control" })
                             </td>
                         </tr>
                     </table>
@@ -109,44 +143,13 @@
                                             <option></option>
                                             @foreach (var werkvorm in Model.Module.ModuleWerkvorm)
                                             {
-                                                    <option data-type="@werkvorm.WerkvormType" selected="selected"> (@werkvorm.WerkvormType)</option>
+                                                <option data-type="@werkvorm.WerkvormType" selected="selected"> (@werkvorm.WerkvormType)</option>
                                             }
                                             @foreach (var opt in Model.Options.Werkvormen)
                                             {
                                                 <option data-type="@opt.Type" selected="selected"> @opt.Omschrijving (@opt.Type)</option>
                                             }
                                         </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Tags</th>
-                                    <td>
-                                        <table class="table table-bordered" id="wp">
-                                            <thead>
-                                                <tr>
-                                                    <th>Tag</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @for (int i = 0; i < Model.Module.Tag.Count; i++)
-                                                {
-                                                    <tr>
-                                                        <td>
-                                                            @Html.DropDownListFor(item => Model.Module.Tag[i].Naam, new SelectList((from t in Model.Options.Tags select t.Naam), Model.Module.Tag[i].Naam), new { @class = "form-control" })                                                           
-                                                        </td>
-                                                        <td style="width: 90px; text-align:center">
-                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                                <tr>
-                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
-                                                        <button data-options='@Html.Raw(Json.Encode(from t in Model.Options.Tags select t.Naam))' data-target="wp" data-columns="1" data-collectionname="Tag" data-properties='["Naam"]' data-nextindex="@Model.Module.Tag.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
                                     </td>
                                 </tr>
                                 <tr>
@@ -195,13 +198,15 @@
                                                         <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })</td>
                                                         <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Duur, new { htmlAttributes = new { @class = "form-control" } })</td>
                                                         <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })</td>
-                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control" } })
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control" } })
                                                         @Html.HiddenFor(item => Model.Module.StudieBelasting[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })</td>
-                                                        <td style="width: 90px; text-align:center">
-                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
+                                                        @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </td>
+                                                    <td style="width: 90px; text-align:center">
+                                                        <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
                                                 }
                                                 <tr>
                                                     <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
@@ -230,19 +235,19 @@
                                                         <td style="width:80px;">@Html.EditorFor(item => Model.Module.Weekplanning[i].Week, new { htmlAttributes = new { @class = "form-control" } })</td>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.Weekplanning[i].Onderwerp, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.Weekplanning[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.Weekplanning[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
-                                                    </td>
+                                                            @Html.HiddenFor(item => Model.Module.Weekplanning[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Weekplanning[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                 }
-                                            <tr>
-                                                <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
-                                                    <button data-target="wp" data-columns="2" data-collectionname="Weekplanning" data-properties='["Week", "Onderwerp"]' data-nextindex="@Model.Module.Weekplanning.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="wp" data-columns="2" data-collectionname="Weekplanning" data-properties='["Week", "Onderwerp"]' data-nextindex="@Model.Module.Weekplanning.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </td>
@@ -263,9 +268,9 @@
                                                     <tr>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.Beoordelingen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.Beoordelingen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.Beoordelingen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
-                                                    </td>
+                                                            @Html.HiddenFor(item => Model.Module.Beoordelingen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Beoordelingen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
@@ -296,9 +301,9 @@
                                                     <tr>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.Leermiddelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.Leermiddelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.Leermiddelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
-                                                    </td>
+                                                            @Html.HiddenFor(item => Model.Module.Leermiddelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Leermiddelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
@@ -329,9 +334,9 @@
                                                     <tr>
                                                         <td>
                                                             @Html.EditorFor(item => Model.Module.Leerdoelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.Leerdoelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
-                                                        @Html.HiddenFor(item => Model.Module.Leerdoelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
-                                                    </td>
+                                                            @Html.HiddenFor(item => Model.Module.Leerdoelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Leerdoelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
@@ -346,7 +351,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -373,6 +378,7 @@
 
                 }
             </div>
+
         </div>
     </div>
 </div>
@@ -383,160 +389,216 @@
 <!-- JAVA MEUK -->
 @section Scripts {
     <script>
+    function AddRow(targettable, values) {
+        var target = $("#" + targettable + " > tbody");
 
+        newRow = "<tr>";
 
-
-        function AddRow(targettable, values) {
-            var target = $("#" + targettable + " > tbody");
-
-            newRow = "<tr>";
-
-            for (var i = 0; i < values.length; i++) {
-                newRow += "<td>" + values[i] + "</td>";
-            }
-
-            newRow += "<td style='width: 90px;'>" +
-            "<a class='btn btn-warning btn-sm'><i class='fa fa-pencil'></i></a>" +
-            "<a class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a>" +
-        "</td>";
-
-            newRow += "<tr>";
-
-            target.append(newRow);
+        for (var i = 0; i < values.length; i++) {
+            newRow += "<td>" + values[i] + "</td>";
         }
 
-        
-        $("#competenties").on("select2-selecting", function (e) {
-            var niveau = $("#niveaus:selected").val();
-            var currentVal = $(this).val();
+        newRow += "<td style='width: 90px;'>" +
+        "<a class='btn btn-warning btn-sm'><i class='fa fa-pencil'></i></a>" +
+        "<a class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a>" +
+    "</td>";
 
-            $(this).val(currentVal + " (" + niveau + ")");
+        newRow += "<tr>";
+
+        target.append(newRow);
+    }
+
+
+    $("#competenties").on("change", function (e) {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+
+        $(this).val(currentVal + " (" + niveau + ")");
+    });
+
+    $("#werkvorm").on("select2-selecting", function (e) {
+        var selected = $("#werkvorm:selected").data("type");
+
+        debugger;
+        var newRow = "<tr><td><input class='form-control text-box single-line' disabled='disabled' id='werkvorm_WerkvormType' name='werkvorm.WerkvormType' type='text' value='" + $(this).data("type") + "'></td><td><input class='form-control text-box single-line' id='werkvorm_Organisatie' name='werkvorm.Organisatie' type='text'></td>";
+
+        newRow += "<td style='width: 90px; text-align:center'>" +
+        "<a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a>" +
+        "</td>";
+
+        newRow += "</tr>";
+
+        $("#organisatie tr:last").after(newRow);
+    }).on("select2-removed", function (e) {
+        //alert("removed val=" + e.data("type") + " choice=" + e.choice.text);
+    })
+
+    $("#module_edit_form").submit(function () {
+        $hidden_leerlijnen = $("#hidden-leerlijnen");
+        $hidden_voorkennis = $("#hidden-voorkennis");
+        $hidden_tags = $("#hidden-tags");
+        $hidden_competenties = $("#hidden-competenties");
+        $hidden_docenten = $("#hidden-docenten");
+
+        $hidden_leerlijnen.empty();
+        $hidden_voorkennis.empty();
+        $hidden_tags.empty();
+        $hidden_competenties.empty();
+
+        var index = 0;
+
+        $("#leerlijn option:selected").each(function (i, selected) {
+
+            var newRow1 = "<input name='Module.Leerlijn[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.Leerlijn[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+
+            $hidden_leerlijnen.append(newRow1 + newRow2);
+
+            ++index;
         });
 
-        $("#werkvorm").on("select2-selecting", function (e) {
-            var selected = $("#werkvorm:selected").data("type");
+        index = 0;
 
-            debugger;
-            var newRow = "<tr><td><input class='form-control text-box single-line' disabled='disabled' id='werkvorm_WerkvormType' name='werkvorm.WerkvormType' type='text' value='" + $(this).data("type") + "'></td><td><input class='form-control text-box single-line' id='werkvorm_Organisatie' name='werkvorm.Organisatie' type='text'></td>";
+        $("#voorkennis option:selected").each(function (i, selected) {
 
-            newRow += "<td style='width: 90px; text-align:center'>" +
-            "<a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a>" +
-            "</td>";
+            var newRow1 = "<input name='Module.Module2[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.Module2[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            var newRow3 = "<input name='Module.Module2[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
 
-            newRow += "</tr>";
+            $hidden_voorkennis.append(newRow1 + newRow2 + newRow3);
 
-            $("#organisatie tr:last").after(newRow);
-        }).on("select2-removed", function (e) {
-            //alert("removed val=" + e.data("type") + " choice=" + e.choice.text);
-        })
+            ++index;
+        });
 
-        $("#module_edit_form").submit(function () {
-            $hidden_leerlijnen = $("#hidden-leerlijnen");
-            $hidden_voorkennis = $("#hidden-voorkennis");
+        index = 0;
 
-            $hidden_leerlijnen.empty();
+        $("#docenten option:selected").each(function (i, selected) {
 
-            var index = 0;
-            debugger;
-            $("#leerlijn option:selected").each(function (i, selected) {
+            var newRow1 = "<input name='Module.Docent[" + index + "].Name' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.Docent[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            var newRow3 = "<input name='Module.Docent[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+
+            $hidden_docenten.append(newRow1 + newRow2 + newRow3);
+
+            ++index;
+        });
+
+        index = 0;
+
+        $("#tags option:selected").each(function (i, selected) {
+
+            var newRow1 = "<input name='Module.Tag[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.Tag[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+
+            $hidden_tags.append(newRow1 + newRow2);
+
+            ++index;
+        });
+
+        $comp_table = $("#comp-table");
+        $niveaus = $comp_table.data("niveaus");
+
+        index = 0;
+
+        for (var i = 0; i < $niveaus.length; i++) {
+            $niveau = $niveaus[i];
+            $("#" + $niveau + "-select option:selected").each(function (i, selected) {
                 
-                var newRow1 = "<input name='Module.Tag[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
-                var newRow2 = "<input name='Module.Tag[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+                var newRow1 = "<input name='Module.ModuleCompetentie[" + index + "].Niveau' type='hidden' value=" + $niveau + ">"
+                var newRow2 = "<input name='Module.ModuleCompetentie[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>"
+                var newRow3 = "<input name='Module.ModuleCompetentie[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>"
 
-                $hidden_leerlijnen.append(newRow1 + newRow2);
-
-                ++index;
-            });
-
-            index = 0;
-
-            $("#voorkennis option:selected").each(function (i, selected) {
-
-                var newRow1 = "<input name='Module.Module2[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
-                var newRow2 = "<input name='Module.Module2[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
-                var newRow3 = "<input name='Module.Module2[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
-
-                $hidden_voorkennis.append(newRow1 + newRow2 + newRow3);
+                $hidden_competenties.append(newRow1 + newRow2 + newRow3);
 
                 ++index;
             });
-        });
+        }
 
-        $(".row_add").click(function () {
-            
-            var target = $(this).data("target");            
-            var columns = $(this).data("columns");            
-            var collName = $(this).data("collectionname");            
-            var properties = $(this).data("properties");
-            var newIndex = $(this).data("nextindex")
+        //return false;
+    });
 
-            var options = $(this).data("options");
+    $(".row_add").click(function () {
 
-            
-            
-            var newRow = "<tr>";
-            if (columns == properties.length) {
-                if (columns == 1 && typeof(options) != 'undefined' )
-                {
-                    debugger;
-                    newRow += "<td><select>";
-                    for (var optionName in options)
-                    {
-                        newRow += "<option>" + optionName + "</option>"
-                    }
-                    newRow += "</select>"
+        var target = $(this).data("target");
+        var columns = $(this).data("columns");
+        var collName = $(this).data("collectionname");
+        var properties = $(this).data("properties");
+        var newIndex = $(this).data("nextindex")
+
+        var options = $(this).data("options");
+
+
+
+        var newRow = "<tr>";
+        if (columns == properties.length) {
+            if (columns == 1 && typeof (options) != 'undefined') {
+                debugger;
+                newRow += "<td><select>";
+                for (var optionName in options) {
+                    newRow += "<option>" + optionName + "</option>"
                 }
-                else
-                {
-                    for (var i = 0; i < columns; i++)
-                    {
-                        newRow += "<td><input class='form-control' id='Module_" + collName + "_" + newIndex + "_" + properties[i] + "' name='Module." + collName + "[" + newIndex + "]." + properties[i] + "' type='text'>"
+                newRow += "</select>"
+            }
+            else {
+                for (var i = 0; i < columns; i++) {
+                    newRow += "<td><input class='form-control' id='Module_" + collName + "_" + newIndex + "_" + properties[i] + "' name='Module." + collName + "[" + newIndex + "]." + properties[i] + "' type='text'>"
 
-                        if (i != (columns - 1))
-                            newRow += "</td>";
-                    }
+                    if (i != (columns - 1))
+                        newRow += "</td>";
                 }
             }
-            
-            newRow += "<input id='Module_" + collName + "_" + newIndex + "__CursusCode' name='Module." + collName + "[" + newIndex + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
-            newRow += "<input id='Module_" + collName + "_" + newIndex + "__Schooljaar' name='Module." + collName + "[" + newIndex + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+        }
 
-            newRow += "</td>"
+        newRow += "<input id='Module_" + collName + "_" + newIndex + "__CursusCode' name='Module." + collName + "[" + newIndex + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+        newRow += "<input id='Module_" + collName + "_" + newIndex + "__Schooljaar' name='Module." + collName + "[" + newIndex + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
 
-            newRow += "<td style='width: 90px; text-align:center'><a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a></td>"
+        newRow += "</td>"
 
-            newRow += "</tr>";
-            
-            $("#" + target + " tr:last").before(newRow);
+        newRow += "<td style='width: 90px; text-align:center'><a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a></td>"
 
-            $(this).data("nextindex", newIndex + 1);
+        newRow += "</tr>";
+
+        $("#" + target + " tr:last").before(newRow);
+
+        $(this).data("nextindex", newIndex + 1);
+    });
+
+    $(document).on("click", ".remove_row", function () {
+        $(this).closest("tr").remove()
+    });
+
+    $(function () {
+        // SELECT2
+        $("#competenties").select2({
+            placeholder: "Competenties"
         });
 
-        $(document).on("click", ".remove_row", function () {
-            $(this).closest("tr").remove()
+        $("#leerlijn").select2({
+            placeholder: "Leerlijn"
         });
 
-        $(function () {
-            // SELECT2
-            $("#competenties").select2({
-                placeholder: "Competenties"
-            });
-
-            $("#leerlijn").select2({
-                placeholder: "Leerlijn"
-            });
-
-            $("#tags").select2({
-                placeholder: "Tags"
-            });
-
-            $("#werkvorm").select2({
-                placeholder: "Werkvorm"
-            });
-
-            $("#voorkennis").select2({
-                placeholder: "Werkvorm"
-            });
+        $("#tags").select2({
+            placeholder: "Tags"
         });
-    </script>
+
+        $("#werkvorm").select2({
+            placeholder: "Werkvorm"
+        });
+
+        $("#voorkennis").select2({
+            placeholder: "Voorkennis"
+        });
+
+        $("#docenten").select2({
+            placeholder: "Docenten"
+        })
+
+
+        @foreach (var niveau in Model.Options.Niveaus)
+            {
+                 @Html.Raw("$('#" + @niveau.Niveau1 + "-select').select2({ placeholder: 'Werkvorm' });")
+            }
+    });
+</script>
+
 }
