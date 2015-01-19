@@ -3,7 +3,9 @@
 $(function () {
     $.ajaxSetup({ cache: false });
 
-    $("a[data-modal]").on("click", function (e) {
+    $("#content").on("click", "a[data-modal]", function (e) {
+
+        e.preventDefault();
         // hide dropdown if any (this is used wehen invoking modal from link in bootstrap dropdown )
         //$(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
 
@@ -14,7 +16,7 @@ $(function () {
             }, 'show');
             bindForm(this);
         });
-        return false;
+
     });
 });
 

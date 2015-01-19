@@ -24,6 +24,10 @@ namespace ModuleManager.Web.ViewModels
         /// </summary>
         public IEnumerable<Fase> Fases { get; set; }
         /// <summary>
+        /// Bevat alle onderdelen
+        /// </summary>
+        public IEnumerable<Onderdeel> Onderdeel { get; set; }
+        /// <summary>
         /// Module-informatie zichtbaar in het overview
         /// </summary>
         public ModuleListViewModel ModuleViewModels { get; set; }
