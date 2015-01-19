@@ -1,75 +1,61 @@
-﻿using AutoMapper;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.UserDAL;
-using ModuleManager.Web.ViewModels;
-using ModuleManager.Web.ViewModels.PartialViewModel;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+using AutoMapper;
+using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Web.ViewModels.EntityViewModel;
+using ModuleManager.Web.ViewModels.PartialViewModel;
 
-namespace ModuleManager.Web.Controllers.Api
+namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
     public class TagsController : Controller
     {
-        private readonly IGenericRepository<Tag> _tagRepository;
-        public TagsController(IGenericRepository<Tag> tagRepository)
+
+        private readonly IUnitOfWork _unitOfWork;
+        public TagsController(IUnitOfWork unitOfWork)
         {
-            _tagRepository = tagRepository;
+            _unitOfWork = unitOfWork;
         }
 
+        [HttpGet, Route("Tags/Create")]
         public ActionResult Create()
         {
-            Tag tag = new Tag();
+            var tag = new Tag();
             return PartialView("~/Views/Admin/Curriculum/Tag/_Add.cshtml", tag);
         }
 
-        [HttpPost]
+        [HttpPost, Route("Tags/Create")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Tag entity)
         {
-            _tagRepository.Create(entity);
-            return Json(new { success = true });
+            try
+            {
+                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+                if (!schooljaren.Any()) return Json(new { success = false });
+                var schooljaar = schooljaren.Last();
+
+                entity.Schooljaar = schooljaar.JaarId;
+
+                _unitOfWork.GetRepository<Tag>().Create(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
         }
 
-        public ActionResult Edit(string naam)
+        [HttpGet, Route("Tags/Delete")]
+        public ActionResult Delete(string naam, string schooljaar)
         {
             if (naam == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tag tag = _tagRepository.GetOne(new object[] { naam });
 
-            if (tag == null)
-            {
-                return HttpNotFound();
-            }
-
-            return PartialView("~/Views/Admin/Curriculum/Tag/_Edit.cshtml", tag);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Tag entity)
-        {
-            _tagRepository.Edit(entity);
-            return Json(new { success = true });
-        }
-
-        public ActionResult Delete(string naam)
-        {
-            if (naam == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tag tag = _tagRepository.GetOne(new object[] { naam });
+            Tag tag = _unitOfWork.GetRepository<Tag>().GetOne(new object[] { naam, schooljaar });
 
             if (tag == null)
             {
@@ -79,12 +65,26 @@ namespace ModuleManager.Web.Controllers.Api
             return PartialView("~/Views/Admin/Curriculum/Tag/_Delete.cshtml", tag);
         }
 
-        [HttpPost]
+        [HttpPost, Route("Tags/Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Tag entity)
         {
-            _tagRepository.Delete(entity);
-            return Json(new { success = true });
+            try
+            {
+                _unitOfWork.GetRepository<Tag>().Delete(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
 
     }

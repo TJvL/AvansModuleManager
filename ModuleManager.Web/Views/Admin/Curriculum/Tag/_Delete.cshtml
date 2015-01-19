@@ -6,14 +6,20 @@
     <h4 class="modal-title" id="TagDelete">Tag verwijderen</h4>
 </div>
 
-<div class="modal-body">
-    Weet uw zeker dat uw de volgende competentie: <b>@Model.Naam</b> wilt verwijderen?
-</div>
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        Weet uw zeker dat uw de volgende tag: <b>@Model.Naam</b> wilt verwijderen?
+    </div>
 
-<div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-    <input class="btn btn-danger" type="submit" value="Verwijderen" />
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+        <input class="btn btn-danger" type="submit" value="Verwijderen" />
 
-    @Html.HiddenFor(model => model.Naam)
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Naam)
+        @Html.HiddenFor(model => model.Schooljaar)
 
-</div>
+    </div>
+}
+
