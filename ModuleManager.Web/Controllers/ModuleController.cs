@@ -193,7 +193,7 @@ namespace ModuleManager.Web.Controllers
             Session[saveTo] = fStream;
 
             //Return the filename under which you can retrieve it from Session data.
-            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/{saveTo}
+            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/All/{saveTo}
             //This redirect will be caught in the controller action below here.
             return Json(saveTo);
         }
