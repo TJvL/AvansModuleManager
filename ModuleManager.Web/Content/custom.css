@@ -290,3 +290,42 @@ textarea {
 .DefaultColor {
     background: #FF004B;
 }
+
+/* Modal Shifting Fix
+******************************************************/
+
+body.modal-open {
+    overflow-y: scroll;
+    padding-right: 17px;
+    margin-right: -17px;
+}
+
+/* Font awesome Index
+******************************************************/
+
+.fa-big {
+  font-size: 7em;
+}
+
+.fa-button-big {
+    width: 150px;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+#users_filter {
+    text-align: right;
+}
+
+#users_filter label {
+    float: none;
+    margin-right: 3px;
+}
+
+#modules_filter {
+    text-align: right;
+}
+
+#modules_filter label {
+    float: none;
+}
