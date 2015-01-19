@@ -34,21 +34,27 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Admin/Curriculum")]
         public ActionResult Curriculum()
         {
+
+            var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+            var laatsteSchooljaar = schooljaren.Last();
+
             var arguments = new ModuleFilterSorterArguments
             {
 
             };
-            var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
+            
+            /*var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
             var modules = _filterSorterService.ProcessData(queryPack).ToList();
             var moduleList = new ModuleListViewModel(modules.Count());
-            moduleList.AddModules(modules);
+            moduleList.AddModules(modules);*/
 
-            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
-            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
-            var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
-            var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToArray();
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
+            var fases = _unitOfWork.GetRepository<Fase>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
             var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToArray();
             var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToArray();
+            var modules = _unitOfWork.GetRepository<Module>().GetAll().Where(x => x.Schooljaar == laatsteSchooljaar.JaarId).ToArray();
 
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddFases(fases);
@@ -60,9 +66,10 @@ namespace ModuleManager.Web.Controllers
                 Leerlijn = leerlijnen,
                 Tags = tags,
                 Fases = fases,
-                ModuleViewModels = moduleList,
+                //ModuleViewModels = moduleList,
                 FilterOptions = filterOptions,
-                Onderdeel = onderdelen
+                Onderdeel = onderdelen,
+                Modules = modules
             };
 
             return View(adminCurriculumVm);
