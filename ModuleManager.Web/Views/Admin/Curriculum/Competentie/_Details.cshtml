@@ -29,14 +29,20 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Beschrijving)
+                @{
+                    string[] competenties = null;
+                    competenties = Model.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);
+                }
+                @foreach (string comptentie in competenties)
+                {
+                    @comptentie<br />
+                }
             </dd>
 
         </dl>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-        <input class="btn btn-success" type="submit" value="Toevoegen" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Terug</button>
     </div>
 
 @section Scripts{

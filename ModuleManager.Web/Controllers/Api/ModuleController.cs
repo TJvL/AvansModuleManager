@@ -96,9 +96,15 @@ namespace ModuleManager.Web.Controllers.Api
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
 
-            var modArray = modules.ToArray();
-            var moduleListVm = new ModuleListViewModel(modArray.Count());
-            moduleListVm.AddModules(modArray);
+            var enumerable = modules as Module[] ?? modules.ToArray();
+            var modArray = enumerable.ToArray().Where(m => m.Status == "Compleet (gecontroleerd)");
+            if (User.Identity.IsAuthenticated)
+            {
+                modArray = enumerable.ToArray();
+            }
+            var moduleList = modArray as Module[] ?? modArray.ToArray();
+            var moduleListVm = new ModuleListViewModel(moduleList.Count());
+            moduleListVm.AddModules(moduleList);
 
             return moduleListVm;
         }

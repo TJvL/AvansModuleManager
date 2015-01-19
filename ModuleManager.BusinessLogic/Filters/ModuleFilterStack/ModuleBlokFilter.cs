@@ -26,7 +26,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                         from m in toQuery
                             where
                                 m.FaseModules.Any(
-                                element => element.Blok.Contains(arg)
+                                element => element.Blok.ToLower().Contains(arg.ToLower())
                                 )
                         select m;
 

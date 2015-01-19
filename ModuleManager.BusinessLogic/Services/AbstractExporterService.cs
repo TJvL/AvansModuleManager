@@ -33,6 +33,10 @@ namespace ModuleManager.BusinessLogic.Services
             h2.Font.Size = 14;
             h2.Font.Bold = true;
             h2.Font.Italic = true;
+
+            Style err = doc.AddStyle("error", "Normal");
+            err.Font.Name = "Arial";
+            err.Font.Color = Colors.Red;
         }
 
         /// <summary>

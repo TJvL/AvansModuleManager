@@ -30,7 +30,11 @@ namespace ModuleManager.Web.ViewModels
         /// <summary>
         /// Module-informatie zichtbaar in het overview
         /// </summary>
-        public ModuleListViewModel ModuleViewModels { get; set; }
+        //public ModuleListViewModel ModuleViewModels { get; set; }
+        /// <summary>
+        /// Module-informatie zichtbaar in het overview
+        /// </summary>
+        public IEnumerable<Module> Modules { get; set; }
         /// <summary>
         /// Bevat configuratie/argumenten/instellingen voor de filters en de sortering van het moduleoverzicht
         /// </summary>
