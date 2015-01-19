@@ -28,27 +28,38 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
             base.Export(toExport, sect);
 
             //custom code
-            Paragraph p = sect.AddParagraph("Modules in Deze leerlijn", "Heading2");
+            Paragraph p = sect.AddParagraph("Modules in deze leerlijn", "Heading2");
             p.AddLineBreak();
 
             p = sect.AddParagraph();
             p.AddFormattedText("De leerlijnen zijn klikbaar in PDF viewers").Font.Color = Colors.DarkGray;
+            p.AddLineBreak();
+            p.AddLineBreak();
+
             foreach (Module m in toExport.Module) 
             {
-                p.AddFormattedText(" - " + m.Naam + "\n").Font.Bold = true;
+                p.AddFormattedText(m.Naam).Font.Bold = true;
+                p.AddLineBreak();
+
+                p.AddFormattedText("Komt ook voor in:").Font.Color = Colors.DarkGray;
+                p.AddLineBreak();
+
                 List<Leerlijn> otherLines = m.Leerlijn.ToList();
                 foreach (Leerlijn l in otherLines) 
                 {
                     if(!l.Naam.Equals(toExport.Naam))
                     {
+                        p.AddTab();
                         Hyperlink hyperlink = p.AddHyperlink(l.Naam);
-                        hyperlink.AddText("    - " + l.Naam);
+                        hyperlink.AddText(l.Naam + ", zie ook pagina ");
                         hyperlink.AddPageRefField(l.Naam);
-                        hyperlink.Font.Underline = Underline.Dash;
+                        hyperlink.Font.Underline = Underline.Single;
+
+                        p.AddLineBreak();
                     }
                 }
+                p.AddLineBreak();
             }
-            p.AddLineBreak();
 
             return sect;
         }

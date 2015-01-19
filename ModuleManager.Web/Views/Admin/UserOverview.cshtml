@@ -31,11 +31,6 @@
                             <th>Acties</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Rol</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach (var item in @Model.Users.Data)
                         {
@@ -105,33 +100,33 @@
 
             $("#users").dataTable({
                 dom:
-                    "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
+                    "<'row'<'col-sm-6'l><'col-sm-6 toolbar'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-6'p><'col-sm-6'i>>",
+                //oLanguage: { "sSearch": "" },
                 language: {
-                    url: "/Scripts/dataTables.dutch.js"
+                    url: "/Scripts/dataTables.dutch.alt.js",
+                    searchPlaceholder: "Zoeken"
                 },
                 order: [[0, "asc"]],
                 aoColumnDefs: [
                     { 'bSortable': false, 'aTargets': [4] }
                 ],
-                initComplete: function () { // rolfilter
+                initComplete: function () { 
                     var table = $('#users').DataTable();
-                    $("#users tfoot th").each(function (i) {
-                        var columns = [3];
-                        var text = ["rol"];
-                        var select = $('<select><option value="">' + text[i] + '-filter</option></select>')
-                            .appendTo($(this).empty()) // positie _ this = (#users tfoot th)
+                    var columns = [3];
+                    var i = 0;
+                    var select = $('<select id="filterRol" class="form-control pull-right input-sm input-block" style="width: 150px;text-align: left; margin-left: 3px;"><option value="">Rollen Filter</option></select>')
+                            .appendTo($(".toolbar #users_filter"))
                             .on('change', function () {
                                 table.column(columns[i])
                                     .search($(this).val())
                                     .draw();
                             });
-
-                        table.column(columns[i]).data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>');
-                        });
+                    table.column(columns[i]).data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>');
                     });
+                    $("#filterRol").select2({});
                 }
             });
 
