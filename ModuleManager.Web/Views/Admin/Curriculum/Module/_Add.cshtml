@@ -1,0 +1,91 @@
+﻿@using ModuleManager.DomainDAL
+@model  ModuleManager.Web.ViewModels.PartialViewModel.ModuleCrudViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="ModuleAdd">Module toevoegen</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Naam)
+            @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Naam, "", new { @class = "text-danger" })
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.CursusCode)
+            @Html.EditorFor(model => model.CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CursusCode, "", new { @class = "text-danger" })
+        </div>
+        
+        <div class="form-group">
+            <label for="Toetscodes">Toetscodes</label>
+
+            @Html.EditorFor(model => model.Toetscode1, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(model => model.Toetscode1, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Toetscode2, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Toetscode2, "", new { @class = "text-danger" })
+        </div>
+        
+        <div class="form-group">
+            <label for="Studiepunten">Studiepunten</label>
+
+            @Html.EditorFor(model => model.Ec1, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(model => model.Ec1, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Ec2, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Ec2, "", new { @class = "text-danger" })
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Verantwoordelijke)
+            @Html.EditorFor(model => model.Verantwoordelijke, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Verantwoordelijke, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fases)
+            <select name="SelectedFases" class="form-control ajax" id="SelectedFases" multiple>
+                @foreach (var faseType in Model.Fases)
+                {
+                    <option value="@faseType.Naam,@faseType.Schooljaar,@faseType.OpleidingNaam,@faseType.OpleidingSchooljaar">@faseType.Naam</option>
+                }
+            </select>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Blokken)
+            <select name="Blok" class="form-control ajax" id="Blok">
+                @foreach (var blok in Model.Blokken)
+                {
+                    <option>@blok.BlokId</option>
+                }
+            </select>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Icons)
+            <select name="Icon" class="form-control ajax" id="Icon">
+                @foreach (var blok in Model.Icons)
+                {
+                    <option>@blok.Icon</option>
+                }
+            </select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+        <input class="btn btn-success" type="submit" value="Toevoegen" />
+    </div>
+}
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
+}

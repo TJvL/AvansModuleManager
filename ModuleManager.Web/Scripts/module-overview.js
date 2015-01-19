@@ -22,8 +22,10 @@ $(function () {
 
         var year = $(this).find(".cursusCode").data("year");
         var cursusCode = $(this).find(".cursusCode").data("code")
-
-        window.location = "/Module/Details/" + year + "/" + cursusCode;
+        
+        if(year !== undefined || cursusCode !== undefined){
+            window.location = "/Module/Details/" + year + "/" + cursusCode;
+        }
     });
 
 
@@ -119,6 +121,11 @@ function initDatatable() {
 function initFilters() {
 
     $("#FilterTable").on("click", function (e) {
+        e.preventDefault();
+        $("#modules").dataTable().fnDraw();
+    });
+
+    $("#search").on("click", ".input-group-btn", function(e) {
         e.preventDefault();
         $("#modules").dataTable().fnDraw();
     });

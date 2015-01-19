@@ -172,6 +172,11 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12">
+                        
+                        <div id="toolbar" class="modulesTable" style="display:none;">
+                            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Modules", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                        </div>
+
                         <h3>Modules</h3>
                     </div>
                 </div>
@@ -179,120 +184,34 @@
                 <div id="items" class="row">
                     <div class="col-md-12">
 
-                        <table class="table table-hover">
+                        <table id="modulesTable" class="table table-hover">
                             <thead>
                                 <tr>
-                                    <td colspan="3">
-                                        <div class="form-inline">
-                                            <div class="form-group">
-                                                <label class="control-label" for="sortorder">Sorteer op: </label>
-                                                <select class="form-control input-sm" id="sortorder" style="width: 200px;">
-                                                    <option>Alfabetisch</option>
-                                                    <option>EC's</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td colspan="4" class="text-right">
-                                        <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#module-add">Toevoegen</button>
-                                    </td>
+                                    <th>Icon</th>
+                                    <th>Naam</th>
+                                    <th>Verantwoordelijke</th>
+                                    <th>CursusCode</th>
+                                    <th>Status</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="item" data-href="@Url.Action("Details", "Module")/INMODL312345">
-                                    <td class="icon"><i class="fa fa-paint-brush"></i></td>
-                                    <td class="information">
-                                        <p class="name">Interaction Design Principles</p>
-                                        <p class="instructors">Bert Hoeks</p>
-                                    </td>
-                                    <td class="code">INIDPRI</td>
-                                    <td class="block">Blok 5</td>
-                                    <td class="ec">3 EC</td>
-                                    <td class="status text-success">Compleet</td>
-
-                                    <td class="actions" style="text-align: right;">
-                                        <a href="@Url.Action("Edit", "Module")/INMODL312345" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="item" data-href="@Url.Action("Details", "Module")">
-                                    <td class="icon"><i class="fa fa-code"></i></td>
-                                    <td class="information">
-                                        <p class="name">Programmeren 5 - C Sharp</p>
-                                        <p class="instructors">Stijn Smulders</p>
-                                    </td>
-                                    <td class="code">INPROG5</td>
-                                    <td class="block">Blok 5</td>
-                                    <td class="ec">3 EC</td>
-                                    <td class="status text-danger">Onvolledig</td>
-                                    <td class="actions" style="text-align: right;">
-                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="item" data-href="@Url.Action("Details", "Module")">
-                                    <td class="icon"><i class="fa fa-table"></i></td>
-                                    <td class="information">
-                                        <p class="name">Modelleren 3</p>
-                                        <p class="instructors">Ger Saris</p>
-                                    </td>
-                                    <td class="code">INMODL3</td>
-                                    <td class="block">Blok 5</td>
-                                    <td class="ec">3 EC</td>
-                                    <td class="status text-danger">Onvolledig</td>
-                                    <td class="actions" style="text-align: right;">
-                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="item" data-href="@Url.Action("Details", "Module")">
-                                    <td class="icon"><i class="fa fa-database"></i></td>
-                                    <td class="information">
-                                        <p class="name">Databases 4</p>
-                                        <p class="instructors">Ger Saris</p>
-                                    </td>
-                                    <td class="code">INDATAB4</td>
-                                    <td class="block">Blok 5</td>
-                                    <td class="ec">3 EC</td>
-                                    <td class="status text-danger">Onvolledig</td>
-                                    <td class="actions" style="text-align: right;">
-                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <tr class="item" data-href="@Url.Action("Details", "Module")">
-                                    <td class="icon"><i class="fa fa-phone"></i></td>
-                                    <td class="information">
-                                        <p class="name">Telephoning</p>
-                                        <p class="instructors">Angelique van den Bogaard</p>
-                                    </td>
-                                    <td class="code">INTELPH</td>
-                                    <td class="block">Blok 5</td>
-                                    <td class="ec">3 EC</td>
-                                    <td class="status text-success">Compleet</td>
-                                    <td class="actions" style="text-align: right;">
-                                        <a href="@Url.Action("Edit", "Module")" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <a data-toggle="modal" data-target="#module-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-
+                                @foreach (var item in @Model.Modules)
+                                {
+                                    <tr class="tag-item">
+                                        <td><i class="fa fa-@item.Icon fa-3x"></i></td>
+                                        <td>@item.Naam</td>
+                                        <td>@item.Verantwoordelijke</td>
+                                        <td>@item.CursusCode</td>
+                                        <td>@item.Status</td>
+                                        <td class="actions" style="width:45px;">
+                                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Modules", routeValues: new { cursusCode = item.CursusCode, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
 
-                        <div class="col-md-6">
-                            <ul class="pagination">
-                                <li><a href="#">&laquo;</a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">&raquo;</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <br />
-                            18 resultaten - Pagina 2 van 4
-                        </div>
                     </div>
                 </div> <!-- #ITEMS -->
             </div><!-- Modules -->
@@ -423,6 +342,16 @@
                 initComplete: function () {
                     $("#onderdelenTable_wrapper").find(".toolbar").append($("#toolbar.onderdelenTable").html());
                 }
+            });
+
+            $("#modulesTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [4] }
+                ],
+                initComplete: function () {
+                    $("#modulesTable_wrapper").find(".toolbar").append($("#toolbar.modulesTable").html());
+                },
+                iDisplayLength: 10
             });
             
 
