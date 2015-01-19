@@ -1,5 +1,6 @@
-﻿@using ModuleManager.DomainDAL
-@model  ModuleManager.DomainDAL.Fase
+﻿@using ModuleManager.Web.ViewModels.PartialViewModel
+@using ModuleManager.DomainDAL
+@model  ModuleManager.Web.ViewModels.PartialViewModel.FaseCrudViewModel
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -13,13 +14,17 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.FaseType)
-            @Html.EditorFor(model => model.FaseType, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FaseType, "", new { @class = "text-danger" })
+            <select name="FaseType" class="form-control ajax" id="FaseType">
+                @foreach (var faseType in Model.FaseTypes)
+                {
+                    <option @(faseType.Type == Model.FaseType.Type ? "selected=\"selected\"" : "")>@faseType.Type</option>
+                }
+            </select>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Naam)
-            @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
             @Html.ValidationMessageFor(model => model.Naam, "", new { @class = "text-danger" })
         </div>
 
@@ -32,7 +37,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-        <input class="btn btn-success" type="submit" value="Toevoegen" />
+        <input class="btn btn-success" type="submit" value="Bewerken" />
     </div>
 }
 

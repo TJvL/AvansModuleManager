@@ -287,14 +287,11 @@
     <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
-<<<<<<< HEAD
     <Compile Include="Controllers\PartialViewControllers\CompetentieController.cs" />
     <Compile Include="Controllers\PartialViewControllers\FaseController.cs" />
     <Compile Include="Controllers\PartialViewControllers\LeerlijnController.cs" />
     <Compile Include="Controllers\PartialViewControllers\TagController.cs" />
-=======
     <Compile Include="Controllers\StudieGidsController.cs" />
->>>>>>> master_development
     <Compile Include="Controllers\PartialViewControllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -322,14 +319,11 @@
     <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\ToetsvormViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\WeekplanningViewModel.cs" />
-<<<<<<< HEAD
     <Compile Include="ViewModels\PartialViewModel\FaseCrudViewModel.cs" />
-=======
     <Compile Include="ViewModels\EntityViewModel\WerkvormViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleEditOptionsViewModel.cs" />
     <Compile Include="ViewModels\ModuleEditViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\LessenTabelViewModel.cs" />
->>>>>>> master_development
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\LesTabelViewModel.cs" />

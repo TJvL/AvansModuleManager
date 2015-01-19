@@ -1,22 +1,14 @@
-﻿using AutoMapper;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.DomainDAL.Repositories;
-using ModuleManager.UserDAL;
-using ModuleManager.Web.ViewModels;
-using ModuleManager.Web.ViewModels.PartialViewModel;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+using AutoMapper;
+using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Web.ViewModels.EntityViewModel;
+using ModuleManager.Web.ViewModels.PartialViewModel;
 
-namespace ModuleManager.Web.Controllers.Api
+namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
     public class FasesController : Controller
     {
@@ -30,12 +22,13 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("Fases/Create")]
         public ActionResult Create()
         {
+
+            var faseTypes = _unitOfWork.GetRepository<FaseType>().GetAll().ToList();
+
             var fase = new FaseCrudViewModel()
             {
-                FaseTypes = _unitOfWork.GetRepository<FaseType>().GetAll().ToList()
+                FaseTypes = faseTypes.Select(Mapper.Map<FaseType, FaseTypeViewModel>).ToList()
             };
-
-            //var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
 
             return PartialView("~/Views/Admin/Curriculum/Fase/_Add.cshtml", fase);
         }
@@ -44,25 +37,29 @@ namespace ModuleManager.Web.Controllers.Api
         [ValidateAntiForgeryToken]
         public ActionResult Create(Fase entity)
         {
-            var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+            try
+            {
+                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+                if (!schooljaren.Any()) return Json(new {success = false});
+                var schooljaar = schooljaren.Last();
 
-            if (schooljaren.Any()) return Json(new {success = false});
-            var schooljaar = schooljaren.Last();
+                var opleidingen = _unitOfWork.GetRepository<Opleiding>().GetAll().ToArray();
+                if (!opleidingen.Any()) return Json(new { success = false });
+                var opleiding = opleidingen.Last();
 
-            entity.Schooljaar = schooljaar.JaarId;
+                entity.Schooljaar = schooljaar.JaarId;
+                entity.Opleiding = opleiding;
 
-            _unitOfWork.GetRepository<Fase>().Create(entity);
-            return Json(new { success = true });
+                _unitOfWork.GetRepository<Fase>().Create(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
         }
 
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Fase entity)
-        {
-            _faseRepository.Create(entity);
-            return Json(new { success = true });
-        }
-
+        [HttpGet, Route("Fases/Edit")]
         public ActionResult Edit(string naam, string schooljaar, string opleidingsNaam, string opleidingsSchooljaar)
         {
             if (naam == null)
@@ -70,31 +67,62 @@ namespace ModuleManager.Web.Controllers.Api
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Fase fase = _faseRepository.GetOne(new object[] { naam, schooljaar, opleidingsNaam, opleidingsSchooljaar });
+            var faseTypes = _unitOfWork.GetRepository<FaseType>().GetAll().ToList();
+            var fase = _unitOfWork.GetRepository<Fase>().GetOne(new object[] { naam, schooljaar, opleidingsNaam, opleidingsSchooljaar });
 
             if (fase == null)
             {
                 return HttpNotFound();
             }
 
-            return PartialView("~/Views/Admin/Curriculum/Fase/_Edit.cshtml", fase);
+            var faseVM = new FaseCrudViewModel()
+            {
+                FaseType = Mapper.Map<FaseType, FaseTypeViewModel>(fase.FaseType1),
+                Naam = fase.Naam,
+                Beschrijving = fase.Beschrijving,
+                FaseTypes = faseTypes.Select(Mapper.Map<FaseType, FaseTypeViewModel>).ToList()
+            };
+
+            return PartialView("~/Views/Admin/Curriculum/Fase/_Edit.cshtml", faseVM);
         }
 
-        [HttpPost]
+        [HttpPost, Route("Fases/Edit")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Fase entity)
         {
-            _faseRepository.Edit(entity);
-            return Json(new { success = true });
+            try
+            {
+                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+                if (!schooljaren.Any()) return Json(new { success = false });
+                var schooljaar = schooljaren.Last();
+
+                var opleidingen = _unitOfWork.GetRepository<Opleiding>().GetAll().ToArray();
+                if (!opleidingen.Any()) return Json(new { success = false });
+                var opleiding = opleidingen.Last();
+
+                entity.Schooljaar = schooljaar.JaarId;
+                entity.Opleiding = opleiding;
+                entity.OpleidingNaam = opleiding.Naam;
+                entity.OpleidingSchooljaar = opleiding.Schooljaar;
+
+                _unitOfWork.GetRepository<Fase>().Edit(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
         }
 
+        [HttpGet, Route("Fases/Delete")]
         public ActionResult Delete(string naam, string schooljaar, string opleidingsNaam, string opleidingsSchooljaar)
         {
             if (naam == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fase fase = _faseRepository.GetOne(new object[] { naam, schooljaar, opleidingsNaam, opleidingsSchooljaar });
+
+            Fase fase = _unitOfWork.GetRepository<Fase>().GetOne(new object[] { naam, schooljaar, opleidingsNaam, opleidingsSchooljaar });
 
             if (fase == null)
             {
@@ -104,13 +132,21 @@ namespace ModuleManager.Web.Controllers.Api
             return PartialView("~/Views/Admin/Curriculum/Fase/_Delete.cshtml", fase);
         }
 
-        [HttpPost]
+        [HttpPost, Route("Fases/Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Fase entity)
         {
-            _faseRepository.Delete(entity);
-            return Json(new { success = true });
-        }*/
+            try
+            {
+                _unitOfWork.GetRepository<Fase>().Delete(entity);
+                return Json(new {success = true});
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+            
+        }
 
         protected override void Dispose(bool disposing)
         {
