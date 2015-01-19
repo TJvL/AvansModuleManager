@@ -69,7 +69,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -110,15 +109,17 @@
                 }
                 return false;
             }
+
             //"sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
 
             $("#modules").dataTable({
                 dom:
-                    "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
+                    "<'row'<'col-sm-4'l><'col-sm-8 toolbar'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-6'p><'col-sm-6'i>>",
                 language: {
-                    url: "/Scripts/dataTables.dutch.js"
+                    url: "/Scripts/dataTables.dutch.alt.js",
+                    searchPlaceholder: "Zoeken"
                 },
                 order: [[1, "asc"]],
                 aoColumnDefs: [
@@ -128,11 +129,10 @@
                 initComplete: function () {
                     var table = $('#modules').DataTable();
 
-
-                    $("#modules tfoot th").each(function (i) {
+                    /*$("#modules tfoot th").each(function (i) {
                         var columns = [3, 4, 6];
                         var text = ["blok", "fase", "status"];
-                        var select = $('<select><option value="">' + text[i] + '-filter</option></select>')
+                        var select = $('<select class="form-control input-sm"><option value="">' + text[i] + '-filter</option></select>')
                             .appendTo($(this).empty()) // positie _ this = (#modules tfoot th)
                             .on('change', function () {
                                 table.column(columns[i])
@@ -152,7 +152,62 @@
                                 select.append('<option value="' + item + '">' + item + '</option>');
                             }
                         });
+
+                        $('.dataTables_filter input').attr("placeholder", "Zoeken");
+                    });*/
+
+
+
+                    console.log(i);
+                    var columns = [3, 4, 6];
+                    for (var i = 0; i < 3; i++) {
+                        var text = ["Blok", "Fase", "Status"];
+                        var column = [3, 4, 6];
+                        var id = "#" + text[i] + "Filter";
+                        console.log(id);
+                        var select = $('<select id="' + text[i] + 'Filter" class="form-control input-sm pull-right input-block" style="width: 150px; text-align: left; margin-left: 3px;"><option value="">' + text[i] + ' Filter</option></select>')
+                            .appendTo($(".toolbar #modules_filter")); // positie _ this = (#modules tfoot th)
+
+
+                        var buffer = "";
+                        table.column(columns[i]).data().unique().sort().each(function (d, j) { // concat all values from column to string
+                            buffer = buffer.concat(d + ",");
+                        });
+                        var split = buffer.split(","); // split all values from column to array
+                        var uniques = [];
+                        split.map(function(item) { // add distinct values from column to select-options
+                            var x = fnContains(uniques, item.trim());
+                            if (!x && item !== "") {
+                                uniques.push(uniques, item.trim());
+                                select.append('<option value="' + item + '">' + item + '</option>');
+                            }
+                        });
+                    }
+
+                    $('#BlokFilter').on('change', function () {
+                        console.log($(this).val());
+                        table.column(3)
+                            .search($(this).val())
+                            .draw();
                     });
+
+                    $('#FaseFilter').on('change', function () {
+                        console.log($(this).val());
+                        table.column(4)
+                            .search($(this).val())
+                            .draw();
+                    });
+
+                    $('#StatusFilter').on('change', function () {
+                        console.log($(this).val());
+                        table.column(6)
+                            .search($(this).val())
+                            .draw();
+                    });
+
+                    $('#BlokFilter').select2({});
+                    $('#FaseFilter').select2({});
+                    $('#StatusFilter').select2({});
                 }
             });
 
