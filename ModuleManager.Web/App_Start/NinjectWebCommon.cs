@@ -70,16 +70,21 @@ namespace ModuleManager.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            // Domain entity repositories:
-            //kernel.Bind<IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
-            //kernel.Bind<IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
-            //kernel.Bind<IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
-            //kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>();
-            //kernel.Bind<IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
-            //kernel.Bind<IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
-            //kernel.Bind<IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
-            //kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
-            //kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
+            // Domain entity repositories:          
+            kernel.Bind<IGenericRepository<Competentie>>().To<GenericRepository<Competentie>>();
+            kernel.Bind<IGenericRepository<Fase>>().To<GenericRepository<Fase>>();
+            kernel.Bind<IGenericRepository<Leerlijn>>().To<GenericRepository<Leerlijn>>();
+            kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>();
+            kernel.Bind<IGenericRepository<Tag>>().To<GenericRepository<Tag>>();
+            kernel.Bind<IGenericRepository<Blok>>().To<GenericRepository<Blok>>();
+            kernel.Bind<IGenericRepository<Niveau>>().To<GenericRepository<Niveau>>();
+            kernel.Bind<IGenericRepository<Schooljaar>>().To<GenericRepository<Schooljaar>>();
+            kernel.Bind<IGenericRepository<Status>>().To<GenericRepository<Status>>();
+            kernel.Bind<IGenericRepository<FaseType>>().To<GenericRepository<FaseType>>(); //
+            kernel.Bind<IGenericRepository<FaseModules>>().To<GenericRepository<FaseModules>>(); //
+            kernel.Bind<IGenericRepository<Module>>().To<GenericRepository<Module>>(); //
+
+            // UnitOfWork session for repositories to use:
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
             // Domain entity API controllers:

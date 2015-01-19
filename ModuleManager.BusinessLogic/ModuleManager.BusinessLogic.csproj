@@ -59,10 +59,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Arguments.cs" />
-    <Compile Include="Data\ExportArguments.cs" />
+    <Compile Include="Data\AbstractExportArguments.cs" />
+    <Compile Include="Data\CompetentieExportablePack.cs" />
+    <Compile Include="Data\CompetentieExportArguments.cs" />
+    <Compile Include="Data\LeerlijnExportablePack.cs" />
+    <Compile Include="Data\LeerlijnExportArguments.cs" />
+    <Compile Include="Data\ModuleFilterSorterArguments.cs" />
+    <Compile Include="Data\ModuleExportArguments.cs" />
     <Compile Include="Data\ModuleExportablePack.cs" />
     <Compile Include="Data\ModuleQueryablePack.cs" />
+    <Compile Include="Exporters\CompetentieBaseExporter.cs" />
+    <Compile Include="Exporters\CompetentieExporterStack\CompetentieCodeExporter.cs" />
+    <Compile Include="Exporters\CompetentieExporterStack\CompetentieBeschrijvingExporter.cs" />
+    <Compile Include="Exporters\CompetentieExporterStack\CompetentieNaamExporter.cs" />
+    <Compile Include="Exporters\CompetentiePassiveExporter.cs" />
+    <Compile Include="Exporters\LeerlijnBaseExporter.cs" />
+    <Compile Include="Exporters\LeerlijnExporterStack\LeerlijnModulesExporter.cs" />
+    <Compile Include="Exporters\LeerlijnExporterStack\LeerlijnCompetentiesExporter.cs" />
+    <Compile Include="Exporters\LeerlijnExporterStack\LeerlijnNaamExporter.cs" />
+    <Compile Include="Exporters\LeerlijnPassiveExporter.cs" />
     <Compile Include="Exporters\ModuleBaseExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleBeschrijvingExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleAlgemeneInfoExporter.cs" />
@@ -78,6 +93,8 @@
     <Compile Include="Exporters\ModuleExporterStack\ModuleNaamExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleCursusCodeExporter.cs" />
     <Compile Include="Exporters\ModulePassiveExporter.cs" />
+    <Compile Include="Factories\CompetentieExporterFactory.cs" />
+    <Compile Include="Factories\LeerlijnExporterFactory.cs" />
     <Compile Include="Factories\ModuleExporterFactory.cs" />
     <Compile Include="Filters\ModuleBaseFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleFaseNamenFilter.cs" />
@@ -107,7 +124,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\AbstractExporterService.cs" />
+    <Compile Include="Services\CompetentieExporterService.cs" />
     <Compile Include="Services\DummyModuleExporterService.cs" />
+    <Compile Include="Services\LeerlijnExporterService.cs" />
     <Compile Include="Services\ModuleExporterService.cs" />
     <Compile Include="Services\ModuleFilterService.cs" />
     <Compile Include="Services\DummyModuleFilterSorterService.cs" />
@@ -115,7 +135,10 @@
     <Compile Include="Services\ModuleSorterService.cs" />
     <Compile Include="Sorters\ModuleBaseSorter.cs" />
     <Compile Include="Sorters\ModulePassiveSorter.cs" />
+    <Compile Include="Sorters\ModuleSorterStack\ModuleCursusCodeSorter.cs" />
+    <Compile Include="Sorters\ModuleSorterStack\ModuleLeerjaarSorter.cs" />
     <Compile Include="Sorters\ModuleSorterStack\ModuleNaamSorter.cs" />
+    <Compile Include="Sorters\ModuleSorterStack\ModuleVerantwoordelijkeSorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj">
@@ -139,6 +162,7 @@
   <ItemGroup>
     <None Include="Resources\Avans_Logo.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

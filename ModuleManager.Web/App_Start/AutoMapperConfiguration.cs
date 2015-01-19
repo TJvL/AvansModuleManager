@@ -13,14 +13,10 @@ namespace ModuleManager.Web
         public static void Configure()
         {
             Mapper.CreateMap<Module, ModuleViewModel>();
-                //.ForMember(dest => dest.StudiePunten, opt => opt.MapFrom(
-                //    src => src.StudiePunten))
-                //.ForMember(dest => dest.ModuleCompetentie, opt => opt.MapFrom(
-                //    src => src.ModuleCompetentie));
+
+            Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
 
             Mapper.CreateMap<ModuleCompetentie, ModuleCompetentieViewModel>();
-                //.ForMember(dest => dest.Competentie, opt => opt.MapFrom(
-                //    src => src.Competentie));
 
             Mapper.CreateMap<Competentie, CompetentieViewModel>();
 
@@ -46,7 +42,11 @@ namespace ModuleManager.Web
 
             Mapper.CreateMap<Tag, TagViewModel>();
 
-            Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
+            Mapper.CreateMap<Werkvorm, WerkvormViewModel>();
+
+            Mapper.CreateMap<Toetsvorm, ToetsvormViewModel>();
+
+            Mapper.CreateMap<FaseType, FaseTypeViewModel>();
 
             Mapper.CreateMap<Module, ModulePartialViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(
@@ -58,6 +58,21 @@ namespace ModuleManager.Web
                     src => (string.Join(Delimiter, src.FaseModules.Select(inSrc => inSrc.Blok).Distinct()))))
                 .ForMember(dest => dest.Docenten, opt => opt.MapFrom(
                     src => string.Join(Delimiter, src.Docent.Select(inSrc => inSrc.Name))));
+
+            Mapper.CreateMap<Module, ModuleTabelViewModel>()
+                .ForMember(dest => dest.Onderdeel, opt => opt.MapFrom(
+                    src => src.OnderdeelCode)) // TODO:
+                .ForMember(dest => dest.Cursuscode, opt => opt.MapFrom(
+                    src => src.CursusCode)) // TODO:
+                .ForMember(dest => dest.Omschrijving, opt => opt.MapFrom(
+                    src => src.Beschrijving)) // TODO:
+                .ForMember(dest => dest.Werkvormen, opt => opt.MapFrom(
+                    src => string.Join(Delimiter, src.ModuleWerkvorm
+                        .Select(inSrc => inSrc.WerkvormType))))
+                .ForMember(dest => dest.Studiepunten, opt => opt.MapFrom(
+                    src => src.StudiePunten))
+                .ForMember(dest => dest.Contacturen, opt => opt.MapFrom(
+                    src => src.StudieBelasting.Sum(inSrc => inSrc.ContactUren)));
 
             Mapper.CreateMap<User, UserViewModel>()
                 .ForMember(dest => dest.Naam, opt => opt.MapFrom(

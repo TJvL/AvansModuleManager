@@ -19,6 +19,6 @@ namespace ModuleManager.BusinessLogic.Interfaces.Sorters
         /// <param name="toSort">Data</param>
         /// <param name="args">Arguments object</param>
         /// <returns>Sorted Data</returns>
-        IQueryable<T> Sort(IQueryable<T> toSort, Arguments args);
+        IQueryable<T> Sort(IQueryable<T> toSort, ModuleFilterSorterArguments args);
     }
 }

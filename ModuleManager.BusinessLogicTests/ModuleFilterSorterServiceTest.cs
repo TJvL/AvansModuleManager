@@ -27,7 +27,7 @@ namespace ModuleManager.BusinessLogicTests
         [TestMethod]
         public void TestFilterSorterCombo()
         {
-            Arguments args = new Arguments();
+            ModuleFilterSorterArguments args = new ModuleFilterSorterArguments();
             args.SortBy = "Naam";
             args.SortDesc = true;
 

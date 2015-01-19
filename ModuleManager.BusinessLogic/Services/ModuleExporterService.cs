@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace ModuleManager.BusinessLogic.Services
 {
-    public class ModuleExporterService : IExporterService<DomainDAL.Module>
+    public class ModuleExporterService : AbstractExporterService, IExporterService<DomainDAL.Module>
     {
         IExporter<DomainDAL.Module> moduleExporterStrategy;
         
@@ -31,6 +31,11 @@ namespace ModuleManager.BusinessLogic.Services
             moduleExporterStrategy = new ModulePassiveExporter();
         }
 
+        /// <summary>
+        /// Basic export function to generate PDF from one element
+        /// </summary>
+        /// <param name="toExport">element to export</param>
+        /// <returns>A PDF Document</returns>
         public PdfDocument Export(DomainDAL.Module toExport)
         {
             Document prePdf = new Document();
@@ -42,7 +47,7 @@ namespace ModuleManager.BusinessLogic.Services
             //Here starts the real exporting
             Section sect = prePdf.AddSection();
 
-            ExportArguments opt = new ExportArguments(){ ExportAll = true };
+            ModuleExportArguments opt = new ModuleExportArguments(){ ExportAll = true };
 
             ModuleExporterFactory mef = new ModuleExporterFactory();
             moduleExporterStrategy = mef.GetStrategy(opt);
@@ -55,6 +60,11 @@ namespace ModuleManager.BusinessLogic.Services
             return rend.PdfDocument;
         }
 
+        /// <summary>
+        /// Basic export function to generate PDF from a list of elements
+        /// </summary>
+        /// <param name="pack">pack containing elements to export and arguments to specify the format</param>
+        /// <returns>A PDF Document</returns>
         public PdfDocument ExportAll(IExportablePack<DomainDAL.Module> pack)
         {
             Document prePdf = new Document();
@@ -67,7 +77,7 @@ namespace ModuleManager.BusinessLogic.Services
             //Here starts the real exporting
 
             ModuleExporterFactory mef = new ModuleExporterFactory();
-            moduleExporterStrategy = mef.GetStrategy(pack.Options);
+            moduleExporterStrategy = mef.GetStrategy(pack.Options as ModuleExportArguments);
             
             foreach(DomainDAL.Module m in pack.ToExport)
             {
@@ -87,7 +97,11 @@ namespace ModuleManager.BusinessLogic.Services
             return rend.PdfDocument;
         }
 
-
+        /// <summary>
+        /// Encaspulated single export as stream for downloading
+        /// </summary>
+        /// <param name="toExport">element to export</param>
+        /// <returns>Stream to offer as download</returns>
         public BufferedStream ExportAsStream(DomainDAL.Module toExport)
         {
             MemoryStream ms = new MemoryStream();
@@ -100,6 +114,11 @@ namespace ModuleManager.BusinessLogic.Services
             return new BufferedStream(ms);
         }
 
+        /// <summary>
+        /// Encaspulated multi export as stream for downloading
+        /// </summary>
+        /// <param name="pack"></param>
+        /// <returns>Stream to offer as download</returns>
         public BufferedStream ExportAllAsStream(IExportablePack<DomainDAL.Module> pack)
         {
             MemoryStream ms = new MemoryStream();
@@ -112,47 +131,11 @@ namespace ModuleManager.BusinessLogic.Services
             return new BufferedStream(ms);
         }
 
-        private void DefineStyles(Document doc) 
-        {
-            Style style = doc.Styles.AddStyle("TOC", "Normal");
-            style.ParagraphFormat.AddTabStop("16cm", TabAlignment.Right, TabLeader.Dots);
-            style.ParagraphFormat.Font.Color = Colors.Black;
-
-            Style normal = doc.Styles["Normal"];
-            normal.Font.Name = "Calibri";
-            normal.Font.Size = 11;
-
-            Style h1 = doc.Styles["Heading1"];
-            h1.Font.Name = "Arial";
-            h1.Font.Size = 16;
-            h1.Font.Bold = true;
-
-            Style h2 = doc.Styles["Heading2"];
-            h2.Font.Name = "Calibri";
-            h2.Font.Size = 14;
-            h2.Font.Bold = true;
-            h2.Font.Italic = true;
-        }
-
-        private void BuildCover(Document doc, string coverTitle) 
-        {
-            Section sect = doc.AddSection();
-
-            //this MIGHT cause trouble later...
-            /*
-            string tempImg = System.Environment.CurrentDirectory + "\\tempAvansLogo.jpg";
-
-            Resources.Avans_Logo.Save(tempImg, ImageFormat.Jpeg);
-            Image img = sect.AddImage(tempImg);
-            img.WrapFormat.Style = WrapStyle.Through;
-            img.Left = ShapePosition.Right;
-            img.Top = ShapePosition.Bottom;
-             */
-
-            Paragraph p = sect.AddParagraph("\n\nAvans Hogeschool\n" + coverTitle + "\n\nDatum: " + DateTime.Now.Date.ToString("d-MM-yyyy"));
-            p.Format.Font = new Font("Arial", "12");
-        }
-
+        /// <summary>
+        /// Builds a table of contents, based on the content
+        /// </summary>
+        /// <param name="doc">The document to define for</param>
+        /// <param name="contents">The content</param>
         private void DefineTableOfContents(Document doc, IEnumerable<Module> contents) 
         {
             Section sect = doc.LastSection;
