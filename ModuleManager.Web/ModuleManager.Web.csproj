@@ -315,6 +315,7 @@
     <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\WeekplanningViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\FaseCrudViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />
@@ -405,6 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CreateFaseViewModel\" />
     <Folder Include="Views\Leerlijn\" />
     <Folder Include="Views\Tag\" />
     <Folder Include="Views\User\" />

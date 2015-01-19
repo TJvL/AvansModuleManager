@@ -20,19 +20,42 @@ namespace ModuleManager.Web.Controllers.Api
 {
     public class FasesController : Controller
     {
-        private readonly GenericRepository<Fase> _faseRepository;
-        public FasesController(GenericRepository<Fase> faseRepository)
+
+        private readonly IUnitOfWork _unitOfWork;
+        public FasesController(IUnitOfWork unitOfWork)
         {
-            _faseRepository = faseRepository;
+            _unitOfWork = unitOfWork;
         }
 
+        [HttpGet, Route("Fases/Create")]
         public ActionResult Create()
         {
-            Fase fase = new Fase();
+            var fase = new FaseCrudViewModel()
+            {
+                FaseTypes = _unitOfWork.GetRepository<FaseType>().GetAll().ToList()
+            };
+
+            //var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+
             return PartialView("~/Views/Admin/Curriculum/Fase/_Add.cshtml", fase);
         }
 
-        [HttpPost]
+        [HttpPost, Route("Fases/Create")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Fase entity)
+        {
+            var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+
+            if (schooljaren.Any()) return Json(new {success = false});
+            var schooljaar = schooljaren.Last();
+
+            entity.Schooljaar = schooljaar.JaarId;
+
+            _unitOfWork.GetRepository<Fase>().Create(entity);
+            return Json(new { success = true });
+        }
+
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Fase entity)
         {
@@ -87,6 +110,12 @@ namespace ModuleManager.Web.Controllers.Api
         {
             _faseRepository.Delete(entity);
             return Json(new { success = true });
+        }*/
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
 
     }

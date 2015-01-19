@@ -1,5 +1,6 @@
-﻿@using ModuleManager.DomainDAL
-@model  ModuleManager.DomainDAL.Fase
+﻿@using ModuleManager.Web.ViewModels.PartialViewModel
+@using ModuleManager.DomainDAL
+@model  ModuleManager.Web.ViewModels.PartialViewModel.FaseCrudViewModel
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -12,9 +13,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FaseType)
-            @Html.EditorFor(model => model.FaseType, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FaseType, "", new { @class = "text-danger" })
+            @Html.DropDownList("FaseType", new SelectList())
         </div>
 
         <div class="form-group">
