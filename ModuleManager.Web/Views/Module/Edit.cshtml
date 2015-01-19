@@ -1,4 +1,24 @@
-﻿<div class="container">
+﻿@model ModuleManager.DomainDAL.Module
+
+@{    
+    var studiebelastingArray = Model.StudieBelasting.ToArray();
+    var weekplanningArray = Model.Weekplanning.ToArray();
+    var beoordelingenArray = Model.Beoordelingen.ToArray();
+    var leermiddelenArray = Model.Leermiddelen.ToArray();
+    var leerdoelenArray = Model.Leerdoelen.ToArray();
+    HashSet<String> niveaus = new HashSet<string>();
+    
+    foreach (var comp in Model.ModuleCompetentie)
+                            {
+                                if(!niveaus.Contains(comp.Niveau)){
+                                    niveaus.Add(comp.Niveau);
+                                }
+                            }
+}
+
+
+
+<div class="container">
     <div class="row">
         <div id="primary">
             <div class="col-md-12">
@@ -14,59 +34,92 @@
             </div>
 
             <div class="col-md-12">
+                @using (Html.BeginForm("Edit", "Module", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.CursusCode);
+                    @Html.HiddenFor(model => model.Schooljaar);
+                                    
+                    <table class="table">
+                        <tr>
+                            <td><label for="tags">Naam</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" id="name" placeholder="Naam" value="@Model.Naam" disabled="disabled">
+                            </td>
+                        </tr>
+                    </table>                    
+                
+                    <table class="table">
+                        <tr>
+                            <td><label for="tags">Beschrijving</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea class="form-control" id="description" placeholder="Beschrijving">@Model.Beschrijving</textarea>
+                            </td>
+                        </tr>
+                    </table>                    
 
-                <form role="form">
-                    <div class="form-group">
-                        <label for="name">Naam</label>
-                        <input type="text" class="form-control" id="name" placeholder="Naam" value="Algoritmiek en Datastructuren" disabled="disabled">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <div id="status" class="checkbox" style="padding-left: 10px;">
-                            <label>
-                                <input name="status" type="checkbox"> Compleet?
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">Beschrijving</label>
-                        <textarea class="form-control" id="description" placeholder="Beschrijving"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="competenties">Competenties <label style="color: red;">(TODO: Niveau selecteren)</label></label>
-                        <select class="form-control" id="competenties" multiple>
-                            <option>Procesanalyse uitvoeren (Beginner)</option>
-                            <option>Informatieanalyse uitvoeren (Expert)</option>
-                            <option>Informatiesysteem ontwerpen (Ervaren)</option>
-                            <option>Doorgronden van hardwareplatform (Expert)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="leerlijn">Leerlijnen</label>
-                        <select class="form-control" id="leerlijn" multiple>
-                            <option>Programmeren</option>
-                            <option>Moduleren</option>
-                            <option>Databases</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tags">Tags</label>
-                        <select class="form-control" id="tags" multiple>
-                            <option>Big Data</option>
-                            <option>Milieu</option>
-                            <option>Spaans</option>
-                        </select>
-                    </div>
+                    <table style="width:100%;" class="table">
+                        <tr>
+                            <td><label>Competentie</label></td>
+                            <td><label>Niveau</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="form-control" id="competenties" multiple>
+                                    @foreach (var comp in Model.ModuleCompetentie)
+                                    {
+                                        <option>@comp.Competentie.Naam (@comp.Niveau)</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" id="niveaus">
+                                    @foreach (var niveau in niveaus)
+                                    {
+                                        <option>@niveau</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>    
+                
+                    <table class="table">
+                        <tr>
+                            <td><label>Leerlijnen</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="form-control" id="leerlijn" multiple>
+                                    @foreach (var leerl in Model.Leerlijn)
+                                    {
+                                        <option>@leerl.Naam</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                
+                    <table class="table">
+                        <tr>
+                            <td><label for="tags">Tags</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="form-control" id="tags" multiple>
+                                    @foreach (var tag in Model.Tag)
+                                    {
+                                        <option>@tag.Naam</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
 
                     <div class="form-group">
                         <label for="general-information">Algemene informatie</label>
-
-
                         <table class="table table-bordered table-center table-striped">
                             <tbody>
                                 <tr>
@@ -74,16 +127,42 @@
                                     <td>
                                         <select name="werkvorm" class="form-control" id="werkvorm" multiple>
                                             <option></option>
-                                            <option>HoorCollege (HC)</option>
-                                            <option>WerkCollege (WC)</option>
-                                            <option>WorkShop (WS)</option>
+                                            @foreach (var werkvorm in Model.ModuleWerkvorm)
+                                            {
+                                                <option selected="selected">Omschrijving (@werkvorm.WerkvormType)</option>
+                                            }
                                         </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Organisatie</th>
+                                    <td>
+                                        <table class="table table-bordered" id="organisatie">
+                                            <thead>
+                                                <tr>
+                                                    <th width="20px">Werkvorm</th>
+                                                    <th>Organisatie</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var werkvorm in Model.ModuleWerkvorm)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.EditorFor(item => werkvorm.WerkvormType, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })</td>
+                                                        <td>@Html.EditorFor(item => werkvorm.Organisatie, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Studiebelasting</th>
                                     <td>
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="sb">
                                             <thead>
                                                 <tr>
                                                     <th>Activiteit</th>
@@ -94,105 +173,32 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="width:50px;">Workshop</td>
-                                                    <td>4 weken</td>
-                                                    <td>2 x 2 uur per week</td>
-                                                    <td>16</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">Hoorcollege</td>
-                                                    <td>3 weken</td>
-                                                    <td>2 uur per week</td>
-                                                    <td>6</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">Huiswerkopdrachten</td>
-                                                    <td>4 weken</td>
-                                                    <td>12 uur per week</td>
-                                                    <td>48</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
 
-                                        <div class="form-inline" style="width: 100%">
-                                            <div class="form-group" style="width: 35%">
-                                                <label class="sr-only">Activiteit</label>
-                                                <input type="text" class="form-control" placeholder="Activiteit" style="width:100%;">
-                                            </div>
-                                            <div class="form-group" style="width: 15%">
-                                                <label class="sr-only">Duur</label>
-                                                <input type="text" class="form-control" placeholder="Duur" style="width:100%;">
-                                            </div>
-                                            <div class="form-group" style="width: 28%">
-                                                <label class="sr-only">Frequentie</label>
-                                                <input type="text" class="form-control" placeholder="Frequentie" style="width:100%;">
-                                            </div>
-                                            <div class="form-group" style="width: 15%">
-                                                <label class="sr-only">SBU</label>
-                                                <input type="text" class="form-control" placeholder="SBU" style="width:100%;">
-                                            </div>
-                                            <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Organisatie</th>
-                                    <td>
-                                        <table class="table table-bordered">
-                                            <thead>
+                                                @for (int i = 0; i < Model.StudieBelasting.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.EditorFor(item => Model.StudieBelasting.ElementAt(i).Activiteit, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>@Html.EditorFor(item => Model.StudieBelasting.ElementAt(i).Duur, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>@Html.EditorFor(item => Model.StudieBelasting.ElementAt(i).Frequentie, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>@Html.EditorFor(item => Model.StudieBelasting.ElementAt(i).SBU, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
                                                 <tr>
-                                                    <th>Toelichting op de werkvormen 'Workshop' en 'Hoorcollege':</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>In de workshop wordt door de docent steeds een korte toelichting op een volgend stuk lesstof gegeven,
-                                                        waarna dit meteen in de praktijk gebracht wordt via (een of meer) oefeningen tijdens de workshop. De docent
-                                                        begeleidt de studenten daarbij en geeft (individuele of groeps-) feedback. Iedere workshop wordt afgesloten
-                                                        met het uitreiken van een weekopdracht, die de studenten in duo’s moeten maken. Naast de informatie die tijdens
-                                                        de workshops overgedragen wordt, zal de student ook veel moeten leren door zelfstudie. Voor de workshops is
-                                                        aanwezigheid verplicht.
-                                                    </td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Gedurende het hoorcollege wordt het onderwerp “Wat gebruik ik wanneer?” uitgewerkt.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="sb" data-columns="4" data-collectionname="StudieBelasting" data-properties='["Activiteit", "Duur", "Frequentie", "SBU"]' data-nextindex="@studiebelastingArray.Length" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Organisatie">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
-                                            </span>
-                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Weekplanning</th>
                                     <td>
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="wp">
                                             <thead>
                                                 <tr>
                                                     <th>Week</th>
@@ -201,59 +207,29 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="width:50px;">1</td>
-                                                    <td>1ste workshoples: introductie + ongeordende arrays</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">1</td>
-                                                    <td>2e workshoples: geordende arrays+Big-O notatie</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">2</td>
-                                                    <td>1ste workshoples: Sorteren algemeen + bubble sort</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50px;">2</td>
-                                                    <td>2e workshoples: Selection sort + insertion sort</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
+                                                @for (int i = 0; i < weekplanningArray.Length; i++)
+                                                {
+                                                    <tr>
+                                                        <td style="width:80px;">@Html.TextBox("Model.Weekplanning[" + @i + "].Week", weekplanningArray[i].Week, new { @class = "form-control" })</td>
+                                                        <td>@Html.TextBox("Model.Weekplanning[" + @i + "].Onderwerp", weekplanningArray[i].Onderwerp, new { @class = "form-control" })</td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            <tr>
+                                                <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                    <button data-target="wp" data-columns="2" data-collectionname="Weekplanning" data-properties='["Week", "Onderwerp"]' data-nextindex="@weekplanningArray.Length" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
-
-                                        <div class="form-inline" style="width: 100%">
-                                            <div class="form-group" style="width: 15%">
-                                                <label class="sr-only">Weeknummer</label>
-                                                <input type="text" class="form-control" placeholder="Weeknummer" style="width:100%;">
-                                            </div>
-                                            <div class="form-group" style="width: 79%">
-                                                <label for="inputPassword2" class="sr-only">Beschrijving</label>
-                                                <input type="text" class="form-control" placeholder="Beschrijving" style="width:100%;">
-                                            </div>
-                                            <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
-                                        </div>
-
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Beoordeling</th>
                                     <td>
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="beoordelingen">
                                             <thead>
                                                 <tr>
                                                     <th>Beoordelingen</th>
@@ -261,34 +237,28 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @for (int i = 0; i < beoordelingenArray.Length; i++ )
+                                                {
+                                                    <tr>
+                                                        <td>@Html.TextBox("Model.Weekplanning[" + @i + "].Beschrijving", beoordelingenArray[i].Beschrijving, new { @class = "form-control" })</td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
                                                 <tr>
-                                                    <td>ALG-PR: Het cijfer voor de workshop is het gemiddelde van de 8 (vier x twee) huiswerk opgaves. Het practicumcijfer wordt alleen toegekend indien alle uitwerkingen ingeleverd zijn. Het minimumcijfer per opgave is vier.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>ALG-TH : Het cijfer voor de colleges wordt bepaald door een ‘open boek’- practicumtentamen. Het practicumtentamen wordt afgenomen in een PC–lokaal.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="beoordelingen" data-columns="1" data-collectionname="Weekplanning" data-properties='["Beschrijving"]' data-nextindex="@beoordelingenArray.Length" class="btn btn-success row_add" type="button"><i class="fa fa-plus"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Beoordeling">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
-                                            </span>
-                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Leermiddelen</th>
                                     <td>
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="leermiddelen">
                                             <thead>
                                                 <tr>
                                                     <th>Leermiddelen</th>
@@ -296,34 +266,28 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Alle informatie in bijbehorende BlackBoard-course, tenzij expliciet anders vermeld.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Boek: Data structures & algorithms in JAVA, Second edition, Robert Lafore, ISBN: 0 672 32453 9.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                @for (int i = 0; i < leermiddelenArray.Length; i++)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.TextBox("Model.Leermiddelen[" + @i + "].Beschrijving", leermiddelenArray[i].Beschrijving, new { @class = "form-control" })</td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr class=".leermiddel_add">
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="leermiddelen" data-columns="1" data-collectionname="Leermiddelen" data-properties='["Beschrijving"]' data-nextindex="@leermiddelenArray.Length" class="btn btn-success row_add" type="button"><i class="fa fa-plus"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Leermiddel">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
-                                            </span>
-                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Leerdoelen</th>
                                     <td>
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="leerdoelen">
                                             <thead>
                                                 <tr>
                                                     <th>Een student kan...</th>
@@ -331,35 +295,22 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @for (int i = 0; i < leerdoelenArray.Length; i++)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.TextBox("Model.Leerdoelen[" + @i + "].Beschrijving", leerdoelenArray[i].Beschrijving, new { @class = "form-control" })</td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
                                                 <tr>
-                                                    <td>De standaard data¬structuren ‘gekoppelde lijst’, ‘array’, ‘binaire boom’ en ‘ hashtabel’ implementeren en toepassen in een algoritme.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>In een praktijksituatie een keuze maken tussen het gebruik van een gekoppelde lijst, array, binaire boom en een hashtabel.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Aan de hand van de standaard data¬structuren array en gekoppelde lijst afgeleide data¬structuren ontwerpen en implementeren in een algoritme.</td>
-                                                    <td style="width: 90px;">
-                                                        <a class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="leerdoelen" data-columns="1" data-collectionname="Leerdoelen" data-properties='["Beschrijving"]' data-nextindex="@leerdoelenArray.Length" class="btn btn-success row_add" type="button"><i class="fa fa-plus add_row"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Leerdoel">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
-                                            </span>
-                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -371,9 +322,28 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <div id="status" class="checkbox" style="padding-left: 10px;">
+                            <label>
+                                @if (Model.Status.Contains("Compleet"))
+                                {
+                                    <input name="status" type="checkbox" checked="checked">
+                                }
+                                else
+                                {
+                                    <input name="status" type="checkbox">
+                                }
+                                Compleet?
+                            </label>
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn btn-success btn-lg">Opslaan</button>
                     <a href="@Url.Action("Overview_Teacher_Temp", "Module")" class="btn btn-default">Annuleren</a>
-                </form>
+
+                }
             </div>
         </div>
     </div>
@@ -385,6 +355,63 @@
 <!-- JAVA MEUK -->
 @section Scripts {
     <script>
+
+
+
+        function AddRow(targettable, values) {
+            var target = $("#" + targettable + " > tbody");
+
+            newRow = "<tr>";
+
+            for (var i = 0; i < values.length; i++) {
+                newRow += "<td>" + values[i] + "</td>";
+            }
+
+            newRow += "<td style='width: 90px;'>" +
+            "<a class='btn btn-warning btn-sm'><i class='fa fa-pencil'></i></a>" +
+            "<a class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a>" +
+        "</td>";
+
+            newRow += "<tr>";
+
+            target.append(newRow);
+        }
+
+        $("#werkvorm").on("select2-selecting", function (e) {
+            $("#organisatie tr:last").after("<input class='form-control text-box single-line' disabled='disabled' id='werkvorm_WerkvormType' name='werkvorm.WerkvormType' type='text' value='" + e.data("type") + "'><input class='form-control text-box single-line' id='werkvorm_Organisatie' name='werkvorm.Organisatie' type='text'>");
+        }).on("select2-removed", function (e) {
+            log("removed val=" + e.val + " choice=" + e.choice.text);
+        })
+
+        $(".row_add").click(function () {
+            
+            var target = $(this).data("target");            
+            var columns = $(this).data("columns");            
+            var collName = $(this).data("collectionname");            
+            var properties = $(this).data("properties");
+            var newIndex = $(this).data("nextindex")
+
+            var newRow = "<tr>";
+            if (columns == properties.length) {                
+                for (var i = 0; i < columns; i++)
+                {
+                    newRow += "<td><input class='form-control' id='Model_" + collName + "_" + newIndex + "_" + properties[i] + "' name='Model." + collName + "[" + newIndex + "]." + properties[i] + "' type='text'></td>" 
+                }
+            }
+            
+            newRow += "<td style='width: 90px; text-align:center'><a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a></td>"
+
+            newRow += "</tr>";
+
+            $("#" + target + " tr:last").before(newRow);
+
+            $(this).data("nextindex", newIndex + 1);
+        });
+
+        $(document).on("click", ".remove_row", function () {
+            $(this).closest("tr").remove()
+        });
+
         $(function () {
             // SELECT2
             $("#competenties").select2({
