@@ -65,6 +65,7 @@ namespace ModuleManager.Web.Controllers
             return View(modVm);
         }
 
+        [Authorize(Roles = "Docent")]
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
@@ -109,6 +110,7 @@ namespace ModuleManager.Web.Controllers
             return View(moduleEditViewModel);
         }
 
+        [Authorize(Roles = "Docent")]
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
