@@ -1,37 +1,32 @@
-﻿using AutoMapper;
-using ModuleManager.DomainDAL;
-using ModuleManager.DomainDAL.Interfaces;
-using ModuleManager.UserDAL;
-using ModuleManager.Web.ViewModels;
-using ModuleManager.Web.ViewModels.PartialViewModel;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+using AutoMapper;
+using ModuleManager.DomainDAL;
+using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.Web.ViewModels.EntityViewModel;
+using ModuleManager.Web.ViewModels.PartialViewModel;
 
-namespace ModuleManager.Web.Controllers.Api
+namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
     public class CompetentiesController : Controller
     {
-        private readonly IGenericRepository<Competentie> _competentieRepository;
-        public CompetentiesController(IGenericRepository<Competentie> competentieRepository)
+
+        private readonly IUnitOfWork _unitOfWork;
+        public CompetentiesController(IUnitOfWork unitOfWork)
         {
-            _competentieRepository = competentieRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Details(string code)
+        [HttpGet, Route("Competenties/Details")]
+        public ActionResult Details(string code, string schooljaar)
         {
             if (code == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Competentie competentie = _competentieRepository.GetOne(new object[] { code });
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code, schooljaar });
 
             if (competentie == null)
             {
@@ -41,51 +36,75 @@ namespace ModuleManager.Web.Controllers.Api
             return PartialView("~/Views/Admin/Curriculum/Competentie/_Details.cshtml", competentie);
         }
 
+        [HttpGet, Route("Competenties/Create")]
         public ActionResult Create()
         {
-            Competentie competentie = new Competentie();
+            var competentie = new Competentie();
             return PartialView("~/Views/Admin/Curriculum/Competentie/_Add.cshtml", competentie);
         }
 
-        [HttpPost]
+        [HttpPost, Route("Competenties/Create")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Competentie entity)
         {
-            _competentieRepository.Create(entity);
-            return Json(new { success = true });
-        }
+            try
+            {
+                var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+                if (!schooljaren.Any()) return Json(new { success = false });
+                var schooljaar = schooljaren.Last();
 
-        public ActionResult Edit(string code)
+                entity.Schooljaar = schooljaar.JaarId;
+
+                _unitOfWork.GetRepository<Competentie>().Create(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
+        
+        [HttpGet, Route("Competenties/Edit")]
+        public ActionResult Edit(string code, string schooljaar)
         {
             if (code == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Competentie competentie = _competentieRepository.GetOne(new object[] { code });
+            var competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code, schooljaar });
 
             if (competentie == null)
             {
                 return HttpNotFound();
             }
-            
+
             return PartialView("~/Views/Admin/Curriculum/Competentie/_Edit.cshtml", competentie);
         }
 
-        [HttpPost]
+        [HttpPost, Route("Competenties/Edit")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Competentie entity)
         {
-            _competentieRepository.Edit(entity);
-            return Json(new { success = true });
+            try
+            {
+                _unitOfWork.GetRepository<Competentie>().Edit(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
         }
 
-        public ActionResult Delete(string code)
+        [HttpGet, Route("Competenties/Delete")]
+        public ActionResult Delete(string code, string schooljaar)
         {
             if (code == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Competentie competentie = _competentieRepository.GetOne(new object[] { code });
+
+            Competentie competentie = _unitOfWork.GetRepository<Competentie>().GetOne(new object[] { code, schooljaar });
 
             if (competentie == null)
             {
@@ -95,13 +114,27 @@ namespace ModuleManager.Web.Controllers.Api
             return PartialView("~/Views/Admin/Curriculum/Competentie/_Delete.cshtml", competentie);
         }
 
-        [HttpPost]
+        [HttpPost, Route("Competenties/Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Competentie entity)
         {
-            _competentieRepository.Delete(entity);
-            return Json(new { success = true });
+            try
+            {
+                _unitOfWork.GetRepository<Competentie>().Delete(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+
         }
-        
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 }

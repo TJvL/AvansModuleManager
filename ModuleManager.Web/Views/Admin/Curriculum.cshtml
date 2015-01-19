@@ -39,9 +39,9 @@
                                 <td class="ninety-width">@item.Code</td>
                                 <td>@item.Naam</td>
                                 <td class="actions" style="width:118px">
-                                    <a href="#" class="btn btn-info btn-sm info" style="width:32px;"><i class="fa fa-info"></i></a>
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
-                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-info'></span>", "Details", "Details", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-info btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                                 </td>
                             </tr>
                         }
