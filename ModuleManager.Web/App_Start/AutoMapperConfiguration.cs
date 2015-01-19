@@ -44,6 +44,8 @@ namespace ModuleManager.Web
 
             Mapper.CreateMap<Werkvorm, WerkvormViewModel>();
 
+            Mapper.CreateMap<Niveau, NiveauViewModel>();
+
             Mapper.CreateMap<Module, ModulePartialViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(
                     src => src.StudiePunten

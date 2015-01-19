@@ -72,6 +72,7 @@ namespace ModuleManager.Web.Controllers
             var tags = _unitOfWork.GetRepository<Tag>().GetAll();
             var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll();
             var werkvormen = _unitOfWork.GetRepository<Werkvorm>().GetAll();
+            var niveaus = _unitOfWork.GetRepository<Niveau>().GetAll();
 
             var moduleEditViewModel = new ModuleEditViewModel
             {
@@ -81,7 +82,8 @@ namespace ModuleManager.Web.Controllers
                     Competenties = competenties.Select(Mapper.Map<Competentie, CompetentieViewModel>).ToList(),
                     Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
                     Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
-                    Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList()
+                    Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList(),
+                    Niveaus = niveaus.Select(Mapper.Map<Niveau, NiveauViewModel>).ToList()
                 }
             };
 
