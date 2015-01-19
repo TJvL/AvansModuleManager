@@ -87,7 +87,7 @@ namespace ModuleManager.Web.Controllers
         {
             var arguments = new ModuleFilterSorterArguments
             {
-
+                LeerjaarFilter = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId)
             };
             var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
             var modules = _filterSorterService.ProcessData(queryPack).ToList();
