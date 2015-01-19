@@ -20,12 +20,14 @@ namespace ModuleManager.Web.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IExporterService<Competentie> _competentieExporterService;
         private readonly IExporterService<Leerlijn> _leerlijnExporterService;
+        private readonly IExporterService<FaseType> _lessenTabelExporterService;
 
-        public StudieGidsController(IUnitOfWork unitOfWork, IExporterService<Competentie> competentieExporterService, IExporterService<Leerlijn> leerlijnExporterService)
+        public StudieGidsController(IUnitOfWork unitOfWork, IExporterService<Competentie> competentieExporterService, IExporterService<Leerlijn> leerlijnExporterService, IExporterService<FaseType> lessenTabelExporterService)
         {
             _unitOfWork = unitOfWork;
             _competentieExporterService = competentieExporterService;
             _leerlijnExporterService = leerlijnExporterService;
+            _lessenTabelExporterService = lessenTabelExporterService;
         }
 
         // GET: Table
@@ -135,6 +137,20 @@ namespace ModuleManager.Web.Controllers
             Stream fStream = _leerlijnExporterService.ExportAllAsStream(pack);
 
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Leerlijnen.pdf");
+
+            return new FileStreamResult(fStream, "application/pdf");
+        }
+
+        [HttpGet, Route("StudieGids/Export/LessenTabel")]
+        public FileStreamResult GetLessentabelExport()
+        {
+            LessenTabelExportArguments args = new LessenTabelExportArguments() { ExportAll = true };
+            var data = _unitOfWork.GetRepository<FaseType>().GetAll();
+
+            IExportablePack<FaseType> pack = new LessenTabelExportablePack(args, data);
+            Stream fStream = _lessenTabelExporterService.ExportAllAsStream(pack);
+
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=LessenTabel.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");
         }

@@ -220,6 +220,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Images\avans-white.png" />
     <Content Include="Images\avans.png" />
+    <Content Include="Images\Help\Export.png" />
+    <Content Include="Images\Help\Filter.png" />
+    <Content Include="Images\Help\ModuleOverzichtWeergave.png" />
     <Content Include="Images\select2-spinner.gif" />
     <Content Include="Images\select2.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -287,6 +290,7 @@
     <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\ModuleBlockController.cs" />
     <Compile Include="Controllers\PartialViewControllers\CompetentieController.cs" />
     <Compile Include="Controllers\PartialViewControllers\FaseController.cs" />
     <Compile Include="Controllers\PartialViewControllers\LeerlijnController.cs" />
@@ -331,6 +335,7 @@
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\LesTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleLockViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModulePartialViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleVoorkennisViewModel.cs" />
@@ -387,6 +392,7 @@
     <Content Include="Views\Admin\Users\_Lock.cshtml" />
     <Content Include="Views\Admin\Users\_Add.cshtml" />
     <Content Include="Views\Admin\Users\_Edit.cshtml" />
+    <Content Include="Views\Admin\CheckModules\_Lock.cshtml" />
     <Content Include="Views\Admin\Curriculum\Competentie\_Add.cshtml" />
     <Content Include="Views\Admin\Curriculum\Competentie\_Edit.cshtml" />
     <Content Include="Views\Admin\Curriculum\Competentie\_Details.cshtml" />
@@ -412,6 +418,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ModuleBlock\" />
     <Folder Include="Views\CreateFaseViewModel\" />
     <Folder Include="Views\Leerlijn\" />
     <Folder Include="Views\Onderdeel\" />
