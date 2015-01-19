@@ -212,7 +212,7 @@ namespace ModuleManager.Web.Controllers
                 ExportCursusCode = value.Export.CursusCode,
                 ExportNaam = value.Export.Naam,
                 ExportBeschrijving = value.Export.Beschrijving,
-                ExportAlgInfo = value.Export.AlgemeneBeschrijving,
+                ExportAlgInfo = value.Export.AlgemeneInformatie,
                 ExportStudieBelasting = value.Export.Studiebelasting,
                 ExportOrganisatie = value.Export.Organisatie,
                 ExportWeekplanning = value.Export.Weekplanning,
