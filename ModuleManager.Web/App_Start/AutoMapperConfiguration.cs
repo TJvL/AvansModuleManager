@@ -14,6 +14,8 @@ namespace ModuleManager.Web
         {
             Mapper.CreateMap<Module, ModuleViewModel>();
 
+            Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
+
             Mapper.CreateMap<ModuleCompetentie, ModuleCompetentieViewModel>();
 
             Mapper.CreateMap<Competentie, CompetentieViewModel>();
@@ -40,9 +42,11 @@ namespace ModuleManager.Web
 
             Mapper.CreateMap<Tag, TagViewModel>();
 
-            Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
-
             Mapper.CreateMap<Werkvorm, WerkvormViewModel>();
+
+            Mapper.CreateMap<Toetsvorm, ToetsvormViewModel>();
+
+            Mapper.CreateMap<FaseType, FaseTypeViewModel>();
 
             Mapper.CreateMap<Module, ModulePartialViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(
