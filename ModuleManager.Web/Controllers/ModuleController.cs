@@ -74,6 +74,7 @@ namespace ModuleManager.Web.Controllers
             var werkvormen = _unitOfWork.GetRepository<Werkvorm>().GetAll();
             var toetsvormen = _unitOfWork.GetRepository<Toetsvorm>().GetAll();
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
+            var niveaus = _unitOfWork.GetRepository<Niveau>().GetAll();
 
             var isComplete = true;
             if (module.Status != "Compleet (ongecontroleerd)")
@@ -95,9 +96,10 @@ namespace ModuleManager.Web.Controllers
                     Competenties = competenties.Select(Mapper.Map<Competentie, CompetentieViewModel>).ToList(),
                     Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
                     Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
-                    Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList(),
                     Toetsvormen = toetsvormen.Select(Mapper.Map<Toetsvorm, ToetsvormViewModel>).ToList(),
                     VoorkennisModules = modules.Select(Mapper.Map<Module, ModuleVoorkennisViewModel>).ToList()
+                    Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList(),
+                    Niveaus = niveaus.Select(Mapper.Map<Niveau, NiveauViewModel>).ToList()
                 }
             };
 

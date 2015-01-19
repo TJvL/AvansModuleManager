@@ -48,6 +48,8 @@ namespace ModuleManager.Web
 
             Mapper.CreateMap<FaseType, FaseTypeViewModel>();
 
+            Mapper.CreateMap<Niveau, NiveauViewModel>();
+
             Mapper.CreateMap<Module, ModulePartialViewModel>()
                 .ForMember(dest => dest.TotalEc, opt => opt.MapFrom(
                     src => src.StudiePunten
