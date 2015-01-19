@@ -19,7 +19,8 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Competentie/Get")]
         public IEnumerable<Competentie> GetAll()
         {
-            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)).ToArray();
             return competenties;
         }
 
