@@ -85,7 +85,7 @@
                 <hr />
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div id="toolbar" class="leerlijnenTable" style="display:none;">
                     @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Leerlijnen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
                 </div>
@@ -113,7 +113,7 @@
                 <br /><br />
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div id="toolbar" class="tagsTable" style="display:none;">
                     @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Tags", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
                 </div>
@@ -133,6 +133,34 @@
                                 <td>@item.Naam</td>
                                 <td class="actions" style="width:45px;">
                                     @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Tags", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+            
+            <div class="col-md-4">
+                <div id="toolbar" class="onderdelenTable" style="display:none;">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Onderdelen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                </div>
+                <h3 style="margin-top: 0">Onderdelen</h3>
+
+                <table id="onderdelenTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Onderdeel)
+                        {
+                            <tr class="tag-item">
+                                <td>@item.Code</td>
+                                <td class="actions" style="width:45px;">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Onderdelen", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                                 </td>
                             </tr>
                         }
@@ -384,6 +412,16 @@
                     $("#leerlijnenTable_wrapper").find(".toolbar").append($("#toolbar.leerlijnenTable").html());
                 }
             });
+
+            $("#onderdelenTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [1] }
+                ],
+                initComplete: function () {
+                    $("#onderdelenTable_wrapper").find(".toolbar").append($("#toolbar.onderdelenTable").html());
+                }
+            });
+            
 
 
         });
