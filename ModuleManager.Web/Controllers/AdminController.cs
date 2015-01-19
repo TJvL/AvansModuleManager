@@ -38,10 +38,11 @@ namespace ModuleManager.Web.Controllers
             {
 
             };
-            var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
+            
+            /*var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
             var modules = _filterSorterService.ProcessData(queryPack).ToList();
             var moduleList = new ModuleListViewModel(modules.Count());
-            moduleList.AddModules(modules);
+            moduleList.AddModules(modules);*/
 
             var competenties = _unitOfWork.GetRepository<Competentie>().GetAll().ToArray();
             var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
@@ -49,6 +50,7 @@ namespace ModuleManager.Web.Controllers
             var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToArray();
             var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToArray();
             var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToArray();
+            var modules = _unitOfWork.GetRepository<Module>().GetAll().ToArray();
 
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddFases(fases);
@@ -60,9 +62,10 @@ namespace ModuleManager.Web.Controllers
                 Leerlijn = leerlijnen,
                 Tags = tags,
                 Fases = fases,
-                ModuleViewModels = moduleList,
+                //ModuleViewModels = moduleList,
                 FilterOptions = filterOptions,
-                Onderdeel = onderdelen
+                Onderdeel = onderdelen,
+                Modules = modules
             };
 
             return View(adminCurriculumVm);
