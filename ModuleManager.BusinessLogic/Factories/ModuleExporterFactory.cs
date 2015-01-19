@@ -190,6 +190,12 @@ namespace ModuleManager.BusinessLogic.Factories
                 }
             }
 
+            //This won't happen. But hey, risky things an' all.
+            if (strategy == null)
+            {
+                strategy = new ModulePassiveExporter();
+            }
+
             return strategy;
         }
     }

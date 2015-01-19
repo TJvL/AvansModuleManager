@@ -50,7 +50,14 @@ namespace ModuleManager.BusinessLogic.Services
             CompetentieExporterFactory cef = new CompetentieExporterFactory();
             competentieExporterStrategy = cef.GetStrategy(opt);
 
-            sect = competentieExporterStrategy.Export(toExport, sect);
+            try
+            {
+                sect = competentieExporterStrategy.Export(toExport, sect);
+            }
+            catch (Exception e)
+            {
+                sect.AddParagraph("An error has occured while invoking an export-function on Competentie: " + toExport.Naam + "\n" + e.Message, "error");
+            }
 
             PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
             rend.Document = prePdf;
@@ -80,7 +87,15 @@ namespace ModuleManager.BusinessLogic.Services
             foreach (DomainDAL.Competentie c in pack.ToExport)
             {
                 Section sect = prePdf.AddSection();
-                sect = competentieExporterStrategy.Export(c, sect);
+                try
+                {
+                    sect = competentieExporterStrategy.Export(c, sect);
+                }
+                catch (Exception e) 
+                {
+                    sect.AddParagraph("An error has occured while invoking an export-function on Competentie: " + c.Naam + "\n" + e.Message, "error");
+                }
+                
 
                 //Page numbers (only for multi-export)
                 Paragraph p = new Paragraph();
@@ -147,9 +162,16 @@ namespace ModuleManager.BusinessLogic.Services
             {
                 Paragraph p2 = sect.AddParagraph();
                 p2.Style = "TOC";
-                Hyperlink hyperlink = p2.AddHyperlink(c.Naam);
-                hyperlink.AddText(c.Naam + "\t");
-                hyperlink.AddPageRefField(c.Naam);
+                if (c.Naam != null)
+                {
+                    Hyperlink hyperlink = p2.AddHyperlink(c.Naam);
+                    hyperlink.AddText(c.Naam + "\t");
+                    hyperlink.AddPageRefField(c.Naam);
+                }
+                else 
+                {
+                    p2.AddFormattedText("Critical data incomplete", "error");
+                }
             }
         }
     }

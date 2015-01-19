@@ -80,7 +80,13 @@ namespace ModuleManager.BusinessLogic.Factories
                     strategy = ctor.Invoke(parameters) as IExporter<DomainDAL.Leerlijn>;
                 }
             }
-            
+
+            //This won't happen. But hey, risky things an' all.
+            if (strategy == null)
+            {
+                strategy = new LeerlijnPassiveExporter();
+            }
+
             return strategy;
         }
     }
