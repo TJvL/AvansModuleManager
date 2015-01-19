@@ -194,7 +194,7 @@ namespace ModuleManager.Web.Controllers
                 leerjaarFilter = value.Filters.Leerjaar;
 
             var arguments = new ModuleFilterSorterArguments
-        {
+            {
             CompetentieFilters = competentieFilters,
             TagFilters = tagFilters,
             LeerlijnFilters = leerlijnFilters,
@@ -202,7 +202,7 @@ namespace ModuleManager.Web.Controllers
             BlokFilters = blokFilters,
             ZoektermFilter = zoektermFilter,
             LeerjaarFilter = leerjaarFilter
-        };
+            };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
@@ -212,7 +212,7 @@ namespace ModuleManager.Web.Controllers
                 ExportCursusCode = value.Export.CursusCode,
                 ExportNaam = value.Export.Naam,
                 ExportBeschrijving = value.Export.Beschrijving,
-                ExportAlgInfo = value.Export.AlgemeneBeschrijving,
+                ExportAlgInfo = value.Export.AlgemeneInformatie,
                 ExportStudieBelasting = value.Export.Studiebelasting,
                 ExportOrganisatie = value.Export.Organisatie,
                 ExportWeekplanning = value.Export.Weekplanning,
