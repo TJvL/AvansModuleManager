@@ -134,7 +134,7 @@ namespace ModuleManager.Web.Controllers
             IExportablePack<Leerlijn> pack = new LeerlijnExportablePack(args, lastYearData);
             Stream fStream = _leerlijnExporterService.ExportAllAsStream(pack);
 
-            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Competenties.pdf");
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Leerlijnen.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");
         }

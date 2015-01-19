@@ -12,8 +12,8 @@
             <div class="col-md-12">
                 <div class="pull-right">
                     <a class="btn btn-default" href="@Url.Action("Index", "Home")">Terug</a>
-                    <a class="btn btn-success" href="#"><i class="fa fa-download"></i> Export Leerlijnen</a>
-                    <a class="btn btn-success" href="#"><i class="fa fa-download"></i> Export Competenties</a>
+                    <a class="btn btn-success" href="@Url.Action("GetLeerlijnenExport","StudieGids")"><i class="fa fa-download"></i> Export Leerlijnen</a>
+                    <a class="btn btn-success" href="@Url.Action("GetCompetentiesExport","StudieGids")"><i class="fa fa-download"></i> Export Competenties</a>
                 </div>
                 @{
                     string hoofdTitle = null;
