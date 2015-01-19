@@ -24,21 +24,28 @@
         </div>
         
         <div class="form-group">
-            <label for="Toetscodes">Toetscodes</label>
-
-            @Html.EditorFor(model => model.Toetscode1, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-            @Html.ValidationMessageFor(model => model.Toetscode1, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.Toetscode2, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Toetscode2, "", new { @class = "text-danger" })
-        </div>
-        
-        <div class="form-group">
-            <label for="Studiepunten">Studiepunten</label>
-
-            @Html.EditorFor(model => model.Ec1, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-            @Html.ValidationMessageFor(model => model.Ec1, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.Ec2, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Ec2, "", new { @class = "text-danger" })
+            <label for="Toetscodes">Toetscodes & Studiepunten</label>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Toetscode1, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Toetscode 1" } })
+                    @Html.ValidationMessageFor(model => model.Toetscode1, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Ec1, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Studiepunten 1" } })
+                    @Html.ValidationMessageFor(model => model.Ec1, "", new { @class = "text-danger" })
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Toetscode2, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Toetscode 2" } })
+                    @Html.ValidationMessageFor(model => model.Toetscode2, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Ec2, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Studiepunten 2" } })
+                    @Html.ValidationMessageFor(model => model.Ec2, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
         
         <div class="form-group">
@@ -67,17 +74,27 @@
             </select>
         </div>
         
-        <div class="form-group">
-            @Html.LabelFor(model => model.Icons)
-            <select name="Icon" class="form-control ajax" id="Icon">
-                @foreach (var blok in Model.Icons)
-                {
-                    <option>@blok.Icon</option>
-                }
-            </select>
+        
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Icons)
+                    <select name="Icon" class="form-control ajax" id="Icon">
+                        @foreach (var blok in Model.Icons)
+                        {
+                            <option>@blok.Icon</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <i id="iconPlaceholder" class="fa fa-3x"></i>
+            </div>
         </div>
 
-    </div>
+        
+
+        </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
         <input class="btn btn-success" type="submit" value="Toevoegen" />
@@ -88,4 +105,13 @@
 
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/modalform")
+
+    <script>
+        $(function() {
+
+            
+
+        });
+    </script>
+
 }
