@@ -1,4 +1,5 @@
-﻿@model ModuleManager.Web.ViewModels.CheckModulesViewModel
+﻿@using ModuleManager.Web.Helpers
+@model ModuleManager.Web.ViewModels.CheckModulesViewModel
 
 <div class="container">
     <div class="row">
@@ -60,7 +61,15 @@
                                         </td>*@
 
                                     <td class="actions">
-                                        <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#reminder"><i class="fa fa-inbox"></i></button>
+                                        @if (item.Status.Equals("Compleet (ongecontroleerd)"))
+                                        {
+                                            @Html.NoEncodeActionLink("<span i class='fa fa-lock'></span>", "Blokeren", "Lock", "ModuleBlock", routeValues: new { item.CursusCode, item.Schooljaar, Blocked = true }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })
+                                        }
+                                        else if (item.Status.Equals("Compleet (gecontroleerd)"))
+                                        {
+                                            @Html.NoEncodeActionLink("<span i class='fa fa-unlock'></span>", "Deblokeren", "Lock", "ModuleBlock", routeValues: new { item.CursusCode, item.Schooljaar, Blocked = false }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })
+                                        }
+
                                     </td>
                                 </tr>
                             }
@@ -69,7 +78,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -77,10 +85,18 @@
 <!-- Help MODAL-->
 @Html.Partial("~/Views/Help/CheckModules.cshtml", null);
 
-<!-- Reminder MODAL-->
-@Html.Partial("~/Views/Admin/CheckModules/Reminder.cshtml", Model);
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
+
+    @Scripts.Render("~/bundles/modalform")
 
     <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
@@ -110,15 +126,17 @@
                 }
                 return false;
             }
+
             //"sDom": "<'row'<'col-xs-6'l><'col-xs-6'f>r>t<'row'<'col-xs-6'i><'col-xs-6'p>>",
 
             $("#modules").dataTable({
                 dom:
-                    "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
+                    "<'row'<'col-sm-4'l><'col-sm-8 toolbar'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-6'p><'col-sm-6'i>>",
                 language: {
-                    url: "/Scripts/dataTables.dutch.js"
+                    url: "/Scripts/dataTables.dutch.alt.js",
+                    searchPlaceholder: "Zoeken"
                 },
                 order: [[1, "asc"]],
                 aoColumnDefs: [
@@ -128,11 +146,10 @@
                 initComplete: function () {
                     var table = $('#modules').DataTable();
 
-
-                    $("#modules tfoot th").each(function (i) {
+                    /*$("#modules tfoot th").each(function (i) {
                         var columns = [3, 4, 6];
                         var text = ["blok", "fase", "status"];
-                        var select = $('<select><option value="">' + text[i] + '-filter</option></select>')
+                        var select = $('<select class="form-control input-sm"><option value="">' + text[i] + '-filter</option></select>')
                             .appendTo($(this).empty()) // positie _ this = (#modules tfoot th)
                             .on('change', function () {
                                 table.column(columns[i])
@@ -152,7 +169,62 @@
                                 select.append('<option value="' + item + '">' + item + '</option>');
                             }
                         });
+
+                        $('.dataTables_filter input').attr("placeholder", "Zoeken");
+                    });*/
+
+
+
+                    console.log(i);
+                    var columns = [3, 4, 6];
+                    for (var i = 0; i < 3; i++) {
+                        var text = ["Blok", "Fase", "Status"];
+                        var column = [3, 4, 6];
+                        var id = "#" + text[i] + "Filter";
+                        console.log(id);
+                        var select = $('<select id="' + text[i] + 'Filter" class="form-control input-sm pull-right input-block" style="width: 150px; text-align: left; margin-left: 3px;"><option value="">' + text[i] + ' Filter</option></select>')
+                            .appendTo($(".toolbar #modules_filter")); // positie _ this = (#modules tfoot th)
+
+
+                        var buffer = "";
+                        table.column(columns[i]).data().unique().sort().each(function (d, j) { // concat all values from column to string
+                            buffer = buffer.concat(d + ",");
+                        });
+                        var split = buffer.split(","); // split all values from column to array
+                        var uniques = [];
+                        split.map(function (item) { // add distinct values from column to select-options
+                            var x = fnContains(uniques, item.trim());
+                            if (!x && item !== "") {
+                                uniques.push(uniques, item.trim());
+                                select.append('<option value="' + item + '">' + item + '</option>');
+                            }
+                        });
+                    }
+
+                    $('#BlokFilter').on('change', function () {
+                        console.log($(this).val());
+                        table.column(3)
+                            .search($(this).val())
+                            .draw();
                     });
+
+                    $('#FaseFilter').on('change', function () {
+                        console.log($(this).val());
+                        table.column(4)
+                            .search($(this).val())
+                            .draw();
+                    });
+
+                    $('#StatusFilter').on('change', function () {
+                        console.log($(this).val());
+                        table.column(6)
+                            .search($(this).val())
+                            .draw();
+                    });
+
+                    $('#BlokFilter').select2({});
+                    $('#FaseFilter').select2({});
+                    $('#StatusFilter').select2({});
                 }
             });
 

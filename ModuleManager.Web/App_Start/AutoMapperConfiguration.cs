@@ -12,6 +12,9 @@ namespace ModuleManager.Web
         const string Delimiter = ", ";
         public static void Configure()
         {
+
+            Mapper.CreateMap<Module, ModuleLockViewModel>();
+
             Mapper.CreateMap<Module, ModuleViewModel>();
 
             Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
@@ -65,7 +68,7 @@ namespace ModuleManager.Web
                 .ForMember(dest => dest.Cursuscode, opt => opt.MapFrom(
                     src => src.CursusCode)) // TODO:
                 .ForMember(dest => dest.Omschrijving, opt => opt.MapFrom(
-                    src => src.Beschrijving)) // TODO:
+                    src => src.Naam)) // TODO:
                 .ForMember(dest => dest.Werkvormen, opt => opt.MapFrom(
                     src => string.Join(Delimiter, src.ModuleWerkvorm
                         .Select(inSrc => inSrc.WerkvormType))))

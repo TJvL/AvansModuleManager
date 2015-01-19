@@ -31,7 +31,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             Paragraph p = sect.AddParagraph();
             p.AddFormattedText(toExport.Naam, "Heading1");
             p.Format.OutlineLevel = OutlineLevel.Level1;
-            p.AddBookmark(toExport.Naam);
+            p.AddBookmark(toExport.Naam + " - " + toExport.Schooljaar);
             p.AddLineBreak();
 
             return sect;

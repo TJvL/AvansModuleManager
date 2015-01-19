@@ -290,6 +290,12 @@
     <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\ModuleBlockController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\CompetentieController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\FaseController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\LeerlijnController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\OnderdeelController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\TagController.cs" />
     <Compile Include="Controllers\StudieGidsController.cs" />
     <Compile Include="Controllers\PartialViewControllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -318,6 +324,7 @@
     <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\ToetsvormViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\WeekplanningViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\FaseCrudViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\WerkvormViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleEditOptionsViewModel.cs" />
     <Compile Include="ViewModels\ModuleEditViewModel.cs" />
@@ -326,9 +333,11 @@
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\LesTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleLockViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModulePartialViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleVoorkennisViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\OnderdeelTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserListViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
@@ -373,20 +382,7 @@
     <Content Include="Views\Help\Login.cshtml" />
     <Content Include="Views\Admin\CheckModules\Reminder.cshtml" />
     <Content Include="Views\Export\ModuleOverview.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Competentie\Add.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Competentie\Delete.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Competentie\Edit.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Leerlijn\Add.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Leerlijn\Delete.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Leerlijn\Edit.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Tag\Add.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Tag\Delete.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Tag\Edit.cshtml" />
     <Content Include="Views\Admin\Curriculum\Module\Delete.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Competentie\Details.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Fase\Add.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Fase\Edit.cshtml" />
-    <Content Include="Views\Admin\Curriculum\Fase\Delete.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -394,6 +390,21 @@
     <Content Include="Views\Admin\Users\_Lock.cshtml" />
     <Content Include="Views\Admin\Users\_Add.cshtml" />
     <Content Include="Views\Admin\Users\_Edit.cshtml" />
+    <Content Include="Views\Admin\CheckModules\_Lock.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Competentie\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Competentie\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Competentie\_Details.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Competentie\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Fase\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Fase\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Fase\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Leerlijn\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Leerlijn\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Onderdeel\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Onderdeel\_Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -403,6 +414,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ModuleBlock\" />
+    <Folder Include="Views\CreateFaseViewModel\" />
+    <Folder Include="Views\Leerlijn\" />
+    <Folder Include="Views\Onderdeel\" />
+    <Folder Include="Views\Tag\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

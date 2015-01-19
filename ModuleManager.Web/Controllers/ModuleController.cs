@@ -75,6 +75,18 @@ namespace ModuleManager.Web.Controllers
             var toetsvormen = _unitOfWork.GetRepository<Toetsvorm>().GetAll();
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
+            var isComplete = true;
+            if (module.Status != "Compleet (ongecontroleerd)")
+            {
+                isComplete = false;
+            }
+
+            var isLockedForEdit = false;
+            if (module.Status == "Compleet (gecontroleerd)")
+            {
+                isLockedForEdit = true;
+            }
+
             var moduleEditViewModel = new ModuleEditViewModel
             {
                 Module = Mapper.Map<Module, ModuleViewModel>(module),
@@ -93,11 +105,44 @@ namespace ModuleManager.Web.Controllers
         }
 
         [HttpPost, Route("Module/Edit")]
-        public ActionResult Edit(Module entity)
+        public ActionResult Edit(ModuleViewModel moduleVm)
         {
-            _unitOfWork.GetRepository<Module>().Edit(entity);
+            var moduleToEdit = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.CursusCode, moduleVm.Schooljaar });
 
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
+            moduleToEdit.Beschrijving = moduleVm.Beschrijving;
+            moduleToEdit.Docent = moduleVm.MapToDocent();
+            moduleToEdit.FaseModules = moduleVm.MapToFaseModules();
+            moduleToEdit.Leerdoelen = moduleVm.MapToLeerdoelen();
+            moduleToEdit.Leerlijn = moduleVm.MapToLeerlijn();
+            moduleToEdit.Leermiddelen = moduleVm.MapToLeermiddelen();
+            moduleToEdit.ModuleCompetentie = moduleVm.MapToModuleCompetentie();
+            moduleToEdit.ModuleWerkvorm = moduleVm.MapToModuleWerkvorm();
+            moduleToEdit.StudieBelasting = moduleVm.MapToStudieBelasting();
+            moduleToEdit.StudiePunten = moduleVm.MapToStudiePunten();
+            moduleToEdit.Tag = moduleVm.MapToTag();
+            moduleToEdit.Weekplanning = moduleVm.MapToWeekplanning();
+
+            var voorkennisModules = new List<Module>();
+            foreach (var voorkennisModule in moduleVm.Module2)
+            {
+                var voorMod =
+                    _unitOfWork.GetRepository<Module>()
+                        .GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
+                voorkennisModules.Add(voorMod);
+            }
+
+            moduleToEdit.Module2 = voorkennisModules;
+
+            if (moduleVm.IsCompleted)
+            {
+                moduleToEdit.Status = "Compleet (ongecontroleerd)";
+            }
+
+            _unitOfWork.GetRepository<Module>().Edit(moduleToEdit);
+            _unitOfWork.Dispose();
+
+
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.CursusCode, moduleVm.Schooljaar });
             var modVm = Mapper.Map<Module, ModuleViewModel>(module);
             return View(modVm);
         }
@@ -114,7 +159,7 @@ namespace ModuleManager.Web.Controllers
             return new FileStreamResult(fStream, "application/pdf");
         }
 
-        //Kijk hier even naar, wat je wilt met input...
+
         [HttpPost, Route("Module/ExportAll")]
         public ActionResult ExportAllModules(ExportArgumentsViewModel value)
         {
@@ -149,7 +194,7 @@ namespace ModuleManager.Web.Controllers
                 leerjaarFilter = value.Filters.Leerjaar;
 
             var arguments = new ModuleFilterSorterArguments
-        {
+            {
             CompetentieFilters = competentieFilters,
             TagFilters = tagFilters,
             LeerlijnFilters = leerlijnFilters,
@@ -157,7 +202,7 @@ namespace ModuleManager.Web.Controllers
             BlokFilters = blokFilters,
             ZoektermFilter = zoektermFilter,
             LeerjaarFilter = leerjaarFilter
-        };
+            };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
@@ -167,7 +212,7 @@ namespace ModuleManager.Web.Controllers
                 ExportCursusCode = value.Export.CursusCode,
                 ExportNaam = value.Export.Naam,
                 ExportBeschrijving = value.Export.Beschrijving,
-                ExportAlgInfo = value.Export.AlgemeneBeschrijving,
+                ExportAlgInfo = value.Export.AlgemeneInformatie,
                 ExportStudieBelasting = value.Export.Studiebelasting,
                 ExportOrganisatie = value.Export.Organisatie,
                 ExportWeekplanning = value.Export.Weekplanning,
@@ -193,12 +238,12 @@ namespace ModuleManager.Web.Controllers
             Session[saveTo] = fStream;
 
             //Return the filename under which you can retrieve it from Session data.
-            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/{saveTo}
+            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/All/{saveTo}
             //This redirect will be caught in the controller action below here.
             return Json(saveTo);
         }
 
-        [HttpGet, Route("Module/Export/{loadFrom}")]
+        [HttpGet, Route("Module/Export/All/{loadFrom}")]
         public FileStreamResult GetExportAllModules(string loadFrom)
         {
             BufferedStream fStream = Session[loadFrom] as BufferedStream;

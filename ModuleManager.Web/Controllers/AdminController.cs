@@ -47,6 +47,7 @@ namespace ModuleManager.Web.Controllers
             var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
             var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
             var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToArray();
+            var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToArray();
             var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToArray();
 
             var filterOptions = new FilterOptionsViewModel();
@@ -60,7 +61,8 @@ namespace ModuleManager.Web.Controllers
                 Tags = tags,
                 Fases = fases,
                 ModuleViewModels = moduleList,
-                FilterOptions = filterOptions
+                FilterOptions = filterOptions,
+                Onderdeel = onderdelen
             };
 
             return View(adminCurriculumVm);
@@ -87,7 +89,7 @@ namespace ModuleManager.Web.Controllers
         {
             var arguments = new ModuleFilterSorterArguments
             {
-
+                LeerjaarFilter = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId)
             };
             var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
             var modules = _filterSorterService.ProcessData(queryPack).ToList();

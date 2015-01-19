@@ -149,9 +149,9 @@ namespace ModuleManager.BusinessLogic.Services
             {
                 Paragraph p2 = sect.AddParagraph();
                 p2.Style = "TOC";
-                Hyperlink hyperlink = p2.AddHyperlink(m.Naam);
+                Hyperlink hyperlink = p2.AddHyperlink(m.Naam + " - " + m.Schooljaar);
                 hyperlink.AddText(m.Naam+"\t");
-                hyperlink.AddPageRefField(m.Naam);
+                hyperlink.AddPageRefField(m.Naam + " - " + m.Schooljaar);
             }
         }
     }

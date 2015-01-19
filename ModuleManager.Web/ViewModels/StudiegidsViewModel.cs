@@ -11,6 +11,6 @@ namespace ModuleManager.Web.ViewModels
             Opleidingsfasen = new List<LessenTabelViewModel>();
         }
 
-        public ICollection<LessenTabelViewModel> Opleidingsfasen { get; set; }
+        public IList<LessenTabelViewModel> Opleidingsfasen { get; set; }
     }
 }

@@ -1,13 +1,20 @@
-﻿using ModuleManager.UserDAL.Interfaces;
+﻿using ModuleManager.UserDAL;
+using ModuleManager.UserDAL.Interfaces;
 using ModuleManager.UserDAL.Repositories;
 using ModuleManager.Web.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Linq;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -30,7 +37,7 @@ namespace ModuleManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int ReturnValue = AuthenticateUser(loginVM.UserNaam, loginVM.Wachtwoord);
+                var ReturnValue = AuthenticateUser(loginVM.UserNaam, loginVM.Wachtwoord);
                 if (ReturnValue == 1)
                 {
                     // Create the authentication cookie and redirect the user to welcome page
@@ -76,110 +83,57 @@ namespace ModuleManager.Web.Controllers
             return View(loginVM);
         }
 
-        [HttpGet]
-        public ActionResult Registration()
-        {
-            RegistrationVM registrationVM = new RegistrationVM();
-            registrationVM.SysteemRollen = _systeemRolRepository.GetAll();
-
-            return View(registrationVM);
-        }
-
-        [HttpPost]
-        public ActionResult Registration(RegistrationVM registrationVM)
-        {
-            if (ModelState.IsValid)
-            {
-
-                // Read the connection string from web.config.
-                // ConfigurationManager class is in System.Configuration namespace
-                string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
-                // SqlConnection is in System.Data.SqlClient namespace
-                using (SqlConnection con = new SqlConnection(CS))
-                {
-                    SqlCommand cmd = new SqlCommand("spRegisterUser", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    SqlParameter username = new SqlParameter("@UserNaam", registrationVM.UserNaam);
-                    // FormsAuthentication class is in System.Web.Security namespace
-                    string encryptedPassword = FormsAuthentication.
-                        HashPasswordForStoringInConfigFile(registrationVM.Wachtwoord, "SHA1");
-                    SqlParameter password = new SqlParameter("@Wachtwoord", encryptedPassword);
-                    SqlParameter role = new SqlParameter("@SysteemRol", registrationVM.SelectedSysteemRol);
-                    SqlParameter email = new SqlParameter("@email", registrationVM.Email);
-                    SqlParameter name = new SqlParameter("@naam", registrationVM.Naam);
-
-                    cmd.Parameters.Add(username);
-                    cmd.Parameters.Add(password);
-                    cmd.Parameters.Add(role);
-                    cmd.Parameters.Add(email);
-                    cmd.Parameters.Add(name);
-
-                    con.Open();
-                    int ReturnCode = (int)cmd.ExecuteScalar();
-                    if (ReturnCode == -1)
-                    {
-                        ViewBag.UsernameError = "User Name already in use, please choose another user name";
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                       
-                    }
-                }
-            }
-            registrationVM.SysteemRollen = _systeemRolRepository.GetAll();
-
-            return View(registrationVM);
-        }
-
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
-        private int AuthenticateUser(String username, String password)
+        private int? AuthenticateUser(String username, String password)
         {
-            string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
+            
+            using (var context = new UserContext())
+                {
 
-            using (SqlConnection con = new SqlConnection(CS))
-            {
-                SqlCommand cmd = new SqlCommand("spAuthenticateUser", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                    String hashedPassword = GetSwcSH1(password);                  
 
-                string encryptedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "SHA1");
-                SqlParameter paramUsername = new SqlParameter("@UserName", username);
-                SqlParameter paramPassword = new SqlParameter("@Password", encryptedPassword);
+                    var resultlist = context.spAuthenticateUser(username, hashedPassword);
+                    var list = new List<int?>();
 
-                cmd.Parameters.Add(paramUsername);
-                cmd.Parameters.Add(paramPassword);
+                    list = (from element in resultlist select element).ToList();
+                    var result = list.SingleOrDefault();
+                    
+                    return result;
 
-                con.Open();
-                int ReturnCode = (int)cmd.ExecuteScalar();
-                return ReturnCode;
-
-            }
+                }
+            
         }
 
         public String GetRole(String username)
         {
-            String role = "Guest";
-            string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
+            using (var context = new UserContext())
+            {               
 
-            using (SqlConnection con = new SqlConnection(CS))
+                var resultlist = context.spGetRol(username);
+                var list = new List<string>();
+
+                list = (from element in resultlist select element).ToList();
+                var result = list.SingleOrDefault();
+
+                return result;
+            }      
+        }
+
+        public static string GetSwcSH1(string value)
+        {
+            SHA1 algorithm = SHA1.Create();
+            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
+            string sh1 = "";
+            for (int i = 0; i < data.Length; i++)
             {
-                SqlCommand cmd = new SqlCommand("Select SysteemRol From [User] Where UserNaam ='" + username + "'", con);
-                con.Open();
-
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    role = rdr[0].ToString();                  
-                }
-
+                sh1 += data[i].ToString("x2").ToUpperInvariant();
             }
-            return role;
+            return sh1;
         }
 
     }

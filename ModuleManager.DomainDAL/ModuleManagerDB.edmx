@@ -124,8 +124,8 @@
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="Beschrijving" Type="varchar(max)" />
-          <Property Name="Naam" Type="varchar" MaxLength="50" />
-          <Property Name="Verantwoordelijke" Type="varchar" MaxLength="50" />
+          <Property Name="Naam" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Verantwoordelijke" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="OnderdeelCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Icon" Type="char" MaxLength="20" Nullable="false" />
@@ -234,9 +234,9 @@
           <Property Name="CursusCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Schooljaar" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="ToetsCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Toetsvorm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Toetsvorm" Type="varchar" MaxLength="50" />
           <Property Name="EC" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Minimum" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Minimum" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -608,7 +608,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StudiePunten_Toetsvorm">
-          <End Role="Toetsvorm" Type="Self.Toetsvorm" Multiplicity="1" />
+          <End Role="Toetsvorm" Type="Self.Toetsvorm" Multiplicity="0..1" />
           <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Toetsvorm">
@@ -943,8 +943,8 @@
           <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Beschrijving" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Verantwoordelijke" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Verantwoordelijke" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="OnderdeelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Icon" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
@@ -1058,9 +1058,9 @@
           <Property Name="CursusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Schooljaar" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ToetsCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Toetsvorm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Toetsvorm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EC" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Minimum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Minimum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Module" Relationship="Self.FK_StudiePunten_Module" FromRole="StudiePunten" ToRole="Module" />
           <NavigationProperty Name="Toetsvorm1" Relationship="Self.FK_StudiePunten_Toetsvorm" FromRole="StudiePunten" ToRole="Toetsvorm" />
         </EntityType>
@@ -1384,7 +1384,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StudiePunten_Toetsvorm">
-          <End Role="Toetsvorm" Type="Self.Toetsvorm" Multiplicity="1" />
+          <End Role="Toetsvorm" Type="Self.Toetsvorm" Multiplicity="0..1" />
           <End Role="StudiePunten" Type="Self.StudiePunten" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Toetsvorm">

@@ -1,0 +1,25 @@
+﻿@using ModuleManager.DomainDAL
+@model  ModuleManager.DomainDAL.Leerlijn
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="LeerlijnDelete">Leerlijn verwijderen</h4>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        Weet uw zeker dat uw de volgende leerlijn: <b>@Model.Naam</b> wilt verwijderen?
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+        <input class="btn btn-danger" type="submit" value="Verwijderen" />
+
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Naam)
+        @Html.HiddenFor(model => model.Schooljaar)
+
+    </div>
+}
+

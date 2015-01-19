@@ -101,6 +101,9 @@ namespace ModuleManager.Web.App_Start
             // Filter-, Sorter- and Export-services:
             kernel.Bind<IFilterSorterService<Module>>().To<ModuleFilterSorterService>();
             kernel.Bind<IExporterService<Module>>().To<ModuleExporterService>();
+            kernel.Bind<IExporterService<Competentie>>().To<CompetentieExporterService>();
+            kernel.Bind<IExporterService<Leerlijn>>().To<LeerlijnExporterService>();
+            kernel.Bind<IExporterService<FaseType>>().To<LessenTabelExporterService>();
 
         }
     }
