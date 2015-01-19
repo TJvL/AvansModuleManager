@@ -159,7 +159,7 @@ namespace ModuleManager.Web.Controllers
             return new FileStreamResult(fStream, "application/pdf");
         }
 
-        //Kijk hier even naar, wat je wilt met input...
+
         [HttpPost, Route("Module/ExportAll")]
         public ActionResult ExportAllModules(ExportArgumentsViewModel value)
         {
@@ -238,12 +238,12 @@ namespace ModuleManager.Web.Controllers
             Session[saveTo] = fStream;
 
             //Return the filename under which you can retrieve it from Session data.
-            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/{saveTo}
+            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/All/{saveTo}
             //This redirect will be caught in the controller action below here.
             return Json(saveTo);
         }
 
-        [HttpGet, Route("Module/Export/{loadFrom}")]
+        [HttpGet, Route("Module/Export/All/{loadFrom}")]
         public FileStreamResult GetExportAllModules(string loadFrom)
         {
             BufferedStream fStream = Session[loadFrom] as BufferedStream;

@@ -50,6 +50,7 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
             foreach (Competentie c in accumulatedCompetences) 
             {
                 p.AddText(" - " + c.Naam);
+                p.AddLineBreak();
             }
             p.AddLineBreak();
 

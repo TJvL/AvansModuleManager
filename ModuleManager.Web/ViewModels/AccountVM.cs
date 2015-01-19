@@ -23,16 +23,20 @@ namespace ModuleManager.Web.ViewModels
     public class RegistrationVM
     {
         [Required]
+        [DisplayName("Gebruikersnaam")]
         public string UserNaam { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [DisplayName("Wachtwoord")]
         public string Wachtwoord { get; set; }
 
         [Compare("Wachtwoord")]
         [DataType(DataType.Password)]
+        [DisplayName("Bevestig wachtwoord")]
         public string BevestigWachtwoord { get; set; }
         [Required]
+        [DisplayName("Systeemrol")]
         public string SelectedSysteemRol { get; set; }
 
         public virtual IEnumerable<SysteemRol> SysteemRollen { get; set; }
