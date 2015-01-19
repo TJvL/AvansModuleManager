@@ -33,9 +33,15 @@ namespace ModuleManager.BusinessLogic.Exporters.LessenTabelExporterStack
             {
                 Paragraph p = sect.AddParagraph(toExport.Type + " - " + f.Naam, "Heading2");
                 p.AddLineBreak();
+                FormattedText text = p.AddFormattedText("Als U hieronder geen tabel ziet, bevat de database nog incomplete Modules.");
+                text.Font.Color = Colors.DarkGray;
+                text.Font.Size = 8;
 
-                foreach (var faseModules in f.FaseModules.GroupBy(element => element.Blok)) 
+                var ungroupedFaseModules = f.FaseModules.Where(element => element.Module.Status.Equals("Compleet (gecontroleerd)"));
+
+                foreach (var faseModules in ungroupedFaseModules.GroupBy(element => element.Blok)) 
                 {
+
                     var semester =  "" + Math.Ceiling(Convert.ToInt32(faseModules.First().Blok) / 2.0);
 
                     p = sect.AddParagraph("Blok " + faseModules.First().Blok + " - " + semester + "e Semester");
@@ -145,9 +151,9 @@ namespace ModuleManager.BusinessLogic.Exporters.LessenTabelExporterStack
                                 startRow.Cells[4].MergeDown = down;
                             }
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
-                            sect.AddParagraph("ERROR - Data corruption detected\n" + e.Source + "\n" + e.Message, "error");
+                            sect.AddParagraph("ERROR - Data corruption detected", "error");
                         }
                     }
 
