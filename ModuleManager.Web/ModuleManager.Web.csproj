@@ -418,12 +418,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ModuleBlock\" />
-    <Folder Include="Views\CreateFaseViewModel\" />
-    <Folder Include="Views\Leerlijn\" />
-    <Folder Include="Views\Onderdeel\" />
-    <Folder Include="Views\Tag\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleManager.BusinessLogic\ModuleManager.BusinessLogic.csproj">
