@@ -15,12 +15,20 @@
                     <a class="btn btn-success" href="#"><i class="fa fa-download"></i> Export Leerlijnen</a>
                     <a class="btn btn-success" href="#"><i class="fa fa-download"></i> Export Competenties</a>
                 </div>
-
+                @{
+                    string hoofdTitle = null;
+                }
                 @foreach (var opleidingsfasen in Model.Opleidingsfasen)
                 {
+                    
                     foreach (var tabellen in opleidingsfasen.Tabellen)
                     {
-                        <h1>@opleidingsfasen.FaseType - @tabellen.FaseNaam</h1>
+                        var hoofdTitle2 = opleidingsfasen.FaseType + " - " + tabellen.FaseNaam;
+                        if (@hoofdTitle != opleidingsfasen.FaseType + " - " + tabellen.FaseNaam)
+                        {
+                            hoofdTitle = hoofdTitle2;
+                            <h1>@hoofdTitle</h1>
+                        }
                         var title = "Blok " + tabellen.Blok + " (" + tabellen.Semester + "e Semester)";
 
                         <h3>@title</h3>
@@ -40,6 +48,7 @@
                                     {
                                         if (module.Studiepunten.Count == 1)
                                         {
+                                            
                                             <tr>
                                                 @if (onderdeelName != module.Onderdeel)
                                                 {
@@ -109,7 +118,7 @@
                                     <td></td>
                                 </tr>
                             </tbody>
-                        </table><br /><br />
+                        </table><br />
                     }
                 }
             </div>

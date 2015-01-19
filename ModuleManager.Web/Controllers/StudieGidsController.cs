@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Ajax.Utilities;
@@ -48,18 +49,21 @@ namespace ModuleManager.Web.Controllers
                         a => new { fnaam = a.FaseNaam, fschooljaar = a.FaseSchooljaar, onaam = a.OpleidingNaam, oschooljaar = a.OpleidingSchooljaar },
                         b => new { fnaam = b.Naam, fschooljaar = b.Schooljaar, onaam = b.OpleidingNaam, oschooljaar = b.OpleidingSchooljaar },
                         (a, b) => new { a, b }).ToList();
-                foreach (var random in joined.Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType)).DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })) // fasemodule collectie WHERE fasetype.EQUALS(ft.Type)
+                foreach (var random in joined
+                    .Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType))
+                    .DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })
+                    .OrderBy(src => src.a.Blok))
                 {
                     var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
                     var rows = new List<ModuleTabelViewModel>();
                     //foreach (var fm2 in _unitOfWork.GetRepository<FaseModules>().GetAll() // Schooljaar, ModuleSchooljaar, OpleidingSchooljaar
                     //    .Where(src => src.Blok.Equals(tabel.Blok))
                     //    .Where(src => src.FaseNaam.Equals(tabel.FaseNaam))) // WTF DOE IK HIER?!
-                    foreach (var fm2 in joined
-                        .Where(src => src.a.Blok.Equals(tabel.Blok))
-                        .Where(src => src.a.FaseNaam.Equals(tabel.FaseNaam)))
+                    foreach (var fm2 in fasems
+                         .Where(src => src.Blok.Equals(tabel.Blok))
+                         .Where(src => src.FaseNaam.Equals(tabel.FaseNaam)))
                     {
-                        var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { fm2.a.ModuleCursusCode, fm2.a.ModuleSchooljaar }); //
+                        var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { fm2.ModuleCursusCode, fm2.ModuleSchooljaar }); //
                         var row = Mapper.Map<Module, ModuleTabelViewModel>(module);
                         rows.Add(row);
                     }
