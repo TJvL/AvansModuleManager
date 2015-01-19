@@ -25,11 +25,19 @@ namespace ModuleManager.Web.Controllers
         {
             var vm = new StudiegidsViewModel();
 
-            foreach (var ft in _unitOfWork.GetRepository<FaseType>().GetAll())
+            foreach (var ft in _unitOfWork.GetRepository<FaseType>().GetAll()) // Geen Jaar
             {
+                var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
                 var tabellenlijst = new LessenTabelViewModel { FaseType = ft.Type };
-                var fasems = _unitOfWork.GetRepository<FaseModules>().GetAll().ToList();
-                var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
+                var fasems = _unitOfWork.GetRepository<FaseModules>().GetAll()
+                    .Where(src => src.FaseSchooljaar.Equals(maxSchooljaar))
+                    //.Where(src => src.ModuleSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
+                    //.Where(src => src.OpleidingSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
+                    .ToList(); // FaseSchooljaar, ModuleSchooljaar, OpleidingSchooljaar
+                var fases = _unitOfWork.GetRepository<Fase>().GetAll()
+                    .Where(src => src.Schooljaar.Equals(maxSchooljaar))
+                   // .Where(src => src.OpleidingSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
+                    .ToList(); // Schooljaar, OpleidingSchooljaar
                 //return CollectionA
                 //  .Join(CollectionB,
                 //      a => new { a.KeyA, a.KeyB },
@@ -39,16 +47,19 @@ namespace ModuleManager.Web.Controllers
                     .Join(fases,
                         a => new { fnaam = a.FaseNaam, fschooljaar = a.FaseSchooljaar, onaam = a.OpleidingNaam, oschooljaar = a.OpleidingSchooljaar },
                         b => new { fnaam = b.Naam, fschooljaar = b.Schooljaar, onaam = b.OpleidingNaam, oschooljaar = b.OpleidingSchooljaar },
-                        (a, b) => new { a, b });
+                        (a, b) => new { a, b }).ToList();
                 foreach (var random in joined.Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType)).DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })) // fasemodule collectie WHERE fasetype.EQUALS(ft.Type)
                 {
                     var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
                     var rows = new List<ModuleTabelViewModel>();
-                    foreach (var fm2 in _unitOfWork.GetRepository<FaseModules>().GetAll()
-                        .Where(src => src.Blok.Equals(tabel.Blok))
-                        .Where(src => src.FaseNaam.Equals(tabel.FaseNaam))) // WTF DOE IK HIER?!
+                    //foreach (var fm2 in _unitOfWork.GetRepository<FaseModules>().GetAll() // Schooljaar, ModuleSchooljaar, OpleidingSchooljaar
+                    //    .Where(src => src.Blok.Equals(tabel.Blok))
+                    //    .Where(src => src.FaseNaam.Equals(tabel.FaseNaam))) // WTF DOE IK HIER?!
+                    foreach (var fm2 in joined
+                        .Where(src => src.a.Blok.Equals(tabel.Blok))
+                        .Where(src => src.a.FaseNaam.Equals(tabel.FaseNaam)))
                     {
-                        var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { fm2.ModuleCursusCode, fm2.ModuleSchooljaar });
+                        var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { fm2.a.ModuleCursusCode, fm2.a.ModuleSchooljaar }); //
                         var row = Mapper.Map<Module, ModuleTabelViewModel>(module);
                         rows.Add(row);
                     }
