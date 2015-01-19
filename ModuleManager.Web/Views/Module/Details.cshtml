@@ -2,30 +2,62 @@
 @model  ModuleManager.Web.ViewModels.EntityViewModel.ModuleViewModel
             
 @{
-    // Jaartal
-    var j1 = Model.Schooljaar.Remove(Model.Schooljaar.Length - 2);
-    var j2 = Model.Schooljaar.Remove(0, 2);
-    var jaar = "20" + j1 + "-20" + j2;
+    var jaar = "";
+    var docenten = "";
+    var leerlijnen = "";
+    var tags = "";
+    int rowSpanToetscode = 0;
+    var werkvorm = "";
+    StudiePuntenViewModel firstToetscode = null;
     
-    // Docenten
-    var docenten = @Model.Docent.Aggregate("", (current, docent) => current + (docent.Name + ", "));
-    docenten = docenten.Remove(docenten.Length - 2);
-    
-    // Leerlijnen
-    var leerlijnen = @Model.Leerlijn.Aggregate("", (current, leerlijn) => current + (leerlijn.Naam + ", "));
-    leerlijnen = leerlijnen.Remove(leerlijnen.Length - 2);
-    
-    // Tags
-    var tags = @Model.Tag.Aggregate("", (current, tag) => current + (tag.Naam + ", "));
-    tags = tags.Remove(tags.Length - 2);
-    
-    // Studiepunten        
-    var rowSpanToetscode = @Model.StudiePunten.Count;
-    var firstToetscode = @Model.StudiePunten.First();          
-    
-    // Werkvorm
-    var werkvorm = @Model.ModuleWerkvorm.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
-    werkvorm = werkvorm.Remove(werkvorm.Length - 2);
+    if (@Model != null)
+    {
+        // Jaartal
+        var j1 = Model.Schooljaar.Remove(Model.Schooljaar.Length - 2);
+        var j2 = Model.Schooljaar.Remove(0, 2);
+        jaar = "20" + j1 + "-20" + j2;
+
+        // Docenten
+        try
+        {
+            docenten = @Model.Docent.Aggregate("", (current, docent) => current + (docent.Name + ", "));
+            docenten = docenten.Remove(docenten.Length - 2);
+        }
+        catch (Exception) {}
+        
+
+        // Leerlijnen
+        try
+        {
+            leerlijnen = @Model.Leerlijn.Aggregate("", (current, leerlijn) => current + (leerlijn.Naam + ", "));
+            leerlijnen = leerlijnen.Remove(leerlijnen.Length - 2);
+        }
+        catch (Exception) { }
+
+        // Tags
+        try
+        {
+            tags = @Model.Tag.Aggregate("", (current, tag) => current + (tag.Naam + ", "));
+            tags = tags.Remove(tags.Length - 2);
+        }
+        catch (Exception) { }
+
+        // Studiepunten
+        try
+        {
+            rowSpanToetscode = @Model.StudiePunten.Count;
+            firstToetscode = @Model.StudiePunten.First();
+        }
+        catch (Exception) { }
+
+        // Werkvorm
+        try
+        {
+            werkvorm = @Model.ModuleWerkvorm.Aggregate("", (current, moduleWerkvorm) => current + (moduleWerkvorm.WerkvormType + ", "));
+            werkvorm = werkvorm.Remove(werkvorm.Length - 2);
+        }
+        catch (Exception) { }
+    }
 }
 <div class="container">
     <div class="row">
@@ -84,8 +116,11 @@
                         </tr>
                         <tr>
                             <td rowspan="@rowSpanToetscode">Toetscode & EC</td>
-                            <td>@firstToetscode.ToetsCode</td>
-                            <td>@firstToetscode.EC</td>
+                            @if (@firstToetscode != null)
+                            {
+                                <td>@firstToetscode.ToetsCode</td>
+                                <td>@firstToetscode.EC</td>
+                            }
                         </tr>
                         @foreach (StudiePuntenViewModel studiePunt in @Model.StudiePunten.Where(studiePunt => studiePunt != firstToetscode))
                         {
