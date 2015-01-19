@@ -47,7 +47,7 @@ namespace ModuleManager.Web.Controllers
                     .ToList(); // FaseSchooljaar, ModuleSchooljaar, OpleidingSchooljaar
                 var fases = _unitOfWork.GetRepository<Fase>().GetAll()
                     .Where(src => src.Schooljaar.Equals(maxSchooljaar))
-                   // .Where(src => src.OpleidingSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
+                    // .Where(src => src.OpleidingSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
                     .ToList(); // Schooljaar, OpleidingSchooljaar
                 //return CollectionA
                 //  .Join(CollectionB,
@@ -74,8 +74,11 @@ namespace ModuleManager.Web.Controllers
                          .Where(src => src.FaseNaam.Equals(tabel.FaseNaam)))
                     {
                         var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { fm2.ModuleCursusCode, fm2.ModuleSchooljaar }); //
-                        var row = Mapper.Map<Module, ModuleTabelViewModel>(module);
-                        rows.Add(row);
+                        if (module != null && module.Status.Equals("Compleet (gecontroleerd)"))
+                        {
+                            var row = Mapper.Map<Module, ModuleTabelViewModel>(module);
+                            rows.Add(row);
+                        }
                     }
                     var orderedRows = rows.OrderBy(src => src.Onderdeel).ToList();
                     var uniqueOnderdelen = orderedRows.Select(src => src.Onderdeel).Distinct();
@@ -108,7 +111,7 @@ namespace ModuleManager.Web.Controllers
         }
 
         [HttpGet, Route("StudieGids/Export/Competenties")]
-        public FileStreamResult GetCompetentiesExport() 
+        public FileStreamResult GetCompetentiesExport()
         {
             CompetentieExportArguments args = new CompetentieExportArguments() { ExportAll = true };
             var data = _unitOfWork.GetRepository<Competentie>().GetAll();
