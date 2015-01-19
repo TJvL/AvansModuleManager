@@ -409,6 +409,7 @@
     <Content Include="Views\Admin\Curriculum\Onderdeel\_Delete.cshtml" />
     <Content Include="Views\Admin\Curriculum\Module\_Add.cshtml" />
     <Content Include="Views\Admin\Curriculum\Module\_Delete.cshtml" />
+    <Content Include="Views\Help\StudieGids.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -418,9 +419,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ModuleBlock\" />
     <Folder Include="Views\CreateFaseViewModel\" />
     <Folder Include="Views\Leerlijn\" />
+    <Folder Include="Views\ModuleBlock\" />
     <Folder Include="Views\Onderdeel\" />
     <Folder Include="Views\Tag\" />
     <Folder Include="Views\User\" />
