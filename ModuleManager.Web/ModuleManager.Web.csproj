@@ -220,6 +220,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Images\avans-white.png" />
     <Content Include="Images\avans.png" />
+    <Content Include="Images\Help\Export.png" />
+    <Content Include="Images\Help\Filter.png" />
+    <Content Include="Images\Help\ModuleOverzichtWeergave.png" />
     <Content Include="Images\select2-spinner.gif" />
     <Content Include="Images\select2.png" />
     <Content Include="Scripts\bootstrap.js" />
