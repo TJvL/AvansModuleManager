@@ -75,6 +75,18 @@ namespace ModuleManager.Web.Controllers
             var toetsvormen = _unitOfWork.GetRepository<Toetsvorm>().GetAll();
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
+            var isComplete = true;
+            if (module.Status != "Compleet (ongecontroleerd)")
+            {
+                isComplete = false;
+            }
+
+            var isLockedForEdit = false;
+            if (module.Status == "Compleet (gecontroleerd)")
+            {
+                isLockedForEdit = true;
+            }
+
             var moduleEditViewModel = new ModuleEditViewModel
             {
                 Module = Mapper.Map<Module, ModuleViewModel>(module),
@@ -93,11 +105,44 @@ namespace ModuleManager.Web.Controllers
         }
 
         [HttpPost, Route("Module/Edit")]
-        public ActionResult Edit(Module entity)
+        public ActionResult Edit(ModuleViewModel moduleVm)
         {
-            _unitOfWork.GetRepository<Module>().Edit(entity);
+            var moduleToEdit = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.CursusCode, moduleVm.Schooljaar });
 
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
+            moduleToEdit.Beschrijving = moduleVm.Beschrijving;
+            moduleToEdit.Docent = moduleVm.MapToDocent();
+            moduleToEdit.FaseModules = moduleVm.MapToFaseModules();
+            moduleToEdit.Leerdoelen = moduleVm.MapToLeerdoelen();
+            moduleToEdit.Leerlijn = moduleVm.MapToLeerlijn();
+            moduleToEdit.Leermiddelen = moduleVm.MapToLeermiddelen();
+            moduleToEdit.ModuleCompetentie = moduleVm.MapToModuleCompetentie();
+            moduleToEdit.ModuleWerkvorm = moduleVm.MapToModuleWerkvorm();
+            moduleToEdit.StudieBelasting = moduleVm.MapToStudieBelasting();
+            moduleToEdit.StudiePunten = moduleVm.MapToStudiePunten();
+            moduleToEdit.Tag = moduleVm.MapToTag();
+            moduleToEdit.Weekplanning = moduleVm.MapToWeekplanning();
+
+            var voorkennisModules = new List<Module>();
+            foreach (var voorkennisModule in moduleVm.Module2)
+            {
+                var voorMod =
+                    _unitOfWork.GetRepository<Module>()
+                        .GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
+                voorkennisModules.Add(voorMod);
+            }
+
+            moduleToEdit.Module2 = voorkennisModules;
+
+            if (moduleVm.IsCompleted)
+            {
+                moduleToEdit.Status = "Compleet (ongecontroleerd)";
+            }
+
+            _unitOfWork.GetRepository<Module>().Edit(moduleToEdit);
+            _unitOfWork.Dispose();
+
+
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.CursusCode, moduleVm.Schooljaar });
             var modVm = Mapper.Map<Module, ModuleViewModel>(module);
             return View(modVm);
         }
