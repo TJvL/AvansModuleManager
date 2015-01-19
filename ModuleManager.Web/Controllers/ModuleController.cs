@@ -194,7 +194,7 @@ namespace ModuleManager.Web.Controllers
                 leerjaarFilter = value.Filters.Leerjaar;
 
             var arguments = new ModuleFilterSorterArguments
-        {
+            {
             CompetentieFilters = competentieFilters,
             TagFilters = tagFilters,
             LeerlijnFilters = leerlijnFilters,
@@ -202,7 +202,7 @@ namespace ModuleManager.Web.Controllers
             BlokFilters = blokFilters,
             ZoektermFilter = zoektermFilter,
             LeerjaarFilter = leerjaarFilter
-        };
+            };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
