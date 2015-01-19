@@ -242,6 +242,9 @@
         div.dataTables_filter label {
             float: left !important;
         }
+        #iconPlaceholder {
+            margin: 20px 0 0;
+        }
     </style>
 
     <script>
@@ -354,6 +357,19 @@
                 iDisplayLength: 10
             });
             
+
+
+            $("#myModal").on("change", "#Icon", function () {
+
+                console.log($(this).val());
+
+                $("#myModal #iconPlaceholder").removeClass();
+
+                $("#myModal #iconPlaceholder").addClass("fa");
+                $("#myModal #iconPlaceholder").addClass("fa-3x");
+                $("#myModal #iconPlaceholder").addClass("fa-" + $(this).val());
+
+            });
 
 
         });

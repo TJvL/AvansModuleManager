@@ -31,12 +31,14 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
             var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToList();
             var icons = _unitOfWork.GetRepository<Icons>().GetAll().ToList();
+            var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToList();
 
             var module = new ModuleCrudViewModel()
             {
                 Fases = fases,
                 Blokken = blokken,
-                Icons = icons
+                Icons = icons,
+                Onderdelen = onderdelen
             };
 
             return PartialView("~/Views/Admin/Curriculum/Module/_Add.cshtml", module);
@@ -101,7 +103,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                     CursusCode = entity.CursusCode,
                     Icon = entity.Icon,
                     Status = "Nieuw",
-                    Verantwoordelijke = entity.Verantwoordelijke
+                    Verantwoordelijke = entity.Verantwoordelijke,
+                    OnderdeelCode = entity.Onderdeel
                 };
 
                 _unitOfWork.GetRepository<Module>().Create(module);
