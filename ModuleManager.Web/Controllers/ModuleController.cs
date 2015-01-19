@@ -72,6 +72,8 @@ namespace ModuleManager.Web.Controllers
             var tags = _unitOfWork.GetRepository<Tag>().GetAll();
             var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll();
             var werkvormen = _unitOfWork.GetRepository<Werkvorm>().GetAll();
+            var toetsvormen = _unitOfWork.GetRepository<Toetsvorm>().GetAll();
+            var modules = _unitOfWork.GetRepository<Module>().GetAll();
             var niveaus = _unitOfWork.GetRepository<Niveau>().GetAll();
 
             var moduleEditViewModel = new ModuleEditViewModel
@@ -82,6 +84,8 @@ namespace ModuleManager.Web.Controllers
                     Competenties = competenties.Select(Mapper.Map<Competentie, CompetentieViewModel>).ToList(),
                     Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
                     Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
+                    Toetsvormen = toetsvormen.Select(Mapper.Map<Toetsvorm, ToetsvormViewModel>).ToList(),
+                    VoorkennisModules = modules.Select(Mapper.Map<Module, ModuleVoorkennisViewModel>).ToList()
                     Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList(),
                     Niveaus = niveaus.Select(Mapper.Map<Niveau, NiveauViewModel>).ToList()
                 }
@@ -112,7 +116,7 @@ namespace ModuleManager.Web.Controllers
             return new FileStreamResult(fStream, "application/pdf");
         }
 
-        //Kijk hier even naar, wat je wilt met input...
+
         [HttpPost, Route("Module/ExportAll")]
         public ActionResult ExportAllModules(ExportArgumentsViewModel value)
         {
@@ -191,12 +195,12 @@ namespace ModuleManager.Web.Controllers
             Session[saveTo] = fStream;
 
             //Return the filename under which you can retrieve it from Session data.
-            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/{saveTo}
+            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/All/{saveTo}
             //This redirect will be caught in the controller action below here.
             return Json(saveTo);
         }
 
-        [HttpGet, Route("Module/Export/{loadFrom}")]
+        [HttpGet, Route("Module/Export/All/{loadFrom}")]
         public FileStreamResult GetExportAllModules(string loadFrom)
         {
             BufferedStream fStream = Session[loadFrom] as BufferedStream;
