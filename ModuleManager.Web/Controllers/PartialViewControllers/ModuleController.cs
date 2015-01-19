@@ -112,6 +112,42 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 return Json(new { success = false });
             }
         }
+
+        [HttpGet, Route("Modules/Delete")]
+        public ActionResult Delete(string cursusCode, string schooljaar)
+        {
+            if (cursusCode == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Module module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+
+            if (module == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("~/Views/Admin/Curriculum/Module/_Delete.cshtml", module);
+        }
+
+        [HttpPost, Route("Modules/Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Module entity)
+        {
+            try
+            {
+                _unitOfWork.GetRepository<Module>().Delete(entity);
+                return Json(new { success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+
+        }
+
+
         /*
         [HttpGet, Route("Modules/Edit")]
         public ActionResult Edit(string code, string schooljaar)
