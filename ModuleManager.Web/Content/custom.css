@@ -312,3 +312,20 @@ body.modal-open {
     margin-left: 12px;
     margin-right: 12px;
 }
+
+#users_filter {
+    text-align: right;
+}
+
+#users_filter label {
+    float: none;
+    margin-right: 3px;
+}
+
+#modules_filter {
+    text-align: right;
+}
+
+#modules_filter label {
+    float: none;
+}
