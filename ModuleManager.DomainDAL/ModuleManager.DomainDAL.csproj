@@ -143,6 +143,7 @@
     <Compile Include="Toetsvorm.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utility\DomainConstants.cs" />
     <Compile Include="Weekplanning.cs">
       <DependentUpon>ModuleManagerDB.tt</DependentUpon>
     </Compile>

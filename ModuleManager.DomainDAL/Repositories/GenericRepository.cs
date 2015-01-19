@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
+using ModuleManager.DomainDAL.Utility;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
@@ -24,19 +28,60 @@ namespace ModuleManager.DomainDAL.Repositories
             return _context.Set<T>().Find(keys);
         }
 
-        public void Create(T entity)
+        public string Create(T entity)
         {
-			_context.Entry(entity).State = EntityState.Added;
+            try
+            {
+                _context.Entry(entity).State = EntityState.Added;
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbUpdateException)
+                    return DomainConstants.DbErrorPkDuplicate;
+                if (ex is DbEntityValidationException)
+                    return DomainConstants.DbErrorNoSelection;
+
+                return DomainConstants.DbErrorStandard;
+            }
+            return "succes";
         }
 
-        public void Delete(T entity)
+        public string Delete(T entity)
         {
-            _context.Entry(entity).State = EntityState.Deleted;
+            try
+            {
+                _context.Entry(entity).State = EntityState.Deleted;
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbUpdateException)
+                    return DomainConstants.DbErrorFkConstraint;
+                if (ex is ArgumentOutOfRangeException)
+                    return DomainConstants.DbErrorPkInvalid;
+
+                return DomainConstants.DbErrorStandard;
+            }
+            return "succes";
         }
 
-        public void Edit(T entity)
+        public string Edit(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+                if (ex is DbUpdateException)
+                    return DomainConstants.DbErrorFkConstraint;
+                if (ex is InvalidOperationException)
+                    return DomainConstants.DbErrorPkChanged;
+                if (ex is ArgumentOutOfRangeException)
+                    return DomainConstants.DbErrorPkInvalid;
+
+                return DomainConstants.DbErrorStandard;
+            }
+            return "succes";
         }
     }
 }

@@ -19,7 +19,8 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Fase/Get")]
         public IEnumerable<Fase> GetAll()
         {
-            var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToArray();
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var fases = _unitOfWork.GetRepository<Fase>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)).ToArray();
             return fases;
         }
 
