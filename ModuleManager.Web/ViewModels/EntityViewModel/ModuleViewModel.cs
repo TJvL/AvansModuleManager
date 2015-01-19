@@ -17,19 +17,19 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
 
         public bool IsCompleted { get; set; }
 
-        public ICollection<ModuleCompetentieViewModel> ModuleCompetentie { get; set; }
-        public ICollection<StudiePuntenViewModel> StudiePunten { get; set; }
-        public ICollection<FaseModulesViewModel> FaseModules { get; set; }
-        public ICollection<StudieBelastingViewModel> StudieBelasting { get; set; }
-        public ICollection<ModuleWerkvormViewModel> ModuleWerkvorm { get; set; }
-        public ICollection<WeekplanningViewModel> Weekplanning { get; set; }
-        public ICollection<BeoordelingenViewModel> Beoordelingen { get; set; }
-        public ICollection<LeermiddelenViewModel> Leermiddelen { get; set; }
-        public ICollection<LeerdoelenViewModel> Leerdoelen { get; set; }
-        public ICollection<DocentViewModel> Docent { get; set; }
-        public ICollection<LeerlijnViewModel> Leerlijn { get; set; }
-        public ICollection<TagViewModel> Tag { get; set; }
-        public ICollection<ModuleVoorkennisViewModel> Module2 { get; set; }
+        public IList<ModuleCompetentieViewModel> ModuleCompetentie { get; set; }
+        public IList<StudiePuntenViewModel> StudiePunten { get; set; }
+        public IList<FaseModulesViewModel> FaseModules { get; set; }
+        public IList<StudieBelastingViewModel> StudieBelasting { get; set; }
+        public IList<ModuleWerkvormViewModel> ModuleWerkvorm { get; set; }
+        public IList<WeekplanningViewModel> Weekplanning { get; set; }
+        public IList<BeoordelingenViewModel> Beoordelingen { get; set; }
+        public IList<LeermiddelenViewModel> Leermiddelen { get; set; }
+        public IList<LeerdoelenViewModel> Leerdoelen { get; set; }
+        public IList<DocentViewModel> Docent { get; set; }
+        public IList<LeerlijnViewModel> Leerlijn { get; set; }
+        public IList<TagViewModel> Tag { get; set; }
+        public IList<ModuleVoorkennisViewModel> Module2 { get; set; }
 
         public ICollection<ModuleCompetentie> MapToModuleCompetentie()
         {
