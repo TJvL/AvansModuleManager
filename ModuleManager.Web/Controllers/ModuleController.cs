@@ -97,7 +97,7 @@ namespace ModuleManager.Web.Controllers
                     Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
                     Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
                     Toetsvormen = toetsvormen.Select(Mapper.Map<Toetsvorm, ToetsvormViewModel>).ToList(),
-                    VoorkennisModules = modules.Select(Mapper.Map<Module, ModuleVoorkennisViewModel>).ToList()
+                    VoorkennisModules = modules.Select(Mapper.Map<Module, ModuleVoorkennisViewModel>).ToList(),
                     Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList(),
                     Niveaus = niveaus.Select(Mapper.Map<Niveau, NiveauViewModel>).ToList()
                 }
@@ -107,25 +107,25 @@ namespace ModuleManager.Web.Controllers
         }
 
         [HttpPost, Route("Module/Edit")]
-        public ActionResult Edit(ModuleViewModel moduleVm)
+        public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
-            var moduleToEdit = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.CursusCode, moduleVm.Schooljaar });
-
-            moduleToEdit.Beschrijving = moduleVm.Beschrijving;
-            moduleToEdit.Docent = moduleVm.MapToDocent();
-            moduleToEdit.FaseModules = moduleVm.MapToFaseModules();
-            moduleToEdit.Leerdoelen = moduleVm.MapToLeerdoelen();
-            moduleToEdit.Leerlijn = moduleVm.MapToLeerlijn();
-            moduleToEdit.Leermiddelen = moduleVm.MapToLeermiddelen();
-            moduleToEdit.ModuleCompetentie = moduleVm.MapToModuleCompetentie();
-            moduleToEdit.ModuleWerkvorm = moduleVm.MapToModuleWerkvorm();
-            moduleToEdit.StudieBelasting = moduleVm.MapToStudieBelasting();
-            moduleToEdit.StudiePunten = moduleVm.MapToStudiePunten();
-            moduleToEdit.Tag = moduleVm.MapToTag();
-            moduleToEdit.Weekplanning = moduleVm.MapToWeekplanning();
+            var moduleToEdit = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
+            
+            moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
+            moduleToEdit.Docent = moduleVm.Module.MapToDocent();
+            moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
+            moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
+            moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn();
+            moduleToEdit.Leermiddelen = moduleVm.Module.MapToLeermiddelen();
+            moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie();
+            moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
+            moduleToEdit.StudieBelasting = moduleVm.Module.MapToStudieBelasting();
+            moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
+            moduleToEdit.Tag = moduleVm.Module.MapToTag();
+            moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
 
             var voorkennisModules = new List<Module>();
-            foreach (var voorkennisModule in moduleVm.Module2)
+            foreach (var voorkennisModule in moduleVm.Module.Module2)
             {
                 var voorMod =
                     _unitOfWork.GetRepository<Module>()
@@ -135,7 +135,7 @@ namespace ModuleManager.Web.Controllers
 
             moduleToEdit.Module2 = voorkennisModules;
 
-            if (moduleVm.IsCompleted)
+            if (moduleVm.Module.IsCompleted)
             {
                 moduleToEdit.Status = "Compleet (ongecontroleerd)";
             }
@@ -144,7 +144,7 @@ namespace ModuleManager.Web.Controllers
             _unitOfWork.Dispose();
 
 
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.CursusCode, moduleVm.Schooljaar });
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
             var modVm = Mapper.Map<Module, ModuleViewModel>(module);
             return View(modVm);
         }

@@ -24,13 +24,20 @@
             </div>
 
             <div class="col-md-12">
-                @using (Html.BeginForm("Edit", "Module", FormMethod.Post))
+                @using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { @id="module_edit_form" }))
                 {
                     <div id="hidden-values">
-                        @Html.HiddenFor(model => model.Module.CursusCode);
-                        @Html.HiddenFor(model => model.Module.Schooljaar);
+                        @Html.HiddenFor(model => model.Module.CursusCode, new { @id = "cursuscode" });
+                        @Html.HiddenFor(model => model.Module.Schooljaar, new { @id = "schooljaar" });
+
+                        <div id="hidden-leerlijnen">
+
+                        </div>
+
+                        <div id="hidden-voorkennis">
+                        </div>
                     </div>
-                                    
+
                     <table class="table">
                         <tr>
                             <td><label for="tags">Naam</label></td>
@@ -79,14 +86,14 @@
                             </td>
                         </tr>
                     </table>
-                
+                    
                     <table class="table">
                         <tr>
-                            <td><label for="tags">Tags</label></td>
+                            <td><label for="voorkennis">Voorkennis</label></td>
                         </tr>
                         <tr>
                             <td>
-                                @Html.DropDownList("Tag", new MultiSelectList(Model.Options.Tags, "Naam", "Naam", Model.Module.Tag.Select(m => m.Naam)), new { @id="tags", @multiple = "multiple", @class = "form-control" }) 
+                                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.Module2.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" }) 
                             </td>
                         </tr>
                     </table>
@@ -109,6 +116,37 @@
                                                 <option data-type="@opt.Type" selected="selected"> @opt.Omschrijving (@opt.Type)</option>
                                             }
                                         </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tags</th>
+                                    <td>
+                                        <table class="table table-bordered" id="wp">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tag</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.Module.Tag.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DropDownListFor(item => Model.Module.Tag[i].Naam, new SelectList((from t in Model.Options.Tags select t.Naam), Model.Module.Tag[i].Naam), new { @class = "form-control" })                                                           
+                                                        </td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-options='@Html.Raw(Json.Encode(from t in Model.Options.Tags select t.Naam))' data-target="wp" data-columns="1" data-collectionname="Tag" data-properties='["Naam"]' data-nextindex="@Model.Module.Tag.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </td>
                                 </tr>
                                 <tr>
@@ -157,7 +195,9 @@
                                                         <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })</td>
                                                         <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Duur, new { htmlAttributes = new { @class = "form-control" } })</td>
                                                         <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })</td>
-                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.StudieBelasting[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })</td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
@@ -187,8 +227,12 @@
                                                 @for (int i = 0; i < Model.Module.Weekplanning.Count; i++)
                                                 {
                                                     <tr>
-                                                        <td style="width:80px;">@Html.EditorFor(item => Model.Module.Weekplanning[i].Week, new { htmlAttributes = new { @class = "form-control" }})</td>
-                                                        <td>@Html.EditorFor(item => Model.Module.Weekplanning[i].Onderwerp, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td style="width:80px;">@Html.EditorFor(item => Model.Module.Weekplanning[i].Week, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.Weekplanning[i].Onderwerp, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.Weekplanning[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.Weekplanning[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
@@ -214,10 +258,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @for (int i = 0; i < Model.Module.Beoordelingen.Count; i++ )
+                                                @for (int i = 0; i < Model.Module.Beoordelingen.Count; i++)
                                                 {
                                                     <tr>
-                                                        <td>@Html.EditorFor(item => Model.Module.Beoordelingen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" }})</td>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.Beoordelingen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.Beoordelingen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.Beoordelingen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
@@ -246,7 +294,11 @@
                                                 @for (int i = 0; i < Model.Module.Leermiddelen.Count; i++)
                                                 {
                                                     <tr>
-                                                        <td>@Html.EditorFor(item => Model.Module.Leermiddelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" }})</td>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.Leermiddelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.Leermiddelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.Leermiddelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
@@ -275,7 +327,11 @@
                                                 @for (int i = 0; i < Model.Module.Leerdoelen.Count; i++)
                                                 {
                                                     <tr>
-                                                        <td>@Html.EditorFor(item => Model.Module.Leerdoelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" }})</td>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.Leerdoelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.Leerdoelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.Leerdoelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </td>
                                                         <td style="width: 90px; text-align:center">
                                                             <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
                                                         </td>
@@ -290,12 +346,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>Voorkennis</th>
-                                    <td>
-                                        <label style="color: red;">TODO: Github issue #35</label>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -304,7 +355,7 @@
                         <label for="status">Status</label>
                         <div id="status" class="checkbox" style="padding-left: 10px;">
                             <label>
-                                @if (Model.Module.Status.Contains("Compleet"))
+                                @if (Model.Module.IsCompleted)
                                 {
                                     <input name="status" type="checkbox" checked="checked">
                                 }
@@ -379,6 +430,38 @@
             //alert("removed val=" + e.data("type") + " choice=" + e.choice.text);
         })
 
+        $("#module_edit_form").submit(function () {
+            $hidden_leerlijnen = $("#hidden-leerlijnen");
+            $hidden_voorkennis = $("#hidden-voorkennis");
+
+            $hidden_leerlijnen.empty();
+
+            var index = 0;
+            debugger;
+            $("#leerlijn option:selected").each(function (i, selected) {
+                
+                var newRow1 = "<input name='Module.Tag[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+                var newRow2 = "<input name='Module.Tag[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+
+                $hidden_leerlijnen.append(newRow1 + newRow2);
+
+                ++index;
+            });
+
+            index = 0;
+
+            $("#voorkennis option:selected").each(function (i, selected) {
+
+                var newRow1 = "<input name='Module.Module2[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+                var newRow2 = "<input name='Module.Module2[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+                var newRow3 = "<input name='Module.Module2[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+
+                $hidden_voorkennis.append(newRow1 + newRow2 + newRow3);
+
+                ++index;
+            });
+        });
+
         $(".row_add").click(function () {
             
             var target = $(this).data("target");            
@@ -387,18 +470,43 @@
             var properties = $(this).data("properties");
             var newIndex = $(this).data("nextindex")
 
+            var options = $(this).data("options");
+
+            
+            
             var newRow = "<tr>";
-            if (columns == properties.length) {                
-                for (var i = 0; i < columns; i++)
+            if (columns == properties.length) {
+                if (columns == 1 && typeof(options) != 'undefined' )
                 {
-                    newRow += "<td><input class='form-control' id='Model_" + collName + "_" + newIndex + "_" + properties[i] + "' name='Model." + collName + "[" + newIndex + "]." + properties[i] + "' type='text'></td>" 
+                    debugger;
+                    newRow += "<td><select>";
+                    for (var optionName in options)
+                    {
+                        newRow += "<option>" + optionName + "</option>"
+                    }
+                    newRow += "</select>"
+                }
+                else
+                {
+                    for (var i = 0; i < columns; i++)
+                    {
+                        newRow += "<td><input class='form-control' id='Module_" + collName + "_" + newIndex + "_" + properties[i] + "' name='Module." + collName + "[" + newIndex + "]." + properties[i] + "' type='text'>"
+
+                        if (i != (columns - 1))
+                            newRow += "</td>";
+                    }
                 }
             }
             
+            newRow += "<input id='Module_" + collName + "_" + newIndex + "__CursusCode' name='Module." + collName + "[" + newIndex + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+            newRow += "<input id='Module_" + collName + "_" + newIndex + "__Schooljaar' name='Module." + collName + "[" + newIndex + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+
+            newRow += "</td>"
+
             newRow += "<td style='width: 90px; text-align:center'><a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a></td>"
 
             newRow += "</tr>";
-
+            
             $("#" + target + " tr:last").before(newRow);
 
             $(this).data("nextindex", newIndex + 1);
@@ -423,6 +531,10 @@
             });
 
             $("#werkvorm").select2({
+                placeholder: "Werkvorm"
+            });
+
+            $("#voorkennis").select2({
                 placeholder: "Werkvorm"
             });
         });
