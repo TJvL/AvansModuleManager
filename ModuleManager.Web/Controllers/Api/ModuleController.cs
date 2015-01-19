@@ -26,8 +26,7 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
         {
-            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
-            var modules = _unitOfWork.GetRepository<Module>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar));
+            var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
             ICollection<string> competentieFilters = null;
             if (value.Filter.Competenties.First() != null)
