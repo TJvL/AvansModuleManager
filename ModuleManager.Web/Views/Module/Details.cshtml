@@ -1,4 +1,5 @@
 ﻿@using ModuleManager.Web.ViewModels.EntityViewModel
+@using ModuleManager.Web.Helpers
 @model  ModuleManager.Web.ViewModels.EntityViewModel.ModuleViewModel
             
 @{
@@ -71,9 +72,16 @@
             <div class="col-md-12">
                 <div class="pull-right">
                     <a class="btn btn-default" href="@Url.Action("Overview", "Module")">Terug</a>
-                    <a class="btn btn-success" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>
-                </div>
+                    <a class="btn btn-success" href="@Url.Action("ExportSingleModule", "Module", new { schooljaar = Model.Schooljaar, cursuscode = Model.CursusCode })"><i class="fa fa-download"></i> Exporteren</a>               
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <a class="btn btn-warning" href="/module/edit/@Model.Schooljaar/@Model.CursusCode" ><i class="fa fa-edit"></i> Bewerken</a>
+                                           
+
+                                        }
+</div>
                 <h2 style="margin-top: 0">@Model.Naam</h2>
+                </div>
             </div>
             <div class="col-md-12">
                 <h3>Beschrijving</h3>
