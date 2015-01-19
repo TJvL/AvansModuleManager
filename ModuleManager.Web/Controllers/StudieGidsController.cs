@@ -6,16 +6,22 @@ using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
 using ModuleManager.DomainDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
+using ModuleManager.BusinessLogic.Interfaces.Services;
+using ModuleManager.BusinessLogic.Data;
+using ModuleManager.BusinessLogic.Interfaces;
+using System.IO;
 
 namespace ModuleManager.Web.Controllers
 {
     public class StudieGidsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IExporterService<Competentie> _competentieExporterService;
 
-        public StudieGidsController(IUnitOfWork unitOfWork)
+        public StudieGidsController(IUnitOfWork unitOfWork, IExporterService<Competentie> competentieExporterService)
         {
             _unitOfWork = unitOfWork;
+            _competentieExporterService = competentieExporterService;
         }
 
         // GET: Table
@@ -62,6 +68,23 @@ namespace ModuleManager.Web.Controllers
         {
             _unitOfWork.Dispose();
             base.Dispose(disposing);
+        }
+
+        [HttpGet, Route("StudieGids/Export/Competenties")]
+        public FileStreamResult GetCompetentiesExport() 
+        {
+            CompetentieExportArguments args = new CompetentieExportArguments() { ExportAll = true };
+            var data = _unitOfWork.GetRepository<Competentie>().GetAll();
+
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var lastYearData = (from element in data where element.Schooljaar.Equals(maxSchooljaar) select element).ToList();
+
+            IExportablePack<Competentie> pack = new CompetentieExportablePack(args, lastYearData);
+            Stream fStream = _competentieExporterService.ExportAllAsStream(pack);
+
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Competenties.pdf");
+
+            return new FileStreamResult(fStream, "application/pdf");
         }
     }
 }
