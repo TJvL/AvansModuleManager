@@ -49,7 +49,14 @@ namespace ModuleManager.BusinessLogic.Services
             LessenTabelExporterFactory ltef = new LessenTabelExporterFactory();
             lessenTabelExporterStrategy = ltef.GetStrategy(opt);
 
-            sect = lessenTabelExporterStrategy.Export(toExport, sect);
+            try
+            {
+                sect = lessenTabelExporterStrategy.Export(toExport, sect);
+            }
+            catch (Exception e)
+            {
+                sect.AddParagraph("An error has occured while invoking an export-function on FaseType: " + toExport.Type + "\n" + e.Message, "error");
+            }
 
             PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
             rend.Document = prePdf;
@@ -79,7 +86,14 @@ namespace ModuleManager.BusinessLogic.Services
             foreach (FaseType ft in pack.ToExport)
             {
                 Section sect = prePdf.AddSection();
-                sect = lessenTabelExporterStrategy.Export(ft, sect);
+                try
+                {
+                    sect = lessenTabelExporterStrategy.Export(ft, sect);
+                }
+                catch (Exception e)
+                {
+                    sect.AddParagraph("An error has occured while invoking an export-function on FaseType: " + ft.Type + "\n" + e.Message, "error");
+                }
 
                 //Page numbers (only for multi-export)
                 Paragraph p = new Paragraph();
@@ -146,9 +160,17 @@ namespace ModuleManager.BusinessLogic.Services
             {
                 Paragraph p2 = sect.AddParagraph();
                 p2.Style = "TOC";
-                Hyperlink hyperlink = p2.AddHyperlink(ft.Type);
-                hyperlink.AddText(ft.Type + "\t");
-                hyperlink.AddPageRefField(ft.Type);
+
+                if (ft.Type != null)
+                {
+                    Hyperlink hyperlink = p2.AddHyperlink(ft.Type);
+                    hyperlink.AddText(ft.Type + "\t");
+                    hyperlink.AddPageRefField(ft.Type);
+                }
+                else 
+                {
+                    p2.AddFormattedText("Critical data incomplete", "error");
+                }
             }
         }
     }
