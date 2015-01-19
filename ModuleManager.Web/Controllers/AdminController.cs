@@ -91,7 +91,8 @@ namespace ModuleManager.Web.Controllers
             {
                 LeerjaarFilter = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId)
             };
-            var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable());
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var queryPack = new ModuleQueryablePack(arguments, _unitOfWork.GetRepository<Module>().GetAll().AsQueryable().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
             var modules = _filterSorterService.ProcessData(queryPack).ToList();
             var moduleList = new ModuleListViewModel(modules.Count());
             moduleList.AddModules(modules);
@@ -100,11 +101,11 @@ namespace ModuleManager.Web.Controllers
             var userList = new UserListViewModel(users.Count());
             userList.AddUsers(users);
 
-	        var checkModulesVm = new CheckModulesViewModel
+            var checkModulesVm = new CheckModulesViewModel
             {
                 ModuleViewModels = moduleList,
                 Users = userList
-	        };
+            };
 
             return View(checkModulesVm);
         }

@@ -26,28 +26,36 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpPost, Route("api/Module/GetOverview")]
         public ModuleListViewModel GetOverview([FromBody] ArgumentsViewModel value)
         {
-            var modules = _unitOfWork.GetRepository<Module>().GetAll();
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var modules = _unitOfWork.GetRepository<Module>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar));
 
             ICollection<string> competentieFilters = null;
-            if (value.Filter.Competenties.First() != null) competentieFilters = value.Filter.Competenties;
+            if (value.Filter.Competenties.First() != null)
+                competentieFilters = value.Filter.Competenties;
 
             ICollection<string> tagFilters = null;
-            if (value.Filter.Tags.First() != null) tagFilters = value.Filter.Tags;
+            if (value.Filter.Tags.First() != null)
+                tagFilters = value.Filter.Tags;
 
             ICollection<string> leerlijnFilters = null;
-            if (value.Filter.Leerlijnen.First() != null) leerlijnFilters = value.Filter.Leerlijnen;
+            if (value.Filter.Leerlijnen.First() != null)
+                leerlijnFilters = value.Filter.Leerlijnen;
 
             ICollection<string> faseFilters = null;
-            if (value.Filter.Fases.First() != null) faseFilters = value.Filter.Fases;
+            if (value.Filter.Fases.First() != null)
+                faseFilters = value.Filter.Fases;
 
             ICollection<string> blokFilters = null;
-            if(value.Filter.Blokken.First() != null) blokFilters = value.Filter.Blokken.ToArray();
+            if (value.Filter.Blokken.First() != null)
+                blokFilters = value.Filter.Blokken.ToArray();
 
             string zoektermFilter = null;
-            if (value.Filter.Zoekterm != null) zoektermFilter = value.Filter.Zoekterm;
+            if (value.Filter.Zoekterm != null)
+                zoektermFilter = value.Filter.Zoekterm;
 
             string leerjaarFilter = null;
-            if (value.Filter.Leerjaar != null) leerjaarFilter = value.Filter.Leerjaar;
+            if (value.Filter.Leerjaar != null)
+                leerjaarFilter = value.Filter.Leerjaar;
 
             int column = value.OrderBy.Column;
             string columnName;

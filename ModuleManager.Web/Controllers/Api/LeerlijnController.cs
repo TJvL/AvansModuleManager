@@ -19,7 +19,8 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Leerlijn/Get")]
         public IEnumerable<Leerlijn> GetAll()
         {
-            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().ToArray();
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)).ToArray();
             return leerlijnen;
         }
 
