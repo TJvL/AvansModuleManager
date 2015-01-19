@@ -12,6 +12,7 @@ using ModuleManager.DomainDAL;
 
 namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
+     [Authorize(Roles = "Admin")]
     public class ModuleBlockController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
