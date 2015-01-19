@@ -17,7 +17,8 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
             if (args.ZoektermFilter != null) 
             {
                 toQuery = from m in toQuery where 
-                              m.Beschrijving.Contains(args.ZoektermFilter) || 
+                              (
+                              //m.Beschrijving.Contains(args.ZoektermFilter) || 
                               m.CursusCode.Contains(args.ZoektermFilter) || 
                               (from d in m.Docent select d.Name).Contains(args.ZoektermFilter) ||
                               (from l in m.Leerdoelen select l.Beschrijving).Contains(args.ZoektermFilter) ||
@@ -28,6 +29,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                               m.Naam.Contains(args.ZoektermFilter) ||
                               (from t in m.Tag select t.Naam).Contains(args.ZoektermFilter) ||
                               m.Verantwoordelijke.Contains(args.ZoektermFilter) 
+                              )
                           select m; 
             }
 
