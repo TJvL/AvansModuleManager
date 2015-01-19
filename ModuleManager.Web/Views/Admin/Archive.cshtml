@@ -4,6 +4,7 @@
             <div class="col-md-12">
                 <ol class="breadcrumb">
                     <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
                     <li class="active">Archiveren</li>
                 </ol>
             </div>
@@ -24,7 +25,7 @@
                      }
                     <div class="form-group">
                         <label for="confirm">Weet uw zeker dat uw het huidige cohort wil achiveren? Zoja Type dan "ARCHIVEREN" in hoofdletters hieronder.</label>
-                        <input type="text" class="form-control" id="confirm" placeholder="ARCHIVEREN">
+                        <input type="text" class="form-control" name="code" id="confirm" placeholder="ARCHIVEREN">
                     </div>
                     <button id="archiveBtn" type="submit" class="btn btn-danger btn-lg">Archiveren</button>
                     <a href="@Url.Action("Index", "Admin")" class="btn btn-default">Annuleren</a>

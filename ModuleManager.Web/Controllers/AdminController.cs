@@ -124,6 +124,8 @@ namespace ModuleManager.Web.Controllers
                 return View();
             }
 
+            //ViewBag.Message = "code: " + code;
+
             using (var context = new DomainContext())
             {
                 context.SP_ArchiveYear();
