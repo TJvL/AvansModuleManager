@@ -1,4 +1,6 @@
-﻿@model ModuleManager.Web.ViewModels.AdminCurriculumViewModel
+﻿@using ModuleManager.Web.Helpers
+
+@model ModuleManager.Web.ViewModels.AdminCurriculumViewModel
 
 <div class="container">
     <div class="row">
@@ -13,15 +15,15 @@
 
             <div class="col-md-12">
                 <h2>Curriculum beheer</h2>
-                <br/><br/>
+                <br /><br />
             </div>
-            
+
             <div class="col-md-6">
                 <div id="toolbar" class="competentiesTable" style="display:none;">
-                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#competentie-add">Toevoegen</button>
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Competenties", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
                 </div>
                 <h3 style="margin-top: 0">Competenties</h3>
-                
+
                 <table id="competentiesTable" class="table table-hover">
                     <thead>
                         <tr>
@@ -36,9 +38,10 @@
                             <tr class="competentie-item">
                                 <td class="ninety-width">@item.Code</td>
                                 <td>@item.Naam</td>
-                                <td class="actions ninety-width">
-                                    <a data-toggle="modal" data-target="#competentie-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="modal" data-target="#competentie-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                <td class="actions" style="width:118px">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-info'></span>", "Details", "Details", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-info btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                                 </td>
                             </tr>
                         }
@@ -49,10 +52,10 @@
 
             <div class="col-md-6">
                 <div id="toolbar" class="fasesTable" style="display:none;">
-                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#fase-add">Toevoegen</button>
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Fases", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
                 </div>
                 <h3 style="margin-top: 0">Fases</h3>
-                
+
                 <table id="fasesTable" class="table table-hover">
                     <thead>
                         <tr>
@@ -68,8 +71,8 @@
                                 <td class="ninety-width">@item.FaseType</td>
                                 <td>@item.Naam</td>
                                 <td class="actions ninety-width">
-                                    <a data-toggle="modal" data-target="#fase-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="modal" data-target="#fase-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Fases", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar, opleidingsNaam = item.OpleidingNaam, opleidingsSchooljaar = item.OpleidingSchooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Fases", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar, opleidingsNaam = item.OpleidingNaam, opleidingsSchooljaar = item.OpleidingSchooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                                 </td>
                             </tr>
                         }
@@ -77,13 +80,17 @@
                 </table>
                 <br /><br />
             </div>
-        
-            <div class="col-md-6">
+            
+            <div class="col-md-12">
+                <hr />
+            </div>
+
+            <div class="col-md-4">
                 <div id="toolbar" class="leerlijnenTable" style="display:none;">
-                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#leerlijn-add">Toevoegen</button>
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Leerlijnen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
                 </div>
                 <h3 style="margin-top: 0">Leerlijnen</h3>
-                
+
                 <table id="leerlijnenTable" class="table table-hover">
                     <thead>
                         <tr>
@@ -96,9 +103,8 @@
                         {
                             <tr class="leerlijn-item">
                                 <td>@item.Naam</td>
-                                <td class="actions ninety-width">
-                                    <a data-toggle="modal" data-target="#leerlijn-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="modal" data-target="#leerlijn-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                <td class="actions" style="width:45px;">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Leerlijnen", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                                 </td>
                             </tr>
                         }
@@ -107,12 +113,12 @@
                 <br /><br />
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div id="toolbar" class="tagsTable" style="display:none;">
-                    <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#tag-add">Toevoegen</button>
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Tags", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
                 </div>
                 <h3 style="margin-top: 0">Tags</h3>
-                
+
                 <table id="tagsTable" class="table table-hover">
                     <thead>
                         <tr>
@@ -125,9 +131,36 @@
                         {
                             <tr class="tag-item">
                                 <td>@item.Naam</td>
-                                <td class="actions ninety-width">
-                                    <a data-toggle="modal" data-target="#tag-edit" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                    <a data-toggle="modal" data-target="#tag-delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                <td class="actions" style="width:45px;">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Tags", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+            
+            <div class="col-md-4">
+                <div id="toolbar" class="onderdelenTable" style="display:none;">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Onderdelen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                </div>
+                <h3 style="margin-top: 0">Onderdelen</h3>
+
+                <table id="onderdelenTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Onderdeel)
+                        {
+                            <tr class="tag-item">
+                                <td>@item.Code</td>
+                                <td class="actions" style="width:45px;">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Onderdelen", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
                                 </td>
                             </tr>
                         }
@@ -145,7 +178,7 @@
 
                 <div id="items" class="row">
                     <div class="col-md-12">
-                        
+
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -257,7 +290,7 @@
                             </ul>
                         </div>
                         <div class="col-md-6 text-right">
-                            <br/>
+                            <br />
                             18 resultaten - Pagina 2 van 4
                         </div>
                     </div>
@@ -267,36 +300,22 @@
     </div>
 </div>
 
-<!-- Help MODAL -->
-@Html.Partial("~/Views/Help/Curriculum.cshtml", null)
-
-<!-- CRUD MODALS -->
-@Html.Partial("~/Views/Admin/Curriculum/Competentie/Add.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Competentie/Details.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Competentie/Edit.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Competentie/Delete.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Fase/Add.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Fase/Edit.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Fase/Delete.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Add.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Edit.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Leerlijn/Delete.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Tag/Add.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Tag/Edit.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Tag/Delete.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Module/Add.cshtml", null)
-@Html.Partial("~/Views/Admin/Curriculum/Module/Delete.cshtml", null)
+<div id="myModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
 
 <!-- JAVA MEUK -->
 @section Scripts {
-    
+
+    @Scripts.Render("~/bundles/modalform")
     <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
-    
+
     <style>
         div.dataTables_filter label {
             float: left !important;
@@ -322,6 +341,11 @@
                 if (!$(this).hasClass("actions")) {
                     $('#competentie-details').modal('show');
                 }
+            });
+
+            $(".competentie-item td .info").on("click", function (e) {
+                e.preventDefault();
+                $('#competentie-details').modal('show');
             });
 
             // SELECT2
@@ -388,6 +412,16 @@
                     $("#leerlijnenTable_wrapper").find(".toolbar").append($("#toolbar.leerlijnenTable").html());
                 }
             });
+
+            $("#onderdelenTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [1] }
+                ],
+                initComplete: function () {
+                    $("#onderdelenTable_wrapper").find(".toolbar").append($("#toolbar.onderdelenTable").html());
+                }
+            });
+            
 
 
         });
