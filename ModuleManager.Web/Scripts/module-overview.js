@@ -118,6 +118,11 @@ function initDatatable() {
 
 function initFilters() {
 
+    $("#SearchFilter").on("click", function (e) {
+        e.preventDefault();
+        $("#modules").dataTable().fnDraw();
+    });
+
     $("#FilterTable").on("click", function (e) {
         e.preventDefault();
         $("#modules").dataTable().fnDraw();
