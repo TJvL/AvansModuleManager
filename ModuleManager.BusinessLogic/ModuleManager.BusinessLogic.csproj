@@ -64,6 +64,8 @@
     <Compile Include="Data\CompetentieExportArguments.cs" />
     <Compile Include="Data\LeerlijnExportablePack.cs" />
     <Compile Include="Data\LeerlijnExportArguments.cs" />
+    <Compile Include="Data\LessenTabelExportablePack.cs" />
+    <Compile Include="Data\LessenTabelExportArguments.cs" />
     <Compile Include="Data\ModuleFilterSorterArguments.cs" />
     <Compile Include="Data\ModuleExportArguments.cs" />
     <Compile Include="Data\ModuleExportablePack.cs" />
@@ -78,6 +80,9 @@
     <Compile Include="Exporters\LeerlijnExporterStack\LeerlijnCompetentiesExporter.cs" />
     <Compile Include="Exporters\LeerlijnExporterStack\LeerlijnNaamExporter.cs" />
     <Compile Include="Exporters\LeerlijnPassiveExporter.cs" />
+    <Compile Include="Exporters\LessenTabelBaseExporter.cs" />
+    <Compile Include="Exporters\LessenTabelExporterStack\LessenTabelNaamExporter.cs" />
+    <Compile Include="Exporters\LessenTabelPassiveExporter.cs" />
     <Compile Include="Exporters\ModuleBaseExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleBeschrijvingExporter.cs" />
     <Compile Include="Exporters\ModuleExporterStack\ModuleAlgemeneInfoExporter.cs" />
@@ -95,6 +100,7 @@
     <Compile Include="Exporters\ModulePassiveExporter.cs" />
     <Compile Include="Factories\CompetentieExporterFactory.cs" />
     <Compile Include="Factories\LeerlijnExporterFactory.cs" />
+    <Compile Include="Factories\LessenTabelExporterFactory.cs" />
     <Compile Include="Factories\ModuleExporterFactory.cs" />
     <Compile Include="Filters\ModuleBaseFilter.cs" />
     <Compile Include="Filters\ModuleFilterStack\ModuleFaseNamenFilter.cs" />
