@@ -74,6 +74,15 @@
             </select>
         </div>
         
+        <div class="form-group">
+            @Html.LabelFor(model => model.Onderdelen)
+            <select name="Onderdeel" class="form-control ajax" id="Onderdeel">
+                @foreach (var onderdeel in Model.Onderdelen)
+                {
+                    <option>@onderdeel.Code</option>
+                }
+            </select>
+        </div>
         
         <div class="row">
             <div class="col-md-10">

@@ -12,6 +12,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public string CursusCode { get; set; }
         public string Blok { get; set; }
         public string Icon { get; set; }
+        public string Onderdeel { get; set; }
 
         [Required]
         //[DisplayName("Toetscode")]
@@ -31,6 +32,8 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         public IEnumerable<Blok> Blokken { get; set; }
 
         public IEnumerable<Icons> Icons { get; set; }
+
+        public IEnumerable<Onderdeel> Onderdelen { get; set; }
 
         //public IEnumerable<StudiePunten> StudiePunten { get; set; }
 
