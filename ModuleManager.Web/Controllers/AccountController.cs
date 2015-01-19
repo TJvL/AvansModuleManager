@@ -1,11 +1,10 @@
-﻿using ModuleManager.UserDAL.Repositories;
+﻿using ModuleManager.UserDAL.Interfaces;
+using ModuleManager.UserDAL.Repositories;
 using ModuleManager.Web.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -14,11 +13,11 @@ namespace ModuleManager.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private SysteemRolRepository _systeemRolRepository;
+        private readonly ISysteemRolRepository _systeemRolRepository;
 
-        public AccountController()
+        public AccountController(ISysteemRolRepository systeemRolRepository)
         {
-            _systeemRolRepository = new SysteemRolRepository();
+            _systeemRolRepository = systeemRolRepository;
         }
 
         [HttpGet]

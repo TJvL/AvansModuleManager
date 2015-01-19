@@ -12,7 +12,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
     public class ModuleStatusFilter : ModuleBaseFilter
     {
         public ModuleStatusFilter(IFilter<Module> parent) : base(parent) { }
-        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
             if (args.StatusFilter != null)
             {

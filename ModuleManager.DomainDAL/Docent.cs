@@ -15,7 +15,7 @@ namespace ModuleManager.DomainDAL
     public partial class Docent
     {
         public string CursusCode { get; set; }
-        public int Schooljaar { get; set; }
+        public string Schooljaar { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
     

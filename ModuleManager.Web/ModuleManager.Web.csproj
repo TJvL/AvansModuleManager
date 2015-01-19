@@ -282,10 +282,12 @@
     <Compile Include="Controllers\Api\Interfaces\IGenericApiController.cs" />
     <Compile Include="Controllers\Api\Interfaces\IModuleApiController.cs" />
     <Compile Include="Controllers\Api\LeerlijnController.cs" />
+    <Compile Include="Controllers\Api\OnderdeelController.cs" />
     <Compile Include="Controllers\Api\ModuleController.cs" />
     <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\StudieGidsController.cs" />
     <Compile Include="Controllers\PartialViewControllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -297,10 +299,31 @@
     <Compile Include="ViewModels\CheckModulesViewModel.cs" />
     <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
     <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\BeoordelingenViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\CompetentieViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\DocentViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\FaseModulesViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\LeerdoelenViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\LeerlijnViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\LeermiddelenViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\ModuleCompetentieViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\ModuleViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\ModuleWerkvormViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\StudieBelastingViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\WeekplanningViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\WerkvormViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleEditOptionsViewModel.cs" />
+    <Compile Include="ViewModels\ModuleEditViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\LessenTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\LesTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />
-    <Compile Include="ViewModels\PartialViewModel\ModuleViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleTabelViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModulePartialViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleVoorkennisViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserListViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
@@ -310,6 +333,7 @@
     <Compile Include="ViewModels\RequestViewModels\Filter.cs" />
     <Compile Include="ViewModels\RequestViewModels\OrderBy.cs" />
     <Compile Include="ViewModels\RequestViewModels\ArgumentsViewModel.cs" />
+    <Compile Include="ViewModels\StudiegidsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -361,6 +385,7 @@
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\StudieGids\Index.cshtml" />
     <Content Include="Views\Admin\Users\_Lock.cshtml" />
     <Content Include="Views\Admin\Users\_Add.cshtml" />
     <Content Include="Views\Admin\Users\_Edit.cshtml" />

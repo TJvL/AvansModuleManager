@@ -1,50 +1,33 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.DomainDAL;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.Web.ViewModels;
+using ModuleManager.Web.ViewModels.EntityViewModel;
 using ModuleManager.Web.ViewModels.PartialViewModel;
-using ModuleManager.BusinessLogic.Services;
 using System.IO;
-using ModuleManager.BusinessLogic.Interfaces;
 using ModuleManager.Web.ViewModels.RequestViewModels;
 using System.Collections.Generic;
-using System;
+using WebGrease;
 
 namespace ModuleManager.Web.Controllers
 {
 
     public class ModuleController : Controller
     {
-        private readonly IGenericRepository<Blok> _blokRepository;
-        private readonly IGenericRepository<Schooljaar> _schooljaarRepository;
-        private readonly IGenericRepository<Module> _moduleRepository;
-        private readonly IGenericRepository<Competentie> _competentieRepository;
-        private readonly IGenericRepository<Leerlijn> _leerlijnRepository;
-        private readonly IGenericRepository<Tag> _tagRepository;
-        private readonly IGenericRepository<Fase> _faseRepository;
-
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IExporterService<Module> _moduleExporterService;
         private readonly IFilterSorterService<Module> _filterSorterService;
 
-        public ModuleController(IGenericRepository<Blok> blokRepository,
-            IGenericRepository<Schooljaar> schooljaarRepository, IGenericRepository<Module> moduleRepository, 
-            IGenericRepository<Competentie> competentieRepository, IGenericRepository<Leerlijn> leerlijnRepository, 
-            IGenericRepository<Tag> tagRepository, IGenericRepository<Fase> faseRepository,
-            IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService)
+        public ModuleController(IExporterService<Module> moduleExporterService, IFilterSorterService<Module> filterSorterService, IUnitOfWork unitOfWork)
         {
-            _blokRepository = blokRepository;
-            _schooljaarRepository = schooljaarRepository;
-            _moduleRepository = moduleRepository;
-            _competentieRepository = competentieRepository;
-            _leerlijnRepository = leerlijnRepository;
-            _tagRepository = tagRepository;
-            _faseRepository = faseRepository;
-
             _moduleExporterService = moduleExporterService;
             _filterSorterService = filterSorterService;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -56,45 +39,63 @@ namespace ModuleManager.Web.Controllers
         {
             //Collect the possible filter options the user can choose.
             var filterOptions = new FilterOptionsViewModel();
-            filterOptions.AddBlokken(_blokRepository.GetAll());
-            filterOptions.AddCompetenties(_competentieRepository.GetAll());
+            filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll());
+            filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll());
             filterOptions.AddECs();
-            filterOptions.AddFases(_faseRepository.GetAll());
-            filterOptions.AddLeerjaren(_schooljaarRepository.GetAll());
-            filterOptions.AddLeerlijnen(_leerlijnRepository.GetAll());
-            filterOptions.AddTags(_tagRepository.GetAll());
+            filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll());
+            filterOptions.AddLeerjaren(_unitOfWork.GetRepository<Schooljaar>().GetAll());
+            filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll());
+            filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll());
 
             //Construct the ViewModel.
             var moduleOverviewVm = new ModuleOverviewViewModel
             {
                 FilterOptions = filterOptions
             };
+
             return View(moduleOverviewVm);
         }
 
         [HttpGet, Route("Module/Details/{schooljaar}/{cursusCode}")]
         public ActionResult Details(string schooljaar, string cursusCode)
         {
-            return View(_moduleRepository.GetOne(new object[] { schooljaar, cursusCode }));
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
+            return View(modVm);
         }
 
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
-            return View(_moduleRepository.GetOne(new object[] { schooljaar, cursusCode }));
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+            var competenties = _unitOfWork.GetRepository<Competentie>().GetAll();
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll();
+            var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll();
+            var werkvormen = _unitOfWork.GetRepository<Werkvorm>().GetAll();
+
+            var moduleEditViewModel = new ModuleEditViewModel
+            {
+                Module = Mapper.Map<Module, ModuleViewModel>(module),
+                Options = new ModuleEditOptionsViewModel
+                {
+                    Competenties = competenties.Select(Mapper.Map<Competentie, CompetentieViewModel>).ToList(),
+                    Leerlijnen = leerlijnen.Select(Mapper.Map<Leerlijn, LeerlijnViewModel>).ToList(),
+                    Tags = tags.Select(Mapper.Map<Tag, TagViewModel>).ToList(),
+                    Werkvormen = werkvormen.Select(Mapper.Map<Werkvorm, WerkvormViewModel>).ToList()
+                }
+            };
+
+            return View(moduleEditViewModel);
         }
 
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(Module entity)
         {
-            var isSucces = _moduleRepository.Edit(entity);
+            _unitOfWork.GetRepository<Module>().Edit(entity);
 
-            if (isSucces)
-            {
-                return Redirect("Overview");
-            }
-
-            return View(_moduleRepository.GetOne(new object[] { entity.Schooljaar.ToString(), entity.CursusCode }));
+            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { entity.CursusCode, entity.Schooljaar });
+            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
+            return View(modVm);
         }
 
         //PDF Download Code
@@ -102,7 +103,8 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
         public FileStreamResult ExportSingleModule(string schooljaar, string cursusCode)
         {
-            Stream fStream = _moduleExporterService.ExportAsStream(_moduleRepository.GetOne(new object[]{schooljaar, cursusCode}));
+            Stream fStream = _moduleExporterService.ExportAsStream(_unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar }));
+
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
 
             return new FileStreamResult(fStream, "application/pdf");
@@ -110,46 +112,53 @@ namespace ModuleManager.Web.Controllers
 
         //Kijk hier even naar, wat je wilt met input...
         [HttpPost, Route("Module/ExportAll")]
-        public FileStreamResult ExportAllModules(ExportArgumentsViewModel value)
+        public ActionResult ExportAllModules(ExportArgumentsViewModel value)
         {
-            var modules = _moduleRepository.GetAll();
+            var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
             ICollection<string> competentieFilters = null;
-            if (value.Filters.Competenties.First() != null) competentieFilters = value.Filters.Competenties;
+            if (value.Filters.Competenties.First() != null)
+                competentieFilters = value.Filters.Competenties;
 
             ICollection<string> tagFilters = null;
-            if (value.Filters.Tags.First() != null) tagFilters = value.Filters.Tags;
+            if (value.Filters.Tags.First() != null)
+                tagFilters = value.Filters.Tags;
 
             ICollection<string> leerlijnFilters = null;
-            if (value.Filters.Leerlijnen.First() != null) leerlijnFilters = value.Filters.Leerlijnen;
+            if (value.Filters.Leerlijnen.First() != null)
+                leerlijnFilters = value.Filters.Leerlijnen;
 
             ICollection<string> faseFilters = null;
-            if (value.Filters.Fases.First() != null) faseFilters = value.Filters.Fases;
+            if (value.Filters.Fases.First() != null)
+                faseFilters = value.Filters.Fases;
 
             ICollection<string> blokFilters = null;
-            if ((value.Filters.Blokken.First() != null)&&(value.Filters.Blokken.First() != "")) blokFilters = value.Filters.Blokken;
+            if ((value.Filters.Blokken.First() != null) && (value.Filters.Blokken.First() != ""))
+                blokFilters = value.Filters.Blokken;
 
             string zoektermFilter = null;
-            if (value.Filters.Zoekterm != null) zoektermFilter = value.Filters.Zoekterm;
+            if (value.Filters.Zoekterm != null)
+                zoektermFilter = value.Filters.Zoekterm;
 
-            int leerjaarFilter = 0;
-            if (value.Filters.Leerjaar != null) leerjaarFilter = Convert.ToInt32(value.Filters.Leerjaar);
+            string leerjaarFilter = null;
+            if (value.Filters.Leerjaar != null)
+                leerjaarFilter = value.Filters.Leerjaar;
 
-            var arguments = new Arguments
-            {
-                CompetentieFilters = competentieFilters,
-                TagFilters = tagFilters,
-                LeerlijnFilters = leerlijnFilters,
-                FaseFilters = faseFilters,
-                BlokFilters = blokFilters,
-                ZoektermFilter = zoektermFilter,
-                LeerjaarFilter = leerjaarFilter
-            };
+            var arguments = new ModuleFilterSorterArguments
+        {
+            CompetentieFilters = competentieFilters,
+            TagFilters = tagFilters,
+            LeerlijnFilters = leerlijnFilters,
+            FaseFilters = faseFilters,
+            BlokFilters = blokFilters,
+            ZoektermFilter = zoektermFilter,
+            LeerjaarFilter = leerjaarFilter
+        };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
 
-            var exportArguments = new ExportArguments
+            var exportArguments = new ModuleExportArguments
             {
                 ExportCursusCode = value.Export.CursusCode,
                 ExportNaam = value.Export.Naam,
@@ -169,9 +178,36 @@ namespace ModuleManager.Web.Controllers
             var exportablePack = new ModuleExportablePack(exportArguments, modules);
 
             BufferedStream fStream = _moduleExporterService.ExportAllAsStream(exportablePack);
+
+            string expByName = User.Identity.Name;
+            if (expByName == null || expByName.Equals(""))
+            {
+                expByName = "download";
+            }
+
+            string saveTo = DateTime.Now.ToString("yyyy-MM-dd") + "_" + expByName;
+            Session[saveTo] = fStream;
+
+            //Return the filename under which you can retrieve it from Session data.
+            //Ajax/jQuery will then parse that string, and redirect to /Module/Export/{saveTo}
+            //This redirect will be caught in the controller action below here.
+            return Json(saveTo);
+        }
+
+        [HttpGet, Route("Module/Export/{loadFrom}")]
+        public FileStreamResult GetExportAllModules(string loadFrom)
+        {
+            BufferedStream fStream = Session[loadFrom] as BufferedStream;
             HttpContext.Response.AddHeader("content-disposition", "attachment; filename=form.pdf");
+            Session[loadFrom] = null;
 
             return new FileStreamResult(fStream, "application/pdf");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

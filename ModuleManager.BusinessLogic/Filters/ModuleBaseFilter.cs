@@ -31,7 +31,7 @@ namespace ModuleManager.BusinessLogic.Filters
         /// <param name="toQuery">The data that will be queried</param>
         /// <param name="args">The applied arguments</param>
         /// <returns>The queried data</returns>
-        public virtual IQueryable<Module> Filter(IQueryable<Module> toQuery, Arguments args)
+        public virtual IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
             return parent.Filter(toQuery, args);
         }
