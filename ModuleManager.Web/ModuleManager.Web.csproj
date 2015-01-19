@@ -326,6 +326,7 @@
     <Compile Include="ViewModels\PartialViewModel\ModuleTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModulePartialViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleVoorkennisViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\OnderdeelTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserListViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
