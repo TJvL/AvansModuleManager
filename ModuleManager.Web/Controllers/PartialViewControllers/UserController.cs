@@ -18,6 +18,7 @@ using System.Text;
 
 namespace ModuleManager.Web.Controllers.Api
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository;

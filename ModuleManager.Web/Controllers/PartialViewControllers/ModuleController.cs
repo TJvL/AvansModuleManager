@@ -11,6 +11,7 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
+    [Authorize(Roles = "Admin")]
     public class ModulesController : Controller
     {
 
