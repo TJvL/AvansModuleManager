@@ -13,6 +13,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ModuleManager.Web.Controllers.Api
 {
@@ -42,41 +44,25 @@ namespace ModuleManager.Web.Controllers.Api
 
             if (ModelState.IsValid)
             {
-
-                // Read the connection string from web.config.
-                // ConfigurationManager class is in System.Configuration namespace
-                string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
-                // SqlConnection is in System.Data.SqlClient namespace
-                using (SqlConnection con = new SqlConnection(CS))
+                using (var context = new UserContext())
                 {
-                    SqlCommand cmd = new SqlCommand("spRegisterUser", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    SqlParameter username = new SqlParameter("@UserNaam", registrationVM.UserNaam);
-                    // FormsAuthentication class is in System.Web.Security namespace
-                    string encryptedPassword = FormsAuthentication.
-                        HashPasswordForStoringInConfigFile(registrationVM.Wachtwoord, "SHA1");
-                    SqlParameter password = new SqlParameter("@Wachtwoord", encryptedPassword);
-                    SqlParameter role = new SqlParameter("@SysteemRol", registrationVM.SelectedSysteemRol);
-                    SqlParameter email = new SqlParameter("@email", registrationVM.Email);
-                    SqlParameter name = new SqlParameter("@naam", registrationVM.Naam);
+                    String hashedPassword = GetSwcSH1(registrationVM.Wachtwoord);
 
-                    cmd.Parameters.Add(username);
-                    cmd.Parameters.Add(password);
-                    cmd.Parameters.Add(role);
-                    cmd.Parameters.Add(email);
-                    cmd.Parameters.Add(name);
+                    var resultlist = context.spRegisterUser(registrationVM.UserNaam, hashedPassword, registrationVM.SelectedSysteemRol, registrationVM.Email, registrationVM.Naam);
+                    var list = new List<int?>();
 
-                    con.Open();
-                    int ReturnCode = (int)cmd.ExecuteScalar();
-                    if (ReturnCode == -1)
+                    list = (from element in resultlist select element).ToList();
+                    var result = list.SingleOrDefault();
+
+                    if (result == -1)
                     {
                         ViewBag.UsernameError = "User Name already in use, please choose another user name";
                     }
                     else
                     {
                         return Json(new { success = true });
-                    }
+                    }                             
                 }
             }
 
@@ -110,34 +96,18 @@ namespace ModuleManager.Web.Controllers.Api
         {
             if (ModelState.IsValid)
             {
-                string CS = ConfigurationManager.ConnectionStrings["UserSQLconnection"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(CS))
+                using (var context = new UserContext())
                 {
-                    SqlCommand cmd = new SqlCommand("spEditUser", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    SqlParameter newUsername = new SqlParameter("@NewUserNaam", userEditVM.UserNaam);
-                    SqlParameter oldUsername = new SqlParameter("@OldUserNaam", userEditVM.OudeUserNaam);
-                    // FormsAuthentication class is in System.Web.Security namespace
-                    string encryptedPassword = FormsAuthentication.
-                        HashPasswordForStoringInConfigFile(userEditVM.Wachtwoord, "SHA1");
-                    SqlParameter password = new SqlParameter("@Wachtwoord", encryptedPassword);
-                    SqlParameter role = new SqlParameter("@SysteemRol", userEditVM.SysteemRol);
-                    SqlParameter email = new SqlParameter("@email", userEditVM.Email);
-                    SqlParameter name = new SqlParameter("@naam", userEditVM.Naam);
-                    SqlParameter blocked = new SqlParameter("@Blocked", userEditVM.Blocked);
+                    String hashedPassword = GetSwcSH1(userEditVM.Wachtwoord);
 
-                    cmd.Parameters.Add(oldUsername);
-                    cmd.Parameters.Add(newUsername);
-                    cmd.Parameters.Add(password);
-                    cmd.Parameters.Add(role);
-                    cmd.Parameters.Add(email);
-                    cmd.Parameters.Add(name);
-                    cmd.Parameters.Add(blocked);
+                    var resultlist = context.spEditUser(userEditVM.OudeUserNaam, userEditVM.UserNaam, hashedPassword, userEditVM.SysteemRol, userEditVM.Email, userEditVM.Naam, userEditVM.Blocked);
+                    var list = new List<int?>();
 
-                    con.Open();
-                    int ReturnCode = (int)cmd.ExecuteScalar();
-                    if (ReturnCode == -1)
+                    list = (from element in resultlist select element).ToList();
+                    var result = list.SingleOrDefault();
+
+                    if (result == -1)
                     {
                         ViewBag.UsernameError = "User Name already in use, please choose another user name";
                     }
@@ -146,7 +116,6 @@ namespace ModuleManager.Web.Controllers.Api
                         return Json(new { success = true });
                     }
                 }
-
             }
 
             userEditVM.SysteemRollen = _systeemRolRepository.GetAll();
@@ -187,7 +156,19 @@ namespace ModuleManager.Web.Controllers.Api
 
             return PartialView("~/Views/Admin/Users/_Lock.cshtml", userVM);
           
-        } 
+        }
+
+        public static string GetSwcSH1(string value)
+        {
+            SHA1 algorithm = SHA1.Create();
+            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
+            string sh1 = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                sh1 += data[i].ToString("x2").ToUpperInvariant();
+            }
+            return sh1;
+        }
 
     }
 }

@@ -86,6 +86,10 @@
           <Parameter Name="SysteemRol" Type="varchar" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="naam" Type="varchar" Mode="In" />
+          <Parameter Name="Blocked" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spGetRol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
         </Function>
         <Function Name="spRegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserNaam" Type="varchar" Mode="In" />
@@ -187,6 +191,7 @@
             <Parameter Name="SysteemRol" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="naam" Mode="In" Type="String" />
+            <Parameter Name="Blocked" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="spRegisterUser" ReturnType="Collection(Int32)">
             <Parameter Name="UserNaam" Mode="In" Type="String" />
@@ -194,6 +199,16 @@
             <Parameter Name="SysteemRol" Mode="In" Type="String" />
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="naam" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RegisterUser" ReturnType="Collection(Int32)">
+            <Parameter Name="UserNaam" Mode="In" Type="String" />
+            <Parameter Name="Wachtwoord" Mode="In" Type="String" />
+            <Parameter Name="SysteemRol" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="naam" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetRol" ReturnType="Collection(String)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="sysdiagrams">
@@ -280,6 +295,8 @@
           <FunctionImportMapping FunctionImportName="spAuthenticateUser" FunctionName="IN06SOb_UserDataModel.Store.spAuthenticateUser" />
           <FunctionImportMapping FunctionImportName="spEditUser" FunctionName="IN06SOb_UserDataModel.Store.spEditUser" />
           <FunctionImportMapping FunctionImportName="spRegisterUser" FunctionName="IN06SOb_UserDataModel.Store.spRegisterUser" />
+          <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="IN06SOb_UserDataModel.Store.spRegisterUser" />
+          <FunctionImportMapping FunctionImportName="spGetRol" FunctionName="IN06SOb_UserDataModel.Store.spGetRol" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
