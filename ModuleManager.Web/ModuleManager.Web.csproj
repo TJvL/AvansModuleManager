@@ -287,6 +287,7 @@
     <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\ModuleBlockController.cs" />
     <Compile Include="Controllers\StudieGidsController.cs" />
     <Compile Include="Controllers\PartialViewControllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -323,6 +324,7 @@
     <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\LesTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleLockViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleTabelViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModulePartialViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleVoorkennisViewModel.cs" />
@@ -391,6 +393,7 @@
     <Content Include="Views\Admin\Users\_Lock.cshtml" />
     <Content Include="Views\Admin\Users\_Add.cshtml" />
     <Content Include="Views\Admin\Users\_Edit.cshtml" />
+    <Content Include="Views\Admin\CheckModules\_Lock.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -400,6 +403,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ModuleBlock\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

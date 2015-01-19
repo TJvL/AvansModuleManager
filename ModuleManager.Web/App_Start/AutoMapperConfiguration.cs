@@ -12,6 +12,9 @@ namespace ModuleManager.Web
         const string Delimiter = ", ";
         public static void Configure()
         {
+
+            Mapper.CreateMap<Module, ModuleLockViewModel>();
+
             Mapper.CreateMap<Module, ModuleViewModel>();
 
             Mapper.CreateMap<Module, ModuleVoorkennisViewModel>();
