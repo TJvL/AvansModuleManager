@@ -88,9 +88,12 @@ namespace ModuleManager.Web.Controllers
                     }
                     foreach (var module in orderedRows)
                     {
-                        OnderdeelTabelViewModel onderdeelTabelViewModel = tabel.Onderdelen.FirstOrDefault(src => src.Onderdeel.Equals(module.Onderdeel));
-                        if (onderdeelTabelViewModel != null)
-                            onderdeelTabelViewModel.Modules.Add(module);
+                        if (module.Onderdeel != null)
+                        {
+                            OnderdeelTabelViewModel onderdeelTabelViewModel = tabel.Onderdelen.FirstOrDefault(src => src.Onderdeel.Equals(module.Onderdeel));
+                            if (onderdeelTabelViewModel != null)
+                                onderdeelTabelViewModel.Modules.Add(module);
+                        }
                     }
                     tabellenlijst.Tabellen.Add(tabel);
                 }

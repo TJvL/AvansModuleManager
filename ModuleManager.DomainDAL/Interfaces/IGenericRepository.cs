@@ -6,8 +6,8 @@ namespace ModuleManager.DomainDAL.Interfaces
     {
         IEnumerable<T> GetAll();
         T GetOne(object[] keys);
-        void Create(T entity);
-        void Delete(T entity);
-        void Edit(T entity);
+        string Create(T entity);
+        string Delete(T entity);
+        string Edit(T entity);
     }
 }
