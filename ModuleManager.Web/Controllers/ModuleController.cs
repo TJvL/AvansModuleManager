@@ -115,14 +115,14 @@ namespace ModuleManager.Web.Controllers
             
             moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
             moduleToEdit.Docent = moduleVm.Module.MapToDocent();
-            //moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
+            moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
             moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
             moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn();
             moduleToEdit.Leermiddelen = moduleVm.Module.MapToLeermiddelen();
             moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie();
             moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
             moduleToEdit.StudieBelasting = moduleVm.Module.MapToStudieBelasting();
-            moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
+            //moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
             moduleToEdit.Tag = moduleVm.Module.MapToTag();
             moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
 
