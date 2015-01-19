@@ -27,8 +27,10 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [HttpGet, Route("Modules/Create")]
         public ActionResult Create()
         {
+            var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
+            var schooljaar = schooljaren.Last();
 
-            var fases = _unitOfWork.GetRepository<Fase>().GetAll().ToList();
+            var fases = _unitOfWork.GetRepository<Fase>().GetAll().Where(x => x.Schooljaar == schooljaar.JaarId).ToList();
             var blokken = _unitOfWork.GetRepository<Blok>().GetAll().ToList();
             var icons = _unitOfWork.GetRepository<Icons>().GetAll().ToList();
             var onderdelen = _unitOfWork.GetRepository<Onderdeel>().GetAll().ToList();
