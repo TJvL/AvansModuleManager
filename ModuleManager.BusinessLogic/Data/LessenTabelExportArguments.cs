@@ -10,5 +10,7 @@ namespace ModuleManager.BusinessLogic.Data
     {
 
         public bool ExportNaam { get; set; }
+
+        public bool ExportTabellen { get; set; }
     }
 }

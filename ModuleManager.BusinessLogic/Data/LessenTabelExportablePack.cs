@@ -11,7 +11,7 @@ namespace ModuleManager.BusinessLogic.Data
     /// <summary>
     /// Pack containing any and all items to use for exporting to PDF
     /// </summary>
-    class LessenTabelExportablePack : IExportablePack<FaseType>
+    public class LessenTabelExportablePack : IExportablePack<FaseType>
     {
         LessenTabelExportArguments _options;
         IEnumerable<FaseType> _toExport;

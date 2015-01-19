@@ -81,6 +81,7 @@
     <Compile Include="Exporters\LeerlijnExporterStack\LeerlijnNaamExporter.cs" />
     <Compile Include="Exporters\LeerlijnPassiveExporter.cs" />
     <Compile Include="Exporters\LessenTabelBaseExporter.cs" />
+    <Compile Include="Exporters\LessenTabelExporterStack\LessenTabelInhoudExporter.cs" />
     <Compile Include="Exporters\LessenTabelExporterStack\LessenTabelNaamExporter.cs" />
     <Compile Include="Exporters\LessenTabelPassiveExporter.cs" />
     <Compile Include="Exporters\ModuleBaseExporter.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Services\CompetentieExporterService.cs" />
     <Compile Include="Services\DummyModuleExporterService.cs" />
     <Compile Include="Services\LeerlijnExporterService.cs" />
+    <Compile Include="Services\LessenTabelExporterService.cs" />
     <Compile Include="Services\ModuleExporterService.cs" />
     <Compile Include="Services\ModuleFilterService.cs" />
     <Compile Include="Services\DummyModuleFilterSorterService.cs" />

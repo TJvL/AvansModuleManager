@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,17 @@ namespace ModuleManager.BusinessLogic.Factories
             if (opt.ExportAll || opt.ExportNaam)
             {
                 Type t = usableTypes["LessenTabelNaamExporter"];
+                var ctor = t.GetConstructor(typeArgs);
+                if (ctor != null)
+                {
+                    object[] parameters = { strategy };
+                    strategy = ctor.Invoke(parameters) as IExporter<FaseType>;
+                }
+            }
+
+            if (opt.ExportAll || opt.ExportTabellen) 
+            {
+                Type t = usableTypes["LessenTabelInhoudExporter"];
                 var ctor = t.GetConstructor(typeArgs);
                 if (ctor != null)
                 {

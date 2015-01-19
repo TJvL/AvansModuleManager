@@ -31,7 +31,7 @@ namespace ModuleManager.BusinessLogic.Exporters
         /// <param name="toExport">Data to export from</param>
         /// <param name="sect">Section to write to</param>
         /// <returns>Section with appended data</returns>
-        public Section Export(FaseType toExport, Section sect)
+        public virtual Section Export(FaseType toExport, Section sect)
         {
             return parent.Export(toExport, sect);
         }
