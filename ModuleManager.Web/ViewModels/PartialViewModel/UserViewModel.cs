@@ -35,7 +35,7 @@ namespace ModuleManager.Web.ViewModels.PartialViewModel
         [Required]
         [DataType(DataType.Password)]
         public string Wachtwoord { get; set; }
-        [DisplayName("systeemrol")]
+        [DisplayName("Systeemrol")]
         [Required]
         public string SysteemRol { get; set; }
 

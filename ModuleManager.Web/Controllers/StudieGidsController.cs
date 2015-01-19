@@ -8,16 +8,24 @@ using ModuleManager.Web.ViewModels;
 using ModuleManager.DomainDAL;
 using ModuleManager.Web.ViewModels.PartialViewModel;
 using System.Collections.Generic;
+using ModuleManager.BusinessLogic.Interfaces.Services;
+using ModuleManager.BusinessLogic.Data;
+using ModuleManager.BusinessLogic.Interfaces;
+using System.IO;
 
 namespace ModuleManager.Web.Controllers
 {
     public class StudieGidsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IExporterService<Competentie> _competentieExporterService;
+        private readonly IExporterService<Leerlijn> _leerlijnExporterService;
 
-        public StudieGidsController(IUnitOfWork unitOfWork)
+        public StudieGidsController(IUnitOfWork unitOfWork, IExporterService<Competentie> competentieExporterService, IExporterService<Leerlijn> leerlijnExporterService)
         {
             _unitOfWork = unitOfWork;
+            _competentieExporterService = competentieExporterService;
+            _leerlijnExporterService = leerlijnExporterService;
         }
 
         // GET: Table
@@ -95,6 +103,40 @@ namespace ModuleManager.Web.Controllers
         {
             _unitOfWork.Dispose();
             base.Dispose(disposing);
+        }
+
+        [HttpGet, Route("StudieGids/Export/Competenties")]
+        public FileStreamResult GetCompetentiesExport() 
+        {
+            CompetentieExportArguments args = new CompetentieExportArguments() { ExportAll = true };
+            var data = _unitOfWork.GetRepository<Competentie>().GetAll();
+
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var lastYearData = (from element in data where element.Schooljaar.Equals(maxSchooljaar) select element).ToList();
+
+            IExportablePack<Competentie> pack = new CompetentieExportablePack(args, lastYearData);
+            Stream fStream = _competentieExporterService.ExportAllAsStream(pack);
+
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Competenties.pdf");
+
+            return new FileStreamResult(fStream, "application/pdf");
+        }
+
+        [HttpGet, Route("StudieGids/Export/Leerlijnen")]
+        public FileStreamResult GetLeerlijnenExport()
+        {
+            LeerlijnExportArguments args = new LeerlijnExportArguments() { ExportAll = true };
+            var data = _unitOfWork.GetRepository<Leerlijn>().GetAll();
+
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var lastYearData = (from element in data where element.Schooljaar.Equals(maxSchooljaar) select element).ToList();
+
+            IExportablePack<Leerlijn> pack = new LeerlijnExportablePack(args, lastYearData);
+            Stream fStream = _leerlijnExporterService.ExportAllAsStream(pack);
+
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Competenties.pdf");
+
+            return new FileStreamResult(fStream, "application/pdf");
         }
     }
 }

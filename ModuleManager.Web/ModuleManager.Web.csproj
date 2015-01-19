@@ -303,6 +303,7 @@
     <Compile Include="ViewModels\EntityViewModel\CompetentieViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\DocentViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\FaseModulesViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\FaseTypeViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\LeerdoelenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\LeerlijnViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\LeermiddelenViewModel.cs" />
@@ -312,6 +313,7 @@
     <Compile Include="ViewModels\EntityViewModel\StudieBelastingViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\ToetsvormViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\WeekplanningViewModel.cs" />
     <Compile Include="ViewModels\EntityViewModel\WerkvormViewModel.cs" />
     <Compile Include="ViewModels\PartialViewModel\ModuleEditOptionsViewModel.cs" />
@@ -383,7 +385,6 @@
     <Content Include="Views\Admin\Curriculum\Fase\Add.cshtml" />
     <Content Include="Views\Admin\Curriculum\Fase\Edit.cshtml" />
     <Content Include="Views\Admin\Curriculum\Fase\Delete.cshtml" />
-    <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\StudieGids\Index.cshtml" />
