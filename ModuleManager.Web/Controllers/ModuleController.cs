@@ -115,37 +115,23 @@ namespace ModuleManager.Web.Controllers
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
-            var moduleToEdit = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
+            //moduleToEdit.Docent = moduleVm.Module.MapToDocent();
+            //moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
+            //moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
+            //moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn();
+            //moduleToEdit.Leermiddelen = moduleVm.Module.MapToLeermiddelen();
+            //moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie();
+            //moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
+            //moduleToEdit.StudieBelasting = moduleVm.Module.MapToStudieBelasting();
+            //moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
+            //moduleToEdit.Tag = moduleVm.Module.MapToTag();
+            //moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
 
-            //var editedModule = new Module
-            //{
-            //    Beschrijving = moduleVm.Module.Beschrijving,
-            //    Docent = moduleVm.Module.MapToDocent(),
-            //    FaseModules = moduleVm.Module.MapToFaseModules(),
-            //    Leerdoelen = moduleVm.Module.MapToLeerdoelen(),
-            //    Leerlijn = moduleVm.Module.MapToLeerlijn(),
-            //    Leermiddelen = moduleVm.Module.MapToLeermiddelen(),
-            //    ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie(),
-            //    ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm(),
-            //    StudieBelasting = moduleVm.Module.MapToStudieBelasting(),
-            //    StudiePunten = moduleVm.Module.MapToStudiePunten(),
-            //    Tag = moduleVm.Module.MapToTag(),
-            //    Weekplanning = moduleVm.Module.MapToWeekplanning()
-            //};
+            #region Module
 
+            var moduleToEdit = _unitOfWork.GetRepository<Module>()
+                .GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
             moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
-            moduleToEdit.Docent = moduleVm.Module.MapToDocent();
-            moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
-            moduleToEdit.Leerdoelen = moduleVm.Module.MapToLeerdoelen();
-            moduleToEdit.Leerlijn = moduleVm.Module.MapToLeerlijn();
-            moduleToEdit.Leermiddelen = moduleVm.Module.MapToLeermiddelen();
-            moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie();
-            moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
-            moduleToEdit.StudieBelasting = moduleVm.Module.MapToStudieBelasting();
-            moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
-            moduleToEdit.Tag = moduleVm.Module.MapToTag();
-            moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
-
             var voorkennisModules = new List<Module>();
             if (moduleVm.Module.Module2 != null)
             {
@@ -167,9 +153,11 @@ namespace ModuleManager.Web.Controllers
             {
                 moduleToEdit.Status = "Incompleet";
             }
-
             _unitOfWork.GetRepository<Module>().Edit(moduleToEdit);
             _unitOfWork.SaveToDatabase();
+
+            #endregion
+
 
             return RedirectToAction(
                 "Details",

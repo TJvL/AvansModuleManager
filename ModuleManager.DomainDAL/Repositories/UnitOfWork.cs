@@ -18,8 +18,6 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public void SaveToDatabase()
         {
-            Context.ChangeTracker.DetectChanges();
-            var hasChanges = Context.ChangeTracker.HasChanges();
             Context.SaveChanges();
         }
 

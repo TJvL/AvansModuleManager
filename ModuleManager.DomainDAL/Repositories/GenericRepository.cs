@@ -7,6 +7,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
 using ModuleManager.DomainDAL.Utility;
+using RefactorThis.GraphDiff;
 
 namespace ModuleManager.DomainDAL.Repositories
 {
@@ -77,7 +78,8 @@ namespace ModuleManager.DomainDAL.Repositories
                 //    if (original != null && !original.Equals(current))
                 //        dbEntityEntry.Property(property).IsModified = true;
                 //}
-                var test = _context.Entry(entity);
+                //var test = _context.Entry(entity);
+                _context.Entry(entity).State = EntityState.Modified;
             }
             catch (Exception ex)
             {
