@@ -60,8 +60,7 @@ namespace ModuleManager.Web.Controllers
                 foreach (var random in joined
                     .Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType))
                     .DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })
-                    .OrderBy(src => src.a.FaseNaam)
-                    .ThenBy(src => src.a.Blok))
+                    .OrderBy(src => src.a.Blok))
                 {
                     var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
                     var rows = new List<ModuleTabelViewModel>();
