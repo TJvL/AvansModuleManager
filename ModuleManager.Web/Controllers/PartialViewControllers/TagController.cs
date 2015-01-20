@@ -73,8 +73,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                _unitOfWork.GetRepository<Tag>().Delete(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Tag>().Delete(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {

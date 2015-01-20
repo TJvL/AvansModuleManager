@@ -58,7 +58,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 entity.Schooljaar = schooljaar.JaarId;
 
                 var value = _unitOfWork.GetRepository<Competentie>().Create(entity);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -90,7 +90,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             try
             {
                 var value = _unitOfWork.GetRepository<Competentie>().Edit(entity);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -123,7 +123,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             try
             {
                 var value = _unitOfWork.GetRepository<Competentie>().Delete(entity);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {

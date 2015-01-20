@@ -27,6 +27,7 @@ function bindForm(dialog) {
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {
+                console.log(result);
                 if (result.success) {
                     $('#myModal').modal('hide');
                     location.reload();
@@ -37,10 +38,10 @@ function bindForm(dialog) {
                     } else {
                         alert("Er is een fout opgetreden.");
                     }
-                    $('#myModal').modal('hide');
+                    //$('#myModal').modal('hide');
                     //alert("U heeft een of meerdere velden niet juist ingevoerd.");
-                    //$('#myModalContent').html(result);
-                    //bindForm();
+                    $('#myModalContent').html(result);
+                    bindForm();
                 }
             }
         });
