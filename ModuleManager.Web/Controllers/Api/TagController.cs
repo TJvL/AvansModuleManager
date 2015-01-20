@@ -19,7 +19,8 @@ namespace ModuleManager.Web.Controllers.Api
         [HttpGet, Route("api/Tag/Get")]
         public IEnumerable<Tag> GetAll()
         {
-            var tags = _unitOfWork.GetRepository<Tag>().GetAll().ToArray();
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
+            var tags = _unitOfWork.GetRepository<Tag>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)).ToArray();
             return tags;
         }
 

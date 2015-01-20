@@ -115,9 +115,14 @@
 
                                 <select name="year" class="form-control ajax" id="FilterLeerjaar">
                                     <option></option>
+                                    @{
+                                        int i = 1;
+                                    }
+
                                     @foreach (var leerjaren in Model.FilterOptions.Leerjaren)
                                     {
-                                        <option>@leerjaren</option>
+                                        <option @(Model.FilterOptions.Leerjaren.Count() == i ? "selected" : "")>@leerjaren</option>
+                                        i++;
                                     }
                                 </select>
 

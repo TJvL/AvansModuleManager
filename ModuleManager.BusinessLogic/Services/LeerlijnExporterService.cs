@@ -52,7 +52,14 @@ namespace ModuleManager.BusinessLogic.Services
             LeerlijnExporterFactory lef = new LeerlijnExporterFactory();
             leerlijnExporterStrategy = lef.GetStrategy(opt);
 
-            sect = leerlijnExporterStrategy.Export(toExport, sect);
+            try
+            {
+                sect = leerlijnExporterStrategy.Export(toExport, sect);
+            }
+            catch (Exception e)
+            {
+                sect.AddParagraph("An error has occured while invoking an export-function on Leerlijn: " + toExport.Naam + "\n" + e.Message, "error");
+            }
 
             PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
             rend.Document = prePdf;
@@ -82,7 +89,14 @@ namespace ModuleManager.BusinessLogic.Services
             foreach (DomainDAL.Leerlijn l in pack.ToExport)
             {
                 Section sect = prePdf.AddSection();
-                sect = leerlijnExporterStrategy.Export(l, sect);
+                try
+                {
+                    sect = leerlijnExporterStrategy.Export(l, sect);
+                }
+                catch (Exception e)
+                {
+                    sect.AddParagraph("An error has occured while invoking an export-function on Leerlijn: " + l.Naam + "\n" + e.Message, "error");
+                }
 
                 //Page numbers (only for multi-export)
                 Paragraph p = new Paragraph();
@@ -149,9 +163,16 @@ namespace ModuleManager.BusinessLogic.Services
             {
                 Paragraph p2 = sect.AddParagraph();
                 p2.Style = "TOC";
-                Hyperlink hyperlink = p2.AddHyperlink(l.Naam);
-                hyperlink.AddText(l.Naam + "\t");
-                hyperlink.AddPageRefField(l.Naam);
+                if (l.Naam != null)
+                {
+                    Hyperlink hyperlink = p2.AddHyperlink(l.Naam);
+                    hyperlink.AddText(l.Naam + "\t");
+                    hyperlink.AddPageRefField(l.Naam);
+                }
+                else 
+                {
+                    p2.AddFormattedText("Critical data incomplete", "error");
+                }
             }
         }
     }

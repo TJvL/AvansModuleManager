@@ -10,7 +10,7 @@ namespace ModuleManager.Web.ViewModels.RequestViewModels
         public bool CursusCode { get; set; }
         public bool Naam { get; set; }
         public bool Beschrijving { get; set; }
-        public bool AlgemeneBeschrijving { get; set; }
+        public bool AlgemeneInformatie { get; set; }
         public bool Studiebelasting { get; set; }
         public bool Organisatie { get; set; }
         public bool Weekplanning { get; set; }

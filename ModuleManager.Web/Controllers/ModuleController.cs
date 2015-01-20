@@ -37,15 +37,16 @@ namespace ModuleManager.Web.Controllers
         [HttpGet, Route("Module/Overview")]
         public ActionResult Overview()
         {
+            var maxSchooljaar = _unitOfWork.GetRepository<Schooljaar>().GetAll().Max(src => src.JaarId);
             //Collect the possible filter options the user can choose.
             var filterOptions = new FilterOptionsViewModel();
             filterOptions.AddBlokken(_unitOfWork.GetRepository<Blok>().GetAll());
-            filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll());
+            filterOptions.AddCompetenties(_unitOfWork.GetRepository<Competentie>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
             filterOptions.AddECs();
-            filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll());
+            filterOptions.AddFases(_unitOfWork.GetRepository<Fase>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
             filterOptions.AddLeerjaren(_unitOfWork.GetRepository<Schooljaar>().GetAll());
-            filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll());
-            filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll());
+            filterOptions.AddLeerlijnen(_unitOfWork.GetRepository<Leerlijn>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
+            filterOptions.AddTags(_unitOfWork.GetRepository<Tag>().GetAll().Where(src => src.Schooljaar.Equals(maxSchooljaar)));
 
             //Construct the ViewModel.
             var moduleOverviewVm = new ModuleOverviewViewModel
@@ -64,6 +65,7 @@ namespace ModuleManager.Web.Controllers
             return View(modVm);
         }
 
+        [Authorize(Roles = "Docent")]
         [HttpGet, Route("Module/Edit/{schooljaar}/{cursusCode}")]
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
@@ -108,6 +110,7 @@ namespace ModuleManager.Web.Controllers
             return View(moduleEditViewModel);
         }
 
+        [Authorize(Roles = "Docent")]
         [HttpPost, Route("Module/Edit")]
         public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
@@ -206,15 +209,15 @@ namespace ModuleManager.Web.Controllers
                 leerjaarFilter = value.Filters.Leerjaar;
 
             var arguments = new ModuleFilterSorterArguments
-        {
-            CompetentieFilters = competentieFilters,
-            TagFilters = tagFilters,
-            LeerlijnFilters = leerlijnFilters,
-            FaseFilters = faseFilters,
-            BlokFilters = blokFilters,
-            ZoektermFilter = zoektermFilter,
-            LeerjaarFilter = leerjaarFilter
-        };
+            {
+                CompetentieFilters = competentieFilters,
+                TagFilters = tagFilters,
+                LeerlijnFilters = leerlijnFilters,
+                FaseFilters = faseFilters,
+                BlokFilters = blokFilters,
+                ZoektermFilter = zoektermFilter,
+                LeerjaarFilter = leerjaarFilter
+            };
 
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
@@ -224,7 +227,7 @@ namespace ModuleManager.Web.Controllers
                 ExportCursusCode = value.Export.CursusCode,
                 ExportNaam = value.Export.Naam,
                 ExportBeschrijving = value.Export.Beschrijving,
-                ExportAlgInfo = value.Export.AlgemeneBeschrijving,
+                ExportAlgInfo = value.Export.AlgemeneInformatie,
                 ExportStudieBelasting = value.Export.Studiebelasting,
                 ExportOrganisatie = value.Export.Organisatie,
                 ExportWeekplanning = value.Export.Weekplanning,

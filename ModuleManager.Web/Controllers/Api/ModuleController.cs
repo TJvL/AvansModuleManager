@@ -29,25 +29,32 @@ namespace ModuleManager.Web.Controllers.Api
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
             ICollection<string> competentieFilters = null;
-            if (value.Filter.Competenties.First() != null) competentieFilters = value.Filter.Competenties;
+            if (value.Filter.Competenties.First() != null)
+                competentieFilters = value.Filter.Competenties;
 
             ICollection<string> tagFilters = null;
-            if (value.Filter.Tags.First() != null) tagFilters = value.Filter.Tags;
+            if (value.Filter.Tags.First() != null)
+                tagFilters = value.Filter.Tags;
 
             ICollection<string> leerlijnFilters = null;
-            if (value.Filter.Leerlijnen.First() != null) leerlijnFilters = value.Filter.Leerlijnen;
+            if (value.Filter.Leerlijnen.First() != null)
+                leerlijnFilters = value.Filter.Leerlijnen;
 
             ICollection<string> faseFilters = null;
-            if (value.Filter.Fases.First() != null) faseFilters = value.Filter.Fases;
+            if (value.Filter.Fases.First() != null)
+                faseFilters = value.Filter.Fases;
 
             ICollection<string> blokFilters = null;
-            if(value.Filter.Blokken.First() != null) blokFilters = value.Filter.Blokken.ToArray();
+            if (value.Filter.Blokken.First() != null)
+                blokFilters = value.Filter.Blokken.ToArray();
 
             string zoektermFilter = null;
-            if (value.Filter.Zoekterm != null) zoektermFilter = value.Filter.Zoekterm;
+            if (value.Filter.Zoekterm != null)
+                zoektermFilter = value.Filter.Zoekterm;
 
             string leerjaarFilter = null;
-            if (value.Filter.Leerjaar != null) leerjaarFilter = value.Filter.Leerjaar;
+            if (value.Filter.Leerjaar != null)
+                leerjaarFilter = value.Filter.Leerjaar;
 
             int column = value.OrderBy.Column;
             string columnName;
@@ -96,9 +103,15 @@ namespace ModuleManager.Web.Controllers.Api
             var queryPack = new ModuleQueryablePack(arguments, modules.AsQueryable());
             modules = _filterSorterService.ProcessData(queryPack);
 
-            var modArray = modules.ToArray();
-            var moduleListVm = new ModuleListViewModel(modArray.Count());
-            moduleListVm.AddModules(modArray);
+            var enumerable = modules as Module[] ?? modules.ToArray();
+            var modArray = enumerable.ToArray().Where(m => m.Status == "Compleet (gecontroleerd)");
+            if (User.Identity.IsAuthenticated)
+            {
+                modArray = enumerable.ToArray();
+            }
+            var moduleList = modArray as Module[] ?? modArray.ToArray();
+            var moduleListVm = new ModuleListViewModel(moduleList.Count());
+            moduleListVm.AddModules(moduleList);
 
             return moduleListVm;
         }

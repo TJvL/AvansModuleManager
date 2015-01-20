@@ -52,7 +52,14 @@ namespace ModuleManager.BusinessLogic.Services
             ModuleExporterFactory mef = new ModuleExporterFactory();
             moduleExporterStrategy = mef.GetStrategy(opt);
 
-            sect = moduleExporterStrategy.Export(toExport, sect);
+            try
+            {
+                sect = moduleExporterStrategy.Export(toExport, sect);
+            }
+            catch (Exception e)
+            {
+                sect.AddParagraph("An error has occured while invoking an export-function on Module: " + toExport.Naam + "\n" + e.Message, "error");
+            }
 
             PdfDocumentRenderer rend = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
             rend.Document = prePdf;
@@ -82,7 +89,14 @@ namespace ModuleManager.BusinessLogic.Services
             foreach(DomainDAL.Module m in pack.ToExport)
             {
                 Section sect = prePdf.AddSection();
-                sect = moduleExporterStrategy.Export(m, sect);
+                try
+                {
+                    sect = moduleExporterStrategy.Export(m, sect);
+                }
+                catch (Exception e)
+                {
+                    sect.AddParagraph("An error has occured while invoking an export-function on Module: " + m.Naam + "\n" + e.Message, "error");
+                }
 
                 //Page numbers (only for multi-export)
                 Paragraph p = new Paragraph();
@@ -149,9 +163,16 @@ namespace ModuleManager.BusinessLogic.Services
             {
                 Paragraph p2 = sect.AddParagraph();
                 p2.Style = "TOC";
-                Hyperlink hyperlink = p2.AddHyperlink(m.Naam);
-                hyperlink.AddText(m.Naam+"\t");
-                hyperlink.AddPageRefField(m.Naam);
+                if (m.Naam != null && m.Schooljaar != null)
+                {
+                    Hyperlink hyperlink = p2.AddHyperlink(m.Naam + " - " + m.Schooljaar);
+                    hyperlink.AddText(m.Naam + "\t");
+                    hyperlink.AddPageRefField(m.Naam + " - " + m.Schooljaar);
+                }
+                else
+                {
+                    p2.AddFormattedText("Critical data incomplete", "error");
+                }
             }
         }
     }

@@ -3,7 +3,9 @@
 $(function () {
     $.ajaxSetup({ cache: false });
 
-    $("a[data-modal]").on("click", function (e) {
+    $("#content").on("click", "a[data-modal]", function (e) {
+
+        e.preventDefault();
         // hide dropdown if any (this is used wehen invoking modal from link in bootstrap dropdown )
         //$(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
 
@@ -14,7 +16,7 @@ $(function () {
             }, 'show');
             bindForm(this);
         });
-        return false;
+
     });
 });
 
@@ -30,6 +32,7 @@ function bindForm(dialog) {
                     location.reload();
                     //$('#replacetarget').reload(result.url); //  Load data from the server and place the returned HTML into the matched element
                 } else {
+                    alert("U heeft een of meerdere velden niet juist ingevoerd.");
                     $('#myModalContent').html(result);
                     bindForm();
                 }

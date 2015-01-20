@@ -1,0 +1,52 @@
+﻿@using ModuleManager.DomainDAL
+@model  ModuleManager.DomainDAL.Competentie
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="CompetentieDetails">Competentie details</h4>
+</div>
+
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Code)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Code)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Naam)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Naam)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Beschrijving)
+            </dt>
+
+            <dd>
+                @{
+                    string[] competenties = null;
+                    competenties = Model.Beschrijving.Split(new string[] { "$$" }, StringSplitOptions.None);
+                }
+                @foreach (string comptentie in competenties)
+                {
+                    @comptentie<br />
+                }
+            </dd>
+
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Terug</button>
+    </div>
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
+}
