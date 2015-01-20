@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using ModuleManager.DomainDAL.Interfaces;
@@ -68,7 +69,15 @@ namespace ModuleManager.DomainDAL.Repositories
         {
             try
             {
-                _context.Entry(entity).State = EntityState.Modified;
+                //var dbEntityEntry = _context.Entry(entity);
+                //foreach (var property in dbEntityEntry.OriginalValues.PropertyNames)
+                //{
+                //    var original = dbEntityEntry.OriginalValues.GetValue<object>(property);
+                //    var current = dbEntityEntry.CurrentValues.GetValue<object>(property);
+                //    if (original != null && !original.Equals(current))
+                //        dbEntityEntry.Property(property).IsModified = true;
+                //}
+                var test = _context.Entry(entity);
             }
             catch (Exception ex)
             {

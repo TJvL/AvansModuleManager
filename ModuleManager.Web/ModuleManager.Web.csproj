@@ -393,6 +393,7 @@
     <Content Include="Views\Admin\Users\_Lock.cshtml" />
     <Content Include="Views\Admin\Users\_Add.cshtml" />
     <Content Include="Views\Admin\Users\_Edit.cshtml" />
+    <Content Include="Views\Module\EditError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

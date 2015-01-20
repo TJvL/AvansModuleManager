@@ -34,6 +34,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<ModuleCompetentie> MapToModuleCompetentie()
         {
             var moduleCompetenties = new List<ModuleCompetentie>();
+            if (ModuleCompetentie == null) return moduleCompetenties;
             foreach (var moduleCompetentie in ModuleCompetentie)
             {
                 moduleCompetenties.Add(new ModuleCompetentie
@@ -51,6 +52,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<StudiePunten> MapToStudiePunten()
         {
             var studiePunten = new List<StudiePunten>();
+            if (StudiePunten == null) return studiePunten;
             foreach (var studiepunt in StudiePunten)
             {
                 studiePunten.Add(new StudiePunten
@@ -69,6 +71,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<FaseModules> MapToFaseModules()
         {
             var faseModules = new List<FaseModules>();
+            if (FaseModules == null) return faseModules;
             foreach (var faseModule in FaseModules)
             {
                 faseModules.Add(new FaseModules
@@ -88,6 +91,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<StudieBelasting> MapToStudieBelasting()
         {
             var studieBelastings = new List<StudieBelasting>();
+            if (StudieBelasting == null) return studieBelastings;
             foreach (var studieBelasting in StudieBelasting)
             {
                 studieBelastings.Add(new StudieBelasting
@@ -107,6 +111,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<ModuleWerkvorm> MapToModuleWerkvorm()
         {
             var moduleWerkvormen = new List<ModuleWerkvorm>();
+            if (ModuleWerkvorm == null) return moduleWerkvormen;
             foreach (var moduleWerkvorm in ModuleWerkvorm)
             {
                 moduleWerkvormen.Add(new ModuleWerkvorm
@@ -123,6 +128,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Weekplanning> MapToWeekplanning()
         {
             var weekplanningen = new List<Weekplanning>();
+            if (Weekplanning == null) return weekplanningen;
             foreach (var weekplanning in Weekplanning)
             {
                 weekplanningen.Add(new Weekplanning
@@ -140,6 +146,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Beoordelingen> MapToBeoordelingen()
         {
             var beoordelingen = new List<Beoordelingen>();
+            if (Beoordelingen == null) return beoordelingen;
             foreach (var beoordeling in Beoordelingen)
             {
                 beoordelingen.Add(new Beoordelingen
@@ -156,6 +163,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Leermiddelen> MapToLeermiddelen()
         {
             var leermiddelen = new List<Leermiddelen>();
+            if (Leermiddelen == null) return leermiddelen;
             foreach (var leermiddel in Leermiddelen)
             {
                 leermiddelen.Add(new Leermiddelen
@@ -173,6 +181,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Leerdoelen> MapToLeerdoelen()
         {
             var leerdoelen = new List<Leerdoelen>();
+            if (Leerdoelen == null) return leerdoelen;
             foreach (var leerdoel in Leerdoelen)
             {
                 leerdoelen.Add(new Leerdoelen
@@ -189,6 +198,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Docent> MapToDocent()
         {
             var docenten = new List<Docent>();
+            if (Docent == null) return docenten;
             foreach (var docent in Docent)
             {
                 docenten.Add(new Docent
@@ -205,6 +215,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Leerlijn> MapToLeerlijn()
         {
             var leerlijnen = new List<Leerlijn>();
+            if (Leerlijn == null) return leerlijnen;
             foreach (var leerlijn in Leerlijn)
             {
                 leerlijnen.Add(new Leerlijn
@@ -219,6 +230,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
         public ICollection<Tag> MapToTag()
         {
             var tags = new List<Tag>();
+            if (Tag == null) return tags;
             foreach (var tag in Tag)
             {
                 tags.Add(new Tag

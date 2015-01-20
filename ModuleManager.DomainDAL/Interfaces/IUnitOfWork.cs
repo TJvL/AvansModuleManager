@@ -7,5 +7,6 @@ namespace ModuleManager.DomainDAL.Interfaces
         DomainContext Context { get; }
 
         IGenericRepository<T> GetRepository<T>() where T : class;
+        void SaveToDatabase();
     }
 }

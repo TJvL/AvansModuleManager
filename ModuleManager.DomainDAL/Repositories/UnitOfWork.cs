@@ -16,9 +16,15 @@ namespace ModuleManager.DomainDAL.Repositories
             return new GenericRepository<T>(Context);
         }
 
+        public void SaveToDatabase()
+        {
+            Context.ChangeTracker.DetectChanges();
+            var hasChanges = Context.ChangeTracker.HasChanges();
+            Context.SaveChanges();
+        }
+
         public void Dispose()
         {
-            Context.SaveChanges();
             Context.Dispose();
         }
     }

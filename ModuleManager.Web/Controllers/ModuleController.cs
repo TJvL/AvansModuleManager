@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AutoMapper;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces.Services;
@@ -115,7 +116,23 @@ namespace ModuleManager.Web.Controllers
         public ActionResult Edit(ModuleEditViewModel moduleVm)
         {
             var moduleToEdit = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
-            
+
+            //var editedModule = new Module
+            //{
+            //    Beschrijving = moduleVm.Module.Beschrijving,
+            //    Docent = moduleVm.Module.MapToDocent(),
+            //    FaseModules = moduleVm.Module.MapToFaseModules(),
+            //    Leerdoelen = moduleVm.Module.MapToLeerdoelen(),
+            //    Leerlijn = moduleVm.Module.MapToLeerlijn(),
+            //    Leermiddelen = moduleVm.Module.MapToLeermiddelen(),
+            //    ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie(),
+            //    ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm(),
+            //    StudieBelasting = moduleVm.Module.MapToStudieBelasting(),
+            //    StudiePunten = moduleVm.Module.MapToStudiePunten(),
+            //    Tag = moduleVm.Module.MapToTag(),
+            //    Weekplanning = moduleVm.Module.MapToWeekplanning()
+            //};
+
             moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
             moduleToEdit.Docent = moduleVm.Module.MapToDocent();
             moduleToEdit.FaseModules = moduleVm.Module.MapToFaseModules();
@@ -130,14 +147,16 @@ namespace ModuleManager.Web.Controllers
             moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
 
             var voorkennisModules = new List<Module>();
-            foreach (var voorkennisModule in moduleVm.Module.Module2)
+            if (moduleVm.Module.Module2 != null)
             {
-                var voorMod =
-                    _unitOfWork.GetRepository<Module>()
-                        .GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
-                voorkennisModules.Add(voorMod);
+                foreach (var voorkennisModule in moduleVm.Module.Module2)
+                {
+                    var voorMod =
+                        _unitOfWork.GetRepository<Module>()
+                            .GetOne(new object[] { voorkennisModule.CursusCode, voorkennisModule.Schooljaar });
+                    voorkennisModules.Add(voorMod);
+                }
             }
-
             moduleToEdit.Module2 = voorkennisModules;
 
             if (moduleVm.Module.IsCompleted)
@@ -150,11 +169,12 @@ namespace ModuleManager.Web.Controllers
             }
 
             _unitOfWork.GetRepository<Module>().Edit(moduleToEdit);
-            _unitOfWork.Dispose();
+            _unitOfWork.SaveToDatabase();
 
-            var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
-            var modVm = Mapper.Map<Module, ModuleViewModel>(module);
-            return View(modVm);
+            return RedirectToAction(
+                "Details",
+                "Module",
+                new { schooljaar = moduleVm.Module.Schooljaar, cursusCode = moduleVm.Module.CursusCode });
         }
 
         public ActionResult EditError()
