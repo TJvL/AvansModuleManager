@@ -41,7 +41,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 entity.Schooljaar = schooljaar.JaarId;
 
                 var value = _unitOfWork.GetRepository<Leerlijn>().Create(entity);
-                return value != null ? Json(new { success = false, strError = value }) : Json(new { succes = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {

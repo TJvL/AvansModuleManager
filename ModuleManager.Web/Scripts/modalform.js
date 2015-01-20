@@ -38,10 +38,6 @@ function bindForm(dialog) {
                     } else {
                         alert("Er is een fout opgetreden.");
                     }
-                    //$('#myModal').modal('hide');
-                    //alert("U heeft een of meerdere velden niet juist ingevoerd.");
-                    $('#myModalContent').html(result);
-                    bindForm();
                 }
             }
         });

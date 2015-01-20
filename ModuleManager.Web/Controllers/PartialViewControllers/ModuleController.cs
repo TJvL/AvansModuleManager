@@ -113,7 +113,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 };
 
                 var value = _unitOfWork.GetRepository<Module>().Create(module);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -146,7 +146,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             try
             {
                 var value = _unitOfWork.GetRepository<Module>().Delete(entity);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
