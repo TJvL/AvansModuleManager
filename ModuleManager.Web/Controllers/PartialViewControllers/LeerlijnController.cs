@@ -10,7 +10,7 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
-     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class LeerlijnenController : Controller
     {
 
@@ -34,13 +34,14 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             try
             {
                 var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any()) return Json(new { success = false });
+                if (!schooljaren.Any())
+                    return Json(new { success = false });
                 var schooljaar = schooljaren.Last();
 
                 entity.Schooljaar = schooljaar.JaarId;
 
-                _unitOfWork.GetRepository<Leerlijn>().Create(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Leerlijn>().Create(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { succes = true });
             }
             catch (Exception)
             {
@@ -72,8 +73,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                _unitOfWork.GetRepository<Leerlijn>().Delete(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Leerlijn>().Delete(entity);
+                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {

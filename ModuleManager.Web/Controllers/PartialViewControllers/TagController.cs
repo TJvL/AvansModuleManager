@@ -34,13 +34,14 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             try
             {
                 var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any()) return Json(new { success = false });
+                if (!schooljaren.Any())
+                    return Json(new { success = false });
                 var schooljaar = schooljaren.Last();
 
                 entity.Schooljaar = schooljaar.JaarId;
 
-                _unitOfWork.GetRepository<Tag>().Create(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Tag>().Create(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {

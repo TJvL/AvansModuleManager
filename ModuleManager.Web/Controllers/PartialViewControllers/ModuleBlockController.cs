@@ -12,7 +12,7 @@ using ModuleManager.DomainDAL;
 
 namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
-     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class ModuleBlockController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -54,9 +54,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                     module.Status = "Compleet (ongecontroleerd)";
                 }
 
-                _unitOfWork.GetRepository<Module>().Edit(module);
-
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Module>().Edit(module);
+                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
             }
 
             return PartialView("~/Views/Admin/CheckModules/_Lock.cshtml", moduleVM);

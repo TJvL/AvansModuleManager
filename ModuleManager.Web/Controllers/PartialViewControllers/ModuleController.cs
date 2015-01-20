@@ -51,10 +51,12 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ModuleCrudViewModel entity)
         {
-            try {
+            try
+            {
                 /* Schooljaar */
                 var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any()) return Json(new { success = false });
+                if (!schooljaren.Any())
+                    return Json(new { success = false });
                 var schooljaar = schooljaren.Last();
 
                 /* Studie Punten */
@@ -110,8 +112,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                     OnderdeelCode = entity.Onderdeel
                 };
 
-                _unitOfWork.GetRepository<Module>().Create(module);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Module>().Create(module);
+                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -143,8 +145,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                _unitOfWork.GetRepository<Module>().Delete(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Module>().Delete(entity);
+                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {

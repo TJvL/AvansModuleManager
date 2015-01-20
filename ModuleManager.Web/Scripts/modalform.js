@@ -32,9 +32,16 @@ function bindForm(dialog) {
                     location.reload();
                     //$('#replacetarget').reload(result.url); //  Load data from the server and place the returned HTML into the matched element
                 } else {
-                    alert("U heeft een of meerdere velden niet juist ingevoerd.");
-                    $('#myModalContent').html(result);
-                    bindForm();
+                    debugger;
+                    if (result.strError != null) {
+                        alert(result.strError);
+                    } else {
+                        alert("Er is een fout opgetreden.");
+                    }
+                    $('#myModal').modal('hide');
+                    //alert("U heeft een of meerdere velden niet juist ingevoerd.");
+                    //$('#myModalContent').html(result);
+                    //bindForm();
                 }
             }
         });

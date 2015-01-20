@@ -42,13 +42,11 @@ namespace ModuleManager.Web.Controllers
                 var tabellenlijst = new LessenTabelViewModel { FaseType = ft.Type };
                 var fasems = _unitOfWork.GetRepository<FaseModules>().GetAll()
                     .Where(src => src.FaseSchooljaar.Equals(maxSchooljaar))
-                    //.Where(src => src.ModuleSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
-                    //.Where(src => src.OpleidingSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
-                    .ToList(); // FaseSchooljaar, ModuleSchooljaar, OpleidingSchooljaar
+                    .Where(src => src.Module.Status.Equals("Compleet (gecontroleerd)"))
+                    .ToList();
                 var fases = _unitOfWork.GetRepository<Fase>().GetAll()
                     .Where(src => src.Schooljaar.Equals(maxSchooljaar))
-                    // .Where(src => src.OpleidingSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
-                    .ToList(); // Schooljaar, OpleidingSchooljaar
+                    .ToList();
                 //return CollectionA
                 //  .Join(CollectionB,
                 //      a => new { a.KeyA, a.KeyB },
@@ -66,9 +64,6 @@ namespace ModuleManager.Web.Controllers
                 {
                     var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
                     var rows = new List<ModuleTabelViewModel>();
-                    //foreach (var fm2 in _unitOfWork.GetRepository<FaseModules>().GetAll() // Schooljaar, ModuleSchooljaar, OpleidingSchooljaar
-                    //    .Where(src => src.Blok.Equals(tabel.Blok))
-                    //    .Where(src => src.FaseNaam.Equals(tabel.FaseNaam))) // WTF DOE IK HIER?!
                     foreach (var fm2 in fasems
                          .Where(src => src.Blok.Equals(tabel.Blok))
                          .Where(src => src.FaseNaam.Equals(tabel.FaseNaam)))
