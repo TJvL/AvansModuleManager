@@ -194,7 +194,7 @@ namespace ModuleManager.Web.Controllers
                 faseFilters = value.Filters.Fases;
 
             ICollection<string> blokFilters = null;
-            if ((value.Filters.Blokken.First() != null) && (value.Filters.Blokken.First() != ""))
+            if (value.Filters.Blokken.First() != null)
                 blokFilters = value.Filters.Blokken;
 
             string zoektermFilter = null;
