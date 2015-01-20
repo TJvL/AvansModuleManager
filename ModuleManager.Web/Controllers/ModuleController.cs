@@ -131,8 +131,10 @@ namespace ModuleManager.Web.Controllers
 
             var moduleToEdit = _unitOfWork.GetRepository<Module>()
                 .GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
+
             moduleToEdit.Beschrijving = moduleVm.Module.Beschrijving;
-            var voorkennisModules = new List<Module>();
+
+            List<Module> voorkennisModules = new List<Module>();
             if (moduleVm.Module.Module2 != null)
             {
                 foreach (var voorkennisModule in moduleVm.Module.Module2)
