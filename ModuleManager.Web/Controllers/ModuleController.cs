@@ -105,6 +105,12 @@ namespace ModuleManager.Web.Controllers
                 }
             };
 
+            
+                        for (int i = 0; i < moduleEditViewModel.Options.Niveaus.Count; i++)
+                        {
+                            var result = (from c in moduleEditViewModel.Module.ModuleCompetentie where c.Niveau == moduleEditViewModel.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList();
+                        }
+
             return View(moduleEditViewModel);
         }
 
@@ -122,7 +128,7 @@ namespace ModuleManager.Web.Controllers
             moduleToEdit.ModuleCompetentie = moduleVm.Module.MapToModuleCompetentie();
             moduleToEdit.ModuleWerkvorm = moduleVm.Module.MapToModuleWerkvorm();
             moduleToEdit.StudieBelasting = moduleVm.Module.MapToStudieBelasting();
-            //moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
+            moduleToEdit.StudiePunten = moduleVm.Module.MapToStudiePunten();
             moduleToEdit.Tag = moduleVm.Module.MapToTag();
             moduleToEdit.Weekplanning = moduleVm.Module.MapToWeekplanning();
 

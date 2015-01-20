@@ -79,7 +79,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                     ModuleCursusCode = faseModule.ModuleCursusCode,
                     ModuleSchooljaar = faseModule.ModuleSchooljaar,
                     OpleidingNaam = faseModule.OpleidingNaam,
-                    OpleidingSchooljaar = faseModule.ModuleSchooljaar
+                    OpleidingSchooljaar = faseModule.ModuleSchooljaar,
                 });
             }
             return faseModules;
@@ -114,7 +114,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                     CursusCode = moduleWerkvorm.CursusCode,
                     Organisatie = moduleWerkvorm.Organisatie,
                     Schooljaar = moduleWerkvorm.Schooljaar,
-                    WerkvormType = moduleWerkvorm.WerkvormType
+                    WerkvormType = moduleWerkvorm.WerkvormType                    
                 });
             }
             return moduleWerkvormen;
@@ -130,7 +130,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                     CursusCode = weekplanning.CursusCode,
                     Onderwerp = weekplanning.Onderwerp,
                     Schooljaar = weekplanning.Schooljaar,
-                    Week = weekplanning.Week
+                    Week = weekplanning.Week,
+                    Id = weekplanning.Id
                 });
             }
             return weekplanningen;
@@ -145,7 +146,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                 {
                     Beschrijving = beoordeling.Beschrijving,
                     CursusCode = beoordeling.CursusCode,
-                    Schooljaar = beoordeling.Schooljaar
+                    Schooljaar = beoordeling.Schooljaar,
+                    Id = beoordeling.Id
                 });
             }
             return beoordelingen;
@@ -160,7 +162,9 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                 {
                     Beschrijving = leermiddel.Beschrijving,
                     CursusCode = leermiddel.CursusCode,
-                    Schooljaar = leermiddel.Schooljaar
+                    Schooljaar = leermiddel.Schooljaar,
+                    Id=leermiddel.Id
+                    
                 });
             }
             return leermiddelen;
@@ -175,7 +179,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                 {
                     Beschrijving = leerdoel.Beschrijving,
                     CursusCode = leerdoel.CursusCode,
-                    Schooljaar = leerdoel.Schooljaar
+                    Schooljaar = leerdoel.Schooljaar,
+                    Id = leerdoel.Id
                 });
             }
             return leerdoelen;
@@ -190,7 +195,8 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                 {
                     CursusCode = docent.CursusCode,
                     Name = docent.Name,
-                    Schooljaar = docent.Schooljaar                   
+                    Schooljaar = docent.Schooljaar,   
+                    Id = docent.Id
                 });
             }
             return docenten;
@@ -204,7 +210,7 @@ namespace ModuleManager.Web.ViewModels.EntityViewModel
                 leerlijnen.Add(new Leerlijn
                 {
                     Naam = leerlijn.Naam,
-                    Schooljaar = leerlijn.Schooljaar
+                    Schooljaar = leerlijn.Schooljaar,
                 });
             }
             return leerlijnen;
