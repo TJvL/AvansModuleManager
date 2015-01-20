@@ -31,7 +31,7 @@ namespace ModuleManager.BusinessLogic.Exporters.LessenTabelExporterStack
             //custom code
             foreach (Fase f in toExport.Fase) 
             {
-                Paragraph p = sect.AddParagraph(toExport.Type + " - " + f.Naam, "Heading2");
+                Paragraph p = sect.AddParagraph((toExport.Type ?? "Data niet gevonden") + " - " + (f.Naam ?? "Data niet gevonden"), "Heading2");
                 p.AddLineBreak();
                 FormattedText text = p.AddFormattedText("Als U hieronder geen tabel ziet, bevat de database nog incomplete Modules.");
                 text.Font.Color = Colors.DarkGray;
@@ -90,70 +90,63 @@ namespace ModuleManager.BusinessLogic.Exporters.LessenTabelExporterStack
 
                     foreach(var fm in faseModules.Where(x => x.FaseSchooljaar.Equals(currSchoolJaar)))
                     {
-                        try
+                        Module m = fm.Module;
+
+                        Row startRow = table.AddRow();
+                        startRow.Format.Font.Size = 10;
+                        startRow.Cells[0].AddParagraph(m.OnderdeelCode ?? "");
+                        startRow.Cells[1].AddParagraph(m.CursusCode ?? "");
+                        startRow.Cells[2].AddParagraph(m.Naam ?? "");
+
+                        int cu = m.StudieBelasting.Sum(x => x.ContactUren.Value);
+                        totalCu += cu;
+
+                        startRow.Cells[3].AddParagraph("" + cu);
+
+                        string wv = "";
+                        bool firstIteration = true;
+                        foreach (ModuleWerkvorm mwv in m.ModuleWerkvorm)
                         {
-                            Module m = fm.Module;
-
-                            Row startRow = table.AddRow();
-                            startRow.Format.Font.Size = 10;
-                            startRow.Cells[0].AddParagraph(m.OnderdeelCode);
-                            startRow.Cells[1].AddParagraph(m.CursusCode);
-                            startRow.Cells[2].AddParagraph(m.Naam);
-
-                            int cu = m.StudieBelasting.Sum(x => x.ContactUren.Value);
-                            totalCu += cu;
-
-                            startRow.Cells[3].AddParagraph("" + cu);
-
-                            string wv = "";
-                            bool firstIteration = true;
-                            foreach (ModuleWerkvorm mwv in m.ModuleWerkvorm)
-                            {
-                                if (firstIteration) { firstIteration = false; }
-                                else { wv = wv + ", "; }
-                                wv = wv + mwv.Werkvorm.Type;
-                            }
-
-                            startRow.Cells[4].AddParagraph(wv);
-
-                            int iteration = 0;
-                            foreach(StudiePunten sp in m.StudiePunten)
-                            {
-                                if (iteration == 0)
-                                {
-                                    startRow.Cells[5].AddParagraph(sp.ToetsCode);
-                                    startRow.Cells[6].AddParagraph(sp.Toetsvorm);
-                                    startRow.Cells[7].AddParagraph(""+sp.EC);
-                                    startRow.Cells[8].AddParagraph(sp.Minimum);
-                                    firstIteration = false;
-                                }
-                                else 
-                                {
-                                    Row toetsRow = table.AddRow();
-                                    toetsRow.Format.Font.Size = 10;
-                                    toetsRow.Cells[5].AddParagraph(sp.ToetsCode);
-                                    toetsRow.Cells[6].AddParagraph(sp.Toetsvorm);
-                                    toetsRow.Cells[7].AddParagraph(""+sp.EC);
-                                    toetsRow.Cells[8].AddParagraph(sp.Minimum);
-                                }
-                                totalEc += sp.EC;
-
-                                iteration++;
-                            }
-
-                            if (iteration > 1) 
-                            {
-                                int down = iteration -1;
-                                startRow.Cells[0].MergeDown = down;
-                                startRow.Cells[1].MergeDown = down;
-                                startRow.Cells[2].MergeDown = down;
-                                startRow.Cells[3].MergeDown = down;
-                                startRow.Cells[4].MergeDown = down;
-                            }
+                            if (firstIteration) { firstIteration = false; }
+                            else { wv = wv + ", "; }
+                            wv = wv + (mwv.Werkvorm.Type ?? "NOT FOUND");
                         }
-                        catch (Exception)
+
+                        startRow.Cells[4].AddParagraph(wv);
+
+                        int iteration = 0;
+                        foreach(StudiePunten sp in m.StudiePunten)
                         {
-                            sect.AddParagraph("ERROR - Data corruption detected", "error");
+                            if (iteration == 0)
+                            {
+                                startRow.Cells[5].AddParagraph(sp.ToetsCode ?? "");
+                                startRow.Cells[6].AddParagraph(sp.Toetsvorm ?? "");
+                                startRow.Cells[7].AddParagraph(""+sp.EC);
+                                startRow.Cells[8].AddParagraph(sp.Minimum ?? "");
+                                firstIteration = false;
+                            }
+                            else 
+                            {
+                                Row toetsRow = table.AddRow();
+                                toetsRow.Format.Font.Size = 10;
+                                toetsRow.Cells[5].AddParagraph(sp.ToetsCode ?? "");
+                                toetsRow.Cells[6].AddParagraph(sp.Toetsvorm ?? "");
+                                toetsRow.Cells[7].AddParagraph(""+sp.EC);
+                                toetsRow.Cells[8].AddParagraph(sp.Minimum ?? "");
+                            }
+                            totalEc += sp.EC;
+
+                            iteration++;
+                        }
+
+                        if (iteration > 1) 
+                        {
+                            int down = iteration -1;
+                            startRow.Cells[0].MergeDown = down;
+                            startRow.Cells[1].MergeDown = down;
+                            startRow.Cells[2].MergeDown = down;
+                            startRow.Cells[3].MergeDown = down;
+                            startRow.Cells[4].MergeDown = down;
                         }
                     }
 

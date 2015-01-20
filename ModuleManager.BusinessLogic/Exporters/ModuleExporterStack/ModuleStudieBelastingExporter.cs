@@ -50,9 +50,9 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             foreach (StudieBelasting sb in toExport.StudieBelasting) 
             {
                 row = table.AddRow();
-                row.Cells[0].AddParagraph(sb.Activiteit);
-                row.Cells[1].AddParagraph(sb.Duur);
-                row.Cells[2].AddParagraph(sb.Frequentie);
+                row.Cells[0].AddParagraph(sb.Activiteit ?? "");
+                row.Cells[1].AddParagraph(sb.Duur ?? "");
+                row.Cells[2].AddParagraph(sb.Frequentie ?? "");
                 row.Cells[3].AddParagraph(sb.SBU.ToString());
             }
 

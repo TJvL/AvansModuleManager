@@ -30,7 +30,7 @@ namespace ModuleManager.BusinessLogic.Exporters.CompetentieExporterStack
             //custom code
             Paragraph p = sect.AddParagraph();
             p.Format.Font.Color = Colors.DarkGray;
-            p.AddText("Code: " + toExport.Code);
+            p.AddText("Code: " + (toExport.Code ?? ""));
             p.AddLineBreak();
 
             return sect;

@@ -45,7 +45,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
 
             Row row = table.AddRow();
             row.Cells[0].AddParagraph("Schooljaar");
-            row.Cells[1].AddParagraph("20" + toExport.Schooljaar.ToString().Substring(0, 2) + "-20" + toExport.Schooljaar.ToString().Substring(2));
+            row.Cells[1].AddParagraph("20" + toExport.Schooljaar.Substring(0, 2) + "-20" + toExport.Schooljaar.Substring(2));
 
             row = table.AddRow();
             row.Cells[0].AddParagraph("Blokken");
@@ -56,19 +56,19 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             foreach(FaseModules fm in toExport.FaseModules)
             {
                 if (notFirstIteration) { pCell.AddText(", "); }
-                pCell.AddText("Blok " + fm.Blok);
+                pCell.AddText("Blok " + (fm.Blok ?? ""));
                 notFirstIteration = true;
             }
 
             row = table.AddRow();
             row.Cells[0].AddParagraph("Cursus Code");
-            row.Cells[1].AddParagraph(toExport.CursusCode);
+            row.Cells[1].AddParagraph(toExport.CursusCode ?? "");
 
             row = table.AddRow();
             row.Cells[0].AddParagraph("Toetsen");
             foreach (StudiePunten sp in toExport.StudiePunten) 
             {
-                row.Cells[1].AddParagraph(" - " + sp.ToetsCode + ": " + sp.EC + " EC");
+                row.Cells[1].AddParagraph(" - " + (sp.ToetsCode ?? "") + ": " + sp.EC + " EC");
             }
 
             row = table.AddRow();
@@ -78,7 +78,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             foreach(ModuleWerkvorm wv in toExport.ModuleWerkvorm)
             {
                 if (notFirstIteration) { pCell.AddText("+"); }
-                pCell.AddText(wv.WerkvormType);
+                pCell.AddText(wv.WerkvormType ?? "NOT FOUND");
                 notFirstIteration = true;
             }
 

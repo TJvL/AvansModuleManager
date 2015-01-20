@@ -19,11 +19,11 @@ namespace ModuleManager.BusinessLogic.Sorters.ModuleSorterStack
             {
                 if (args.SortDesc) 
                 {
-                    toSort = toSort.OrderByDescending(element => element.Naam);
+                    toSort = toSort.OrderByDescending(element => (element.Naam ?? ""));
                 }
                 else 
-                { 
-                    toSort = toSort.OrderBy(element => element.Naam); 
+                {
+                    toSort = toSort.OrderBy(element => (element.Naam ?? "")); 
                 }
             }
 

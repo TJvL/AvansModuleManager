@@ -34,7 +34,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             p = sect.AddParagraph();
             foreach(Leermiddelen lm in toExport.Leermiddelen)
             {
-                p.AddText(" - " + lm.Beschrijving);
+                p.AddText(" - " + (lm.Beschrijving ?? ""));
                 p.AddLineBreak();
             }
 
