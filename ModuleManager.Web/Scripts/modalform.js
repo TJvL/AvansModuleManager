@@ -32,7 +32,6 @@ function bindForm(dialog) {
                     location.reload();
                     //$('#replacetarget').reload(result.url); //  Load data from the server and place the returned HTML into the matched element
                 } else {
-                    debugger;
                     if (result.strError != null) {
                         alert(result.strError);
                     } else {
