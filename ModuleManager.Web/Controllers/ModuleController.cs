@@ -68,6 +68,12 @@ namespace ModuleManager.Web.Controllers
         public ActionResult Edit(string schooljaar, string cursusCode)
         {
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { cursusCode, schooljaar });
+
+            if (module.Status == "Compleet (gecontroleerd)")
+            {
+                RedirectToAction("EditError");
+            }
+
             var competenties = _unitOfWork.GetRepository<Competentie>().GetAll();
             var tags = _unitOfWork.GetRepository<Tag>().GetAll();
             var leerlijnen = _unitOfWork.GetRepository<Leerlijn>().GetAll();
@@ -76,18 +82,6 @@ namespace ModuleManager.Web.Controllers
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
             var niveaus = _unitOfWork.GetRepository<Niveau>().GetAll();
             var docenten = _unitOfWork.GetRepository<Docent>().GetAll();
-
-            var isComplete = true;
-            if (module.Status != "Compleet (ongecontroleerd)")
-            {
-                isComplete = false;
-            }
-
-            var isLockedForEdit = false;
-            if (module.Status == "Compleet (gecontroleerd)")
-            {
-                isLockedForEdit = true;
-            }
 
             var moduleEditViewModel = new ModuleEditViewModel
             {
@@ -147,18 +141,26 @@ namespace ModuleManager.Web.Controllers
             {
                 moduleToEdit.Status = "Compleet (ongecontroleerd)";
             }
+            else if (moduleVm.Module.Status == "Nieuw")
+            {
+                moduleToEdit.Status = "Incompleet";
+            }
 
             _unitOfWork.GetRepository<Module>().Edit(moduleToEdit);
             _unitOfWork.Dispose();
-
 
             var module = _unitOfWork.GetRepository<Module>().GetOne(new object[] { moduleVm.Module.CursusCode, moduleVm.Module.Schooljaar });
             var modVm = Mapper.Map<Module, ModuleViewModel>(module);
             return View(modVm);
         }
 
-        //PDF Download Code
+        public ActionResult EditError()
+        {
+            ViewBag.Message = "Kan deze module niet bewerken.";
+            return View();
+        }
 
+        //PDF Download Code
         [HttpGet, Route("Module/Export/{schooljaar}/{cursusCode}")]
         public FileStreamResult ExportSingleModule(string schooljaar, string cursusCode)
         {
