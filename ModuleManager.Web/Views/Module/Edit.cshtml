@@ -505,7 +505,7 @@
                 }
             })
 
-            var newRow1 = "<input name='Module.ModuleWerkvorm[" + index + "].Organisatie' type='hidden' value=" + organisatie + ">";
+            var newRow1 = "<input name='Module.ModuleWerkvorm[" + index + "].Organisatie' type='hidden' value='" + organisatie + "'>";
             var newRow2 = "<input name='Module.ModuleWerkvorm[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
             var newRow3 = "<input name='Module.ModuleWerkvorm[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
             var newRow4 = "<input name='Module.ModuleWerkvorm[" + index + "].WerkvormType' type='hidden' value='" + wvType + "'>";
@@ -521,7 +521,7 @@
 
         $("#leerlijn option:selected").each(function (i, selected) {
 
-            var newRow1 = "<input name='Module.Leerlijn[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow1 = "<input name='Module.Leerlijn[" + index + "].Naam' type='hidden' value='" + $(selected).text() + "'>";
             var newRow2 = "<input name='Module.Leerlijn[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
 
             $hidden_leerlijnen.append(newRow1 + newRow2);
@@ -533,7 +533,7 @@
 
         $("#voorkennis option:selected").each(function (i, selected) {
 
-            var newRow1 = "<input name='Module.Module2[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow1 = "<input name='Module.Module2[" + index + "].Naam' type='hidden' value='" + $(selected).text() + "'>";
             var newRow2 = "<input name='Module.Module2[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
             var newRow3 = "<input name='Module.Module2[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
 
@@ -559,8 +559,8 @@
         index = 0;
 
         $("#tags option:selected").each(function (i, selected) {
-
-            var newRow1 = "<input name='Module.Tag[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            debugger;
+            var newRow1 = "<input name='Module.Tag[" + index + "].Naam' type='hidden' value='" + $(selected).text() + "'>";
             var newRow2 = "<input name='Module.Tag[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
 
             $hidden_tags.append(newRow1 + newRow2);
@@ -578,7 +578,6 @@
             $("#" + $niveau + "-select option:selected").each(function (i, selected) {
 
                 $code = $(selected).val();
-                debugger;
                 var newRow1 = "<input name='Module.ModuleCompetentie[" + index + "].Niveau' type='hidden' value=" + $niveau + ">"
                 var newRow2 = "<input name='Module.ModuleCompetentie[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>"
                 var newRow3 = "<input name='Module.ModuleCompetentie[" + index + "].CompetentieSchooljaar' type='hidden' value='@Model.Module.Schooljaar'>"
