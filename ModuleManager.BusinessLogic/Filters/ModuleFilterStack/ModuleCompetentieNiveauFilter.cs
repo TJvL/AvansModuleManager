@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleCompetentieNiveauFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.CompetentieNiveauFilters != null)
+            if (args.CompetentieNiveauFilters != null && args.CompetentieNiveauFilters.Count > 0)
             {
                 List<Module> result = new List<Module>();
                 foreach (string arg in args.CompetentieNiveauFilters)

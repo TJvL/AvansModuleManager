@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleStatusFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.StatusFilter != null)
+            if (args.StatusFilter != null && args.StatusFilter.Length > 0)
             {
                 List<Module> result = new List<Module>();
 
