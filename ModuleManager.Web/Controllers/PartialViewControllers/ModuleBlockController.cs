@@ -55,7 +55,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 }
 
                 var value = _unitOfWork.GetRepository<Module>().Edit(module);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
 
             return PartialView("~/Views/Admin/CheckModules/_Lock.cshtml", moduleVM);

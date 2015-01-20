@@ -54,7 +54,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 entity.Opleiding = opleiding;
 
                 var value = _unitOfWork.GetRepository<Fase>().Create(entity);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -111,7 +111,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 entity.OpleidingSchooljaar = opleiding.Schooljaar;
 
                 var value = _unitOfWork.GetRepository<Fase>().Edit(entity);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -144,7 +144,7 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             try
             {
                 var value = _unitOfWork.GetRepository<Fase>().Delete(entity);
-                return value != null ? Json(new { succes = false, strError = value }) : Json(new { success = true });
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
