@@ -104,7 +104,7 @@ namespace ModuleManager.Web.Controllers.Api
             modules = _filterSorterService.ProcessData(queryPack);
 
             var enumerable = modules as Module[] ?? modules.ToArray();
-            var modArray = enumerable.ToArray().Where(m => m.Status == "Compleet (gecontroleerd)");
+            var modArray = enumerable.ToArray().Where(m => m.Status.Equals("Compleet (gecontroleerd)"));
             if (User.Identity.IsAuthenticated)
             {
                 modArray = enumerable.ToArray();
