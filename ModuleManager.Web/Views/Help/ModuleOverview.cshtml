@@ -6,17 +6,13 @@
                 <h4 class="modal-title" id="Help">Module Overview Help</h4>
             </div>
             <div class="modal-body">
-               
+
                 <h2>Onderdelen</h2>
 
                 <ul>
                     <li>Filters</li>
                     <li>Resultaten weergave</li>
                     <li>Exporteren</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>Module bewerken</li>
-                    }
                 </ul>
 
                 <h3>Filters</h3>
@@ -31,26 +27,9 @@
                 <p>Doormiddel van de exporteer functie wordt er een PDF bestand aan de gebruiker aangeboden. Er kan tevens aangegeven worden welke eigenschappen van elke module geexporteerd moeten worden.</p>
                 <img src="~/Images/Help/Export.png" height="100%" width="100%">
 
-                @if (User.Identity.IsAuthenticated) { 
-                <h3>Module bewerken</h3>
-                <p>Een ingelogde gebruiker heeft de mogelijkheid om modules aan te passen. Door het klikken op de bewerk knop naast een module</p>
-                    <p>TODO: Screenshot van Teacher Overview</p>
-                @*<img src="~/Images/Help/Export.png" height="100%" width="100%">*@
-                }
-
-                </div>
             </div>
-    </div>
-</div>
-
-<!--
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
-
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            ...
         </div>
     </div>
 </div>
--->
+
+
