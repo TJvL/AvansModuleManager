@@ -19,11 +19,11 @@ namespace ModuleManager.BusinessLogic.Sorters.ModuleSorterStack
             {
                 if (args.SortDesc) 
                 {
-                    toSort = toSort.OrderByDescending(element => element.CursusCode);
+                    toSort = toSort.OrderByDescending(element => (element.CursusCode ?? ""));
                 }
                 else 
                 {
-                    toSort = toSort.OrderBy(element => element.CursusCode); 
+                    toSort = toSort.OrderBy(element => (element.CursusCode ?? "")); 
                 }
             }
 

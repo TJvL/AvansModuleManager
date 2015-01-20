@@ -46,8 +46,8 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             foreach (Weekplanning wp in toExport.Weekplanning) 
             {
                 row = table.AddRow();
-                row.Cells[0].AddParagraph(wp.Week);
-                row.Cells[1].AddParagraph(wp.Onderwerp);
+                row.Cells[0].AddParagraph(wp.Week ?? "");
+                row.Cells[1].AddParagraph(wp.Onderwerp ?? "");
             }
 
             p = sect.AddParagraph();

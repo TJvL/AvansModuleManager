@@ -34,7 +34,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             p = sect.AddParagraph();
             foreach (Tag t in toExport.Tag) 
             {
-                p.AddText(" - " + t.Naam);
+                p.AddText(" - " + (t.Naam ?? ""));
                 p.AddLineBreak();
             }
 

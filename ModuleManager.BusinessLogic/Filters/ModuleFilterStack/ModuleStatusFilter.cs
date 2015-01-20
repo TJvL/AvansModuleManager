@@ -21,7 +21,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                 var selectedModule = 
                     from m in toQuery
                         where
-                            m.Status.ToLower().Contains(args.StatusFilter.ToLower())
+                            (m.Status ?? "").ToLower().Contains((args.StatusFilter ?? "").ToLower())
                     select m;
 
                 result.AddRange(selectedModule.Where(x => !result.Contains(x)));
