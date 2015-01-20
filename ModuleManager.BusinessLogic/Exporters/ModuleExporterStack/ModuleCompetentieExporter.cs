@@ -46,15 +46,15 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
                 row.Cells[1].AddParagraph("Niveau").Format.Font.Bold = true;
 
                 row = table.AddRow();
-                row.Cells[0].AddParagraph(cp.Competentie.Naam);
-                row.Cells[1].AddParagraph(cp.Niveau);
+                row.Cells[0].AddParagraph(cp.Competentie.Naam ?? "NOT FOUND");
+                row.Cells[1].AddParagraph(cp.Niveau ?? "NOT FOUND");
 
                 row = table.AddRow();
                 row.Cells[0].AddParagraph("Beschrijving").Format.Font.Bold = true;
                 row.Cells[0].MergeRight = 1;
 
                 row = table.AddRow();
-                row.Cells[0].AddParagraph(cp.Competentie.Beschrijving.Replace("$$", "\n"));
+                row.Cells[0].AddParagraph((cp.Competentie.Beschrijving ?? "").Replace("$$", "\n"));
                 row.Cells[0].MergeRight = 1;
 
                 p = sect.AddParagraph();

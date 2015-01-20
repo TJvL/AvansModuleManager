@@ -29,9 +29,9 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
 
             //custom code
             Paragraph p = sect.AddParagraph();
-            p.AddFormattedText(toExport.Naam, "Heading1");
+            p.AddFormattedText((toExport.Naam ?? "Data niet gevonden"), "Heading1");
             p.Format.OutlineLevel = OutlineLevel.Level1;
-            p.AddBookmark(toExport.Naam);
+            p.AddBookmark((toExport.Naam ?? "Data niet gevonden"));
             p.AddLineBreak();
 
             return sect;

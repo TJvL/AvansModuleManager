@@ -34,7 +34,7 @@ namespace ModuleManager.BusinessLogic.Exporters.ModuleExporterStack
             p = sect.AddParagraph();
             foreach (ModuleWerkvorm wv in toExport.ModuleWerkvorm) 
             {
-                p.AddText(wv.WerkvormType + ": " + wv.Organisatie);
+                p.AddText((wv.WerkvormType ?? "NOT FOUND") + ": " + (wv.Organisatie ?? ""));
                 p.AddLineBreak();
             }
             p.AddLineBreak();

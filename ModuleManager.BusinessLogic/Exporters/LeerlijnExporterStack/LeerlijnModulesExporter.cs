@@ -38,7 +38,7 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
 
             foreach (Module m in toExport.Module) 
             {
-                p.AddFormattedText(m.Naam).Font.Bold = true;
+                p.AddFormattedText((m.Naam ?? "Data niet gevonden")).Font.Bold = true;
                 p.AddLineBreak();
 
                 p.AddFormattedText("Komt ook voor in:").Font.Color = Colors.DarkGray;
@@ -50,9 +50,9 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
                     if(!l.Naam.Equals(toExport.Naam))
                     {
                         p.AddTab();
-                        Hyperlink hyperlink = p.AddHyperlink(l.Naam);
-                        hyperlink.AddText(l.Naam + ", zie ook pagina ");
-                        hyperlink.AddPageRefField(l.Naam);
+                        Hyperlink hyperlink = p.AddHyperlink((l.Naam ?? "Data niet gevonden"));
+                        hyperlink.AddText((l.Naam ?? "Data niet gevonden" ) + ", zie ook pagina ");
+                        hyperlink.AddPageRefField((l.Naam ?? "Data niet gevonden"));
                         hyperlink.Font.Underline = Underline.Single;
 
                         p.AddLineBreak();

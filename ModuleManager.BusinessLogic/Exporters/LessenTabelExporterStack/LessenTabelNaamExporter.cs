@@ -29,9 +29,9 @@ namespace ModuleManager.BusinessLogic.Exporters.LessenTabelExporterStack
 
             //custom code
             Paragraph p = sect.AddParagraph();
-            p.AddFormattedText(toExport.Type, "Heading1");
+            p.AddFormattedText((toExport.Type ?? "Data niet gevonden"), "Heading1");
             p.Format.OutlineLevel = OutlineLevel.Level1;
-            p.AddBookmark(toExport.Type);
+            p.AddBookmark(toExport.Type ?? "Data niet gevonden");
             p.AddLineBreak();
 
             return sect;

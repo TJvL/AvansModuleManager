@@ -23,7 +23,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
                         from m in toQuery
                             where
                                 m.Tag.Any(
-                                element => element.Naam.ToLower().Contains(arg.ToLower())
+                                element => (element.Naam ?? "").ToLower().Contains((arg ?? "").ToLower())
                                 )
                         select m;
 

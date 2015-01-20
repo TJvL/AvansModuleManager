@@ -49,7 +49,7 @@ namespace ModuleManager.BusinessLogic.Exporters.LeerlijnExporterStack
 
             foreach (Competentie c in accumulatedCompetences) 
             {
-                p.AddText(" - " + c.Naam);
+                p.AddText(" - " + (c.Naam ?? "Data incompleet"));
                 p.AddLineBreak();
             }
             p.AddLineBreak();
