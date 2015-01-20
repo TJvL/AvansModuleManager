@@ -63,7 +63,7 @@ namespace ModuleManager.Web.Controllers.Api
                     else
                     {
                         return Json(new { success = true });
-                    }                             
+                    }
                 }
             }
 
@@ -149,14 +149,14 @@ namespace ModuleManager.Web.Controllers.Api
             {
                 Mapper.CreateMap<UserLockViewModel, User>();
                 User user = Mapper.Map<User>(userVM);
-              
+
                 _userRepository.Edit(user);
 
                 return Json(new { success = true });
             }
 
             return PartialView("~/Views/Admin/Users/_Lock.cshtml", userVM);
-          
+
         }
 
         public static string GetSwcSH1(string value)
