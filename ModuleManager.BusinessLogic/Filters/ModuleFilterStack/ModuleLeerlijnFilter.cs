@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleLeerlijnFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.LeerlijnFilters != null)
+            if (args.LeerlijnFilters != null && args.LeerlijnFilters.Count > 0)
             {
                 List<Module> result = new List<Module>();
                 foreach (string arg in args.LeerlijnFilters)

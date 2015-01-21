@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleTagFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.TagFilters != null)
+            if (args.TagFilters != null && args.TagFilters.Count > 0)
             {
                 List<Module> result = new List<Module>();
                 foreach (string arg in args.TagFilters)

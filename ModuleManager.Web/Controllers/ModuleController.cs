@@ -172,6 +172,11 @@ namespace ModuleManager.Web.Controllers
         {
             var modules = _unitOfWork.GetRepository<Module>().GetAll();
 
+            if (!User.Identity.IsAuthenticated) 
+            {
+                modules = modules.Where(element => element.Status.Equals("Compleet (gecontroleerd)"));
+            }
+
             ICollection<string> competentieFilters = null;
             if (value.Filters.Competenties.First() != null)
                 competentieFilters = value.Filters.Competenties;
@@ -189,7 +194,7 @@ namespace ModuleManager.Web.Controllers
                 faseFilters = value.Filters.Fases;
 
             ICollection<string> blokFilters = null;
-            if ((value.Filters.Blokken.First() != null) && (value.Filters.Blokken.First() != ""))
+            if (value.Filters.Blokken.First() != null)
                 blokFilters = value.Filters.Blokken;
 
             string zoektermFilter = null;

@@ -11,6 +11,17 @@ namespace ModuleManager.BusinessLogic.Data
     /// </summary>
     public class ModuleFilterSorterArguments
     {
+        ICollection<string> _competentieFilters;
+        ICollection<string> _competentieNiveauFilters;
+        ICollection<string> _tagFilters;
+        ICollection<string> _leerlijnFilters;
+        ICollection<string> _faseFilters;
+        ICollection<string> _blokFilters;
+        string _statusFilter;
+        string _zoektermFilter;
+        string _leerjaarFilter;
+
+
         public bool IsEmpty
         {
             get
@@ -34,42 +45,141 @@ namespace ModuleManager.BusinessLogic.Data
         /// <summary>
         /// Geselecteerde/mogelijke competentie(s) om op te filteren
         /// </summary>
-        public ICollection<string> CompetentieFilters { get; set; }
+        public ICollection<string> CompetentieFilters 
+        {
+            get { return _competentieFilters; }
+            set 
+            { 
+                if (value != null) 
+                { 
+                    _competentieFilters = value.Where(element => element.Length > 0).ToList(); 
+                } 
+            } 
+        }
+        
         /// <summary>
         /// Geselecteerde/mogelijke competentieniveau(s) om op te filteren
         /// </summary>
-        public ICollection<string> CompetentieNiveauFilters { get; set; }
+        public ICollection<string> CompetentieNiveauFilters 
+        {
+            get { return _competentieNiveauFilters; }
+            set
+            {
+                if (value != null)
+                {
+                    _competentieNiveauFilters = value.Where(element => element.Length > 0).ToList();
+                }
+            }
+        }
+        
         /// <summary>
         /// Geselecteerde/mogelijke tag(s) om op te filteren
         /// </summary>
-        public ICollection<string> TagFilters { get; set; }
+        public ICollection<string> TagFilters
+        { 
+            get { return _tagFilters; }
+            set 
+            {
+                if (value != null)
+                { 
+                    _tagFilters = value.Where(element => element.Length > 0).ToList(); 
+                }
+            }
+        }
+        
         /// <summary>
         /// Geselecteerde/mogelijke leerlijn(en) om op te filteren
         /// </summary>
-        public ICollection<string> LeerlijnFilters { get; set; }
+        public ICollection<string> LeerlijnFilters 
+        {
+            get { return _leerlijnFilters; }
+            set
+            {
+                if (value != null)
+                {
+                    _leerlijnFilters = value.Where(element => element.Length > 0).ToList();
+                }
+            }
+        }
+        
         /// <summary>
         /// Geselecteerde/mogelijke fasenaam(namen) om op te filteren
         /// </summary>
-        public ICollection<string> FaseFilters { get; set; }
+        public ICollection<string> FaseFilters 
+        {
+            get { return _faseFilters; }
+            set
+            {
+                if (value != null)
+                {
+                    _faseFilters = value.Where(element => element.Length > 0).ToList();
+                }
+            }
+        }
+        
         /// <summary>
         /// Geselecteerde/mogelijke blok(ken) om op te filteren
         /// </summary>
-        public ICollection<string> BlokFilters { get; set; }
+        public ICollection<string> BlokFilters 
+        {
+            get { return _blokFilters; }
+            set
+            {
+                if (value != null)
+                {
+                    _blokFilters = value.Where(element => element.Length > 0).ToList();
+                }
+            }
+        }
+        
         /// <summary>
         /// Geselecteerde/mogelijke EC(s) om op te filteren
         /// </summary>
         public ICollection<int> ECfilters { get; set; }
+        
         /// <summary>
         /// Geselecteerde/mogelijke status om op te filteren
         /// </summary>
-        public string StatusFilter { get; set; }
+        public string StatusFilter 
+        {
+            get { return _statusFilter; }
+            set 
+            {
+                if (value != null && value.Length > 0)
+                {
+                    _statusFilter = value;
+                }
+            }
+        }
+        
         /// <summary>
         /// Algemene zoekterm
         /// </summary>
-        public string ZoektermFilter { get; set; }
+        public string ZoektermFilter 
+        {
+            get { return _zoektermFilter; }
+            set
+            {
+                if (value != null && value.Length > 0)
+                {
+                    _zoektermFilter = value;
+                }
+            }
+        }
+        
         /// <summary>
         /// Geselecteerde/mogelijke Leerjaar om op te filteren
         /// </summary>
-        public string LeerjaarFilter { get; set; }
+        public string LeerjaarFilter 
+        {
+            get { return _leerjaarFilter; }
+            set
+            {
+                if (value != null && value.Length > 0)
+                {
+                    _leerjaarFilter = value;
+                }
+            }
+        }
     }
 }
