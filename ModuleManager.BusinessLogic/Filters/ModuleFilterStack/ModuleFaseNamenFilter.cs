@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleFaseNamenFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.FaseFilters != null)
+            if (args.FaseFilters != null && args.FaseFilters.Count > 0)
             {
                 List<Module> result = new List<Module>();
                 foreach (string arg in args.FaseFilters)

@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleGenericZoektermFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.ZoektermFilter != null) 
+            if (args.ZoektermFilter != null && args.ZoektermFilter.Length > 0) 
             {
                 toQuery = from m in toQuery where 
                               (

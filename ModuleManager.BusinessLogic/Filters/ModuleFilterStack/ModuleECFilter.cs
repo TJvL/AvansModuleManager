@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleECFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.ECfilters != null)
+            if (args.ECfilters != null && args.ECfilters.Count > 0)
             {
                 List<Module> result = new List<Module>();
                 foreach (int arg in args.ECfilters)

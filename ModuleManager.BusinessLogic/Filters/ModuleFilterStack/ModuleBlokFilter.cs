@@ -17,7 +17,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleBlokFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.BlokFilters != null)
+            if (args.BlokFilters != null && args.BlokFilters.Count > 0)
             {
                 List<Module> result = new List<Module>();
                 foreach (string arg in args.BlokFilters)

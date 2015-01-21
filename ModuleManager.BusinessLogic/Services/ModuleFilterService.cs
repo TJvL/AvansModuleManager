@@ -52,7 +52,8 @@ namespace ModuleManager.BusinessLogic.Services
         /// <returns>List of Filtered Modules</returns>
         public IEnumerable<DomainDAL.Module> Filter(IQueryablePack<DomainDAL.Module> qPack)
         {
-            return moduleFilterStrategy.Filter(qPack.Data, qPack.Args) as IEnumerable<DomainDAL.Module>;
+            var temp = moduleFilterStrategy.Filter(qPack.Data, qPack.Args);
+            return temp.ToList();
         }
     }
 }

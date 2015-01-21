@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleCompetentieFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.CompetentieFilters != null)
+            if (args.CompetentieFilters != null && args.CompetentieFilters.Count > 0)
             {
                 List<Module> result = new List<Module>();
                 foreach (string arg in args.CompetentieFilters)

@@ -14,7 +14,7 @@ namespace ModuleManager.BusinessLogic.Filters.ModuleFilterStack
         public ModuleLeerjaarFilter(IFilter<Module> parent) : base(parent) { }
         public override IQueryable<Module> Filter(IQueryable<Module> toQuery, ModuleFilterSorterArguments args)
         {
-            if (args.LeerjaarFilter != null)
+            if (args.LeerjaarFilter != null && args.LeerjaarFilter.Length > 0)
             {
                 List<Module> result = new List<Module>();
                     
