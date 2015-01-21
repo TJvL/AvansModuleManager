@@ -10,7 +10,7 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
-     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class FasesController : Controller
     {
 
@@ -41,18 +41,20 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             try
             {
                 var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any()) return Json(new {success = false});
+                if (!schooljaren.Any())
+                    return Json(new { success = false });
                 var schooljaar = schooljaren.Last();
 
                 var opleidingen = _unitOfWork.GetRepository<Opleiding>().GetAll().ToArray();
-                if (!opleidingen.Any()) return Json(new { success = false });
+                if (!opleidingen.Any())
+                    return Json(new { success = false });
                 var opleiding = opleidingen.Last();
 
                 entity.Schooljaar = schooljaar.JaarId;
                 entity.Opleiding = opleiding;
 
-                _unitOfWork.GetRepository<Fase>().Create(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Fase>().Create(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -94,11 +96,13 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
             try
             {
                 var schooljaren = _unitOfWork.GetRepository<Schooljaar>().GetAll().ToArray();
-                if (!schooljaren.Any()) return Json(new { success = false });
+                if (!schooljaren.Any())
+                    return Json(new { success = false });
                 var schooljaar = schooljaren.Last();
 
                 var opleidingen = _unitOfWork.GetRepository<Opleiding>().GetAll().ToArray();
-                if (!opleidingen.Any()) return Json(new { success = false });
+                if (!opleidingen.Any())
+                    return Json(new { success = false });
                 var opleiding = opleidingen.Last();
 
                 entity.Schooljaar = schooljaar.JaarId;
@@ -106,8 +110,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
                 entity.OpleidingNaam = opleiding.Naam;
                 entity.OpleidingSchooljaar = opleiding.Schooljaar;
 
-                _unitOfWork.GetRepository<Fase>().Edit(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Fase>().Edit(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -139,14 +143,14 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                _unitOfWork.GetRepository<Fase>().Delete(entity);
-                return Json(new {success = true});
+                var value = _unitOfWork.GetRepository<Fase>().Delete(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
                 return Json(new { success = false });
             }
-            
+
         }
 
         protected override void Dispose(bool disposing)

@@ -33,6 +33,7 @@ namespace ModuleManager.DomainDAL.Repositories
             try
             {
                 _context.Entry(entity).State = EntityState.Added;
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -43,7 +44,7 @@ namespace ModuleManager.DomainDAL.Repositories
 
                 return DomainConstants.DbErrorStandard;
             }
-            return "succes";
+            return null;
         }
 
         public string Delete(T entity)
@@ -51,6 +52,7 @@ namespace ModuleManager.DomainDAL.Repositories
             try
             {
                 _context.Entry(entity).State = EntityState.Deleted;
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -61,7 +63,7 @@ namespace ModuleManager.DomainDAL.Repositories
 
                 return DomainConstants.DbErrorStandard;
             }
-            return "succes";
+            return null;
         }
 
         public string Edit(T entity)
@@ -69,6 +71,7 @@ namespace ModuleManager.DomainDAL.Repositories
             try
             {
                 _context.Entry(entity).State = EntityState.Modified;
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -81,7 +84,7 @@ namespace ModuleManager.DomainDAL.Repositories
 
                 return DomainConstants.DbErrorStandard;
             }
-            return "succes";
+            return null;
         }
     }
 }

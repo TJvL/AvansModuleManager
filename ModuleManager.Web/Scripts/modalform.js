@@ -27,14 +27,17 @@ function bindForm(dialog) {
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {
+                console.log(result);
                 if (result.success) {
                     $('#myModal').modal('hide');
                     location.reload();
                     //$('#replacetarget').reload(result.url); //  Load data from the server and place the returned HTML into the matched element
                 } else {
-                    alert("U heeft een of meerdere velden niet juist ingevoerd.");
-                    $('#myModalContent').html(result);
-                    bindForm();
+                    if (result.strError != null) {
+                        alert(result.strError);
+                    } else {
+                        alert("Er is een fout opgetreden.");
+                    }
                 }
             }
         });

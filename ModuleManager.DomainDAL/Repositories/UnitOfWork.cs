@@ -18,7 +18,6 @@ namespace ModuleManager.DomainDAL.Repositories
 
         public void Dispose()
         {
-            Context.SaveChanges();
             Context.Dispose();
         }
     }

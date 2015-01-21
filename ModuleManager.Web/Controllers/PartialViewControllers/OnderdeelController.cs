@@ -10,7 +10,7 @@ using ModuleManager.Web.ViewModels.PartialViewModel;
 
 namespace ModuleManager.Web.Controllers.PartialViewControllers
 {
-     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class OnderdelenController : Controller
     {
 
@@ -33,8 +33,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                _unitOfWork.GetRepository<Onderdeel>().Create(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Onderdeel>().Create(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {
@@ -66,8 +66,8 @@ namespace ModuleManager.Web.Controllers.PartialViewControllers
         {
             try
             {
-                _unitOfWork.GetRepository<Onderdeel>().Delete(entity);
-                return Json(new { success = true });
+                var value = _unitOfWork.GetRepository<Onderdeel>().Delete(entity);
+                return value != null ? Json(new { success = false, strError = value }) : Json(new { success = true });
             }
             catch (Exception)
             {

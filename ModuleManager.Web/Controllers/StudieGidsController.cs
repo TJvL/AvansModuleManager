@@ -12,6 +12,7 @@ using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces;
 using System.IO;
+using System.Web.UI.WebControls.Expressions;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -42,13 +43,11 @@ namespace ModuleManager.Web.Controllers
                 var tabellenlijst = new LessenTabelViewModel { FaseType = ft.Type };
                 var fasems = _unitOfWork.GetRepository<FaseModules>().GetAll()
                     .Where(src => src.FaseSchooljaar.Equals(maxSchooljaar))
-                    //.Where(src => src.ModuleSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
-                    //.Where(src => src.OpleidingSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
-                    .ToList(); // FaseSchooljaar, ModuleSchooljaar, OpleidingSchooljaar
+                    .Where(src => src.Module.Status.Equals("Compleet (gecontroleerd)"))
+                    .ToList();
                 var fases = _unitOfWork.GetRepository<Fase>().GetAll()
                     .Where(src => src.Schooljaar.Equals(maxSchooljaar))
-                    // .Where(src => src.OpleidingSchooljaar.Equals(maxSchooljaar)) // Onnodig ???
-                    .ToList(); // Schooljaar, OpleidingSchooljaar
+                    .ToList();
                 //return CollectionA
                 //  .Join(CollectionB,
                 //      a => new { a.KeyA, a.KeyB },
@@ -62,13 +61,12 @@ namespace ModuleManager.Web.Controllers
                 foreach (var random in joined
                     .Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType))
                     .DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })
-                    .OrderBy(src => src.a.Blok))
+                    .OrderBy(src => Math.Ceiling(Convert.ToInt32(src.a.Blok) / 2.0))
+                    .ThenBy(src => src.a.FaseNaam)
+                    .ThenBy(src => src.a.Blok))
                 {
                     var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
                     var rows = new List<ModuleTabelViewModel>();
-                    //foreach (var fm2 in _unitOfWork.GetRepository<FaseModules>().GetAll() // Schooljaar, ModuleSchooljaar, OpleidingSchooljaar
-                    //    .Where(src => src.Blok.Equals(tabel.Blok))
-                    //    .Where(src => src.FaseNaam.Equals(tabel.FaseNaam))) // WTF DOE IK HIER?!
                     foreach (var fm2 in fasems
                          .Where(src => src.Blok.Equals(tabel.Blok))
                          .Where(src => src.FaseNaam.Equals(tabel.FaseNaam)))

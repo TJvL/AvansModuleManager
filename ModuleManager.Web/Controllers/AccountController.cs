@@ -15,6 +15,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Linq;
+using System.Web.WebPages;
+using Microsoft.Ajax.Utilities;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -44,8 +46,9 @@ namespace ModuleManager.Web.Controllers
                     FormsAuthentication.RedirectFromLoginPage(loginVM.UserNaam, loginVM.Remember);
                     //FormsAuthentication.SetAuthCookie()
                     String role = GetRole(loginVM.UserNaam);
-
-                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                    if (!role.IsEmpty())
+                    {
+                        FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
                             1, // Ticket version
                             loginVM.UserNaam, // Username associated with ticket
                             DateTime.Now, // Date/time issued
@@ -54,30 +57,34 @@ namespace ModuleManager.Web.Controllers
                             role, // User-data, in this case the roles
                             FormsAuthentication.FormsCookiePath);
 
-                    // Encrypt the cookie using the machine key for secure transport
-                    string hash = FormsAuthentication.Encrypt(ticket);
-                    HttpCookie cookie = new HttpCookie(
-                       FormsAuthentication.FormsCookieName, // Name of auth cookie
-                       hash); // Hashed ticket
-                    FormsAuthentication.SetAuthCookie(loginVM.UserNaam, loginVM.Remember);
+                        // Encrypt the cookie using the machine key for secure transport
+                        string hash = FormsAuthentication.Encrypt(ticket);
+                        HttpCookie cookie = new HttpCookie(
+                            FormsAuthentication.FormsCookieName, // Name of auth cookie
+                            hash); // Hashed ticket
+                        FormsAuthentication.SetAuthCookie(loginVM.UserNaam, loginVM.Remember);
 
-                    // Set the cookie's expiration time to the tickets expiration time
-                    if (ticket.IsPersistent)
-                    {
-                        cookie.Expires = ticket.Expiration;
+                        // Set the cookie's expiration time to the tickets expiration time
+                        if (ticket.IsPersistent)
+                        {
+                            cookie.Expires = ticket.Expiration;
+                        }
+
+                        Response.Cookies.Add(cookie);
+                        return RedirectToAction("Index", "Home");
                     }
-
-                    Response.Cookies.Add(cookie);
-                    return RedirectToAction("Index", "Home");
-                   
                 }
-                else if (ReturnValue == -2)
+                if (ReturnValue == -2)
                 {
                     ViewBag.LoginError = "Deze gebruikersnaam is geblokeerd";
                 }
-                else
+                else if (ReturnValue == -1)
                 {
                     ViewBag.LoginError = "Ongeldige gebruikersnaam en/of wachtwoord";
+                }
+                else
+                {
+                    ViewBag.LoginError = "Probeer het later opnieuw";
                 }
             }
             return View(loginVM);
@@ -91,37 +98,52 @@ namespace ModuleManager.Web.Controllers
 
         private int? AuthenticateUser(String username, String password)
         {
-            
+
             using (var context = new UserContext())
+            {
+
+                String hashedPassword = GetSwcSH1(password);
+
+                int? result;
+                try
                 {
-
-                    String hashedPassword = GetSwcSH1(password);                  
-
                     var resultlist = context.spAuthenticateUser(username, hashedPassword);
                     var list = new List<int?>();
 
                     list = (from element in resultlist select element).ToList();
-                    var result = list.SingleOrDefault();
-                    
-                    return result;
-
+                    result = list.SingleOrDefault();
                 }
-            
+                catch (Exception)
+                {
+                    result = -3;
+                }
+
+                return result;
+            }
+
         }
 
         public String GetRole(String username)
         {
             using (var context = new UserContext())
-            {               
+            {
 
-                var resultlist = context.spGetRol(username);
-                var list = new List<string>();
+                String result;
+                try
+                {
+                    var resultlist = context.spGetRol(username);
+                    var list = new List<string>();
 
-                list = (from element in resultlist select element).ToList();
-                var result = list.SingleOrDefault();
+                    list = (from element in resultlist select element).ToList();
+                    result = list.SingleOrDefault();
+                }
+                catch (Exception)
+                {
+                    result = String.Empty;
+                }
 
                 return result;
-            }      
+            }
         }
 
         public static string GetSwcSH1(string value)
