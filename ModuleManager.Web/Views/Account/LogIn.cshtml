@@ -1,0 +1,53 @@
+﻿@using System.Web.UI.WebControls
+@model ModuleManager.Web.ViewModels.LoginVM
+ 
+@{
+    ViewBag.Title = "Login";
+}
+
+<div id="content" role="content">
+  <div class="container">
+    <div class="row">
+      <div id="primary" class="col-md-12">
+        <style> form { max-width: 330px; padding: 15px; margin: 0 auto; } </style>  
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <h2>Inloggen</h2>
+
+             <!-- Error alert, bootstrap style -->
+            if (ViewBag.LoginError != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.LoginError
+                    @Html.ValidationMessage("error")
+                </div>
+            }
+            
+            <!-- Gebruikersnaam--> 
+            @Html.EditorFor(model => model.UserNaam, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Gebruikersnaam", autofocus = true } })
+            @Html.ValidationMessageFor(model => model.UserNaam, "", new { @class = "text-danger" })
+
+            <!-- Wachtwoord -->
+            @Html.EditorFor(model => model.Wachtwoord, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Wachtwoord" } })
+            @Html.ValidationMessageFor(model => model.Wachtwoord, "", new { @class = "text-danger" })
+
+            <!-- Onthoud mij? -->
+            <div class="checkbox">
+                <label style="min-height: 0px">
+                    @Html.EditorFor(x => x.Remember) Onthoud mij?
+                </label>
+            </div>
+            <input type="hidden" value="false" name="Remember" />
+
+            <!-- Inloggen -->
+            <input name="submit" type="submit" id="submit" value="Inloggen" class="btn btn-lg btn-primary btn-block">
+        }
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/Login.cshtml", null);

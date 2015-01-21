@@ -1,0 +1,651 @@
+﻿@model ModuleManager.Web.ViewModels.ModuleEditViewModel
+
+@{    
+    HashSet<String> selected = new HashSet<string>();
+
+    Model.Options.Filter(Model.Module);
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div id="primary">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Overview_Teacher_Temp", "Module")">Home</a></li>
+                    <li class="active">Module bewerken</li>
+                </ol>
+            </div>
+
+            <div class="col-md-12">
+                <h2>Module bewerken</h2>
+                <br />
+            </div>
+            
+            <div class="col-md-12">
+                @using (Html.BeginForm("Edit", "Module", FormMethod.Post, new { @id = "module_edit_form" }))
+                {
+                    <div id="hidden-values">
+                        @Html.HiddenFor(model => model.Module.CursusCode, new { @id = "cursuscode" })
+                        @Html.HiddenFor(model => model.Module.Schooljaar, new { @id = "schooljaar" })
+
+                        @for (int i = 0; i < Model.Module.FaseModules.Count; i++)
+                        { 
+                            @Html.HiddenFor(f => Model.Module.FaseModules[i].Blok)
+                            @Html.HiddenFor(f => Model.Module.FaseModules[i].FaseNaam)
+                            @Html.HiddenFor(f => Model.Module.FaseModules[i].FaseSchooljaar)
+                            @Html.HiddenFor(f => Model.Module.FaseModules[i].ModuleCursusCode)
+                            @Html.HiddenFor(f => Model.Module.FaseModules[i].ModuleSchooljaar)
+                            @Html.HiddenFor(f => Model.Module.FaseModules[i].OpleidingNaam)
+                            @Html.HiddenFor(f => Model.Module.FaseModules[i].OpleidingSchooljaar)
+                        }                       
+
+                        <div id="hidden-leerlijnen">
+
+                        </div>
+
+                        <div id="hidden-voorkennis">
+                        </div>
+
+                        <div id="hidden-tags">
+
+                        </div>
+
+                        <div id="hidden-competenties">
+
+                        </div>
+
+                        <div id="hidden-docenten">
+
+                        </div>
+
+                        <div id="hidden-werkvormen">
+
+                        </div>
+                    </div>
+
+                    <table class="table">
+                        <tr>
+                            <td><label for="tags">Naam</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" id="name" placeholder="Naam" value="@Model.Module.Naam" disabled="disabled">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table">
+                        <tr>
+                            <td><label for="tags">Beschrijving</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea class="form-control" id="description" placeholder="Beschrijving">@Model.Module.Beschrijving</textarea>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table style="width:100%;" class="table" id="comp-table" data-niveaus='@Html.Raw(Json.Encode(from n in Model.Options.Niveaus select n.Niveau1))'>
+                        <tr>
+                            <td><label>Competentie</label></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        @for (int i = 0; i < Model.Options.Niveaus.Count; i++)
+                        {
+                            <tr>
+                                <td></td>
+                                <td><label for="@Model.Options.Niveaus.ElementAt(i).Niveau1-select">@Model.Options.Niveaus.ElementAt(i).Niveau1</label></td>
+                                <td>@Html.DropDownList("ModuleCompetentie", new MultiSelectList(Model.Options.Competenties, "Naam", "Naam", (from c in Model.Module.ModuleCompetentie where c.Niveau == Model.Options.Niveaus.ElementAt(i).Niveau1 select c.Competentie.Naam).ToList()), new { @id = Model.Options.Niveaus.ElementAt(i).Niveau1 + "-select", @multiple = "form-control", @class = "form-control" })</td>
+                            </tr>
+                        }
+                    </table>
+
+                    <table class="table">
+                        <tr>
+                            <td><label>Leerlijnen</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("Leerlijn", new MultiSelectList(Model.Options.Leerlijnen, "Naam", "Naam", Model.Module.Leerlijn.Select(m => m.Naam)), new { @id = "leerlijn", @multiple = "multiple", @class = "form-control" })
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table">
+                        <tr>
+                            <td><label for="voorkennis">Tags</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("Tags", new MultiSelectList(Model.Options.Tags, "Naam", "Naam", Model.Module.Tag.Select(m => m.Naam)), new { @id = "tags", @multiple = "multiple", @class = "form-control" })
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table">
+                        <tr>
+                            <td><label for="voorkennis">Voorkennis</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("Voorkennis", new MultiSelectList(Model.Options.VoorkennisModules, "Naam", "Naam", Model.Module.Module2.Select(m => m.Naam)), new { @id = "voorkennis", @multiple = "multiple", @class = "form-control" })
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table">
+                        <tr>
+                            <td><label for="voorkennis">Docenten</label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("Docenten", new MultiSelectList(Model.Options.Docenten, "Name", "Name", Model.Module.Docent.Select(m => m.Name)), new { @id = "docenten", @multiple = "multiple", @class = "form-control" })
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="form-group">
+                        <label for="general-information">Algemene informatie</label>
+                        <table class="table table-bordered table-center table-striped">
+                            <tbody>
+                                <tr>
+                                    <th style="min-width: 250px;"><label for="werkvorm">Werkvorm</label></th>
+                                    <td>
+                                        <select name="werkvorm" class="form-control" id="werkvorm" multiple>
+                                            @foreach (var werkvorm in Model.Module.ModuleWerkvorm)
+                                            {
+                                                <option class="werkvorm_option" data-type="@werkvorm.WerkvormType" selected="selected" value="@werkvorm.WerkvormType"> @Model.Options.Werkvormen.Where(w => w.Type == werkvorm.WerkvormType).Select(w => w.Omschrijving).First() (@werkvorm.WerkvormType)</option>
+                                            }
+                                            @foreach (var opt in Model.Options.Werkvormen)
+                                            {
+                                                <option class="werkvorm_option" data-type="@opt.Type" value="@opt.Type"> @opt.Omschrijving (@opt.Type)</option>
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Organisatie</th>
+                                    <td>
+                                        <table class="table table-bordered" id="organisatie">
+                                            <thead>
+                                                <tr>
+                                                    <th data-skipremove="true" width="20px">Werkvorm</th>
+                                                    <th data-skipremove="true">Organisatie</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var werkvorm in Model.Module.ModuleWerkvorm)
+                                                {
+                                                    <tr data-type="@werkvorm.WerkvormType">
+                                                        <td>@Html.EditorFor(item => werkvorm.WerkvormType, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })</td>
+                                                        <td>@Html.EditorFor(item => werkvorm.Organisatie, new { htmlAttributes = new { @class = "form-control orgDesc" } })</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Studiebelasting</th>
+                                    <td>
+                                        <table class="table table-bordered" id="sb">
+                                            <thead>
+                                                <tr>
+                                                    <th>Activiteit</th>
+                                                    <th>Duur</th>
+                                                    <th>Frequentie</th>
+                                                    <th>SBU</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @for (int i = 0; i < Model.Module.StudieBelasting.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Activiteit, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Duur, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>@Html.EditorFor(item => Model.Module.StudieBelasting[i].Frequentie, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.StudieBelasting[i].SBU, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.StudieBelasting[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.HiddenFor(item => Model.Module.StudieBelasting[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </td>
+                                                    <td style="width: 90px; text-align:center">
+                                                        <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                }
+                                                <tr>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="sb" data-columns="4" data-collectionname="StudieBelasting" data-properties='["Activiteit", "Duur", "Frequentie", "SBU"]' data-nextindex="@Model.Module.Leermiddelen.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Weekplanning</th>
+                                    <td>
+                                        <table class="table table-bordered" id="wp">
+                                            <thead>
+                                                <tr>
+                                                    <th>Week</th>
+                                                    <th>Onderwerpen</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.Module.Weekplanning.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td style="width:80px;">@Html.EditorFor(item => Model.Module.Weekplanning[i].Week, new { htmlAttributes = new { @class = "form-control" } })</td>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.Weekplanning[i].Onderwerp, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Weekplanning[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Weekplanning[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="wp" data-columns="2" data-collectionname="Weekplanning" data-properties='["Week", "Onderwerp"]' data-nextindex="@Model.Module.Weekplanning.Count" class="btn btn-success btn-sm row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Beoordeling</th>
+                                    <td>
+                                        <table class="table table-bordered" id="beoordelingen">
+                                            <thead>
+                                                <tr>
+                                                    <th>Beoordelingen</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.Module.Beoordelingen.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.Beoordelingen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Beoordelingen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Beoordelingen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="beoordelingen" data-columns="1" data-collectionname="Weekplanning" data-properties='["Beschrijving"]' data-nextindex="@Model.Module.Beoordelingen.Count" class="btn btn-success row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Leermiddelen</th>
+                                    <td>
+                                        <table class="table table-bordered" id="leermiddelen">
+                                            <thead>
+                                                <tr>
+                                                    <th>Leermiddelen</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.Module.Leermiddelen.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.Leermiddelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Leermiddelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Leermiddelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr class=".leermiddel_add">
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="leermiddelen" data-columns="1" data-collectionname="Leermiddelen" data-properties='["Beschrijving"]' data-nextindex="@Model.Module.Leermiddelen.Count" class="btn btn-success row_add" type="button"><i class="fa fa-plus"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Leerdoelen</th>
+                                    <td>
+                                        <table class="table table-bordered" id="leerdoelen">
+                                            <thead>
+                                                <tr>
+                                                    <th>Een student kan...</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @for (int i = 0; i < Model.Module.Leerdoelen.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.EditorFor(item => Model.Module.Leerdoelen[i].Beschrijving, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Leerdoelen[i].CursusCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.HiddenFor(item => Model.Module.Leerdoelen[i].Schooljaar, new { htmlAttributes = new { @class = "form-control" } })
+                                                        </td>
+                                                        <td style="width: 90px; text-align:center">
+                                                            <a class="btn btn-danger btn-sm remove_row"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <td style="width: 90px; text-align:right; padding-right:30px" colspan="5">
+                                                        <button data-target="leerdoelen" data-columns="1" data-collectionname="Leerdoelen" data-properties='["Beschrijving"]' data-nextindex="@Model.Module.Leerdoelen.Count" class="btn btn-success row_add" type="button"><i class="fa fa-plus add_row"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <div id="status" class="checkbox" style="padding-left: 10px;">
+                            <label>
+                                @if (Model.Module.IsCompleted)
+                                {
+                                    <input name="status" type="checkbox" checked="checked">
+                                }
+                                else
+                                {
+                                    <input name="status" type="checkbox">
+                                }
+                                Compleet?
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-lg">Opslaan</button>
+                    <a href="@Url.Action("Overview_Teacher_Temp", "Module")" class="btn btn-default">Annuleren</a>
+
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Help MODAL-->
+@Html.Partial("~/Views/Help/ModuleEdit.cshtml", null);
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    <script>
+    function UpdateOrganisatie() {
+        $("#organisatie tr").each(function (i, org) {
+            $orgType = $(org).data("type");
+
+            var shouldDelete = true;
+
+            $("#werkvorm option:selected").each(function (i, selected) {
+                $selected_type = $(selected).data("type");
+
+                if ($selected_type == $orgType)
+                    shouldDelete = false;
+            })
+
+            if (shouldDelete)
+                $(org).closest("tr").remove();
+        });
+
+        $("#werkvorm option:selected").each(function (i, selected) {
+            $selected_type = $(selected).data("type");
+
+            var shouldAdd = true;
+
+            $("#organisatie tr").each(function (i, org) {
+                $orgType = $(org).data("type");
+
+                if ($selected_type == $orgType)
+                    shouldAdd = false;
+            })
+
+            if (shouldAdd) {
+                var newRow = "<tr data-type='" + $selected_type + "'>";
+                newRow += "<td><input class='form-control text-box single-line' disabled='disabled' id='werkvorm_WerkvormType' name='werkvorm.WerkvormType' type='text' value='" + $selected_type + "'></td>"
+                newRow += "<td><input class='form-control text-box single-line' id='werkvorm_Organisatie' name='werkvorm.Organisatie' type='text'></td>"
+                newRow += "</tr>"
+
+                $("#organisatie tbody").append(newRow)
+            }
+        });
+    }
+
+    function AddRow(targettable, values) {
+        UpdateOrganisatie();
+    }
+
+    $("#werkvorm").on("change", function (e) {
+        UpdateOrganisatie();
+    })
+
+    $("#module_edit_form").submit(function () {
+        $hidden_leerlijnen = $("#hidden-leerlijnen");
+        $hidden_voorkennis = $("#hidden-voorkennis");
+        $hidden_tags = $("#hidden-tags");
+        $hidden_competenties = $("#hidden-competenties");
+        $hidden_docenten = $("#hidden-docenten");
+        $hidden_werkvormen = $("#hidden-werkvormen");
+
+        $hidden_leerlijnen.empty();
+        $hidden_voorkennis.empty();
+        $hidden_tags.empty();
+        $hidden_competenties.empty();
+        $hidden_werkvormen.empty();
+
+        var index = 0;
+
+        $("#werkvorm option:selected").each(function (i, selected) {
+            var wvType = $(selected).data("type");
+
+            var organisatie = "";
+
+            $("#organisatie tr").each(function (i, org) {
+                var orgType = $(org).data("type");
+
+                if (orgType == wvType) {
+                    var findAttempt = $(org).find("input[name='werkvorm.Organisatie']").val();
+                    if (findAttempt != "")
+                        organisatie = findAttempt;
+                }
+            })
+
+            var newRow1 = "<input name='Module.ModuleWerkvorm[" + index + "].Organisatie' type='hidden' value=" + organisatie + ">";
+            var newRow2 = "<input name='Module.ModuleWerkvorm[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            var newRow3 = "<input name='Module.ModuleWerkvorm[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+            var newRow4 = "<input name='Module.ModuleWerkvorm[" + index + "].WerkvormType' type='hidden' value='" + wvType + "'>";
+
+
+            $hidden_werkvormen.append(newRow1 + newRow2 + newRow3 + newRow4);
+            ++index;
+        })
+
+
+        index = 0;
+
+        $("#leerlijn option:selected").each(function (i, selected) {
+
+            var newRow1 = "<input name='Module.Leerlijn[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.Leerlijn[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+
+            $hidden_leerlijnen.append(newRow1 + newRow2);
+
+            ++index;
+        });
+
+        index = 0;
+
+        $("#voorkennis option:selected").each(function (i, selected) {
+
+            var newRow1 = "<input name='Module.Module2[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.Module2[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            var newRow3 = "<input name='Module.Module2[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+
+            $hidden_voorkennis.append(newRow1 + newRow2 + newRow3);
+
+            ++index;
+        });
+
+        index = 0;
+
+        $("#docenten option:selected").each(function (i, selected) {
+
+            var newRow1 = "<input name='Module.Docent[" + index + "].Name' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.Docent[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+            var newRow3 = "<input name='Module.Docent[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+
+            $hidden_docenten.append(newRow1 + newRow2 + newRow3);
+
+            ++index;
+        });
+
+        index = 0;
+
+        $("#tags option:selected").each(function (i, selected) {
+
+            var newRow1 = "<input name='Module.Tag[" + index + "].Naam' type='hidden' value=" + $(selected).text() + ">";
+            var newRow2 = "<input name='Module.Tag[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+
+            $hidden_tags.append(newRow1 + newRow2);
+
+            ++index;
+        });
+
+        $comp_table = $("#comp-table");
+        $niveaus = $comp_table.data("niveaus");
+
+        index = 0;
+
+        for (var i = 0; i < $niveaus.length; i++) {
+            $niveau = $niveaus[i];
+            $("#" + $niveau + "-select option:selected").each(function (i, selected) {
+
+                var newRow1 = "<input name='Module.ModuleCompetentie[" + index + "].Niveau' type='hidden' value=" + $niveau + ">"
+                var newRow2 = "<input name='Module.ModuleCompetentie[" + index + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>"
+                var newRow3 = "<input name='Module.ModuleCompetentie[" + index + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>"
+
+                $hidden_competenties.append(newRow1 + newRow2 + newRow3);
+
+                ++index;
+            });
+        }
+    });
+
+    $(document).on("click", ".werkvorm_option", function () {
+        alert($(this).data("type"))
+    });
+
+    $(".row_add").click(function () {
+
+        var target = $(this).data("target");
+        var columns = $(this).data("columns");
+        var collName = $(this).data("collectionname");
+        var properties = $(this).data("properties");
+        var newIndex = $(this).data("nextindex")
+
+        var options = $(this).data("options");
+
+
+
+        var newRow = "<tr>";
+        if (columns == properties.length) {
+            if (columns == 1 && typeof (options) != 'undefined') {
+                debugger;
+                newRow += "<td><select>";
+                for (var optionName in options) {
+                    newRow += "<option>" + optionName + "</option>"
+                }
+                newRow += "</select>"
+            }
+            else {
+                for (var i = 0; i < columns; i++) {
+                    newRow += "<td><input class='form-control' id='Module_" + collName + "_" + newIndex + "_" + properties[i] + "' name='Module." + collName + "[" + newIndex + "]." + properties[i] + "' type='text'>"
+
+                    if (i != (columns - 1))
+                        newRow += "</td>";
+                }
+            }
+        }
+
+        newRow += "<input id='Module_" + collName + "_" + newIndex + "__CursusCode' name='Module." + collName + "[" + newIndex + "].CursusCode' type='hidden' value='@Model.Module.CursusCode'>";
+        newRow += "<input id='Module_" + collName + "_" + newIndex + "__Schooljaar' name='Module." + collName + "[" + newIndex + "].Schooljaar' type='hidden' value='@Model.Module.Schooljaar'>";
+
+        newRow += "</td>"
+
+        newRow += "<td style='width: 90px; text-align:center'><a class='btn btn-danger btn-sm remove_row'><i class='fa fa-trash'></i></a></td>"
+
+        newRow += "</tr>";
+
+        $("#" + target + " tr:last").before(newRow);
+
+        $(this).data("nextindex", newIndex + 1);
+    });
+
+    $(document).on("click", ".remove_row", function () {
+        $(this).closest("tr").remove()
+    });
+
+    $(function () {
+        // SELECT2
+        $("#competenties").select2({
+            placeholder: "Competenties"
+        });
+
+        $("#leerlijn").select2({
+            placeholder: "Leerlijn"
+        });
+
+        $("#tags").select2({
+            placeholder: "Tags"
+        });
+
+        $("#werkvorm").select2({
+            placeholder: "Werkvorm"
+        });
+
+        $("#voorkennis").select2({
+            placeholder: "Voorkennis"
+        });
+
+        $("#docenten").select2({
+            placeholder: "Docenten"
+        })
+
+
+        @foreach (var niveau in Model.Options.Niveaus)
+            {
+                 @Html.Raw("$('#" + @niveau.Niveau1 + "-select').select2({ placeholder: 'Werkvorm' });")
+            }
+    });
+</script>
+
+}

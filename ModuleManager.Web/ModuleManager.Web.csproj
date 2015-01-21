@@ -54,6 +54,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,6 +79,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Web.WebApi">
+      <HintPath>..\packages\Ninject.Web.WebApi.3.2.3.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -80,6 +96,18 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -123,7 +151,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\content.css" />
+    <Content Include="Content\custom.css" />
     <Content Include="Content\DataTables-1.10.3\css\dataTables.autoFill.css" />
     <Content Include="Content\DataTables-1.10.3\css\dataTables.autoFill.min.css" />
     <Content Include="Content\DataTables-1.10.3\css\dataTables.bootstrap.css" />
@@ -179,18 +207,27 @@
     <Content Include="Content\DataTables-1.10.3\images\xls_hover.png" />
     <Content Include="Content\DataTables-1.10.3\swf\copy_csv_xls.swf" />
     <Content Include="Content\DataTables-1.10.3\swf\copy_csv_xls_pdf.swf" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\select2-bootstrap.css" />
+    <Content Include="Content\select2.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\DataTables-1.10.3\css\dataTables.responsive.scss" />
     <Content Include="Content\DataTables-1.10.3\css\dataTables.jqueryui.scss" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Images\avans-white.png" />
+    <Content Include="Images\avans.png" />
+    <Content Include="Images\Help\Export.png" />
+    <Content Include="Images\Help\Filter.png" />
+    <Content Include="Images\Help\ModuleOverzichtWeergave.png" />
+    <Content Include="Images\select2-spinner.gif" />
+    <Content Include="Images\select2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dataTables.dutch.alt.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.bootstrap.js" />
@@ -214,22 +251,106 @@
     <Content Include="Scripts\DataTables-1.10.3\dataTables.tableTools.min.js" />
     <Content Include="Scripts\DataTables-1.10.3\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables-1.10.3\jquery.dataTables.min.js" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\dataTables.dutch.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\modalform.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\module-overview.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\select2_locale_nl.js" />
+    <Content Include="Scripts\temp_data.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfiguration.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\CompetentieController.cs" />
+    <Compile Include="Controllers\Api\FaseController.cs" />
+    <Compile Include="Controllers\Api\Interfaces\IGenericApiController.cs" />
+    <Compile Include="Controllers\Api\Interfaces\IModuleApiController.cs" />
+    <Compile Include="Controllers\Api\LeerlijnController.cs" />
+    <Compile Include="Controllers\Api\OnderdeelController.cs" />
+    <Compile Include="Controllers\Api\ModuleController.cs" />
+    <Compile Include="Controllers\Api\TagController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModuleController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\ModuleBlockController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\CompetentieController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\FaseController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\LeerlijnController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\ModuleController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\OnderdeelController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\TagController.cs" />
+    <Compile Include="Controllers\StudieGidsController.cs" />
+    <Compile Include="Controllers\PartialViewControllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\ActionLinkHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AccountVM.cs" />
+    <Compile Include="ViewModels\CheckModulesViewModel.cs" />
+    <Compile Include="ViewModels\AdminCurriculumViewModel.cs" />
+    <Compile Include="ViewModels\AdminUserManagementViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\BeoordelingenViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\CompetentieViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\DocentViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\FaseModulesViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\FaseTypeViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\LeerdoelenViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\LeerlijnViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\LeermiddelenViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\ModuleCompetentieViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\ModuleViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\ModuleWerkvormViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\NiveauViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\StudieBelastingViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\StudiePuntenViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\TagViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\ToetsvormViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\WeekplanningViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\FaseCrudViewModel.cs" />
+    <Compile Include="ViewModels\EntityViewModel\WerkvormViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleCrudViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleEditOptionsViewModel.cs" />
+    <Compile Include="ViewModels\ModuleEditViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\LessenTabelViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ExportViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\FilterOptionsViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\LesTabelViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleListViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleLockViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleTabelViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModulePartialViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\ModuleVoorkennisViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\OnderdeelTabelViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\UserListViewModel.cs" />
+    <Compile Include="ViewModels\PartialViewModel\UserViewModel.cs" />
+    <Compile Include="ViewModels\HomeIndexViewModel.cs" />
+    <Compile Include="ViewModels\ModuleOverviewViewModel.cs" />
+    <Compile Include="ViewModels\RequestViewModels\Export.cs" />
+    <Compile Include="ViewModels\RequestViewModels\ExportArgumentsViewModel.cs" />
+    <Compile Include="ViewModels\RequestViewModels\Filter.cs" />
+    <Compile Include="ViewModels\RequestViewModels\OrderBy.cs" />
+    <Compile Include="ViewModels\RequestViewModels\ArgumentsViewModel.cs" />
+    <Compile Include="ViewModels\StudiegidsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -238,6 +359,58 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Views\Admin\Curriculum.cshtml" />
+    <Content Include="Views\Admin\UserOverview.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Admin\CheckModules.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Module\Overview.cshtml" />
+    <Content Include="Views\Module\Details.cshtml" />
+    <Content Include="Views\Module\Overview_Teacher_Temp.cshtml" />
+    <Content Include="Views\Module\Details_Teacher_Temp.cshtml" />
+    <Content Include="Views\Module\Edit.cshtml" />
+    <Content Include="Views\Admin\Archive.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Module\Add.cshtml" />
+    <Content Include="Views\Help\Curriculum.cshtml" />
+    <Content Include="Views\Help\Admin.cshtml" />
+    <Content Include="Views\Help\Archive.cshtml" />
+    <Content Include="Views\Help\CheckModules.cshtml" />
+    <Content Include="Views\Help\Homepage.cshtml" />
+    <Content Include="Views\Help\ModuleDetails.cshtml" />
+    <Content Include="Views\Help\ModuleEdit.cshtml" />
+    <Content Include="Views\Help\ModuleOverview.cshtml" />
+    <Content Include="Views\Help\UserAdd.cshtml" />
+    <Content Include="Views\Help\UserEdit.cshtml" />
+    <Content Include="Views\Help\UserOverview.cshtml" />
+    <Content Include="Views\Help\Login.cshtml" />
+    <Content Include="Views\Admin\CheckModules\Reminder.cshtml" />
+    <Content Include="Views\Export\ModuleOverview.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Module\Delete.cshtml" />
+    <Content Include="Views\Account\Registration.cshtml" />
+    <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\StudieGids\Index.cshtml" />
+    <Content Include="Views\Admin\Users\_Lock.cshtml" />
+    <Content Include="Views\Admin\Users\_Add.cshtml" />
+    <Content Include="Views\Admin\Users\_Edit.cshtml" />
+    <Content Include="Views\Admin\CheckModules\_Lock.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Competentie\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Competentie\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Competentie\_Details.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Competentie\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Fase\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Fase\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Fase\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Leerlijn\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Leerlijn\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Edit.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Tag\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Onderdeel\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Onderdeel\_Delete.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Module\_Add.cshtml" />
+    <Content Include="Views\Admin\Curriculum\Module\_Delete.cshtml" />
+    <Content Include="Views\Help\StudieGids.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,13 +420,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="RepositoryInterfaces\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="Views\CreateFaseViewModel\" />
+    <Folder Include="Views\Leerlijn\" />
+    <Folder Include="Views\ModuleBlock\" />
+    <Folder Include="Views\Onderdeel\" />
+    <Folder Include="Views\Tag\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleManager.BusinessLogic\ModuleManager.BusinessLogic.csproj">
       <Project>{89c16482-39d4-4861-928d-d59a7db808e9}</Project>
       <Name>ModuleManager.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModuleManager.DomainDAL\ModuleManager.DomainDAL.csproj">
+      <Project>{ac5d926e-de8a-41a5-aed4-8e60dffa7b1d}</Project>
+      <Name>ModuleManager.DomainDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModuleManager.LoggingSysteem\ModuleManager.LoggingSysteem.csproj">
       <Project>{bc407b28-8305-43a9-b2e4-7efc912ad51e}</Project>

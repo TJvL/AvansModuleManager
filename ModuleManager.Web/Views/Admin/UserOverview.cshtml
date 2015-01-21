@@ -1,0 +1,146 @@
+﻿@using ModuleManager.Web.Helpers
+
+@model ModuleManager.Web.ViewModels.AdminUserManagementViewModel
+
+<div class="container">
+    <div class="row">
+        <div id="primary">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+                    <li class="active">Gebruikers</li>
+                </ol>
+            </div>
+
+            <div class="col-md-12">
+                <div class="pull-right">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Nieuwe gebruiker", "Toevoegen", "Create", "Users", htmlAttributes: new { data_modal = "", @class = "btn btn-success" })
+                </div>
+                <h2 style="margin-top: 0">Gebruikers</h2>
+            </div>
+
+            <div class="col-md-12">
+                <table id="users" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Gebruikersnaam</th>
+                            <th>Naam</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Users.Data)
+                        {
+                            <tr>
+                                <td class="name">@item.GebruikersNaam</td>
+                                <td class="name">@item.Naam</td>
+                                <td>@item.Email</td>
+                                <td>@item.SysteemRol</td>
+                                <td class="actions" style="width: 130px">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                                    @if (!item.Blocked)
+                                    {
+                                        @Html.NoEncodeActionLink("<span i class='fa fa-lock'></span>", "Blokeren", "Lock", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam, Blocked = true }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })                                        
+                                    }
+                                    else
+                                    {
+                                        @Html.NoEncodeActionLink("<span i class='fa fa-unlock'></span>", "Deblokeren", "Lock", "Users", routeValues: new { gebruikersnaam = item.GebruikersNaam, Blocked = false }, htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-sm" })                                       
+                                    }
+                                   
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /#primary -->
+    </div>
+</div>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Help MODAL -->
+@Html.Partial("~/Views/Help/UserOverview.cshtml", null)
+
+<!-- JAVA MEUK -->
+@section Scripts {
+    
+    @Scripts.Render("~/bundles/modalform")
+    <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
+
+    <script>
+
+        $(function () {
+
+
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
+
+            $('.dropdown-menu').on('click', function (e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
+
+            $("#users").dataTable({
+                dom:
+                    "<'row'<'col-sm-6'l><'col-sm-6 toolbar'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-6'p><'col-sm-6'i>>",
+                //oLanguage: { "sSearch": "" },
+                language: {
+                    url: "/Scripts/dataTables.dutch.alt.js",
+                    searchPlaceholder: "Zoeken"
+                },
+                order: [[0, "asc"]],
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [4] }
+                ],
+                initComplete: function () { 
+                    var table = $('#users').DataTable();
+                    var columns = [3];
+                    var i = 0;
+                    var select = $('<select id="filterRol" class="form-control pull-right input-sm input-block" style="width: 150px;text-align: left; margin-left: 3px;"><option value="">Rollen Filter</option></select>')
+                            .appendTo($(".toolbar #users_filter"))
+                            .on('change', function () {
+                                table.column(columns[i])
+                                    .search($(this).val())
+                                    .draw();
+                            });
+                    table.column(columns[i]).data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>');
+                    });
+                    $("#filterRol").select2({});
+                }
+            });
+
+            $(function () {
+                // SELECT2
+                $("#systeemrolCreate").select2({
+                    placeholder: "-- Kies een systeemrol --"
+                });
+                $("#systeemrolEdit").select2({
+                    placeholder: "-- Kies een systeemrol --"
+                });
+            });
+        });
+    </script>
+
+}

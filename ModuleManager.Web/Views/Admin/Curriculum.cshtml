@@ -1,0 +1,377 @@
+﻿@using ModuleManager.Web.Helpers
+
+@model ModuleManager.Web.ViewModels.AdminCurriculumViewModel
+
+<div class="container">
+    <div class="row">
+        <div id="primary">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Admin")">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Admin")">Beheer</a></li>
+                    <li class="active">Curriculum beheer</li>
+                </ol>
+            </div>
+
+            <div class="col-md-12">
+                <h2>Curriculum beheer</h2>
+                <br /><br />
+            </div>
+
+            <div class="col-md-6">
+                <div id="toolbar" class="competentiesTable" style="display:none;">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Competenties", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                </div>
+                <h3 style="margin-top: 0">Competenties</h3>
+
+                <table id="competentiesTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Competenties)
+                        {
+                            <tr class="competentie-item">
+                                <td class="ninety-width">@item.Code</td>
+                                <td>@item.Naam</td>
+                                <td class="actions" style="width:118px">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-info'></span>", "Details", "Details", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-info btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Competenties", routeValues: new { code = item.Code, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+
+            <div class="col-md-6">
+                <div id="toolbar" class="fasesTable" style="display:none;">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Fases", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                </div>
+                <h3 style="margin-top: 0">Fases</h3>
+
+                <table id="fasesTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Fases)
+                        {
+                            <tr class="fase-item">
+                                <td class="ninety-width">@item.FaseType</td>
+                                <td>@item.Naam</td>
+                                <td class="actions ninety-width">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-pencil'></span>", "Bewerken", "Edit", "Fases", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar, opleidingsNaam = item.OpleidingNaam, opleidingsSchooljaar = item.OpleidingSchooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-warning btn-sm" })
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Fases", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar, opleidingsNaam = item.OpleidingNaam, opleidingsSchooljaar = item.OpleidingSchooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+            
+            <div class="col-md-12">
+                <hr />
+            </div>
+
+            <div class="col-md-4">
+                <div id="toolbar" class="leerlijnenTable" style="display:none;">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Leerlijnen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                </div>
+                <h3 style="margin-top: 0">Leerlijnen</h3>
+
+                <table id="leerlijnenTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Leerlijn)
+                        {
+                            <tr class="leerlijn-item">
+                                <td>@item.Naam</td>
+                                <td class="actions" style="width:45px;">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Leerlijnen", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+
+            <div class="col-md-4">
+                <div id="toolbar" class="tagsTable" style="display:none;">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Tags", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                </div>
+                <h3 style="margin-top: 0">Tags</h3>
+
+                <table id="tagsTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Tags)
+                        {
+                            <tr class="tag-item">
+                                <td>@item.Naam</td>
+                                <td class="actions" style="width:45px;">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Tags", routeValues: new { naam = item.Naam, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+            
+            <div class="col-md-4">
+                <div id="toolbar" class="onderdelenTable" style="display:none;">
+                    @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Onderdelen", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                </div>
+                <h3 style="margin-top: 0">Onderdelen</h3>
+
+                <table id="onderdelenTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in @Model.Onderdeel)
+                        {
+                            <tr class="tag-item">
+                                <td>@item.Code</td>
+                                <td class="actions" style="width:45px;">
+                                    @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Onderdelen", routeValues: new { code = item.Code }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br /><br />
+            </div>
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                        <div id="toolbar" class="modulesTable" style="display:none;">
+                            @Html.NoEncodeActionLink("<span i class='fa fa-plus'></span> Toevoegen", "Toevoegen", "Create", "Modules", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right" })
+                        </div>
+
+                        <h3>Modules</h3>
+                    </div>
+                </div>
+
+                <div id="items" class="row">
+                    <div class="col-md-12">
+
+                        <table id="modulesTable" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Icon</th>
+                                    <th>Naam</th>
+                                    <th>Verantwoordelijke</th>
+                                    <th>CursusCode</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in @Model.Modules)
+                                {
+                                    <tr class="tag-item">
+                                        <td><i class="fa fa-@item.Icon fa-3x"></i></td>
+                                        <td>@item.Naam</td>
+                                        <td>@item.Verantwoordelijke</td>
+                                        <td>@item.CursusCode</td>
+                                        <td>@item.Status</td>
+                                        <td class="actions" style="width:45px;">
+                                            @Html.NoEncodeActionLink("<span i class='fa fa-trash'></span>", "Verwijderen", "Delete", "Modules", routeValues: new { cursusCode = item.CursusCode, schooljaar = item.Schooljaar }, htmlAttributes: new { data_modal = "", @class = "btn btn-danger btn-sm" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div> <!-- #ITEMS -->
+            </div><!-- Modules -->
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Help MODAL -->
+@Html.Partial("~/Views/Help/Curriculum.cshtml", null)
+
+<!-- JAVA MEUK -->
+@section Scripts {
+
+    @Scripts.Render("~/bundles/modalform")
+    <link href="~/Content/DataTables-1.10.3/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.3/dataTables.bootstrap.js"></script>
+
+    <style>
+        div.dataTables_filter label {
+            float: left !important;
+        }
+        #iconPlaceholder {
+            margin: 20px 0 0;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            // THIS FOR ALL OVERVIEWS
+            $(".item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    window.location = $(this).parent().data("href");
+                }
+            });
+
+            $('.dropdown-menu').on('click', function (e) {
+                if ($(this).hasClass('dropdown-menu-form')) {
+                    e.stopPropagation();
+                }
+            });
+
+            $(".competentie-item td").on("click", function () {
+                if (!$(this).hasClass("actions")) {
+                    $('#competentie-details').modal('show');
+                }
+            });
+
+            $(".competentie-item td .info").on("click", function (e) {
+                e.preventDefault();
+                $('#competentie-details').modal('show');
+            });
+
+            // SELECT2
+            $("#ModuleAddFases").select2({
+                placeholder: "Fases"
+            });
+
+            $("#FasesType").select2({
+                placeholder: "Type"
+            });
+
+            $("#ModuleAddBlock").select2({
+                placeholder: "Blok"
+            });
+
+
+            // GLOBAL DATATABLES SETTINGS
+            $.extend($.fn.dataTable.defaults, {
+                dom:
+                    "<'row'<'col-sm-6'f><'col-sm-6 toolbar'>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-8'p><'col-sm-4'i>>",
+                language: {
+                    url: "/Scripts/dataTables.dutch.alt.js",
+                    searchPlaceholder: "Zoeken"
+                },
+                order: [[0, "asc"]],
+                iDisplayLength: 5
+            });
+
+            // DATATABLES
+            $("#competentiesTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [2] }
+                ],
+                initComplete: function () {
+                    $("#competentiesTable_wrapper").find(".toolbar").append($("#toolbar.competentiesTable").html());
+                }
+            });
+
+            $("#fasesTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [2] }
+                ],
+                initComplete: function () {
+                    $("#fasesTable_wrapper").find(".toolbar").append($("#toolbar.fasesTable").html());
+                }
+            });
+
+            $("#tagsTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [1] }
+                ],
+                initComplete: function () {
+                    $("#tagsTable_wrapper").find(".toolbar").append($("#toolbar.tagsTable").html());
+                }
+            });
+
+            $("#leerlijnenTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [1] }
+                ],
+                initComplete: function () {
+                    $("#leerlijnenTable_wrapper").find(".toolbar").append($("#toolbar.leerlijnenTable").html());
+                }
+            });
+
+            $("#onderdelenTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [1] }
+                ],
+                initComplete: function () {
+                    $("#onderdelenTable_wrapper").find(".toolbar").append($("#toolbar.onderdelenTable").html());
+                }
+            });
+
+            $("#modulesTable").dataTable({
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [4] }
+                ],
+                initComplete: function () {
+                    $("#modulesTable_wrapper").find(".toolbar").append($("#toolbar.modulesTable").html());
+                },
+                iDisplayLength: 10
+            });
+            
+
+
+            $("#myModal").on("change", "#Icon", function () {
+
+                console.log($(this).val());
+
+                $("#myModal #iconPlaceholder").removeClass();
+
+                $("#myModal #iconPlaceholder").addClass("fa");
+                $("#myModal #iconPlaceholder").addClass("fa-3x");
+                $("#myModal #iconPlaceholder").addClass("fa-" + $(this).val());
+
+            });
+
+
+        });
+    </script>
+}
