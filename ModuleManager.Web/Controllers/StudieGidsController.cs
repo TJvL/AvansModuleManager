@@ -12,6 +12,7 @@ using ModuleManager.BusinessLogic.Interfaces.Services;
 using ModuleManager.BusinessLogic.Data;
 using ModuleManager.BusinessLogic.Interfaces;
 using System.IO;
+using System.Web.UI.WebControls.Expressions;
 
 namespace ModuleManager.Web.Controllers
 {
@@ -60,7 +61,9 @@ namespace ModuleManager.Web.Controllers
                 foreach (var random in joined
                     .Where(src => src.b.FaseType.Equals(tabellenlijst.FaseType))
                     .DistinctBy(src => new { src.a.Blok, src.a.FaseNaam })
-                    .OrderBy(src => src.a.Blok))
+                    .OrderBy(src => Math.Ceiling(Convert.ToInt32(src.a.Blok) / 2.0))
+                    .ThenBy(src => src.a.FaseNaam)
+                    .ThenBy(src => src.a.Blok))
                 {
                     var tabel = new LesTabelViewModel { Blok = random.a.Blok, FaseNaam = random.a.FaseNaam };
                     var rows = new List<ModuleTabelViewModel>();
