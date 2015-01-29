@@ -141,6 +141,7 @@
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -270,7 +271,9 @@
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\select2_locale_nl.js" />
     <Content Include="Scripts\temp_data.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfiguration.cs" />
@@ -379,14 +382,11 @@
     <Content Include="Views\Help\ModuleDetails.cshtml" />
     <Content Include="Views\Help\ModuleEdit.cshtml" />
     <Content Include="Views\Help\ModuleOverview.cshtml" />
-    <Content Include="Views\Help\UserAdd.cshtml" />
-    <Content Include="Views\Help\UserEdit.cshtml" />
     <Content Include="Views\Help\UserOverview.cshtml" />
     <Content Include="Views\Help\Login.cshtml" />
     <Content Include="Views\Admin\CheckModules\Reminder.cshtml" />
     <Content Include="Views\Export\ModuleOverview.cshtml" />
     <Content Include="Views\Admin\Curriculum\Module\Delete.cshtml" />
-    <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\StudieGids\Index.cshtml" />
